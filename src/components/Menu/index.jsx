@@ -10,9 +10,7 @@ import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircle } from '@fortawesome/free-solid-svg-icons';
-import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react-lite';
-// import domains from '../../data-stream';
 
 const dataMenuSetup = [
   {
@@ -30,8 +28,6 @@ const dataMenuSetup = [
 ];
 const Menu = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
-  const [dataStreamActive, setDataStreamActive] = useState('dam.aesirx.io');
-  const biStore = useBiViewModel();
   const handleOpen = (clickedIndex, parentIndex) => {
     if (isOpenCollapse === clickedIndex.toString()) {
       if (parentIndex) {
@@ -59,72 +55,66 @@ const Menu = observer((props) => {
     checkActiveMenu();
   };
 
-  const handleChangeDataStream = (value) => {
-    handleOpen('');
-    setDataStreamActive(value);
-    biStore.biListViewModel.setActiveDomain(value);
-  };
-
   const dataMenu = [
     {
       text: 'txt_menu_dashboard',
-      link: `/data-${dataStreamActive}`,
+      link: `/`,
       icons: '/assets/images/dashboard.svg',
       icons_color: '/assets/images/dashboard.svg',
     },
     {
       text: 'txt_menu_audience',
-      link: `/data-${dataStreamActive}/audience`,
+      link: `/audience`,
       icons: '/assets/images/audience.svg',
       icons_color: '/assets/images/audience.svg',
       submenu: [
         {
           text: 'txt_menu_overview',
-          link: `/data-${dataStreamActive}/audience/overview`,
+          link: `/audience/overview`,
         },
       ],
     },
     {
       text: 'txt_menu_behavior',
-      link: `/data-${dataStreamActive}/behavior`,
+      link: `/behavior`,
       icons: '/assets/images/behavior.svg',
       icons_color: '/assets/images/behavior.svg',
       submenu: [
         {
           text: 'txt_menu_overview',
-          link: `/data-${dataStreamActive}/behavior/overview`,
+          link: `/behavior/overview`,
         },
         {
           text: 'txt_menu_click_anchor',
-          link: `/data-${dataStreamActive}/behavior/click-anchor`,
+          link: `/behavior/click-anchor`,
         },
         {
           text: 'txt_menu_utm_tracking',
-          link: `/data-${dataStreamActive}/behavior/utm-tracking`,
+          link: `/behavior/utm-tracking`,
         },
       ],
     },
     {
       text: 'txt_menu_revenue',
-      link: `/data-${dataStreamActive}/revenue`,
+      link: `/revenue`,
       icons: '/assets/images/revenue.svg',
       icons_color: '/assets/images/revenue.svg',
     },
     {
       text: 'txt_menu_subscription',
-      link: `/data-${dataStreamActive}/subscription`,
+      link: `/subscription`,
       icons: '/assets/images/subscription.svg',
       icons_color: '/assets/images/subscription.svg',
     },
     {
       text: 'txt_menu_member_roles',
-      link: `/data-${dataStreamActive}/member-roles`,
+      link: `/member-roles`,
       icons: '/assets/images/member-roles.svg',
       icons_color: '/assets/images/member-roles.svg',
     },
     {
       text: 'txt_menu_data_stream',
-      link: `/data-${dataStreamActive}/data-stream`,
+      link: `/data-stream`,
       icons: '/assets/images/data-stream.svg',
       icons_color: '/assets/images/data-stream.svg',
     },
@@ -132,80 +122,11 @@ const Menu = observer((props) => {
 
   useEffect(() => {
     checkActiveMenu();
-    // let fetchData = async () => {
-    //   await biStore.biListViewModel.getListDomain('', domains);
-    //   if (props.match.params.domain) {
-    //     biStore.biListViewModel.setActiveDomain(props.match.params.domain);
-    //     setDataStreamActive(`${props.match.params.domain}`);
-    //   }
-    // };
-
-    // fetchData();
-  }, [biStore.biListViewModel, dataStreamActive]);
+  }, []);
 
   const { t } = props;
   return (
     <>
-      <nav className="data-stream item_menu">
-        <Button
-          variant=""
-          onClick={() => handleOpen('data-stream')}
-          className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break w-100 py-2 shadow-none ${
-            isOpenCollapse === 'data-stream' ? 'active' : ''
-          }`}
-          aria-controls="wr_list_submenu"
-          aria-expanded={isOpenCollapse === 'data-stream'}
-        >
-          <div>
-            <div className="data-stream-text mb-sm text-start">{t('txt_menu_data_stream')}</div>
-            <div className="data-stream-value fw-bold text-white mb-0 text-start">
-              {
-                biStore.biListViewModel?.data?.find(
-                  (x) => x.domain === biStore.biListViewModel?.activeDomain
-                )?.name
-              }
-            </div>
-            <div className="data-stream-domain text-white mb-0 text-start fs-14">
-              {biStore.biListViewModel?.activeDomain}
-            </div>
-          </div>
-          <span
-            className="icon arrow d-inline-block align-text-bottom ms-auto"
-            style={{
-              WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
-              WebkitMaskRepeat: 'no-repeat',
-            }}
-          ></span>
-        </Button>
-        <Collapse in={isOpenCollapse === 'data-stream'}>
-          <ul id="wr_list_submenu" className="list-unstyled mb-0">
-            {biStore.biListViewModel?.data.map((item, index) => {
-              return (
-                item.domain !== dataStreamActive && (
-                  <li
-                    key={index}
-                    className={`item_menu cursor-pointer`}
-                    onClick={() => handleChangeDataStream(item.domain)}
-                  >
-                    <NavLink
-                      exact={true}
-                      to={`${props.match.path.replace(':domain', item.domain)}`}
-                      className={``}
-                      activeClassName={`active`}
-                    >
-                      <span
-                        className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
-                      >
-                        {item.name}
-                      </span>
-                    </NavLink>
-                  </li>
-                )
-              );
-            })}
-          </ul>
-        </Collapse>
-      </nav>
       <nav className="main-menu py-24 mt-0">
         <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>
         <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">

@@ -36,15 +36,6 @@ const Dashboard = observer(
       this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
     }
 
-    componentDidMount() {
-      let fetchData = async () => {
-        if (this.props.history.location.pathname === '/' || !this.props.history.location.pathname) {
-          this.props.history.push(`/data-${this.biListViewModel.activeDomain}`);
-        }
-      };
-      fetchData();
-    }
-
     render() {
       const { t } = this.props;
       if (status === PAGE_STATUS.LOADING) {
