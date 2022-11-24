@@ -36,43 +36,43 @@ const authRoutes = [
 
 const mainRoutes = [
   {
-    path: ['/data-:domain', '/'],
+    path: ['/'],
     exact: true,
     main: () => <DashboardPage />,
   },
   {
-    path: '/data-:domain/audience/overview',
+    path: '/audience/overview',
     exact: true,
     main: () => <AudiencePage />,
   },
-  { path: '/data-:domain/revenue', exact: true, main: () => <RevenuePage /> },
+  { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {
-    path: '/data-:domain/behavior/overview',
+    path: '/behavior/overview',
     exact: true,
     main: () => <BehaviorOverviewPage />,
   },
   {
-    path: '/data-:domain/behavior/click-anchor',
+    path: '/behavior/click-anchor',
     exact: true,
     main: () => <BehaviorClickAnchorPage />,
   },
   {
-    path: '/data-:domain/behavior/utm-tracking',
+    path: '/behavior/utm-tracking',
     exact: true,
     main: () => <UTMTrackingPage />,
   },
   {
-    path: '/data-:domain/subscription',
+    path: '/subscription',
     exact: true,
     main: () => <SubscriptionPage />,
   },
   {
-    path: '/data-:domain/member-roles',
+    path: '/member-roles',
     exact: true,
     main: () => <MemberRolesPage />,
   },
   {
-    path: '/data-:domain/data-stream',
+    path: '/data-stream',
     exact: true,
     main: () => <DataStreamPage />,
   },
