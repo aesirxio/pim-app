@@ -1,0 +1,143 @@
+/*
+ * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
+ * @license     GNU General Public License version 3, see LICENSE.
+ */
+
+@import '../../scss/utils/bootstrap.scss';
+
+.item_menu {
+  margin-bottom: 8px;
+  &:last-child {
+    margin-bottom: 0;
+  }
+  .link_menu {
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    border-color: transparent;
+    &:focus {
+      outline: 0;
+    }
+    &.active,
+    &:hover {
+      background-color: $blue;
+      color: $white !important;
+
+      i,
+      span {
+        color: $white !important;
+      }
+    }
+    &.active {
+      .icon.arrow {
+        transform: rotate(90deg);
+      }
+    }
+
+    i,
+    span {
+      transition: all 0.3s ease;
+    }
+
+    .icon {
+      width: 24px;
+      height: 24px;
+      background-color: var(--sidebar-menu-item-color);
+      &.arrow {
+        width: 16px;
+        height: 17px;
+      }
+    }
+  }
+}
+#wr_list_submenu {
+  background-color: var(--sidebar-submenu-bg);
+  .item_menu {
+    margin-bottom: 8px;
+    &:first-child {
+      padding-top: 8px;
+    }
+    &:last-child {
+      padding-bottom: 8px;
+      margin-bottom: 0;
+    }
+  }
+}
+.section_menu_title,
+.header_logo {
+  transition: all 0.3s ease;
+}
+.show {
+  .btn-success.dropdown-toggle {
+    &:focus {
+      box-shadow: none;
+    }
+  }
+}
+
+body.mini_left {
+  .sidebar {
+    .button-language {
+      padding-right: 0;
+      flex-wrap: wrap;
+      & > * {
+        width: 100%;
+      }
+      .theme-icon {
+        margin: 0 auto;
+      }
+    }
+    .menu_title {
+      padding: 0;
+      text-align: center;
+    }
+    .data-stream {
+      .link_menu {
+        padding: 0 5px;
+      }
+      .data-stream-text {
+        font-size: $h8-font-size;
+      }
+      .data-stream-value {
+        font-size: $font-size-sm;
+      }
+      .item_menu {
+        font-size: $font-size-sm;
+      }
+    }
+    .icon-submenu {
+      display: block;
+    }
+  }
+}
+.sidebar {
+  .menu_title {
+    padding: 0 24px;
+  }
+  .data-stream {
+    background-color: var(--sidebar-submenu-bg);
+    &-text {
+      color: $dark-blue;
+    }
+    .link_menu {
+      padding: 0 24px;
+      .data-stream-text {
+        font-size: $font-size-sm;
+      }
+      .data-stream-value {
+        font-size: $h5-font-size;
+      }
+      &.active,
+      &:hover {
+        .data-stream-text {
+          color: $white;
+        }
+      }
+    }
+  }
+  .icon-submenu {
+    display: none;
+  }
+  .button-language {
+    padding-right: 24px;
+  }
+}

@@ -1,0 +1,31 @@
+/*
+ * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
+ * @license     GNU General Public License version 3, see LICENSE.
+ */
+
+@import '../../scss/utils/bootstrap.scss';
+
+.daterange-picker {
+  .react-datepicker__input-container {
+    height: 54px;
+  }
+
+  .icon {
+    width: 20px;
+    height: 20px;
+    position: absolute;
+    top: 50%;
+    right: 16px;
+    transform: translateY(-50%);
+    z-index: 1;
+  }
+  .react-datepicker__close-icon {
+    right: 0;
+  }
+}
+.calendar-icon {
+  right: 16px;
+}
+.daterange-picker-wrapper {
+  width: calc(100% + 10px);
+}

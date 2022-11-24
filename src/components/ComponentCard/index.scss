@@ -1,0 +1,19 @@
+/*
+ * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
+ * @license     GNU General Public License version 3, see LICENSE.
+ */
+
+@import '../../scss/utils/bootstrap.scss';
+.icon-card {
+  width: 56px;
+  height: 56px;
+  .icon {
+    width: 100%;
+    height: 100%;
+    background-color: var(--sidebar-menu-item-color);
+  }
+}
+.icon-grown {
+  width: 18px;
+  height: 18px;
+}

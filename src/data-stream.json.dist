@@ -1,0 +1,6 @@
+{ "result":
+    [
+        {"name": "Domain name", "domain": "example.com"},
+        {"name": "Domain name 2", "domain": "example2.com"}
+    ]
+}
