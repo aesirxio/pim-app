@@ -11,7 +11,6 @@ import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 // import Revenue from './Component/Revenue';
 // import RegisteredUser from './Component/RegisteredUser';
-import CardComponent from './Component/Card';
 // import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
 // import AreaChartComponent from 'components/AreaChartComponent';
@@ -25,6 +24,10 @@ import SummaryStore from 'store/SummaryStore/SummaryStore';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
+import PieChartComponent from 'components/PieChartComponent';
+import { Col, Row } from 'react-bootstrap';
+import ComponentCard from 'components/ComponentCard';
+import numberWithCommas from 'utils/formatNumber';
 const summaryStore = new SummaryStore();
 const summaryViewModel = new SummaryViewModel(summaryStore);
 const Dashboard = observer(
@@ -38,6 +41,14 @@ const Dashboard = observer(
 
     render() {
       const { t } = this.props;
+      const dataPieChart = [
+        { name: 'Published', value: 400 },
+        { name: 'Unpublished', value: 600 },
+        { name: 'Draft', value: 200 },
+        { name: 'Archived', value: 50 },
+        { name: 'Waiting Approval', value: 300 },
+        { name: 'Trash', value: 90 },
+      ];
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -56,7 +67,53 @@ const Dashboard = observer(
             </div>
           </div>
           <SummaryStoreProvider viewModel={summaryViewModel}>
-            <CardComponent></CardComponent>
+            <Row className="gx-24 mb-24">
+              <Col lg={5}>
+                <Row className="gx-24 h-100">
+                  <Col lg={6}>
+                    <ComponentCard
+                      title={t('txt_products')}
+                      icon={'/assets/images/product-icon.svg'}
+                      iconColor={'#1AB394'}
+                      value={numberWithCommas(17770)}
+                      isIncrease={true}
+                      loading={summaryViewModel.summaryListViewModel.status}
+                      percent={`11%`}
+                      textPercent={'form June'}
+                      titleLink={t('txt_manage_products')}
+                      link={'#'}
+                    ></ComponentCard>
+                  </Col>
+                  <Col lg={6}>
+                    <ComponentCard
+                      title={t('txt_categories')}
+                      icon={'/assets/images/category-icon.svg'}
+                      iconColor={'#EF3737'}
+                      value={numberWithCommas(232)}
+                      isIncrease={true}
+                      loading={summaryViewModel.summaryListViewModel.status}
+                      percent={`2%`}
+                      textPercent={'form June'}
+                      titleLink={t('txt_manage_categories')}
+                      link={'#'}
+                    ></ComponentCard>
+                  </Col>
+                </Row>
+              </Col>
+              <Col lg={7}>
+                <Row className="gx-24">
+                  <Col lg={7}>
+                    <PieChartComponent
+                      height={190}
+                      chartTitle={t('txt_products_state')}
+                      data={dataPieChart}
+                      colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
+                      legendPosition="bottom"
+                    />
+                  </Col>
+                </Row>
+              </Col>
+            </Row>
           </SummaryStoreProvider>
           {/* <div className="row gx-24 mb-24">
             <div className="col-lg-7">

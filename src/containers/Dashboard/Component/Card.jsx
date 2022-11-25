@@ -1,12 +1,9 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withSummaryViewModel } from 'store/SummaryStore/SummaryViewModelContextProvider';
-import ComponentCard from 'components/ComponentCard';
 import { observer } from 'mobx-react';
-import numberWithCommas from 'utils/formatNumber';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
 const CardComponent = observer(
   class CardComponent extends Component {
     constructor(props) {
@@ -37,43 +34,7 @@ const CardComponent = observer(
     }
 
     render() {
-      const { t } = this.props;
-      return (
-        <Row className="gx-24 mb-24">
-          <Col lg={8}>
-            <Row className="gx-24">
-              <Col lg={4}>
-                <ComponentCard
-                  title={t('txt_products')}
-                  icon={'/assets/images/product-icon.svg'}
-                  iconColor={'#1AB394'}
-                  value={numberWithCommas(11770)}
-                  isIncrease={true}
-                  loading={this.summaryListViewModel.status}
-                  percent={`11%`}
-                  textPercent={'form June'}
-                  titleLink={t('txt_manage_products')}
-                  link={'#'}
-                ></ComponentCard>
-              </Col>
-              <Col lg={4}>
-                <ComponentCard
-                  title={t('txt_categories')}
-                  icon={'/assets/images/category-icon.svg'}
-                  iconColor={'#EF3737'}
-                  value={numberWithCommas(232)}
-                  isIncrease={true}
-                  loading={this.summaryListViewModel.status}
-                  percent={`2%`}
-                  textPercent={'form June'}
-                  titleLink={t('txt_manage_categories')}
-                  link={'#'}
-                ></ComponentCard>
-              </Col>
-            </Row>
-          </Col>
-        </Row>
-      );
+      return;
     }
   }
 );
