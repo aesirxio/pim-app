@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withSummaryViewModel } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import ComponentCard from 'components/ComponentCard';
-import { BI_SUMMARY_FIELD_KEY } from 'aesirx-dma-lib/src/Constant/BiConstant';
 import { observer } from 'mobx-react';
 import numberWithCommas from 'utils/formatNumber';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
+import { Col, Row } from 'react-bootstrap';
 const CardComponent = observer(
   class CardComponent extends Component {
     constructor(props) {
@@ -39,59 +39,40 @@ const CardComponent = observer(
     render() {
       const { t } = this.props;
       return (
-        <div className="row gx-24 mb-24">
-          <div className="col-lg-3">
-            <ComponentCard
-              title={t('txt_visitors')}
-              icon={'/assets/images/visitor.svg'}
-              iconColor={'#1AB394'}
-              value={numberWithCommas(
-                this.summaryListViewModel.data[BI_SUMMARY_FIELD_KEY.NUMBER_OF_VISITORS]
-              )}
-              isIncrease={true}
-              loading={this.summaryListViewModel.status}
-              // percent={`3%`}
-              // textPercent={'form June'}
-              options={[{ label: 'All Users', value: 'all-user' }]}
-              defaultValue={{ label: 'All Users', value: 'all-user' }}
-            ></ComponentCard>
-          </div>
-          {/* <div className="col-lg-3">
-            <ComponentCard
-              title={t('txt_total_revenue')}
-              icon={'/assets/images/revenue-icon.svg'}
-              iconColor={'#2E71B1'}
-              value={0}
-              isIncrease={false}
-              percent={`3%`}
-              textPercent={'form June'}
-              options={[{ label: 'All', value: 'all' }]}
-              defaultValue={{ label: 'All', value: 'all' }}
-            ></ComponentCard>
-          </div>
-          <div className="col-lg-3">
-            <ComponentCard
-              title={t('txt_sessions')}
-              icon={'/assets/images/sessions.svg'}
-              iconColor={'#FFBE55'}
-              value={0}
-              isIncrease={true}
-              percent={`3%`}
-              textPercent={'form June'}
-            ></ComponentCard>
-          </div>
-          <div className="col-lg-3">
-            <ComponentCard
-              title={t('txt_conversion_rate')}
-              icon={'/assets/images/conversion.svg'}
-              iconColor={'#EF3737'}
-              value={0}
-              isIncrease={true}
-              percent={`3%`}
-              textPercent={'form June'}
-            ></ComponentCard>
-          </div> */}
-        </div>
+        <Row className="gx-24 mb-24">
+          <Col lg={8}>
+            <Row className="gx-24">
+              <Col lg={4}>
+                <ComponentCard
+                  title={t('txt_products')}
+                  icon={'/assets/images/product-icon.svg'}
+                  iconColor={'#1AB394'}
+                  value={numberWithCommas(11770)}
+                  isIncrease={true}
+                  loading={this.summaryListViewModel.status}
+                  percent={`11%`}
+                  textPercent={'form June'}
+                  titleLink={t('txt_manage_products')}
+                  link={'#'}
+                ></ComponentCard>
+              </Col>
+              <Col lg={4}>
+                <ComponentCard
+                  title={t('txt_categories')}
+                  icon={'/assets/images/category-icon.svg'}
+                  iconColor={'#EF3737'}
+                  value={numberWithCommas(232)}
+                  isIncrease={true}
+                  loading={this.summaryListViewModel.status}
+                  percent={`2%`}
+                  textPercent={'form June'}
+                  titleLink={t('txt_manage_categories')}
+                  link={'#'}
+                ></ComponentCard>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       );
     }
   }
