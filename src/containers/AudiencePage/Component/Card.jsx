@@ -54,7 +54,7 @@ const CardComponent = observer(
           <Row className="mb-24">
             <Col lg={4}>
               <ComponentCard
-                title={t('txt_visitors')}
+                title={t('txt_products')}
                 icon={'/assets/images/visitor.svg'}
                 iconColor={'#1AB394'}
                 value={numberWithCommas(
