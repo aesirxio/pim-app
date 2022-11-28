@@ -24,7 +24,14 @@
   }
 }
 .calendar-icon {
-  right: 16px;
+  z-index: 1;
+  pointer-events: none;
+}
+.calendar-icon-start {
+  left: 16px;
+}
+.calendar-icon-end {
+  right: 6px;
 }
 .daterange-picker-wrapper {
   width: calc(100% + 10px);

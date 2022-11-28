@@ -1,6 +1,5 @@
 import React from 'react';
 import './index.scss';
-import SelectComponent from 'components/Select';
 import PulseLoaderComponent from 'components/Spinner/pulseLoader';
 import PAGE_STATUS from 'constants/PageStatus';
 const ComponentCard = ({
@@ -11,15 +10,14 @@ const ComponentCard = ({
   isIncrease,
   percent,
   textPercent,
-  options,
-  defaultValue,
-  handleChange,
   loading,
+  titleLink,
+  link,
 }) => {
   return (
-    <div className="bg-white p-24 shadow-sm rounded-3">
+    <div className="bg-white p-24 shadow-sm rounded-3 h-100">
       <div className="d-flex justify-content-between align-items-center mb-16">
-        <div className="d-flex align-items-center">
+        <div className="d-flex align-items-center flex-wrap">
           {icon && (
             <div
               className={`icon-card rounded-circle me-16`}
@@ -36,18 +34,8 @@ const ComponentCard = ({
               ></span>
             </div>
           )}
-          <h6 className="mb-0 fw-semibold text-blue-0">{title}</h6>
+          <h6 className="mb-0 text-gray w-100 mt-24 text-uppercase">{title}</h6>
         </div>
-        {options && (
-          <SelectComponent
-            defaultValue={defaultValue}
-            options={options}
-            className={`fs-sm`}
-            isBorder={true}
-            arrowColor={'#222328'}
-            onChange={handleChange}
-          />
-        )}
       </div>
       <div className="d-flex justify-content-between position-relative">
         {loading === PAGE_STATUS.LOADING && (
@@ -56,12 +44,12 @@ const ComponentCard = ({
             size="10px"
           />
         )}
-        <h3 className="mb-0 fw-semibold fs-1 text-color">{value}</h3>
+        <h3 className="mb-0 fw-bold fs-1 text-color">{value}</h3>
         <div className="d-flex flex-wrap align-item-center">
           {percent && (
             <div className="d-flex w-100 mb-sm justify-content-end">
               <span
-                className={`icon-grown arrow d-inline-block align-text-bottom ms-auto text-primary ${
+                className={`icon-arrow d-inline-block align-text-bottom ms-auto text-primary ${
                   isIncrease ? 'bg-green' : 'bg-red'
                 }`}
                 style={{
@@ -81,6 +69,21 @@ const ComponentCard = ({
           <div className="w-100 text-gray fs-sm text-end">{textPercent}</div>
         </div>
       </div>
+      <hr className="border mt-3" />
+      <a
+        className="mb-0 fs-6 w-100 text-uppercase text-body fw-semibold d-flex align-items-center text-decoration-none"
+        href={link}
+      >
+        {titleLink}
+        <span
+          className={`icon-arrow d-inline-block ms-16 bg-black`}
+          style={{
+            WebkitMaskImage: `url("/assets/images/arrow-long-right.svg")`,
+            WebkitMaskRepeat: 'no-repeat',
+            WebkitMaskPosition: 'center',
+          }}
+        ></span>
+      </a>
     </div>
   );
 };

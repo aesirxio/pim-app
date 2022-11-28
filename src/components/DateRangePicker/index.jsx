@@ -16,6 +16,9 @@ const DateRangePicker = (props) => {
       ref={datePickerRef}
       className="d-flex align-items-center bg-white rounded-1 shadow-sm daterange-picker-wrapper"
     >
+      <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
+        <ComponentSVG url="/assets/images/clock.svg" color="#C0C0C0" />
+      </div>
       <ComponentDatePicker
         isOpen={openDatePicker}
         setIsOpen={setOpenDatePicker}
@@ -23,8 +26,8 @@ const DateRangePicker = (props) => {
         placeholder={t('txt_select_date')}
         viewModelArr={viewModelArr}
       />
-      <div className="calendar-icon position-absolute top-50 translate-middle-y">
-        <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
+      <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
+        <ComponentSVG url="/assets/images/arrow-down.svg" color="#C0C0C0" />
       </div>
     </div>
   );

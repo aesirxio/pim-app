@@ -96,7 +96,7 @@ const AudiencePage = observer(
               {/* <Col lg={3}>
                 <PieChart
                   height={300}
-                  chartTitle={t('txt_visitors')}
+                  chartTitle={t('txt_products')}
                   data={[
                     { name: 'Smart', value: 400 },
                     { name: 'Stupid', value: 600 },

@@ -1,0 +1,20 @@
+.piechart-legend {
+  list-style-type: none;
+  li {
+    position: relative;
+    &:before {
+      content: '·';
+      position: absolute;
+      left: -25px;
+      font-size: 80px;
+      vertical-align: middle;
+      line-height: 20px;
+    }
+  }
+}
+
+.recharts-wrapper {
+  .recharts-surface {
+    overflow: unset;
+  }
+}

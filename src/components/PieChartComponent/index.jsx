@@ -1,42 +1,26 @@
 import Spinner from 'components/Spinner';
 import React from 'react';
 import { useState } from 'react';
-import { Cell, Legend, Pie, PieChart, ResponsiveContainer, Sector } from 'recharts';
+import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer, Sector, Text } from 'recharts';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
+import numberWithCommas from 'utils/formatNumber';
 const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
-
-  const customizedLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent }) => {
-    const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-    const x = cx + radius * Math.cos(-midAngle * RADIAN);
-    const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-    return (
-      <text
-        x={x}
-        y={y}
-        fill="white"
-        textAnchor={x > cx ? 'start' : 'end'}
-        dominantBaseline="central"
-        className="fw-semibold"
-      >
-        {`${(percent * 100).toFixed(0)}%`}
-      </text>
-    );
-  };
+  const total = data.reduce((a, b) => ({ value: a.value + b.value }));
   const customizedLegend = ({ payload }) => {
     return (
       <ul className="piechart-legend mb-0 mt-1">
         {payload.map((entry, index) => (
           <li style={{ color: entry.color }} key={`item-${index}`}>
-            <span
+            <div
+              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm"
               onClick={() => onPieEnter(entry, index)}
-              className="cursor-pointer fs-sm text-color"
             >
-              {entry.value}
-            </span>
+              <span>{entry.value}</span>
+              <span>{(entry.payload.percent * 100).toFixed(2)} %</span>
+            </div>
           </li>
         ))}
       </ul>
@@ -68,7 +52,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
     const textAnchor = cos >= 0 ? 'start' : 'end';
 
     return (
-      <g>
+      <g className="bg-white">
         <Sector
           cx={cx}
           cy={cy}
@@ -94,7 +78,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           y={ey}
           textAnchor={textAnchor}
           fill="var(--body-color)"
-          className="fw-semibold"
+          className="fs-sm fw-semibold"
         >{`${t('txt_value')}: ${value}`}</text>
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
@@ -115,8 +99,8 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   return (
     <div className="p-24 bg-white rounded-3 shadow-sm h-100">
       {chartTitle && (
-        <div className="d-flex justify-content-between">
-          <h5 className="fw-semibold text-blue-0">{chartTitle} </h5>
+        <div className="d-flex justify-content-between mb-2">
+          <h5 className="fw-bold text-blue-0 text-uppercase fs-6">{chartTitle} </h5>
           {link && (
             <a href={link} className="fs-14 text-body">
               <span className="pe-1 text-color">{t('txt_view_detail')}</span>
@@ -139,24 +123,64 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           <PieChart>
             <Pie
               data={data}
-              cx="50%"
+              cx="40%"
               cy="50%"
               outerRadius={90}
+              innerRadius={72}
               labelLine={false}
-              label={customizedLabel}
               fill="#8884D8"
               dataKey="value"
               onMouseEnter={onPieEnter}
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
             >
+              <Label
+                content={(props) => {
+                  const {
+                    viewBox: { cx, cy },
+                  } = props;
+                  const positioningProps = {
+                    x: cx,
+                    y: cy - 4,
+                    textAnchor: 'middle',
+                    verticalAnchor: 'middle',
+                  };
+
+                  return (
+                    <Text {...positioningProps} fontSize="24px" fontWeight="bold">
+                      {numberWithCommas(total.value)}
+                    </Text>
+                  );
+                }}
+              />
+              <Label
+                content={(props) => {
+                  const {
+                    viewBox: { cx, cy },
+                  } = props;
+                  const positioningProps = {
+                    x: cx,
+                    y: cy + 20,
+                    textAnchor: 'middle',
+                    verticalAnchor: 'middle',
+                  };
+                  return <Text {...positioningProps}>{'Products'}</Text>;
+                }}
+              />
               {data &&
                 colors &&
                 data.map((entry, index) => (
                   <Cell key={`cell-${index}`} fill={colors[index % colors.length]} />
                 ))}
             </Pie>
-            <Legend content={customizedLegend} onClick={onPieEnter} />
+            <Legend
+              layout="vertical"
+              content={customizedLegend}
+              onClick={onPieEnter}
+              verticalAlign="middle"
+              align="right"
+              width="50%"
+            />
           </PieChart>
         </ResponsiveContainer>
       ) : (

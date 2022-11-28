@@ -19,6 +19,7 @@ const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
+const EditProduct = lazy(() => import('containers/ProductPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -76,6 +77,11 @@ const mainRoutes = [
     path: '/help-center',
     exact: true,
     main: () => <HelpCenterPage />,
+  },
+  {
+    path: '/product/add-new',
+    exact: true,
+    main: () => <EditProduct />,
   },
 ];
 

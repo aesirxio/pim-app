@@ -80,23 +80,23 @@
   .bg-gray-100 {
     background-color: var(--input-gray-bg) !important;
   }
-  .btn {
-    &.btn-success {
-      color: var(--btn-green-color) !important;
-      background-color: var(--btn-green-bg) !important;
-      border-color: var(--btn-green-bg) !important;
-    }
-    &.btn-outline-secondary {
-      background-color: var(--btn-outline-secondary-bg) !important;
-      color: var(--btn-outline-secondary-color) !important;
-      border-color: var(--border-color) !important;
-    }
-    &.btn-info {
-      background-color: var(--btn-action-bg) !important;
-      color: var(--btn-action-color) !important;
-      border-color: transparent !important;
-    }
-  }
+  // .btn {
+  //   &.btn-success {
+  //     color: var(--btn-green-color) !important;
+  //     background-color: var(--btn-green-bg) !important;
+  //     border-color: var(--btn-green-bg) !important;
+  //   }
+  //   &.btn-outline-secondary {
+  //     background-color: var(--btn-outline-secondary-bg) !important;
+  //     color: var(--btn-outline-secondary-color) !important;
+  //     border-color: var(--border-color) !important;
+  //   }
+  //   &.btn-info {
+  //     background-color: var(--btn-action-bg) !important;
+  //     color: var(--btn-action-color) !important;
+  //     border-color: transparent !important;
+  //   }
+  // }
   .content_header {
     background-color: var(--nav-bg) !important;
   }
