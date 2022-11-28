@@ -9,17 +9,8 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-// import Revenue from './Component/Revenue';
-// import RegisteredUser from './Component/RegisteredUser';
-// import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
-// import AreaChartComponent from 'components/AreaChartComponent';
 import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-// import {
-//   BI_DASHBOARD_FIELD_KEY,
-//   BI_NEW_USERS_KEY,
-//   BI_CONTINENTS_KEY,
-// } from 'aesirx-dma-lib/src/Constant/BiConstant';
 import SummaryStore from 'store/SummaryStore/SummaryStore';
 import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
 import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
@@ -28,6 +19,10 @@ import PieChartComponent from 'components/PieChartComponent';
 import { Col, Row } from 'react-bootstrap';
 import ComponentCard from 'components/ComponentCard';
 import numberWithCommas from 'utils/formatNumber';
+import './index.scss';
+import RecentsActivities from './Component/RecentsActivities';
+import DataCompleteness from './Component/DataCompleteness';
+
 const summaryStore = new SummaryStore();
 const summaryViewModel = new SummaryViewModel(summaryStore);
 const Dashboard = observer(
@@ -100,108 +95,24 @@ const Dashboard = observer(
                   </Col>
                 </Row>
               </Col>
-              <Col lg={7}>
-                <Row className="gx-24">
-                  <Col lg={7}>
-                    <PieChartComponent
-                      height={190}
-                      chartTitle={t('txt_products_state')}
-                      data={dataPieChart}
-                      colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
-                      legendPosition="bottom"
-                    />
-                  </Col>
-                </Row>
+              <Col lg={4}>
+                <PieChartComponent
+                  height={190}
+                  chartTitle={t('txt_products_state')}
+                  data={dataPieChart}
+                  colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
+                  legendPosition="bottom"
+                />
+              </Col>
+              <Col lg={3}>
+                <DataCompleteness />
+              </Col>
+              <Col lg={9} className="mt-24"></Col>
+              <Col lg={3} className="mt-24">
+                <RecentsActivities />
               </Col>
             </Row>
           </SummaryStoreProvider>
-          {/* <div className="row gx-24 mb-24">
-            <div className="col-lg-7">
-              <AreaChartComponent
-                chartTitle={t('txt_total_revenue')}
-                height={390}
-                data={[
-                  {
-                    name: 'Jan',
-                    line1: 400,
-                  },
-                  {
-                    name: 'Feb',
-                    line1: 530,
-                  },
-                  {
-                    name: 'Mar',
-                    line1: 410,
-                  },
-                  {
-                    name: 'Apr',
-                    line1: 395,
-                  },
-                  {
-                    name: 'May',
-                    line1: 380,
-                  },
-                  {
-                    name: 'Jun',
-                    line1: 204,
-                  },
-                  {
-                    name: 'Jul',
-                    line1: 420,
-                  },
-                  {
-                    name: 'Aug',
-                    line1: 680,
-                  },
-                  {
-                    name: 'Sep',
-                    line1: 670,
-                  },
-                  {
-                    name: 'Oct',
-                    line1: 568,
-                  },
-                  {
-                    name: 'Nov',
-                    line1: 940,
-                  },
-                  {
-                    name: 'Dec',
-                    line1: 360,
-                  },
-                ]}
-                colors={['#1AB394']}
-                lineType="monotone"
-                areaColors={['#3BB346', 'pink']}
-                lineColors={['#0FC6C2', 'red']}
-                lines={['line1']}
-                isDot
-                hiddenGrid={{ vertical: false }}
-                XAxisOptions={{ axisLine: true, padding: { left: 20, right: 10 } }}
-                 tooltipComponent={{
-                  header: t('txt_in_total'),
-                  value: `$`,
-                }}
-              />
-            </div>
-            <div className="col-lg-5">
-              <Revenue
-                data={this.biListViewModel.data[BI_DASHBOARD_FIELD_KEY.REVENUE_BY_SUBSCRIBERS]}
-              ></Revenue>
-            </div>
-          </div>
-          <div className="row gx-24 mb-24">
-            <div className="col-lg-6">
-              <RegisteredUser
-                data={this.biListViewModel.data[BI_NEW_USERS_KEY.NEW_USERS]}
-              ></RegisteredUser>
-            </div>
-            <div className="col-lg-6">
-              <ComponentContinent
-                data={this.biListViewModel.data[BI_CONTINENTS_KEY.CONTINENTS]}
-              ></ComponentContinent>
-            </div>
-          </div> */}
         </div>
       );
     }

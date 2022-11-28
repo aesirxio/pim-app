@@ -100,7 +100,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
     <div className="p-24 bg-white rounded-3 shadow-sm h-100">
       {chartTitle && (
         <div className="d-flex justify-content-between mb-2">
-          <h5 className="fw-bold text-blue-0 text-uppercase">{chartTitle} </h5>
+          <h5 className="fw-bold text-blue-0 text-uppercase fs-6">{chartTitle} </h5>
           {link && (
             <a href={link} className="fs-14 text-body">
               <span className="pe-1 text-color">{t('txt_view_detail')}</span>
