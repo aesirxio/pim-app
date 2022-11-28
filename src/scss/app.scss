@@ -504,8 +504,10 @@ textarea {
   }
 }
 
-.form-control {
-  padding: 10px 16px;
-  line-height: 18px;
-  font-size: 14px;
+form {
+  .form-control {
+    padding: 10px 16px;
+    line-height: 18px;
+    font-size: 14px;
+  }
 }

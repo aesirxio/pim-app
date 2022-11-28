@@ -19,7 +19,7 @@ const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
-const EditProduct = lazy(() => import('containers/ProductPage/edit'));
+const EditProduct = lazy(() => import('containers/ProductsPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -79,7 +79,7 @@ const mainRoutes = [
     main: () => <HelpCenterPage />,
   },
   {
-    path: '/product/add-new',
+    path: '/products/add',
     exact: true,
     main: () => <EditProduct />,
   },

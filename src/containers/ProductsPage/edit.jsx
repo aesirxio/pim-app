@@ -14,9 +14,9 @@ import { Col, Row, Tab, Tabs } from 'react-bootstrap';
 import './index.scss';
 import ActionsBar from 'components/ActionsBar';
 import CommonInformation from './Component/CommonInformation';
-import ProductStore from 'containers/ProductPage/ProductStore/ProductStore';
-import ProductViewModel from 'containers/ProductPage/ProductViewModel/ProductViewModel';
-import { ProductViewModelContextProvider } from 'containers/ProductPage/ProductViewModel/ProductViewModelContextProvider';
+import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
+import ProductViewModel from 'containers/ProductsPage/ProductViewModel/ProductViewModel';
+import { ProductViewModelContextProvider } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 const productStore = new ProductStore();
 const productViewModel = new ProductViewModel(productStore);
