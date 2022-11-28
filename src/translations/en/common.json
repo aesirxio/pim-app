@@ -68,8 +68,6 @@
   "txt_profile": "Profile",
   "txt_apply": "Apply",
   "txt_video": "Video",
-  "txt_menu_dashboard": "Dashboard",
-  "txt_menu_audience": "Audience",
   "txt_menu_overview": "Overview",
   "txt_menu_behavior": "Behavior",
   "txt_menu_revenue": "Revenue",
@@ -171,5 +169,12 @@
   "txt_description": "Description",
   "txt_search": "Search",
   "txt_date_range": "Date range",
-  "txt_devices": "Devices"
+  "txt_devices": "Devices",
+  "txt_left_menu_dashboard": "Dashboard",
+  "txt_left_menu_products": "Products",
+  "txt_left_menu_all_products": "All products",
+  "txt_left_menu_add_new": "Add New",
+  "txt_left_menu_price_management": "Price Management",
+  "txt_left_menu_products_variant": "Products Variant",
+  "txt_title_product_management": "Products Management"
 }

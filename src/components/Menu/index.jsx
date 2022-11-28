@@ -57,20 +57,32 @@ const Menu = observer((props) => {
 
   const dataMenu = [
     {
-      text: 'txt_menu_dashboard',
+      text: 'txt_left_menu_dashboard',
       link: `/`,
       icons: '/assets/images/dashboard.svg',
       icons_color: '/assets/images/dashboard.svg',
     },
     {
-      text: 'txt_menu_audience',
-      link: `/audience`,
-      icons: '/assets/images/audience.svg',
-      icons_color: '/assets/images/audience.svg',
+      text: 'txt_left_menu_products',
+      link: `/products`,
+      icons: '/assets/images/products.svg',
+      icons_color: '/assets/images/products.svg',
       submenu: [
         {
-          text: 'txt_menu_overview',
-          link: `/audience/overview`,
+          text: 'txt_left_menu_all_products',
+          link: `/products/all`,
+        },
+        {
+          text: 'txt_left_menu_add_new',
+          link: `/products/add`,
+        },
+        {
+          text: 'txt_left_menu_price_management',
+          link: `/products/price-management`,
+        },
+        {
+          text: 'txt_left_menu_products_variant',
+          link: `/products/products-variant`,
         },
       ],
     },

@@ -13,10 +13,6 @@ const LoginPage = lazy(() => import('../containers/LoginPage'));
 const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const AudiencePage = lazy(() => import('../containers/AudiencePage'));
-const RevenuePage = lazy(() => import('../containers/RevenuePage'));
-const BehaviorOverviewPage = lazy(() => import('../containers/Behavior/Overview'));
-const BehaviorClickAnchorPage = lazy(() => import('../containers/Behavior/ClickAnchor'));
-const UTMTrackingPage = lazy(() => import('../containers/Behavior/UTMTracking'));
 const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
 const MemberRolesPage = lazy(() => import('../containers/MemberRolesPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
@@ -25,6 +21,7 @@ const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
+const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 
 const authRoutes = [
   {
@@ -45,21 +42,10 @@ const mainRoutes = [
     exact: true,
     main: () => <AudiencePage />,
   },
-  { path: '/revenue', exact: true, main: () => <RevenuePage /> },
   {
-    path: '/behavior/overview',
+    path: ['/products', '/products/all'],
     exact: true,
-    main: () => <BehaviorOverviewPage />,
-  },
-  {
-    path: '/behavior/click-anchor',
-    exact: true,
-    main: () => <BehaviorClickAnchorPage />,
-  },
-  {
-    path: '/behavior/utm-tracking',
-    exact: true,
-    main: () => <UTMTrackingPage />,
+    main: () => <ProductsPage />,
   },
   {
     path: '/subscription',
