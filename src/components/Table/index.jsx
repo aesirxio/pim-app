@@ -98,9 +98,9 @@ const Table = ({
 
   return (
     <>
-      <div className="bg-white fs-14 text-color position-relative h-100">
+      <div className="bg-white text-color position-relative h-100">
         {rows.length ? (
-          <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
+          <table {...getTableProps()} className={`w-100 ${classNameTable ? classNameTable : ''}`}>
             <thead>
               {headerGroups.map((headerGroup, index) => {
                 let newHeaderGroup = '';
@@ -243,7 +243,7 @@ const Table = ({
                           <td
                             key={index}
                             {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2"
+                            className="py-2 fs-14"
                           >
                             {cell.render('Cell')}
                           </td>
@@ -262,7 +262,7 @@ const Table = ({
           </div>
         ) : null}
       </div>
-      {pagination && pageOptions.length ? (
+      {pagination ? (
         <div className="mt-2 text-center pagination">
           <button
             className="border-1 bg-white opacity-50 text-body btn"
