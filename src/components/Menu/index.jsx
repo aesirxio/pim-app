@@ -14,10 +14,22 @@ import { observer } from 'mobx-react-lite';
 
 const dataMenuSetup = [
   {
-    text: 'txt_menu_region',
-    link: '/region-country',
-    icons: '/assets/images/region-country.svg',
-    icons_color: '/assets/images/region-country.svg',
+    text: 'txt_left_menu_fields',
+    link: '/fields',
+    icons: '/assets/images/fields.svg',
+    icons_color: '/assets/images/fields.svg',
+  },
+  {
+    text: 'txt_left_menu_fields_group',
+    link: '/fields-group',
+    icons: '/assets/images/fields-group.svg',
+    icons_color: '/assets/images/fields-group.svg',
+  },
+  {
+    text: 'txt_left_menu_taxonomies',
+    link: '/taxonomies',
+    icons: '/assets/images/taxonomies.svg',
+    icons_color: '/assets/images/taxonomies.svg',
   },
   {
     text: 'txt_menu_setting',
@@ -87,46 +99,26 @@ const Menu = observer((props) => {
       ],
     },
     {
-      text: 'txt_menu_behavior',
-      link: `/behavior`,
-      icons: '/assets/images/behavior.svg',
-      icons_color: '/assets/images/behavior.svg',
-      submenu: [
-        {
-          text: 'txt_menu_overview',
-          link: `/behavior/overview`,
-        },
-        {
-          text: 'txt_menu_click_anchor',
-          link: `/behavior/click-anchor`,
-        },
-        {
-          text: 'txt_menu_utm_tracking',
-          link: `/behavior/utm-tracking`,
-        },
-      ],
+      text: 'txt_left_menu_categories',
+      link: `/categories`,
+      icons: '/assets/images/categories.svg',
+      icons_color: '/assets/images/categories.svg',
     },
     {
-      text: 'txt_menu_revenue',
-      link: `/revenue`,
-      icons: '/assets/images/revenue.svg',
-      icons_color: '/assets/images/revenue.svg',
+      text: 'txt_left_menu_member_list',
+      link: `/member-list`,
+      icons: '/assets/images/members-list.svg',
+      icons_color: '/assets/images/member-list.svg',
     },
     {
-      text: 'txt_menu_subscription',
-      link: `/subscription`,
-      icons: '/assets/images/subscription.svg',
-      icons_color: '/assets/images/subscription.svg',
+      text: 'txt_left_menu_import_export',
+      link: `/import-export`,
+      icons: '/assets/images/import.svg',
+      icons_color: '/assets/images/import.svg',
     },
     {
-      text: 'txt_menu_member_roles',
-      link: `/member-roles`,
-      icons: '/assets/images/member-roles.svg',
-      icons_color: '/assets/images/member-roles.svg',
-    },
-    {
-      text: 'txt_menu_data_stream',
-      link: `/data-stream`,
+      text: 'txt_left_menu_dam',
+      link: `/dam`,
       icons: '/assets/images/data-stream.svg',
       icons_color: '/assets/images/data-stream.svg',
     },
