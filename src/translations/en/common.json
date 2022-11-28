@@ -57,6 +57,7 @@
   "txt_edit": "Edit",
   "txt_general": "General",
   "txt_save": "Save",
+  "txt_save_close": "Save & Close",
   "txt_back": "Back",
   "txt_next": "Next",
   "txt_connecting": "Connecting",
@@ -103,7 +104,9 @@
   "txt_behavior": "Behavior",
   "txt_behavior_clicking": "Clicking Behavior",
   "txt_most_clingking_pages": "Most Clicking Pages",
-  "txt_gender":"Gender",
+  "txt_products_state":"Product's state",
+  "txt_overall_data_completeness":"Overall data completeness",
+  "txt_recents_activities":"RECENTS ACTIVITIES",
   "txt_name": "Name",
   "txt_size": "Size",
   "txt_owner": "Owner",
@@ -174,5 +177,6 @@
   "txt_description": "Description",
   "txt_search": "Search",
   "txt_date_range": "Date range",
-  "txt_devices": "Devices"
+  "txt_devices": "Devices",
+  "txt_add_new_product": "Add New Product"
 }

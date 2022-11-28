@@ -219,7 +219,22 @@ textarea {
 }
 
 .btn-light {
-  border-color: $secondary;
+  @include button-variant(
+    $white /*background*/,
+    $gray-500 /*border*/,
+    $body-color /*text color*/,
+    $gray-500 /*hover background*/,
+    $white /*hover border*/,
+    $white /*hover text color*/
+  );
+  &:focus {
+    outline: 1px solid $gray-500;
+  }
+}
+.btn-success {
+  &:focus {
+    outline: 1px solid $success;
+  }
 }
 
 .pe-65 {
@@ -426,6 +441,8 @@ textarea {
 
 .progress {
   background-color: #d9d9d9;
+  --bs-progress-height: 12px;
+  --bs-progress-border-radius: 1px;
 }
 
 @include media-breakpoint-down(lg) {

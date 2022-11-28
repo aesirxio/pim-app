@@ -1,0 +1,43 @@
+/*
+ * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
+ * @license     GNU General Public License version 3, see LICENSE.
+ */
+
+@import '../../scss/utils/bootstrap.scss';
+
+.icon-success {
+  background-color: $white;
+}
+.btn-light {
+  .icon {
+    background-color: $body-color;
+  }
+  &:hover {
+    .icon {
+      background-color: $white;
+    }
+    &:active {
+      .icon {
+        background-color: $body-color;
+      }
+    }
+  }
+  &.text-danger {
+    .icon {
+      background-color: $danger;
+    }
+    &:hover {
+      .icon {
+        background-color: $danger;
+      }
+    }
+  }
+}
+.icon {
+  transition: all 0.15s ease-in-out;
+}
+.btn-success {
+  .icon {
+    background-color: $white;
+  }
+}
