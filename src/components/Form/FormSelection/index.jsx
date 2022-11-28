@@ -20,9 +20,8 @@ class FormSelection extends Component {
       <SelectComponent
         value={this.field.getValueSelected}
         options={this.field.getDataSelectOptions}
-        className="mb-3 text-danger"
+        className="fs-14"
         isBorder={true}
-        plColor="rgba(8, 18, 64, 0.8)"
         //onFocus={this.field.changed}
         onBlur={this.field.blurred}
         // isMulti={multi}

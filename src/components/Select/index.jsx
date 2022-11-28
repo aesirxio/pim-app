@@ -28,17 +28,13 @@ class SelectComponent extends React.Component {
 
     if (async) {
       return (
-        <AsyncSelect
-          {...this.props}
-          placeholder={placeholder ?? t('txt_select...')}
-          styles={styles}
-        />
+        <AsyncSelect {...this.props} placeholder={placeholder ?? t('txt_select')} styles={styles} />
       );
     }
     const { ValueContainer, Placeholder } = components;
     const CustomValueContainer = ({ children, ...props }) => {
       return (
-        <ValueContainer {...props} className="valueContainerCustom px-16">
+        <ValueContainer {...props} className="valueContainerCustom px-15">
           {!props.hasValue && (
             <Placeholder {...props} isFocused={props.isFocused}>
               {props.selectProps.placeholder}
@@ -58,7 +54,7 @@ class SelectComponent extends React.Component {
         components={{
           ValueContainer: CustomValueContainer,
         }}
-        placeholder={placeholder ?? t('txt_select...')}
+        placeholder={placeholder ?? t('txt_select')}
         styles={styles}
       />
     );

@@ -9,17 +9,18 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
-import SummaryStore from 'store/SummaryStore/SummaryStore';
-import SummaryViewModel from 'store/SummaryStore/SummaryViewModel';
-import { SummaryStoreProvider } from 'store/SummaryStore/SummaryViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
-import { Col, Row } from 'react-bootstrap';
+import { Col, Row, Tab, Tabs } from 'react-bootstrap';
 import './index.scss';
 import ActionsBar from 'components/ActionsBar';
+import CommonInformation from './Component/CommonInformation';
+import ProductStore from 'containers/ProductPage/ProductStore/ProductStore';
+import ProductViewModel from 'containers/ProductPage/ProductViewModel/ProductViewModel';
+import { ProductViewModelContextProvider } from 'containers/ProductPage/ProductViewModel/ProductViewModelContextProvider';
 
-const summaryStore = new SummaryStore();
-const summaryViewModel = new SummaryViewModel(summaryStore);
+const productStore = new ProductStore();
+const productViewModel = new ProductViewModel(productStore);
+
 const EditProduct = observer(
   class EditProduct extends Component {
     constructor(props) {
@@ -27,15 +28,14 @@ const EditProduct = observer(
       const { viewModel } = props;
       this.viewModel = viewModel ? viewModel : null;
       this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
+      this.state = { key: 'commonInformation' };
     }
-
     render() {
       const { t } = this.props;
 
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
-
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -69,16 +69,57 @@ const EditProduct = observer(
               />
             </div>
           </div>
-          <SummaryStoreProvider viewModel={summaryViewModel}>
-            <Row className="gx-24 mb-24">
-              <Col lg={9} className="mt-24"></Col>
-              <Col lg={3} className="mt-24"></Col>
-            </Row>
-          </SummaryStoreProvider>
+          <Row className="gx-24 mb-24">
+            <Col lg={9} className="mt-24">
+              <Tabs
+                defaultActiveKey={'commonInformation'}
+                id="tab-setting"
+                onSelect={(k) => this.setState({ key: k })}
+              >
+                <Tab
+                  key="commonInformation"
+                  eventKey="commonInformation"
+                  title={t('txt_common_information')}
+                >
+                  {this.state.key === 'commonInformation' && (
+                    <ProductViewModelContextProvider viewModel={productViewModel}>
+                      <CommonInformation />
+                    </ProductViewModelContextProvider>
+                  )}
+                </Tab>
+                <Tab
+                  key="productInformation"
+                  eventKey="productInformation"
+                  title={t('txt_product_information')}
+                >
+                  {this.state.key === 'productInformation' && (
+                    <ProductViewModelContextProvider viewModel={productViewModel}>
+                      <CommonInformation />
+                    </ProductViewModelContextProvider>
+                  )}
+                </Tab>
+                <Tab key="fields" eventKey="fields" title={t('txt_fields')}>
+                  {this.state.key === 'fields' && (
+                    <ProductViewModelContextProvider viewModel={productViewModel}>
+                      <CommonInformation />
+                    </ProductViewModelContextProvider>
+                  )}
+                </Tab>
+                <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
+                  {this.state.key === 'variants' && (
+                    <ProductViewModelContextProvider viewModel={productViewModel}>
+                      <CommonInformation />
+                    </ProductViewModelContextProvider>
+                  )}
+                </Tab>
+              </Tabs>
+            </Col>
+            <Col lg={3} className="mt-24"></Col>
+          </Row>
         </div>
       );
     }
   }
 );
 
-export default withTranslation('common')(withRouter(withBiViewModel(EditProduct)));
+export default withTranslation('common')(withRouter(EditProduct));

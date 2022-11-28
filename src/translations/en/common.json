@@ -178,5 +178,15 @@
   "txt_search": "Search",
   "txt_date_range": "Date range",
   "txt_devices": "Devices",
-  "txt_add_new_product": "Add New Product"
+  "txt_add_new_product": "Add New Product",
+  "txt_common_information": "Common information",
+  "txt_product_information": "Product infomation",
+  "txt_fields": "Fields",
+  "txt_variants": "Variants",
+  "txt_alias": "Alias",
+  "txt_organisation": "Organisation",
+  "txt_main_category": "Main Category",
+  "txt_tags": "Tags",
+  "txt_template": "Template",
+  "txt_select": "Select"
 }

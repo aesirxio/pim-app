@@ -22,7 +22,7 @@
 
   --input-disabled-bg: #e9ecef;
   --input-gray-bg: #f6f8fa;
-  --input-placeholder-color: var(--body-color);
+  --input-placeholder-color: #c0c0c0;
 
   --calendar-current-timeline: #74ad31;
   --calendar-header-bg: #dce6eb;
@@ -311,7 +311,7 @@
       background-color: var(--content-bg);
     }
     &::placeholder {
-      color: var(--body-color);
+      color: var(--input-placeholder-color);
     }
     .react-datepicker__input-container input {
       background: inherit !important;
