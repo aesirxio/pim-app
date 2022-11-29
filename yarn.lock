@@ -2673,20 +2673,9 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-"aesirx-dma-lib@https://github.com/aesirxio/dma-lib.git#develop":
-  version "1.4.2-alpha.1"
-  resolved "https://github.com/aesirxio/dma-lib.git#fb49dfc170ab55d014e7d7161be0cf1eb1fd0a7a"
-  dependencies:
-    axios "^0.21.0"
-    axios-auth-refresh "^3.0.0"
-    crypto-js "^4.1.1"
-    css-minimizer-webpack-plugin "^4.0.0"
-    qs "^6.10.1"
-    query-string "^7.1.1"
-
-"aesirx_analytics@https://github.com/aesirxio/analytics.git#develop":
-  version "1.0.0-alpha"
-  resolved "https://github.com/aesirxio/analytics.git#415825fd03e9dcb769b36369d57a4daaeebcba11"
+aesirx-analytics@aesirxio/analytics:
+  version "1.0.0-alpha.1"
+  resolved "https://codeload.github.com/aesirxio/analytics/tar.gz/e1fa03cb857cc56db9cc1d4017b5671370946824"
   dependencies:
     axios "^0.21.0"
     babel-plugin-module-resolver "^4.1.0"
@@ -2696,6 +2685,17 @@ adjust-sourcemap-loader@^4.0.0:
     npm-run-all "^4.1.5"
     public-ip "^6.0.1"
     rimraf "^3.0.2"
+
+aesirx-dma-lib@aesirxio/dma-lib:
+  version "1.6.1-alpha.1"
+  resolved "https://codeload.github.com/aesirxio/dma-lib/tar.gz/6ea0acf6fc13b12c33d9b999458bd6de8583f463"
+  dependencies:
+    axios "^0.21.0"
+    axios-auth-refresh "^3.0.0"
+    crypto-js "^4.1.1"
+    css-minimizer-webpack-plugin "^4.0.0"
+    qs "^6.10.1"
+    query-string "^7.1.1"
 
 agent-base@6:
   version "6.0.2"
