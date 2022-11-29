@@ -19,6 +19,6 @@ export const ProductViewModelContextProvider = ({ children, viewModel }) => {
 export const useProductViewModel = () => React.useContext(ProductViewModelContext);
 
 /* HOC to inject store to any functional or class component */
-export const witheProductViewModel = (Component) => (props) => {
+export const withProductViewModel = (Component) => (props) => {
   return <Component {...props} viewModel={useProductViewModel()} />;
 };

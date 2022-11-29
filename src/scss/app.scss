@@ -502,6 +502,20 @@ textarea {
     border-bottom: 2px solid $success;
     font-weight: bold;
   }
+  &.flex-column {
+    border-bottom: 0;
+    .nav-item {
+      margin-right: 0;
+      .nav-link {
+        padding: 12px 0;
+        border: 0;
+        &.active {
+          color: $success;
+          font-weight: 600;
+        }
+      }
+    }
+  }
 }
 
 form {

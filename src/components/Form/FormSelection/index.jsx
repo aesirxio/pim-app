@@ -24,9 +24,10 @@ class FormSelection extends Component {
         isBorder={true}
         //onFocus={this.field.changed}
         onBlur={this.field.blurred}
-        // isMulti={multi}
+        isMulti={this.field.isMulti}
         onChange={this.field.handleChange}
         arrowColor={this.field.arrowColor}
+        placeholder={this.field.placeholder}
       />
     );
   }
