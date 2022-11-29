@@ -72,55 +72,41 @@ const EditProduct = observer(
               />
             </div>
           </div>
-          <Row className="gx-24 mb-24">
-            <Col lg={9} className="mt-24">
-              <Tabs
-                defaultActiveKey={'commonInformation'}
-                id="tab-setting"
-                onSelect={(k) => this.setState({ key: k })}
-              >
-                <Tab
-                  key="commonInformation"
-                  eventKey="commonInformation"
-                  title={t('txt_common_information')}
+          <ProductViewModelContextProvider viewModel={productViewModel}>
+            <Row className="gx-24 mb-24">
+              <Col lg={9} className="mt-24">
+                <Tabs
+                  defaultActiveKey={'commonInformation'}
+                  id="tab-setting"
+                  onSelect={(k) => this.setState({ key: k })}
                 >
-                  {this.state.key === 'commonInformation' && (
-                    <ProductViewModelContextProvider viewModel={productViewModel}>
-                      <CommonInformation />
-                    </ProductViewModelContextProvider>
-                  )}
-                </Tab>
-                <Tab
-                  key="productInformation"
-                  eventKey="productInformation"
-                  title={t('txt_product_information')}
-                >
-                  {this.state.key === 'productInformation' && (
-                    <ProductViewModelContextProvider viewModel={productViewModel}>
-                      <CommonInformation />
-                    </ProductViewModelContextProvider>
-                  )}
-                </Tab>
-                <Tab key="fields" eventKey="fields" title={t('txt_fields')}>
-                  {this.state.key === 'fields' && (
-                    <ProductViewModelContextProvider viewModel={productViewModel}>
-                      <CommonInformation />
-                    </ProductViewModelContextProvider>
-                  )}
-                </Tab>
-                <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
-                  {this.state.key === 'variants' && (
-                    <ProductViewModelContextProvider viewModel={productViewModel}>
-                      <CommonInformation />
-                    </ProductViewModelContextProvider>
-                  )}
-                </Tab>
-              </Tabs>
-            </Col>
-            <Col lg={3} className="mt-24">
-              <PublishOptions formPropsData={this.formPropsData} />
-            </Col>
-          </Row>
+                  <Tab
+                    key="commonInformation"
+                    eventKey="commonInformation"
+                    title={t('txt_common_information')}
+                  >
+                    {this.state.key === 'commonInformation' && <CommonInformation />}
+                  </Tab>
+                  <Tab
+                    key="productInformation"
+                    eventKey="productInformation"
+                    title={t('txt_product_information')}
+                  >
+                    {this.state.key === 'productInformation' && <CommonInformation />}
+                  </Tab>
+                  <Tab key="fields" eventKey="fields" title={t('txt_fields')}>
+                    {this.state.key === 'fields' && <CommonInformation />}
+                  </Tab>
+                  <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
+                    {this.state.key === 'variants' && <CommonInformation />}
+                  </Tab>
+                </Tabs>
+              </Col>
+              <Col lg={3} className="mt-24">
+                <PublishOptions formPropsData={this.formPropsData} />
+              </Col>
+            </Row>
+          </ProductViewModelContextProvider>
         </div>
       );
     }

@@ -26,6 +26,7 @@ class FormSelection extends Component {
         onBlur={this.field.blurred}
         // isMulti={multi}
         onChange={this.field.handleChange}
+        arrowColor={this.field.arrowColor}
       />
     );
   }
