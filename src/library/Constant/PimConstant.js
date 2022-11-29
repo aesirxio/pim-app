@@ -10,9 +10,14 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   PUBLISHED: 'published',
   FEATURED: 'featured',
   CATEGORY_ID: 'category_id',
+  CATEGORY_NAME: 'category_name',
   CUSTOM_FIELDS: 'custom_fields',
   ALIAS: 'alias',
   ORGANISATION: 'organisation',
+  SALE_MARKET_ID: 'sale_market_id',
+  SALE_MARKET_NAME: 'sale_market_name',
+  TEMPLATE: 'template',
+  TAGS: 'tags',
 };
 
 export { PIM_PRODUCT_DETAIL_FIELD_KEY };
