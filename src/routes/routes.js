@@ -5,6 +5,7 @@
 
 // import { isLogin } from 'auth';
 
+import CategoriesPage from 'containers/CategoriesPage';
 import React, { lazy } from 'react';
 // import { Redirect } from 'react-router-dom';
 
@@ -12,7 +13,6 @@ const LoginPage = lazy(() => import('../containers/LoginPage'));
 
 const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
-const AudiencePage = lazy(() => import('../containers/AudiencePage'));
 const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
 const MemberRolesPage = lazy(() => import('../containers/MemberRolesPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
@@ -39,14 +39,14 @@ const mainRoutes = [
     main: () => <DashboardPage />,
   },
   {
-    path: '/audience/overview',
-    exact: true,
-    main: () => <AudiencePage />,
-  },
-  {
     path: ['/products', '/products/all'],
     exact: true,
     main: () => <ProductsPage />,
+  },
+  {
+    path: ['/categories', '/categories'],
+    exact: true,
+    main: () => <CategoriesPage />,
   },
   {
     path: '/subscription',

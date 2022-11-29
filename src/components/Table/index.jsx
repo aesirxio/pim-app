@@ -101,7 +101,7 @@ const Table = ({
       <div className="fs-14 text-color position-relative h-100">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
-            <thead>
+            <thead className='fs-6'>
               {headerGroups.map((headerGroup, index) => {
                 let newHeaderGroup = '';
 

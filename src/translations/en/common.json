@@ -198,5 +198,8 @@
   "txt_left_menu_dam": "DAM",
   "txt_left_menu_fields": "Fields",
   "txt_left_menu_fields_group": "Fields Group",
-  "txt_left_menu_taxonomies": "Taxonomies"
+  "txt_left_menu_taxonomies": "Taxonomies",
+  "txt_category_name": "Category Name",
+  "txt_parent_cate": "Parent Cate",
+  "txt_number": "Number"
 }
