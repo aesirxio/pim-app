@@ -17,12 +17,15 @@ import CommonInformation from './Component/CommonInformation';
 import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
 import ProductViewModel from 'containers/ProductsPage/ProductViewModel/ProductViewModel';
 import { ProductViewModelContextProvider } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
+import PublishOptions from './Component/PublishOptions';
 
 const productStore = new ProductStore();
 const productViewModel = new ProductViewModel(productStore);
 
 const EditProduct = observer(
   class EditProduct extends Component {
+    updateProductViewModel = null;
+    formPropsData = {};
     constructor(props) {
       super(props);
       const { viewModel } = props;
@@ -114,7 +117,9 @@ const EditProduct = observer(
                 </Tab>
               </Tabs>
             </Col>
-            <Col lg={3} className="mt-24"></Col>
+            <Col lg={3} className="mt-24">
+              <PublishOptions formPropsData={this.formPropsData} />
+            </Col>
           </Row>
         </div>
       );

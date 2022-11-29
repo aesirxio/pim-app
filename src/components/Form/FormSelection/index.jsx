@@ -18,7 +18,7 @@ class FormSelection extends Component {
   render() {
     return (
       <SelectComponent
-        value={this.field.getValueSelected}
+        defaultValue={this.field.getValueSelected}
         options={this.field.getDataSelectOptions}
         className="fs-14"
         isBorder={true}

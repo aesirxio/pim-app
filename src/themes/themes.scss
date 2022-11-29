@@ -318,22 +318,22 @@
       color: var(--body-color) !important;
     }
   }
-  .form-check-input {
-    &[type='checkbox'] {
-      border-color: var(--border-color);
-      &:not(:checked) {
-        &:not(:indeterminate) {
-          background-color: var(--content-bg);
-        }
-      }
-    }
-    &[type='radio'] {
-      border-color: var(--border-color);
-      &:not(:checked) {
-        background-color: var(--content-bg);
-      }
-    }
-  }
+  // .form-check-input {
+  //   &[type='checkbox'] {
+  //     border-color: var(--border-color);
+  //     &:not(:checked) {
+  //       &:not(:indeterminate) {
+  //         background-color: var(--content-bg);
+  //       }
+  //     }
+  //   }
+  //   &[type='radio'] {
+  //     border-color: var(--border-color);
+  //     &:not(:checked) {
+  //       background-color: var(--content-bg);
+  //     }
+  //   }
+  // }
   .form-switch {
     .form-check-input:not(:checked) {
       background-color: #fff !important;

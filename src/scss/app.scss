@@ -511,3 +511,21 @@ form {
     font-size: 14px;
   }
 }
+.form-check {
+  .form-check-input {
+    width: 16px;
+    height: 16px;
+    margin-left: -25px;
+    margin-top: 4px;
+    &[type='radio'] {
+      border-color: $body-color;
+      &:checked {
+        border-color: $success;
+        background-color: $white;
+      }
+      &:not(:checked) {
+        background-color: var(--content-bg);
+      }
+    }
+  }
+}
