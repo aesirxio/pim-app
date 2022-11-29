@@ -130,7 +130,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                 </Form.Group>
               );
 
-            case FORM_FIELD_TYPE.BIRTHDAY:
+            case FORM_FIELD_TYPE.DATE:
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
                   <Label text={field.label} />

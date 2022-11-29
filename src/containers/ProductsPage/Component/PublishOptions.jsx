@@ -5,16 +5,20 @@ import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
+import CustomizedDatePicker from 'components/DatePicker';
+import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
+import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
+import Storage from 'aesirx-dma-lib/src/Utils/Storage';
 const PublishOptions = ({ t, formPropsData }) => {
   return (
-    <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
+    <div className="p-24 bg-white rounded-1 shadow-sm">
       <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
         {t('txt_publish_options')}
       </h5>
       <div className="d-flex align-items-center justify-content-between w-100 mb-24">
         <div>
           <ComponentSVG url="/assets/images/post-status.svg" color="#222328" className="pe-1" />
-          Status:
+          {t('txt_status')}:
         </div>
         <Form.Group className={`w-60`}>
           <FormSelection
@@ -33,6 +37,7 @@ const PublishOptions = ({ t, formPropsData }) => {
                   value: 'status-2',
                 },
               ],
+              arrowColor: '#222328',
               handleChange: (data) => {
                 formPropsData.status = data;
               },
@@ -43,7 +48,7 @@ const PublishOptions = ({ t, formPropsData }) => {
       <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
         <div>
           <ComponentSVG url="/assets/images/user.svg" color="#222328" className="pe-1" />
-          Author:
+          {t('txt_author')}:
         </div>
         <Form.Group className={`w-60`}>
           <FormSelection
@@ -62,6 +67,7 @@ const PublishOptions = ({ t, formPropsData }) => {
                   value: 'user-2',
                 },
               ],
+              arrowColor: '#222328',
               handleChange: (data) => {
                 formPropsData.user = data;
               },
@@ -70,7 +76,7 @@ const PublishOptions = ({ t, formPropsData }) => {
         </Form.Group>
       </div>
       <div className="d-flex align-items-center justify-content-between w-100 mb-24">
-        <div>Feature</div>
+        <div>{t('txt_feature')}</div>
         <Form.Group className={`w-40`}>
           <FormRadio
             field={{
@@ -93,6 +99,24 @@ const PublishOptions = ({ t, formPropsData }) => {
             }}
           />
         </Form.Group>
+      </div>
+      <div className="d-flex align-items-center justify-content-between w-100 mb-24">
+        <div>{t('txt_start_publish')}:</div>
+        <Form.Group className={``}>
+          <div className="fs-14">
+            <CustomizedDatePicker
+              dateFormat={FORMAT_DATE + ' ' + FORMAT_TIME}
+              defaultDate={'11/01/2022'}
+              handleOnChange={(date) => {
+                console.log(date);
+              }}
+            />
+          </div>
+        </Form.Group>
+      </div>
+      <div className="d-flex align-items-center justify-content-between w-100">
+        <div>{t('txt_create_by')}:</div>
+        <div className="text-gray">{Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}</div>
       </div>
     </div>
   );

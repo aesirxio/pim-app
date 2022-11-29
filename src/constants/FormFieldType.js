@@ -30,7 +30,7 @@ const FORM_FIELD_TYPE = {
   TIMEZONE: 24,
 };
 
-const FORMAT_DATE = 'dd/MM/yyyy';
-const FORMAT_TIME = 'HH:mm';
+const FORMAT_DATE = 'dd MMM, yyyy';
+const FORMAT_TIME = 'HH:mm:ss';
 
 export { FORM_FIELD_TYPE, FORMAT_DATE, FORMAT_TIME };

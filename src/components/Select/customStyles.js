@@ -72,12 +72,23 @@ const customStyles = (isBorder, plColor, arrowColor) => {
     multiValue: (styles) => {
       return {
         ...styles,
-        backgroundColor: 'var(--view-active-bg)',
+        backgroundColor: '#EBEBEB',
+        margin: '8px 8px 8px 2px',
+        borderRadius: '5px',
       };
     },
+    multiValueRemove: (styles) => ({
+      ...styles,
+      paddingLeft: '12px',
+      paddingRight: '8px',
+    }),
     multiValueLabel: (styles) => ({
       ...styles,
       color: 'var(--body-color)',
+      backgroundColor: '#EBEBEB',
+      order: 2,
+      padding: '10px 16px 10px 0',
+      fontSize: '14px',
     }),
   };
 };

@@ -10,6 +10,7 @@ import de from 'date-fns/locale/de';
 import uk from 'date-fns/locale/uk';
 import es from 'date-fns/locale/es';
 import { enUS } from 'date-fns/locale';
+import { FORMAT_DATE } from 'constants/FormFieldType';
 registerLocale('vi', vi);
 registerLocale('de', de);
 registerLocale('uk', uk);
@@ -93,7 +94,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     <div onClick={handleOpenDatePicker} className="position-relative daterange-picker w-100">
       <DatePicker
         style={{ margin: 0 }}
-        dateFormat="dd MMM, yyyy"
+        dateFormat={FORMAT_DATE}
         selectsRange={true}
         startDate={startDate}
         endDate={endDate}
