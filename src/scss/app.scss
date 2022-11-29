@@ -218,25 +218,6 @@ textarea {
   z-index: 100;
 }
 
-.btn-light {
-  @include button-variant(
-    $white /*background*/,
-    $gray-500 /*border*/,
-    $body-color /*text color*/,
-    $gray-500 /*hover background*/,
-    $white /*hover border*/,
-    $white /*hover text color*/
-  );
-  &:focus {
-    outline: 1px solid $gray-500;
-  }
-}
-.btn-success {
-  &:focus {
-    outline: 1px solid $success;
-  }
-}
-
 .pe-65 {
   padding-right: 65px;
 }
@@ -479,4 +460,72 @@ textarea {
 ///////================= Long Viet ======/////////////////
 .fw-semi {
   font-weight: 600 !important;
+}
+
+.btn-light {
+  @include button-variant(
+    $white /*background*/,
+    $gray-500 /*border*/,
+    $body-color /*text color*/,
+    $gray-500 /*hover background*/,
+    $white /*hover border*/,
+    $white /*hover text color*/
+  );
+  &:focus {
+    outline: 1px solid $gray-500;
+  }
+}
+.btn-success {
+  &:focus {
+    outline: 1px solid $success;
+  }
+}
+
+.nav-tabs {
+  .nav-item {
+    margin-right: 40px;
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+  .nav-link {
+    border: 0;
+    outline: 0;
+    padding-left: 0;
+    padding-right: 0;
+    color: $gray-700;
+  }
+  .nav-link.active,
+  .nav-item.show .nav-link {
+    color: $body-color;
+    background-color: transparent;
+    border-bottom: 2px solid $success;
+    font-weight: bold;
+  }
+}
+
+form {
+  .form-control {
+    padding: 10px 16px;
+    line-height: 18px;
+    font-size: 14px;
+  }
+}
+.form-check {
+  .form-check-input {
+    width: 16px;
+    height: 16px;
+    margin-left: -25px;
+    margin-top: 4px;
+    &[type='radio'] {
+      border-color: $body-color;
+      &:checked {
+        border-color: $success;
+        background-color: $white;
+      }
+      &:not(:checked) {
+        background-color: var(--content-bg);
+      }
+    }
+  }
 }

@@ -8,7 +8,7 @@ const customStyles = (isBorder, plColor, arrowColor) => {
     control: (provided) => {
       return {
         ...provided,
-        minHeight: 32,
+        minHeight: 40,
         height: '100%',
         boxShadow: 'none',
         borderRadius: '5px',
@@ -66,7 +66,7 @@ const customStyles = (isBorder, plColor, arrowColor) => {
     placeholder: (defaultStyles) => {
       return {
         ...defaultStyles,
-        color: plColor ? plColor : 'var(--text-title-color)',
+        color: plColor ? plColor : 'var(--input-placeholder-color)',
       };
     },
     multiValue: (styles) => {
