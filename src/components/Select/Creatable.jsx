@@ -6,15 +6,17 @@
 import React from 'react';
 
 import CreatableSelect from 'react-select/creatable';
+import { components } from 'react-select';
 import customStyles from './customStyles';
 import { ThemesContext } from 'themes/ThemeContextProvider';
 import { withTranslation } from 'react-i18next';
+import ComponentSVG from 'components/ComponentSVG';
 
 class CreatableComponent extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      value: [],
+      value: props.defaultValue ?? [],
       inputValue: '',
     };
   }
@@ -50,10 +52,44 @@ class CreatableComponent extends React.Component {
     }
     let styles = customStyles(isBorder, plColor, arrowColor, creatable);
 
+    const ClearIndicator = (props) => {
+      const {
+        children = <div className="text-danger">{t('txt_remove_all')}</div>,
+        getStyles,
+        innerProps: { ref, ...restInnerProps },
+      } = props;
+      return (
+        <div
+          {...restInnerProps}
+          ref={ref}
+          style={{
+            ...getStyles('clearIndicator', props),
+            position: 'absolute',
+            top: '-38px',
+            right: '0',
+            paddingRight: 0,
+          }}
+        >
+          <div style={{ padding: '0px 5px' }}>{children}</div>
+        </div>
+      );
+    };
+
+    const MultiValueRemove = (props) => {
+      return (
+        <components.MultiValueRemove {...props}>
+          {' '}
+          <ComponentSVG url="/assets/images/cancel.svg" color="#C0C0C0" />
+        </components.MultiValueRemove>
+      );
+    };
+
     return (
       <CreatableSelect
         {...this.props}
         components={{
+          ClearIndicator,
+          MultiValueRemove,
           DropdownIndicator: null,
         }}
         styles={styles}
@@ -61,7 +97,7 @@ class CreatableComponent extends React.Component {
         isClearable
         isMulti
         menuIsOpen={false}
-        placeholder={placeholder ?? t('txt_type')}
+        placeholder={placeholder ?? t('txt_type_something_and_press_enter')}
         onChange={(newValue) =>
           this.setState((prevState) => {
             return {

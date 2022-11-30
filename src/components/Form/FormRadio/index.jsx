@@ -17,7 +17,7 @@ const FormRadio = ({ field }) => {
           label={option.label}
           value={option.value}
           name="group1"
-          type={'radio'}
+          type={field.checkbox ? 'checkbox' : 'radio'}
           id={`inline-radio-${option.value}`}
           onChange={field.changed}
           defaultChecked={field.value === option.value}
