@@ -106,7 +106,7 @@ const Menu = observer((props) => {
     },
     {
       text: 'txt_left_menu_member_list',
-      link: `/member-list`,
+      link: `/members-list`,
       icons: '/assets/images/members-list.svg',
       icons_color: '/assets/images/member-list.svg',
     },
