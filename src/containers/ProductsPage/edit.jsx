@@ -24,7 +24,8 @@ import PublishOptions from './Component/PublishOptions';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
 import ProductInformation from './Component/ProductInformation';
-import FieldsTab from './Component/FieldsTab';
+import FieldsTab from './Component/Fields';
+import Variants from './Component/Variants';
 
 const productStore = new ProductStore();
 const productViewModel = new ProductViewModel(productStore);
@@ -142,10 +143,7 @@ const EditProduct = observer(
                     </Tab>
                     <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
                       {this.state.key === 'variants' && (
-                        <CommonInformation
-                          formPropsData={this.formPropsData}
-                          validator={this.validator}
-                        />
+                        <Variants formPropsData={this.formPropsData} validator={this.validator} />
                       )}
                     </Tab>
                   </Tabs>
