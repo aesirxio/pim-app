@@ -14,7 +14,7 @@ const LoginPage = lazy(() => import('../containers/LoginPage'));
 const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const DashboardPage = lazy(() => import('../containers/Dashboard'));
 const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
-const MemberRolesPage = lazy(() => import('../containers/MemberRolesPage'));
+const MembersListPage = lazy(() => import('../containers/MembersListPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
@@ -54,9 +54,9 @@ const mainRoutes = [
     main: () => <SubscriptionPage />,
   },
   {
-    path: '/member-roles',
+    path: '/members-list',
     exact: true,
-    main: () => <MemberRolesPage />,
+    main: () => <MembersListPage />,
   },
   {
     path: '/data-stream',
