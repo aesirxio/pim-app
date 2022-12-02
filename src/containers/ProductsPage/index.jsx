@@ -184,7 +184,7 @@ const ProductsPage = observer(
           lastModified: {
             status: 'Published',
             dateTime: '11:05 AM',
-            author: 'by me',
+            author: 'karina Tr',
           },
         },
         {
@@ -201,7 +201,7 @@ const ProductsPage = observer(
           lastModified: {
             status: 'Published',
             dateTime: '11:05 AM',
-            author: 'by me',
+            author: 'karina Tr',
           },
         },
       ];

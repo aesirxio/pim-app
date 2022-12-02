@@ -101,8 +101,6 @@ const SbarLeft = observer(
               <span className="text-white ps-3">{t('txt_help_center')}</span>
             </a> */}
           </div>
-
-          <div></div>
         </aside>
       );
     }

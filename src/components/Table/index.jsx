@@ -115,10 +115,10 @@ const Table = ({
 
   return (
     <>
-      <div className="bg-white text-color position-relative h-100">
+      <div className="fs-14 text-color position-relative h-100">
         {rows.length ? (
-          <table {...getTableProps()} className={`w-100 ${classNameTable ? classNameTable : ''}`}>
-            <thead>
+          <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
+            <thead className="fs-6">
               {headerGroups.map((headerGroup, index) => {
                 let newHeaderGroup = '';
 
@@ -296,7 +296,7 @@ const Table = ({
           </div>
         ) : null}
       </div>
-      {pagination ? (
+      {pagination && pageOptions.length ? (
         <div className="mt-2 text-center pagination">
           <button
             className="border-1 bg-white opacity-50 text-body btn"
