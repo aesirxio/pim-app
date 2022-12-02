@@ -6,6 +6,7 @@
 import React, { Component } from 'react';
 
 import SelectComponent from '../../../components/Select';
+import CreatableComponent from '../../../components/Select/Creatable';
 import './index.scss';
 
 class FormSelection extends Component {
@@ -17,18 +18,31 @@ class FormSelection extends Component {
 
   render() {
     return (
-      <SelectComponent
-        defaultValue={this.field.getValueSelected}
-        options={this.field.getDataSelectOptions}
-        className="fs-14"
-        isBorder={true}
-        //onFocus={this.field.changed}
-        onBlur={this.field.blurred}
-        isMulti={this.field.isMulti}
-        onChange={this.field.handleChange}
-        arrowColor={this.field.arrowColor}
-        placeholder={this.field.placeholder}
-      />
+      <>
+        {this.field.creatable ? (
+          <CreatableComponent
+            defaultValue={this.field.getValueSelected}
+            isBorder={true}
+            arrowColor={this.field.arrowColor}
+            placeholder={this.field.placeholder}
+            className="fs-14"
+            onChange={this.field.handleChange}
+          />
+        ) : (
+          <SelectComponent
+            defaultValue={this.field.getValueSelected}
+            options={this.field.getDataSelectOptions}
+            className="fs-14"
+            isBorder={true}
+            //onFocus={this.field.changed}
+            onBlur={this.field.blurred}
+            isMulti={this.field.isMulti}
+            onChange={this.field.handleChange}
+            arrowColor={this.field.arrowColor}
+            placeholder={this.field.placeholder}
+          />
+        )}
+      </>
     );
   }
 }

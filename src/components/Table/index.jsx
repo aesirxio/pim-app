@@ -11,6 +11,21 @@ import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 
+function useInstance(instance) {
+  const { allColumns } = instance;
+
+  let rowSpanHeaders = [];
+
+  allColumns.forEach((column) => {
+    const { id, enableRowSpan } = column;
+
+    if (enableRowSpan !== undefined) {
+      rowSpanHeaders = [...rowSpanHeaders, { id, topCellValue: null, topCellIndex: 0 }];
+    }
+  });
+
+  Object.assign(instance, { rowSpanHeaders });
+}
 const Table = ({
   columns,
   data,
@@ -54,6 +69,7 @@ const Table = ({
     nextPage,
     state: { pageIndex },
     state,
+    rowSpanHeaders,
   } = useTable(
     {
       columns,
@@ -64,6 +80,7 @@ const Table = ({
       },
     },
     (hooks) => {
+      hooks.useInstance.push(useInstance);
       !selection &&
         hooks.visibleColumns.push((columns) => [
           {
@@ -101,7 +118,7 @@ const Table = ({
       <div className="fs-14 text-color position-relative h-100">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
-            <thead className='fs-6'>
+            <thead className="fs-6">
               {headerGroups.map((headerGroup, index) => {
                 let newHeaderGroup = '';
 
@@ -116,7 +133,7 @@ const Table = ({
                     {newHeaderGroup.map((column, index) => {
                       let sortParams = column.sortParams ?? column.id;
                       let columnInside = '';
-                      if (column.rowSpan && canSort && !sortAPI) {
+                      if (column.rowSpanHeader && canSort && !sortAPI) {
                         columnInside = column.columns[0];
                       }
                       return (
@@ -124,7 +141,7 @@ const Table = ({
                           key={index}
                           {...(!sortAPI && {
                             ...column.getHeaderProps(
-                              canSort && !column.rowSpan
+                              canSort && !column.rowSpanHeader
                                 ? column.getSortByToggleProps()
                                 : columnInside && columnInside.getSortByToggleProps()
                             ),
@@ -150,7 +167,7 @@ const Table = ({
                                 setLoading(false);
                               },
                             })}
-                          rowSpan={`${column.rowSpan ?? 1}`}
+                          rowSpan={`${column.rowSpanHeader ?? 1}`}
                         >
                           {column.render('Header')}
                           {canSort && (
@@ -173,7 +190,7 @@ const Table = ({
                                 ) : (
                                   ''
                                 )
-                              ) : !column.rowSpan ? (
+                              ) : !column.rowSpanHeader ? (
                                 column.isSorted &&
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (
@@ -219,17 +236,31 @@ const Table = ({
               })}
             </thead>
             <tbody {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                prepareRow(row);
+                for (let j = 0; j < row.allCells.length; j++) {
+                  let cell = row.allCells[j];
+                  let rowSpanHeader = rowSpanHeaders.find((x) => x.id === cell.column.id);
+
+                  if (rowSpanHeader !== undefined) {
+                    if (
+                      rowSpanHeader.topCellValue === null ||
+                      rowSpanHeader.topCellValue !== cell.value
+                    ) {
+                      cell.isRowSpanned = false;
+                      rowSpanHeader.topCellValue = cell.value;
+                      rowSpanHeader.topCellIndex = i;
+                      cell.rowSpan = 1;
+                    } else {
+                      rows[rowSpanHeader.topCellIndex].allCells[j].rowSpan++;
+                      cell.isRowSpanned = true;
+                    }
+                  }
+                }
+                return null;
+              })}
               {rows.length > 0 &&
                 rows.map((row) => {
-                  prepareRow(row);
-                  let newRowCells = '';
-
-                  dataList
-                    ? (newRowCells = row.cells.filter(
-                        (item) => !dataList.some((other) => item.column.id === other)
-                      ))
-                    : (newRowCells = row.cells);
-
                   return (
                     <tr
                       key={row.getRowProps().key}
@@ -238,16 +269,19 @@ const Table = ({
                         onRightClickItem(e, row.original);
                       }}
                     >
-                      {newRowCells.map((cell, index) => {
-                        return (
-                          <td
-                            key={index}
-                            {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2"
-                          >
-                            {cell.render('Cell')}
-                          </td>
-                        );
+                      {row.cells.map((cell, index) => {
+                        if (cell.isRowSpanned) return null;
+                        else
+                          return (
+                            <td
+                              key={index}
+                              rowSpan={cell.rowSpan}
+                              {...cell.getCellProps({ style: { width: cell.column.width } })}
+                              className="py-2 fs-14"
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
                       })}
                     </tr>
                   );

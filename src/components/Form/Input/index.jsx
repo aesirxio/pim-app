@@ -5,6 +5,7 @@
 
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import './index.scss';
 
 const Input = ({ field }) => {
   const handleChange = (e) => {
@@ -15,7 +16,7 @@ const Input = ({ field }) => {
   };
 
   return (
-    <>
+    <div className="position-relative">
       <Form.Control
         as="input"
         defaultValue={field.value ?? ''}
@@ -30,7 +31,12 @@ const Input = ({ field }) => {
         readOnly={field.readOnly}
         disabled={field.disabled}
       />
-    </>
+      {field.format && (
+        <div className="form-control input-format border-0 border-start border-end">
+          {field.format}
+        </div>
+      )}
+    </div>
   );
 };
 
