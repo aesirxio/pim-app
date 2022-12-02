@@ -25,18 +25,20 @@ class CreatableComponent extends React.Component {
     label,
     value: label,
   });
-  handleKeyDown = (event) => {
+  handleKeyDown = async (event) => {
     if (!this.state.inputValue) return;
     switch (event.key) {
       case 'Enter':
       case 'Tab':
-        this.setState((prevState) => {
+        await this.setState((prevState) => {
           return {
             ...prevState,
             inputValue: '',
             value: [...prevState.value, this.createOption(this.state.inputValue)],
           };
         });
+        this.props.onChange(this.state.value);
+
         event.preventDefault();
     }
   };
@@ -45,7 +47,7 @@ class CreatableComponent extends React.Component {
   render() {
     const { t } = this.props;
     const { theme } = this.context;
-    let { isBorder, plColor, placeholder, arrowColor } = this.props;
+    let { isBorder, plColor, placeholder, arrowColor, onChange } = this.props;
     let creatable = true;
     if (theme == 'dark') {
       plColor = '#bfc9f7';
@@ -98,14 +100,15 @@ class CreatableComponent extends React.Component {
         isMulti
         menuIsOpen={false}
         placeholder={placeholder ?? t('txt_type_something_and_press_enter')}
-        onChange={(newValue) =>
-          this.setState((prevState) => {
+        onChange={(newValue) => {
+          onChange(newValue);
+          return this.setState((prevState) => {
             return {
               ...prevState,
               value: newValue,
             };
-          })
-        }
+          });
+        }}
         onInputChange={(newValue) =>
           this.setState((prevState) => {
             return {

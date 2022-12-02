@@ -26,6 +26,7 @@ class FormSelection extends Component {
             arrowColor={this.field.arrowColor}
             placeholder={this.field.placeholder}
             className="fs-14"
+            onChange={this.field.handleChange}
           />
         ) : (
           <SelectComponent

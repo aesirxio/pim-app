@@ -3,7 +3,7 @@ import React from 'react';
 function ComponentSVG({ url, width, height, color, className }) {
   return (
     <span
-      className={`icon d-inline-block align-text-bottom ms-auto ${className}`}
+      className={`icon d-inline-block align-text-bottom ${className}`}
       style={{
         WebkitMaskImage: `url(${url})`,
         WebkitMaskRepeat: 'no-repeat',

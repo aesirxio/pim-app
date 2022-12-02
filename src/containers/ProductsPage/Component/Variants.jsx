@@ -4,55 +4,49 @@ import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
 import Table from 'components/Table';
+import ModalComponent from 'components/Modal';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
-const Variants = ({ t, formPropsData }) => {
-  const dataStatic = [
-    {
-      name: 'Color',
-      options: [
-        { label: 'Grey', value: 'gray' },
-        { label: 'Yellow', value: 'yellow' },
-      ],
-    },
-    {
-      name: 'Size',
-      options: [
-        { label: 'S', value: 's' },
-        { label: 'M', value: 'm' },
-        { label: 'L', value: 'l' },
-      ],
-    },
-    {
-      name: 'Test',
-      options: [
-        { label: 'E', value: 'e' },
-        { label: 'A', value: 'a' },
-      ],
-    },
-  ];
+const dataStatic = [
+  {
+    name: 'Color',
+    value_name: 'color',
+    options: [
+      { label: 'Grey', value: 'gray' },
+      { label: 'Yellow', value: 'yellow' },
+    ],
+  },
+  {
+    name: 'Size',
+    value_name: 'size',
+    options: [
+      { label: 'S', value: 's' },
+      { label: 'M', value: 'm' },
+      { label: 'L', value: 'l' },
+    ],
+  },
+  {
+    name: 'Test',
+    value_name: 'test',
+    options: [
+      { label: 'E', value: 'e' },
+      { label: 'A', value: 'a' },
+    ],
+  },
+];
 
+const Variants = ({ t, formPropsData }) => {
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
+
+  const [showModal, setShowModal] = useState(false);
+  const handleClose = () => {
+    setShowModal(false);
+  };
   const [optionVariants, setOptionVariants] = useState(dataStatic);
 
-  const a = dataStatic.reduce(
-    (prev, current, currentIndex) => [...prev, dataStatic[currentIndex].options],
-    []
-  );
-  console.log('aneee', a);
-
-  const dataQuickSetup = optionVariants[0].options.map((variant) => ({
-    color: variant.label,
-    rows: optionVariants[1]?.options.map((subVariant) => ({
-      size: subVariant.label,
-      image: '',
-      price: '7.000.000',
-      sku: 'DNCHAIR007-GR-S',
-      field: 'Edit',
-    })),
-  }));
-  console.log('dataQuickSetup', dataQuickSetup);
   const variantOptions = () => {
     return (
       <>
@@ -69,7 +63,11 @@ const Variants = ({ t, formPropsData }) => {
                         classNameInput: 'fs-14',
                         placeholder: t('txt_type'),
                         changed: (event) => {
-                          this.formPropsData.variants = event.target.value;
+                          // this.formPropsData.variants = event.target.value;
+                          optionVariants[key] = {
+                            name: event.target.value,
+                            value_name: event.target.value,
+                          };
                         },
                       }}
                     />
@@ -85,7 +83,10 @@ const Variants = ({ t, formPropsData }) => {
                         getValueSelected: variant.options ?? null,
                         creatable: true,
                         handleChange: (data) => {
-                          formPropsData.variants = data;
+                          // formPropsData.variants = data;
+                          Object.assign(optionVariants[key], {
+                            options: data,
+                          });
                         },
                       }}
                     />
@@ -99,26 +100,28 @@ const Variants = ({ t, formPropsData }) => {
     );
   };
   const headerClass = 'py-15 border text-center text-gray bg-gray-300 fw-semibold';
-  const cellClass = 'text-center';
+  const cellClass = 'd-flex align-items-center justify-content-center';
+
+  let variantsTable = [];
+  optionVariants.forEach((item, index) => {
+    if (item.options.length) {
+      variantsTable.push(optionVariants[index]);
+    }
+  });
+
   const columnsTable = React.useMemo(
     () => [
-      {
-        Header: 'COLOR',
-        accessor: 'color',
-        className: headerClass,
-        enableRowSpan: true,
-        Cell: ({ value }) => {
-          return <div className={cellClass}>{value}</div>;
-        },
-      },
-      {
-        Header: 'SIZE',
-        accessor: 'size',
-        className: headerClass,
-        Cell: ({ value }) => {
-          return <div className={cellClass}>{value}</div>;
-        },
-      },
+      ...variantsTable.map((item) => {
+        return {
+          Header: item.name.toUpperCase(),
+          accessor: item.value_name,
+          className: headerClass,
+          enableRowSpan: true,
+          Cell: ({ value }) => {
+            return <div className={cellClass}>{value}</div>;
+          },
+        };
+      }),
       {
         Header: 'IMAGE',
         accessor: 'image',
@@ -136,7 +139,20 @@ const Variants = ({ t, formPropsData }) => {
         accessor: 'price',
         className: headerClass,
         Cell: ({ value }) => {
-          return <div className={cellClass}>{value}</div>;
+          return (
+            <div className={cellClass}>
+              <span className="me-1"> {value}</span>
+              <div
+                className="cursor-pointer"
+                onClick={() => {
+                  console.log('test');
+                  setShowModal(true);
+                }}
+              >
+                <ComponentSVG url="/assets/images/plus-circle.svg" className={`bg-success ms-0`} />
+              </div>
+            </div>
+          );
         },
       },
       {
@@ -160,32 +176,20 @@ const Variants = ({ t, formPropsData }) => {
         },
       },
     ],
-    []
+    [variantsTable]
   );
-  const origData = [
-    {
-      color: 'Grey',
-      rows: [
-        { size: 'S', image: '', price: '7.000.000', sku: 'DNCHAIR007-GR-S', field: 'Edit' },
-        { size: 'S', image: '', price: '7.000.000', sku: 'DNCHAIR007-GR-S', field: 'Edit' },
-        { size: 'S', image: '', price: '7.000.000', sku: 'DNCHAIR007-GR-S', field: 'Edit' },
-      ],
-    },
-  ];
-  const newData = [];
-  origData.forEach((actorObj) => {
-    actorObj.rows.forEach((row) => {
-      newData.push({
-        color: actorObj.color,
-        size: row.size,
-        image: row.image,
-        price: row.price,
-        sku: row.sku,
-        field: row.field,
-      });
-    });
+
+  let filterSetArr = recursive([], [], variantsTable).map((item, index) => {
+    return {
+      ...item,
+      price: formPropsData.quickPrice ?? numberWithCommas(7000000),
+      sku: (formPropsData.quickSKU ?? 'SKU-PRODUCT') + '-' + index,
+      field: 'Edit',
+    };
   });
-  const dataTable = React.useMemo(() => newData, []);
+
+  const dataTable = React.useMemo(() => filterSetArr, [variantsTable, formPropsData.quickPrice]);
+
   return (
     <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
       <h3 className="mb-16 fw-bold">{t('txt_product_variant')}</h3>
@@ -211,8 +215,7 @@ const Variants = ({ t, formPropsData }) => {
         variant={`light`}
         className={` px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1`}
         onClick={() => {
-          setOptionVariants([...optionVariants, { name: '', value: [] }]);
-          console.log('optionVariants', optionVariants);
+          setOptionVariants([...optionVariants, { name: '', options: [] }]);
         }}
       >
         <ComponentSVG url="/assets/images/plus.svg" className={`me-15`} />
@@ -243,7 +246,7 @@ const Variants = ({ t, formPropsData }) => {
             <Label text={t('txt_sku_product')} />
             <Input
               field={{
-                value: formPropsData.quickSKU ?? 'DNCHAIR007',
+                value: formPropsData.quickSKU ?? 'SKU-PRODUCT',
                 classNameInput: 'fs-14',
                 placeholder: t('txt_type'),
                 changed: (event) => {
@@ -258,7 +261,7 @@ const Variants = ({ t, formPropsData }) => {
             variant={`success`}
             className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
             onClick={() => {
-              console.log('test');
+              forceUpdate();
             }}
           >
             {t('txt_apply_for_all_variant')}
@@ -272,7 +275,43 @@ const Variants = ({ t, formPropsData }) => {
         data={dataTable}
         classNameTable={'table-bordered border-gray'}
       ></Table>
+      <ModalComponent
+        show={showModal}
+        centered
+        onHide={handleClose}
+        header={<div className="fs-2 fw-bold mb-0">{t('txt_edit_price_variant')}</div>}
+        dialogClassName={''}
+        body={<div className="">testne</div>}
+        footer={
+          <>
+            <Button
+              variant={`success`}
+              className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
+              onClick={() => {}}
+            >
+              {t('txt_submit')}
+            </Button>
+          </>
+        }
+      />
     </div>
   );
 };
+
+const recursive = (oldArrs, oldItem, arrays) => {
+  let test = oldArrs;
+  if (arrays && arrays?.length > 0) {
+    arrays[0].options.forEach((b) => {
+      if (arrays?.length === 1 && arrays[0].name) {
+        test.push({
+          ...oldItem,
+          [arrays[0].value_name]: b.label,
+        });
+      }
+      recursive(test, { ...oldItem, [arrays[0].value_name]: b.label }, arrays.slice(1));
+    });
+  }
+  return test;
+};
+
 export default withTranslation('common')(Variants);
