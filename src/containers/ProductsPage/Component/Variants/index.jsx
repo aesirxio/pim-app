@@ -4,11 +4,11 @@ import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
 import Table from 'components/Table';
-import ModalComponent from 'components/Modal';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
+import ModalVariants from './ModalVariants';
 const dataStatic = [
   {
     name: 'Color',
@@ -27,24 +27,23 @@ const dataStatic = [
       { label: 'L', value: 'l' },
     ],
   },
-  {
-    name: 'Test',
-    value_name: 'test',
-    options: [
-      { label: 'E', value: 'e' },
-      { label: 'A', value: 'a' },
-    ],
-  },
+  // {
+  //   name: 'Test',
+  //   value_name: 'test',
+  //   options: [
+  //     { label: 'E', value: 'e' },
+  //     { label: 'A', value: 'a' },
+  //   ],
+  // },
 ];
 
 const Variants = ({ t, formPropsData }) => {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
+  const [activeVariant, setActiveVariant] = useState({});
   const [showModal, setShowModal] = useState(false);
-  const handleClose = () => {
-    setShowModal(false);
-  };
+
   const [optionVariants, setOptionVariants] = useState(dataStatic);
 
   const variantOptions = () => {
@@ -138,15 +137,26 @@ const Variants = ({ t, formPropsData }) => {
         ),
         accessor: 'price',
         className: headerClass,
-        Cell: ({ value }) => {
+        Cell: ({ row, cell, value }) => {
           return (
             <div className={cellClass}>
-              <span className="me-1"> {value}</span>
+              <Input
+                field={{
+                  value: value,
+                  classNameInput: 'fs-14 me-1 border-0 price-input',
+                  changed: (event) => {
+                    console.log('event.target.value', event.target.value);
+                  },
+                }}
+              />
               <div
                 className="cursor-pointer"
                 onClick={() => {
-                  console.log('test');
+                  setActiveVariant(row);
                   setShowModal(true);
+                  // formPropsData.quickPrice = '2.000';
+                  console.log('cell', cell);
+                  cell.setState();
                 }}
               >
                 <ComponentSVG url="/assets/images/plus-circle.svg" className={`bg-success ms-0`} />
@@ -262,6 +272,7 @@ const Variants = ({ t, formPropsData }) => {
             className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
             onClick={() => {
               forceUpdate();
+              formPropsData.variants = dataTable;
             }}
           >
             {t('txt_apply_for_all_variant')}
@@ -275,24 +286,12 @@ const Variants = ({ t, formPropsData }) => {
         data={dataTable}
         classNameTable={'table-bordered border-gray'}
       ></Table>
-      <ModalComponent
-        show={showModal}
-        centered
-        onHide={handleClose}
-        header={<div className="fs-2 fw-bold mb-0">{t('txt_edit_price_variant')}</div>}
-        dialogClassName={''}
-        body={<div className="">testne</div>}
-        footer={
-          <>
-            <Button
-              variant={`success`}
-              className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
-              onClick={() => {}}
-            >
-              {t('txt_submit')}
-            </Button>
-          </>
-        }
+      <ModalVariants
+        dataTable={dataTable}
+        optionVariants={optionVariants}
+        showModal={showModal}
+        setShowModal={setShowModal}
+        activeVariant={activeVariant}
       />
     </div>
   );

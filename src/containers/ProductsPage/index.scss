@@ -4,3 +4,9 @@
  */
 
 @import '../../scss/utils/bootstrap.scss';
+.price-input {
+  width: 100px;
+  &:focus {
+    box-shadow: none;
+  }
+}

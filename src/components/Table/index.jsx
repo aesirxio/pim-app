@@ -4,7 +4,14 @@
  */
 
 import React, { useEffect } from 'react';
-import { useExpanded, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
+import {
+  useExpanded,
+  usePagination,
+  useRowSelect,
+  useRowState,
+  useSortBy,
+  useTable,
+} from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
@@ -104,7 +111,8 @@ const Table = ({
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect
+    useRowSelect,
+    useRowState
   );
 
   const handlePagination = async (pageIndex) => {

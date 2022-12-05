@@ -16,6 +16,42 @@ class PimRoute extends BaseRoute {
       })
     );
   };
+
+  createProduct = (data) => {
+    return AesirxApiInstance.post(
+      this.createRequestURL({
+        option: 'reditem-item_pim_product_59',
+      }),
+      data
+    );
+  };
+  updateProduct = (data) => {
+    return AesirxApiInstance.put(
+      this.createRequestURL({
+        option: 'reditem-item_pim_product_59',
+      }),
+      data,
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+      }
+    );
+  };
+  deleteProduct = (id) => {
+    return AesirxApiInstance.delete(
+      this.createRequestURL({
+        option: 'reditem-item_pim_product_59',
+      }),
+
+      {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        data: { id: id },
+      }
+    );
+  };
 }
 
 export default PimRoute;

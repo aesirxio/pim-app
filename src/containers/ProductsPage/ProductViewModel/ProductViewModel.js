@@ -3,18 +3,18 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import UpdateProductViewModel from './UpdateProductViewModel';
+import ProductDetailViewModel from './ProductDetailViewModel';
 
 class ProductViewModel {
-  updateProductViewModel = null;
+  productDetailViewModel = null;
 
   constructor(productStore) {
     if (productStore) {
-      this.updateProductViewModel = new UpdateProductViewModel(productStore);
+      this.productDetailViewModel = new ProductDetailViewModel(productStore);
     }
   }
 
-  getUpdateProductViewModel = () => this.updateProductViewModel;
+  getProductDetailViewModel = () => this.productDetailViewModel;
 }
 
 export default ProductViewModel;

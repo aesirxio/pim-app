@@ -32,7 +32,9 @@ const Input = ({ field }) => {
         disabled={field.disabled}
       />
       {field.format && (
-        <div className="form-control input-format border-0 border-start border-end">
+        <div
+          className={`form-control input-format border-0 border-start border-end ${field.classNameInput}`}
+        >
           {field.format}
         </div>
       )}

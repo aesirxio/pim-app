@@ -5,3 +5,7 @@
 
 @import '../../scss/utils/bootstrap.scss';
 @import '~bootstrap/scss/spinners';
+
+.spinner-overlay {
+  background-color: rgba($body-bg, 0.5);
+}

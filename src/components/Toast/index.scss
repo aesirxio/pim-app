@@ -19,7 +19,16 @@ $rt-color-success: $green !default;
 @import '~react-toastify/scss/animations/zoom.scss';
 @import '~react-toastify/scss/animations/flip.scss';
 @import '~react-toastify/scss/animations/slide.scss';
+:root {
+  --toastify-color-success: #fff;
+}
 
+.#{$rt-namespace}__close-button {
+  &--light {
+    color: #fff;
+    opacity: 0.5;
+  }
+}
 #wr_custom_notify {
   background-color: $color-blue-7;
   padding-left: 15px !important;
