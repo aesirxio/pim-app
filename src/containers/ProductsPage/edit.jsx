@@ -26,71 +26,94 @@ import Input from 'components/Form/Input';
 import ProductInformation from './Component/ProductInformation';
 import FieldsTab from './Component/Fields';
 import Variants from './Component/Variants';
+import SimpleReactValidator from 'simple-react-validator';
 
 const productStore = new ProductStore();
 const productViewModel = new ProductViewModel(productStore);
 
 const EditProduct = observer(
   class EditProduct extends Component {
-    updateProductViewModel = null;
+    productDetailViewModel = null;
     formPropsData = {};
-    validator = null;
+    isEdit = false;
     constructor(props) {
       super(props);
       this.viewModel = productViewModel ? productViewModel : null;
       this.state = { key: 'commonInformation' };
 
-      this.updateProductViewModel = this.viewModel
-        ? this.viewModel.getUpdateProductViewModel()
+      this.validator = new SimpleReactValidator({ autoForceUpdate: this });
+      this.productDetailViewModel = this.viewModel
+        ? this.viewModel.getProductDetailViewModel()
         : null;
-      this.updateProductViewModel.setAllValue(this);
-      this.updateProductViewModel.setForm(this);
+      this.productDetailViewModel.setForm(this);
+      this.isEdit = props.match.params?.id ? true : false;
     }
 
-    componentDidMount() {
-      this.updateProductViewModel.initializeData();
+    async componentDidMount() {
+      if (this.isEdit) {
+        this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        await this.productDetailViewModel.initializeData();
+        this.forceUpdate();
+      }
     }
 
     render() {
       const { t } = this.props;
-
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_add_new_product')}</h2>
-            </div>
-            <div className="position-relative">
-              <ActionsBar
-                buttons={[
-                  {
-                    title: t('txt_cancel'),
-                    handle: () => {},
-                    icon: '/assets/images/cancel.svg',
-                  },
-                  {
-                    title: t('txt_preview'),
-                    handle: () => {},
-                    icon: '/assets/images/preview.svg',
-                  },
-                  {
-                    title: t('txt_save_close'),
-                    handle: () => {},
-                  },
-                  {
-                    title: t('txt_save'),
-                    handle: () => {},
-                    icon: '/assets/images/save.svg',
-                    variant: 'success',
-                  },
-                ]}
-              />
-            </div>
-          </div>
+          {this.productDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+            <Spinner className="spinner-overlay" />
+          )}
           <ProductViewModelContextProvider viewModel={productViewModel}>
+            <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
+              <div className="position-relative">
+                <h2 className="text-blue-0 fw-bold mb-8px">
+                  {this.isEdit ? t('txt_edit_product') : t('txt_add_new_product')}
+                </h2>
+              </div>
+              <div className="position-relative">
+                <ActionsBar
+                  buttons={[
+                    {
+                      title: t('txt_cancel'),
+                      handle: () => {},
+                      icon: '/assets/images/cancel.svg',
+                    },
+                    // {
+                    //   title: t('txt_preview'),
+                    //   handle: () => {},
+                    //   icon: '/assets/images/preview.svg',
+                    // },
+                    {
+                      title: t('txt_save_close'),
+                      handle: () => {},
+                    },
+                    {
+                      title: t('txt_save'),
+                      validator: this.validator,
+                      handle: async () => {
+                        if (this.validator.allValid()) {
+                          if (this.isEdit) {
+                            await this.productDetailViewModel.updateProduct();
+                          } else {
+                            await this.productDetailViewModel.createProduct();
+                          }
+                          this.forceUpdate();
+                        } else {
+                          this.validator.showMessages();
+                          this.forceUpdate();
+                        }
+                      },
+                      icon: '/assets/images/save.svg',
+                      variant: 'success',
+                    },
+                  ]}
+                />
+              </div>
+            </div>
             <Form>
               <Row className="gx-24 mb-24">
                 <Col lg={9}>
@@ -104,8 +127,19 @@ const EditProduct = observer(
                           this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE] =
                             event.target.value;
                         },
+                        blurred: () => {
+                          this.validator.showMessageFor('Product Name');
+                        },
                       }}
                     />
+                    {this.validator.message(
+                      'Product Name',
+                      this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
+                      'required',
+                      {
+                        className: 'text-danger mt-8px',
+                      }
+                    )}
                   </Form.Group>
                   <Tabs
                     defaultActiveKey={'commonInformation'}

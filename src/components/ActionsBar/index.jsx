@@ -14,6 +14,7 @@ const ActionsBar = ({ t, buttons = [] }) => {
               className={`${
                 item.title === t('txt_cancel') ? 'text-danger' : ''
               } px-16 fw-semibold d-flex align-items-center rounded-1`}
+              onClick={item.handle}
             >
               {item.icon && (
                 <ComponentSVG

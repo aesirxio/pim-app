@@ -79,6 +79,11 @@ const mainRoutes = [
     main: () => <HelpCenterPage />,
   },
   {
+    path: '/products/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditProduct match={match} />,
+  },
+  {
     path: '/products/add',
     exact: true,
     main: () => <EditProduct />,

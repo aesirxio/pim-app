@@ -67,7 +67,6 @@ class ProductDetailModel extends BaseItemModel {
         formData[PIM_PRODUCT_DETAIL_FIELD_KEY[index]] = data[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
       }
     });
-    formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.ID], data[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] ?? 0);
     return formData;
   };
 }
