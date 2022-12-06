@@ -13,7 +13,6 @@ class CategoryModel extends BaseModel {
       this.items = entities._embedded.item.map((element) => {
         return new CategoryItemModel(element);
       });
-      this.items.pagination = this.getPagination();
     }
   }
 }
