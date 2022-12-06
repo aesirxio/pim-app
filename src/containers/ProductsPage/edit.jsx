@@ -183,7 +183,7 @@ const EditProduct = observer(
                   </Tabs>
                 </Col>
                 <Col lg={3}>
-                  <PublishOptions formPropsData={this.formPropsData} />
+                  <PublishOptions formPropsData={this.formPropsData} isEdit={this.isEdit} />
                 </Col>
               </Row>
             </Form>

@@ -6,29 +6,31 @@
 import AesirxApiInstance from 'aesirx-dma-lib/src/gateway/Instance';
 import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 
-class PimRoute extends BaseRoute {
+class PimProductRoute extends BaseRoute {
+  option = 'reditem-item_pim_product_59';
+
   getDetail = (id = 0, dataFilter = {}) => {
     return AesirxApiInstance.get(
       this.createRequestURL({
-        option: 'reditem-item_pim_product_59',
+        option: this.option,
         id: id,
         ...dataFilter,
       })
     );
   };
 
-  createProduct = (data) => {
+  create = (data) => {
     return AesirxApiInstance.post(
       this.createRequestURL({
-        option: 'reditem-item_pim_product_59',
+        option: this.option,
       }),
       data
     );
   };
-  updateProduct = (data) => {
+  update = (data) => {
     return AesirxApiInstance.put(
       this.createRequestURL({
-        option: 'reditem-item_pim_product_59',
+        option: this.option,
       }),
       data,
       {
@@ -38,12 +40,11 @@ class PimRoute extends BaseRoute {
       }
     );
   };
-  deleteProduct = (id) => {
+  delete = (id) => {
     return AesirxApiInstance.delete(
       this.createRequestURL({
-        option: 'reditem-item_pim_product_59',
+        option: this.option,
       }),
-
       {
         headers: {
           'Content-Type': 'application/x-www-form-urlencoded',
@@ -54,4 +55,4 @@ class PimRoute extends BaseRoute {
   };
 }
 
-export default PimRoute;
+export default PimProductRoute;

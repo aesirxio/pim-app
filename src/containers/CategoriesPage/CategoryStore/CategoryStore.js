@@ -3,20 +3,20 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimProductApiService from 'library/Pim/PimProduct/PimProduct';
-import { ProductItemModel } from 'library/Pim/PimProduct/PimProductModel';
+import AesirxPimApiService from 'library/Pim/Pim';
+import { CategoryDetailModel } from 'library/Pim/PimModel';
 import { runInAction } from 'mobx';
 
-export default class ProductStore {
-  async createProduct(createProductData, callbackOnSuccess, callbackOnError) {
+export default class CategoryStore {
+  async createCategory(createCategoryData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        ProductItemModel.__transformItemToApiOfCreation(createProductData);
+        CategoryDetailModel.__transformItemToApiOfCreation(createCategoryData);
 
       let resultOnSave;
-      const createProductApiService = new AesirxPimProductApiService();
+      const createCategoryApiService = new AesirxPimApiService();
 
-      resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await createCategoryApiService.createCategory(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -33,15 +33,15 @@ export default class ProductStore {
     }
   }
 
-  async updateProduct(updateProductData, callbackOnSuccess, callbackOnError) {
+  async updateCategory(updateCategoryData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        ProductItemModel.__transformItemToApiOfUpdation(updateProductData);
+        CategoryDetailModel.__transformItemToApiOfUpdation(updateCategoryData);
 
       let resultOnSave;
-      const updateProductApiService = new AesirxPimProductApiService();
+      const updateCategoryApiService = new AesirxPimApiService();
 
-      resultOnSave = await updateProductApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await updateCategoryApiService.updateCategory(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -58,14 +58,14 @@ export default class ProductStore {
     }
   }
 
-  async getProductDetail(id, callbackOnSuccess, callbackOnError) {
+  async getDetail(id, callbackOnSuccess, callbackOnError) {
     if (!id) return false;
 
     try {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimProductApiService();
+        const getDetailInfoAPIService = new AesirxPimApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 

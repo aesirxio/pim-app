@@ -4,12 +4,19 @@
  */
 
 import ComponentSVG from 'components/ComponentSVG';
-import React, { useState } from 'react';
+import { FORMAT_DATE_UPDATE_POST } from 'constants/FormFieldType';
+import moment from 'moment';
+import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import './index.scss';
 
 const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat }) => {
-  const [startDate, setStartDate] = useState(defaultDate ? new Date(defaultDate) : null);
+  const [startDate, setStartDate] = useState();
+  useEffect(() => {
+    defaultDate &&
+      setStartDate(new Date(moment(defaultDate).utc().format(FORMAT_DATE_UPDATE_POST)));
+  }, [defaultDate]);
+
   return (
     <div className="d-flex align-items-center bg-white position-relative date-picker">
       <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
@@ -31,5 +38,4 @@ const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat }) => {
     </div>
   );
 };
-
 export default CustomizedDatePicker;

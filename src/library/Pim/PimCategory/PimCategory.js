@@ -3,25 +3,25 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { ProductDetailModel } from './PimModel';
-import PimRoute from './PimRoute';
+import { CategoryItemModel, CategoryModel } from './PimCategoryModel';
+import PimCategoryRoute from './PimCategoryRoute';
 import { Component } from 'react';
 import axios from 'axios';
 
 /**
- * API Service - Member
+ * API Service - Category
  */
-class AesirxPimApiService extends Component {
+class AesirxPimCategoryApiService extends Component {
   route = null;
 
   constructor(props) {
     super(props);
-    this.route = new PimRoute();
+    this.route = new PimCategoryRoute();
   }
 
-  createProduct = async (data) => {
+  create = async (data) => {
     try {
-      const result = await this.route.createProduct(data);
+      const result = await this.route.create(data);
       if (result) {
         return result.result;
       }
@@ -33,9 +33,9 @@ class AesirxPimApiService extends Component {
     }
   };
 
-  updateProduct = async (data) => {
+  update = async (data) => {
     try {
-      const result = await this.route.updateProduct(data);
+      const result = await this.route.update(data);
       console.log('resultenee', result);
       if (result) {
         return result.result;
@@ -53,7 +53,26 @@ class AesirxPimApiService extends Component {
       const data = await this.route.getDetail(id);
       let results = null;
       if (data) {
-        results = new ProductDetailModel(data);
+        results = new CategoryItemModel(data);
+      }
+      if (results) {
+        results = results.toJSON();
+      }
+
+      return results;
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  getList = async () => {
+    try {
+      const data = await this.route.getList();
+      let results = null;
+      if (data._embedded) {
+        results = new CategoryModel(data._embedded);
       }
       if (results) {
         results = results.toJSON();
@@ -68,4 +87,4 @@ class AesirxPimApiService extends Component {
   };
 }
 
-export default AesirxPimApiService;
+export default AesirxPimCategoryApiService;
