@@ -37,7 +37,6 @@ export default class ProductStore {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfUpdation(updateProductData);
-
       let resultOnSave;
       const updateProductApiService = new AesirxPimProductApiService();
 

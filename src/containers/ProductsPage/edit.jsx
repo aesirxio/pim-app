@@ -101,11 +101,11 @@ const EditProduct = observer(
                           } else {
                             await this.productDetailViewModel.createProduct();
                           }
-                          this.forceUpdate();
                         } else {
                           this.validator.showMessages();
-                          this.forceUpdate();
                         }
+                        await this.productDetailViewModel.initializeData();
+                        this.forceUpdate();
                       },
                       icon: '/assets/images/save.svg',
                       variant: 'success',

@@ -71,13 +71,9 @@ class AesirxPimCategoryApiService extends Component {
     try {
       const data = await this.route.getList();
       let results = null;
-      if (data._embedded) {
-        results = new CategoryModel(data._embedded);
+      if (data) {
+        results = new CategoryModel(data);
       }
-      if (results) {
-        results = results.toJSON();
-      }
-
       return results;
     } catch (error) {
       if (axios.isCancel(error)) {

@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 class CategoryDetailViewModel {
   categoryStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -28,7 +28,7 @@ class CategoryDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.categoryStore.getDetail(
-      this.categoryDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+      this.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetCategorySuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -75,9 +75,9 @@ class CategoryDetailViewModel {
 
   callbackOnGetCategorySuccessHandler = (result) => {
     if (result) {
-      Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY).forEach((index) => {
-        this.categoryDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY[index]] =
-          result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
+      Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY).forEach((index) => {
+        this.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY[index]] =
+          result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]];
       });
     }
 
