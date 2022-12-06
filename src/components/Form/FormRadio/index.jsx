@@ -20,7 +20,7 @@ const FormRadio = ({ field }) => {
           type={field.checkbox ? 'checkbox' : 'radio'}
           id={`inline-radio-${option.value}`}
           onChange={field.changed}
-          defaultChecked={field.value === option.value}
+          checked={field.value === option.value}
         />
       ))}
     </div>

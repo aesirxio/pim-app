@@ -7,46 +7,46 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-class ProductDetailViewModel {
-  productStore = null;
+class CategoryDetailViewModel {
+  categoryStore = null;
   formStatus = PAGE_STATUS.READY;
-  productDetailViewModel = null;
+  categoryDetailViewModel = null;
   successResponse = {
     state: true,
     content_id: '',
   };
 
-  constructor(productStore) {
+  constructor(categoryStore) {
     makeAutoObservable(this);
-    this.productStore = productStore;
+    this.categoryStore = categoryStore;
   }
 
-  setForm = (productDetailViewModel) => {
-    this.productDetailViewModel = productDetailViewModel;
+  setForm = (categoryDetailViewModel) => {
+    this.categoryDetailViewModel = categoryDetailViewModel;
   };
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.getProductDetail(
-      this.productDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetProductSuccessHandler,
+    await this.categoryStore.getDetail(
+      this.categoryDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+      this.callbackOnGetCategorySuccessHandler,
       this.callbackOnErrorHandler
     );
   };
 
-  createProduct = () => {
+  createCategory = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.productStore.createProduct(
-      this.productDetailViewModel.formPropsData,
+    this.categoryStore.createCategory(
+      this.categoryDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnCreateSuccessHandler
     );
   };
 
-  updateProduct = async () => {
+  updateCategory = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.updateProduct(
-      this.productDetailViewModel.formPropsData,
+    await this.categoryStore.updateCategory(
+      this.categoryDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,10 +73,10 @@ class ProductDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetProductSuccessHandler = (result) => {
+  callbackOnGetCategorySuccessHandler = (result) => {
     if (result) {
       Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY).forEach((index) => {
-        this.productDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY[index]] =
+        this.categoryDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY[index]] =
           result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
       });
     }
@@ -85,4 +85,4 @@ class ProductDetailViewModel {
   };
 }
 
-export default ProductDetailViewModel;
+export default CategoryDetailViewModel;
