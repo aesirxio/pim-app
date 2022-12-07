@@ -82,7 +82,7 @@ const Dashboard = observer(
                   <Col lg={6}>
                     <ComponentCard
                       title={t('txt_categories')}
-                      icon={'/assets/images/category-icon.svg'}
+                      icon={'/assets/images/categories.svg'}
                       iconColor={'#EF3737'}
                       value={numberWithCommas(232)}
                       isIncrease={true}
