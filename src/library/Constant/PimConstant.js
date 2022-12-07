@@ -18,6 +18,9 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   SALE_MARKET_NAME: 'sale_market_name',
   TEMPLATE: 'template',
   TAGS: 'tags',
+  PUBLISHED_UP: 'publish_up',
+  CREATED_USER_NAME: 'created_user_name',
+  PIM_PRODUCT_TYPE: "pim_product_type",
 };
 
 export { PIM_PRODUCT_DETAIL_FIELD_KEY };

@@ -46,10 +46,6 @@ const EditProduct = observer(
       this.updateProductViewModel.setForm(this);
     }
 
-    componentDidMount() {
-      this.updateProductViewModel.initializeData();
-    }
-
     render() {
       const { t } = this.props;
 

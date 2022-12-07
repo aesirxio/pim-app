@@ -10,6 +10,7 @@ import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 const Table = ({
   columns,
@@ -101,7 +102,7 @@ const Table = ({
       <div className="fs-14 text-color position-relative h-100">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
-            <thead className='fs-6'>
+            <thead className="fs-6">
               {headerGroups.map((headerGroup, index) => {
                 let newHeaderGroup = '';
 
@@ -257,7 +258,7 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <div className="position-absolute top-50 start-50 translate-middle">
+          <div className="py-5">
             <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
           </div>
         ) : null}
@@ -323,4 +324,4 @@ const Table = ({
   );
 };
 
-export default withTranslation('common')(Table);
+export default withTranslation('common')(withProductViewModel(Table));

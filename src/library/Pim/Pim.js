@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { ColectionModel } from './PimModel';
+import { ProductDetailModel } from './PimModel';
 import PimRoute from './PimRoute';
 import { Component } from 'react';
 import axios from 'axios';
@@ -25,7 +25,7 @@ class AesirxPimApiService extends Component {
       let results = null;
       let pagination = null;
       if (data) {
-        results = new ColectionModel(data);
+        results = new ProductDetailModel(data);
         pagination = results.getPagination();
       }
       if (results) {
@@ -35,6 +35,33 @@ class AesirxPimApiService extends Component {
       return {
         list: results ?? [],
         pagination: pagination ?? {},
+      };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  getList = async (filter) => {
+    try {
+      const data = await this.route.getList(filter);
+      let results = null;
+      // let pagination = null;
+      if (data?._embedded) {
+        results = await Promise.all(
+          data._embedded.item.map(async (o) => {
+            return new ProductDetailModel(o);
+          })
+        );
+
+        // results = new ProductDetailModel(data);
+        // results = results.toJSON();
+        // pagination = results.getPagination();
+      }
+      return {
+        listItems: results ?? [],
+        // pagination: pagination ?? {},
       };
     } catch (error) {
       if (axios.isCancel(error)) {

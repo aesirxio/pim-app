@@ -4,6 +4,7 @@
  */
 
 import AesirxMemberApiService from 'aesirx-dma-lib/src/Member/Member';
+import AesirxPimApiService from 'library/Pim/Pim';
 import { ProductDetailModel } from 'library/Pim/PimModel';
 import { runInAction } from 'mobx';
 
@@ -58,6 +59,27 @@ export default class ProductStore {
         callbackOnError(error);
       });
     }
+  }
+
+  async getList(callbackOnSuccess, callbackOnError, filters) {
+    try {
+      const getDetailInfoAPIService = new AesirxPimApiService();
+      const respondedData = await getDetailInfoAPIService.getList(filters);
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
   }
 
   async getDetailProduct(id) {

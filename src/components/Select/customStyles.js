@@ -18,7 +18,7 @@ const customStyles = (isBorder, plColor, arrowColor) => {
           // borderRight: '1px solid var(--border-color)',
         },
         // borderRight: '1px solid var(--border-color)',
-        backgroundColor: 'transparent',
+        backgroundColor: '#ffffff',
         cursor: 'pointer',
         width: 'auto',
       };
