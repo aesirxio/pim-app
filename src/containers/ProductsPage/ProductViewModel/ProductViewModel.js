@@ -4,17 +4,21 @@
  */
 
 import ProductDetailViewModel from './ProductDetailViewModel';
+import ProductListViewModel from './ProductListViewModel';
 
 class ProductViewModel {
   productDetailViewModel = null;
+  productListViewModel = null;
 
   constructor(productStore) {
     if (productStore) {
       this.productDetailViewModel = new ProductDetailViewModel(productStore);
+      this.productListViewModel = new ProductListViewModel(productStore);
     }
   }
 
   getProductDetailViewModel = () => this.productDetailViewModel;
+  getProductListViewModel = () => this.productListViewModel;
 }
 
 export default ProductViewModel;

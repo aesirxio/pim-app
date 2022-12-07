@@ -26,18 +26,18 @@ class ComponentNoData extends Component {
             : 'text-center h-100 d-flex flex-column justify-content-center align-items-center'
         }
       >
-        <p
-          style={{ width: '48px', height: '48px' }}
+        <div
           className={`mb-2 d-inline-block position-relative rounded-circle ${iconBg}`}
         >
           <ComponentImage
-            className={`position-absolute top-50 start-50 translate-middle ${iconColor}`}
+            className={`${iconColor}`}
             src={icons}
             alt={icons}
           />
-        </p>
-        <h5 className="mb-2">{title}</h5>
-        <p className={`mb-2 fs-14 text-black-50 w-100 mx-auto ${width}`}>{text}</p>
+        </div>
+        <h5>{title}</h5>
+        {text && <p className={`my-2 fs-14 text-black-50 w-100 mx-auto ${width}`}>{text}</p>}
+
         {isBtn && (
           <Link
             to={{ pathname: link, state: { openModal: true } }}

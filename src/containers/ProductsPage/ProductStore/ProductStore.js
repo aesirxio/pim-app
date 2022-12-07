@@ -84,4 +84,39 @@ export default class ProductStore {
       });
     }
   }
+
+  async getList(callbackOnSuccess, callbackOnError, filters) {
+    try {
+      const getDetailInfoAPIService = new AesirxPimProductApiService();
+      const respondedData = await getDetailInfoAPIService.getList(filters);
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
+  async getDetailProduct(id) {
+    if (!id) return false;
+
+    try {
+      const getDetailInfoAPIService = new AesirxPimProductApiService();
+      const respondedData = await getDetailInfoAPIService.getDetailInfo(id);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }
