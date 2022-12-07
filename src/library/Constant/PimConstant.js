@@ -56,7 +56,7 @@ const PIM_TAG_DETAIL_FIELD_KEY = {
 
 const PIM_FIELD_DETAIL_FIELD_KEY = {
   ID: 'id',
-  TITLE: 'title',
+  NAME: 'name',
   ALIAS: 'alias',
   PUBLISHED: 'published',
   FEATURED: 'featured',
@@ -67,6 +67,8 @@ const PIM_FIELD_DETAIL_FIELD_KEY = {
   CREATED_USER_NAME: 'created_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
+  FIELD_GROUP_ID: 'field_group_id',
+  FIELD_GROUP_NAME: 'field_group_name',
 };
 
 export {

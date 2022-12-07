@@ -76,6 +76,16 @@ const ProductInformation = observer(
               },
               className: 'col-lg-12',
             },
+            {
+              label: 'txt_description',
+              key: PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION,
+              type: FORM_FIELD_TYPE.EDITOR,
+              value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION],
+              handleChange: (data) => {
+                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION] = data;
+              },
+              className: 'col-lg-12',
+            },
           ],
         },
       ];

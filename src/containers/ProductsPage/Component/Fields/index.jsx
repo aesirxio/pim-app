@@ -22,6 +22,7 @@ const FieldsTab = observer(
     async componentDidMount() {
       this.fieldListViewModel.handleFilter({ group: [19, 20, 21] });
       await this.fieldListViewModel.initializeData();
+      console.log('this.fieldListViewModel', this.fieldListViewModel);
       this.forceUpdate();
     }
 

@@ -28,6 +28,7 @@ const FORM_FIELD_TYPE = {
   AGE: 22,
   LOCATION: 23,
   TIMEZONE: 24,
+  EDITOR: 25,
 };
 
 const FORMAT_DATE = 'dd MMM, yyyy';

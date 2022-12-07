@@ -18,7 +18,7 @@ class FieldModel extends BaseModel {
 }
 class FieldItemModel extends BaseItemModel {
   id = null;
-  title = null;
+  name = null;
   alias = null;
   published = 0;
   featured = 0;
@@ -28,12 +28,14 @@ class FieldItemModel extends BaseItemModel {
   created_user_name = null;
   created_time = null;
   publish_up = null;
+  field_group_id = null;
+  field_group_name = null;
 
   constructor(entity) {
     super(entity);
     if (entity) {
       this.id = entity[PIM_FIELD_DETAIL_FIELD_KEY.ID] ?? '';
-      this.title = entity[PIM_FIELD_DETAIL_FIELD_KEY.TITLE] ?? '';
+      this.name = entity[PIM_FIELD_DETAIL_FIELD_KEY.NAME] ?? '';
       this.alias = entity[PIM_FIELD_DETAIL_FIELD_KEY.ALIAS] ?? '';
       this.published = entity[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED] ?? 0;
       this.featured = entity[PIM_FIELD_DETAIL_FIELD_KEY.FEATURED]?.toString() ?? '0';
@@ -43,6 +45,8 @@ class FieldItemModel extends BaseItemModel {
       this.created_user_name = entity[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
       this.created_time = entity[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
       this.publish_up = entity[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
+      this.field_group_id = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID] ?? '';
+      this.field_group_name = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME] ?? '';
     }
   }
 
@@ -54,7 +58,7 @@ class FieldItemModel extends BaseItemModel {
     return {
       ...this.baseToJSON(),
       [PIM_FIELD_DETAIL_FIELD_KEY.ID]: this.id,
-      [PIM_FIELD_DETAIL_FIELD_KEY.TITLE]: this.title,
+      [PIM_FIELD_DETAIL_FIELD_KEY.NAME]: this.name,
       [PIM_FIELD_DETAIL_FIELD_KEY.ALIAS]: this.alias,
       [PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]: this.published,
       [PIM_FIELD_DETAIL_FIELD_KEY.FEATURED]: this.featured,
@@ -62,6 +66,8 @@ class FieldItemModel extends BaseItemModel {
       [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: this.custom_fields,
       [PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME]: this.created_user_name,
       [PIM_FIELD_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
+      [PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID]: this.field_group_id,
+      [PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME]: this.field_group_name,
     };
   };
 
