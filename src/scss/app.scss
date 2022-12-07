@@ -474,6 +474,29 @@ textarea {
   &:focus {
     outline: 1px solid $gray-500;
   }
+  &.border-success {
+    @include button-variant(
+      $white /*background*/,
+      $gray-500 /*border*/,
+      $body-color /*text color*/,
+      $success /*hover background*/,
+      $white /*hover border*/,
+      $white /*hover text color*/
+    );
+    .icon {
+      background-color: $success;
+    }
+    &:hover {
+      &:active {
+        .icon {
+          background-color: $success;
+        }
+      }
+      .icon {
+        background-color: $white;
+      }
+    }
+  }
 }
 .btn-success {
   &:focus {
@@ -532,6 +555,16 @@ form {
     margin-left: -25px;
     margin-top: 4px;
     &[type='radio'] {
+      border-color: $body-color;
+      &:checked {
+        border-color: $success;
+        background-color: $white;
+      }
+      &:not(:checked) {
+        background-color: var(--content-bg);
+      }
+    }
+    &[type='checkbox'] {
       border-color: $body-color;
       &:checked {
         border-color: $success;

@@ -17,25 +17,6 @@ const List = observer((props) => {
 
   const columnsTable = [
     {
-      Header: () => {
-        return (
-          <div className="ps-2">
-            <input type="checkbox" />
-          </div>
-        );
-      },
-      width: 30,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase',
-      accessor: 'stickAll',
-      Cell: () => {
-        return (
-          <div className="ps-2">
-            <input className="opacity-50" type="checkbox" />
-          </div>
-        );
-      },
-    },
-    {
       Header: 'Id',
       accessor: 'id',
       width: 60,
@@ -162,17 +143,11 @@ const List = observer((props) => {
       width: 150,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        switch (value.status) {
-          case 0:
-            return (value.status = t('txt_unpublished'));
-          case 1:
-            return (value.status = t('txt_published'));
-          default:
-            break;
-        }
         return (
           <div className="pe-2">
-            <div className="mb-1">{value.status}</div>
+            <div className="mb-1">
+              {value.status === 1 ? t('txt_published') : t('txt_unpublished')}
+            </div>
             <div>
               {value.dateTime} by {value.author}
             </div>
@@ -265,7 +240,11 @@ const List = observer((props) => {
       </div>
       {productViewModel?.successResponse?.state ? (
         <div className="bg-white rounded">
-          <Table columns={columnsTable} data={productViewModel?.successResponse?.data}></Table>
+          <Table
+            columns={columnsTable}
+            data={productViewModel?.successResponse?.data}
+            selection={false}
+          ></Table>
         </div>
       ) : (
         <Spinner />

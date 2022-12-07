@@ -3,6 +3,8 @@ import moment from 'moment';
 
 export const transform = (data) => {
   return data.map((o) => {
+    const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP]).format('DD MMM, YYYY');
+    console.log(date)
     return {
       id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
       productInfo: {
@@ -15,7 +17,7 @@ export const transform = (data) => {
       type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE],
       lastModified: {
         status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
-        dateTime: moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP]).format("DD MMM, YYYY"),
+        dateTime: date ?? "",
         author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
       },
     };

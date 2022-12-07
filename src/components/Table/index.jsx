@@ -4,7 +4,14 @@
  */
 
 import React, { useEffect } from 'react';
-import { useExpanded, usePagination, useRowSelect, useSortBy, useTable } from 'react-table';
+import {
+  useExpanded,
+  usePagination,
+  useRowSelect,
+  useRowState,
+  useSortBy,
+  useTable,
+} from 'react-table';
 import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
@@ -12,10 +19,25 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
+function useInstance(instance) {
+  const { allColumns } = instance;
+
+  let rowSpanHeaders = [];
+
+  allColumns.forEach((column) => {
+    const { id, enableRowSpan } = column;
+
+    if (enableRowSpan !== undefined) {
+      rowSpanHeaders = [...rowSpanHeaders, { id, topCellValue: null, topCellIndex: 0 }];
+    }
+  });
+
+  Object.assign(instance, { rowSpanHeaders });
+}
 const Table = ({
   columns,
   data,
-  pagination,
+  // pagination,
   store,
   setLoading,
   onSelect,
@@ -36,7 +58,7 @@ const Table = ({
 
     return (
       <>
-        <input className="form-check-input p-0" type="checkbox" ref={resolvedRef} {...rest} />
+        <input className="form-check-input d-block" type="checkbox" ref={resolvedRef} {...rest} />
       </>
     );
   });
@@ -47,14 +69,16 @@ const Table = ({
     headerGroups,
     prepareRow,
     rows,
-    pageOptions,
-    previousPage,
-    canPreviousPage,
-    canNextPage,
-    gotoPage,
-    nextPage,
-    state: { pageIndex },
-    state,
+    // pageOptions,
+    // previousPage,
+    // canPreviousPage,
+    // canNextPage,
+    // gotoPage,
+    // nextPage,
+    // state: { pageIndex },
+    // state,
+    rowSpanHeaders,
+    selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -65,19 +89,20 @@ const Table = ({
       },
     },
     (hooks) => {
+      hooks.useInstance.push(useInstance);
       !selection &&
         hooks.visibleColumns.push((columns) => [
           {
             id: 'selection',
-            className: 'px-24 py-2 border-bottom-1 text-uppercase',
-            width: '50px',
+            className: 'border-bottom-1 text-uppercase ps-2',
+            width: 10,
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <div>
+              <>
                 <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-              </div>
+              </>
             ),
             Cell: ({ row }) => (
-              <div className="wrapper_checkbox px-24">
+              <div className="wrapper_checkbox ms-2">
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
             ),
@@ -88,14 +113,16 @@ const Table = ({
     useSortBy,
     useExpanded,
     usePagination,
-    useRowSelect
+    useRowSelect,
+    useRowState
   );
+  console.log(selectedFlatRows);
 
-  const handlePagination = async (pageIndex) => {
-    setLoading(true);
-    await store.goToPage(pageIndex);
-    setLoading(false);
-  };
+  // const handlePagination = async (pageIndex) => {
+  //   setLoading(true);
+  //   await store.goToPage(pageIndex);
+  //   setLoading(false);
+  // };
 
   return (
     <>
@@ -117,7 +144,7 @@ const Table = ({
                     {newHeaderGroup.map((column, index) => {
                       let sortParams = column.sortParams ?? column.id;
                       let columnInside = '';
-                      if (column.rowSpan && canSort && !sortAPI) {
+                      if (column.rowSpanHeader && canSort && !sortAPI) {
                         columnInside = column.columns[0];
                       }
                       return (
@@ -125,7 +152,7 @@ const Table = ({
                           key={index}
                           {...(!sortAPI && {
                             ...column.getHeaderProps(
-                              canSort && !column.rowSpan
+                              canSort && !column.rowSpanHeader
                                 ? column.getSortByToggleProps()
                                 : columnInside && columnInside.getSortByToggleProps()
                             ),
@@ -151,7 +178,7 @@ const Table = ({
                                 setLoading(false);
                               },
                             })}
-                          rowSpan={`${column.rowSpan ?? 1}`}
+                          rowSpan={`${column.rowSpanHeader ?? 1}`}
                         >
                           {column.render('Header')}
                           {canSort && (
@@ -174,7 +201,7 @@ const Table = ({
                                 ) : (
                                   ''
                                 )
-                              ) : !column.rowSpan ? (
+                              ) : !column.rowSpanHeader ? (
                                 column.isSorted &&
                                 sortParams !== 'number' &&
                                 sortParams !== 'selection' ? (
@@ -220,17 +247,31 @@ const Table = ({
               })}
             </thead>
             <tbody {...getTableBodyProps()}>
+              {rows.map((row, i) => {
+                prepareRow(row);
+                for (let j = 0; j < row.allCells.length; j++) {
+                  let cell = row.allCells[j];
+                  let rowSpanHeader = rowSpanHeaders.find((x) => x.id === cell.column.id);
+
+                  if (rowSpanHeader !== undefined) {
+                    if (
+                      rowSpanHeader.topCellValue === null ||
+                      rowSpanHeader.topCellValue !== cell.value
+                    ) {
+                      cell.isRowSpanned = false;
+                      rowSpanHeader.topCellValue = cell.value;
+                      rowSpanHeader.topCellIndex = i;
+                      cell.rowSpan = 1;
+                    } else {
+                      rows[rowSpanHeader.topCellIndex].allCells[j].rowSpan++;
+                      cell.isRowSpanned = true;
+                    }
+                  }
+                }
+                return null;
+              })}
               {rows.length > 0 &&
                 rows.map((row) => {
-                  prepareRow(row);
-                  let newRowCells = '';
-
-                  dataList
-                    ? (newRowCells = row.cells.filter(
-                        (item) => !dataList.some((other) => item.column.id === other)
-                      ))
-                    : (newRowCells = row.cells);
-
                   return (
                     <tr
                       key={row.getRowProps().key}
@@ -239,16 +280,19 @@ const Table = ({
                         onRightClickItem(e, row.original);
                       }}
                     >
-                      {newRowCells.map((cell, index) => {
-                        return (
-                          <td
-                            key={index}
-                            {...cell.getCellProps({ style: { width: cell.column.width } })}
-                            className="py-2"
-                          >
-                            {cell.render('Cell')}
-                          </td>
-                        );
+                      {row.cells.map((cell, index) => {
+                        if (cell.isRowSpanned) return null;
+                        else
+                          return (
+                            <td
+                              key={index}
+                              rowSpan={cell.rowSpan}
+                              {...cell.getCellProps({ style: { width: cell.column.width } })}
+                              className="py-2 fs-14"
+                            >
+                              {cell.render('Cell')}
+                            </td>
+                          );
                       })}
                     </tr>
                   );
@@ -263,7 +307,7 @@ const Table = ({
           </div>
         ) : null}
       </div>
-      {pagination && pageOptions.length ? (
+      {/* {pagination && pageOptions.length ? (
         <div className="mt-2 text-center pagination">
           <button
             className="border-1 bg-white opacity-50 text-body btn"
@@ -319,7 +363,7 @@ const Table = ({
             <span className="material-icons fs-4 align-middle">arrow_forward_ios</span>
           </button>
         </div>
-      ) : null}
+      ) : null} */}
     </>
   );
 };

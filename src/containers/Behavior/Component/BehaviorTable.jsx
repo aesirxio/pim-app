@@ -8,7 +8,7 @@ const BehaviorTable = () => {
         Header: 'Campaign',
         accessor: 'campagin-parent',
         className: 'px-3 py-16 fs-sm fw-semibold bg-gray-700 rounded-top-start-3',
-        rowSpan: '2',
+        rowSpanHeader: '2',
         columns: [
           {
             Header: '',

@@ -3,13 +3,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-const customStyles = (isBorder, plColor, arrowColor) => {
+const customStyles = (isBorder, plColor, arrowColor, creatable) => {
   return {
     control: (provided) => {
       return {
         ...provided,
-        minHeight: 40,
+        minHeight: creatable ? 110 : 40,
         height: '100%',
+        alignItems: creatable ? 'start' : 'center',
         boxShadow: 'none',
         borderRadius: '5px',
         borderColor: isBorder ? 'var(--border-color)' : 'transparent',

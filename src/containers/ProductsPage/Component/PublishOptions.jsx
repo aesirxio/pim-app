@@ -6,10 +6,13 @@ import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
 import CustomizedDatePicker from 'components/DatePicker';
-import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
+import { FORMAT_DATE, FORMAT_DATE_UPDATE_POST, FORMAT_TIME } from 'constants/FormFieldType';
 import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
-const PublishOptions = ({ t, formPropsData }) => {
+import moment from 'moment';
+const PublishOptions = ({ t, formPropsData, isEdit }) => {
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   return (
     <div className="p-24 bg-white rounded-1 shadow-sm">
       <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
@@ -81,20 +84,21 @@ const PublishOptions = ({ t, formPropsData }) => {
           <FormRadio
             field={{
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
-              value: 'yes',
+              value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
               option: [
                 {
                   label: 'Yes',
-                  value: 'yes',
+                  value: '1',
                 },
                 {
                   label: 'No',
-                  value: 'no',
+                  value: '0',
                   className: 'me-0',
                 },
               ],
               changed: (data) => {
-                console.log(data);
+                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] = data.target.value;
+                forceUpdate();
               },
             }}
           />
@@ -106,9 +110,14 @@ const PublishOptions = ({ t, formPropsData }) => {
           <div className="fs-14">
             <CustomizedDatePicker
               dateFormat={FORMAT_DATE + ' ' + FORMAT_TIME}
-              defaultDate={'11/01/2022'}
+              defaultDate={
+                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]
+                  ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]
+                  : new Date()
+              }
               handleOnChange={(date) => {
-                console.log(date);
+                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP] =
+                  moment(date).format(FORMAT_DATE_UPDATE_POST);
               }}
             />
           </div>
@@ -116,7 +125,11 @@ const PublishOptions = ({ t, formPropsData }) => {
       </div>
       <div className="d-flex align-items-center justify-content-between w-100">
         <div>{t('txt_create_by')}:</div>
-        <div className="text-gray">{Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}</div>
+        <div className="text-gray">
+          {isEdit
+            ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
+            : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}
+        </div>
       </div>
     </div>
   );

@@ -3,23 +3,21 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxMemberApiService from 'aesirx-dma-lib/src/Member/Member';
-import AesirxPimApiService from 'library/Pim/Pim';
-import { ProductDetailModel } from 'library/Pim/PimModel';
+import AesirxPimProductApiService from 'library/Pim/PimProduct/PimProduct';
+import { ProductItemModel } from 'library/Pim/PimProduct/PimProductModel';
 import { runInAction } from 'mobx';
 
 export default class ProductStore {
-  async updateProduct(updateProductData, callbackOnSuccess, callbackOnError) {
+  async createProduct(createProductData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        ProductDetailModel.__transformItemToApiOfUpdation(updateProductData);
+        ProductItemModel.__transformItemToApiOfCreation(createProductData);
 
       let resultOnSave;
-      const updateProductApiService = new AesirxMemberApiService();
+      const createProductApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await updateProductApiService.updateMember(convertedUpdateGeneralData);
-
-      if (resultOnSave.result.success) {
+      resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+      if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
         });
@@ -35,15 +33,41 @@ export default class ProductStore {
     }
   }
 
-  async getDetail(id, callbackOnSuccess, callbackOnError) {
+  async updateProduct(updateProductData, callbackOnSuccess, callbackOnError) {
+    try {
+      const convertedUpdateGeneralData =
+        ProductItemModel.__transformItemToApiOfUpdation(updateProductData);
+      let resultOnSave;
+      const updateProductApiService = new AesirxPimProductApiService();
+
+      resultOnSave = await updateProductApiService.update(convertedUpdateGeneralData);
+      if (resultOnSave) {
+        runInAction(() => {
+          callbackOnSuccess(resultOnSave);
+        });
+      } else {
+        runInAction(() => {
+          callbackOnError(resultOnSave);
+        });
+      }
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getProductDetail(id, callbackOnSuccess, callbackOnError) {
     if (!id) return false;
 
     try {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxMemberApiService();
-        const respondedData = await getDetailInfoAPIService.getDetailInfo(id);
+        const getDetailInfoAPIService = new AesirxPimProductApiService();
+
+        const respondedData = await getDetailInfoAPIService.getDetail(id);
+
         if (respondedData) {
           runInAction(() => {
             callbackOnSuccess(respondedData);
@@ -63,7 +87,7 @@ export default class ProductStore {
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const getDetailInfoAPIService = new AesirxPimApiService();
+      const getDetailInfoAPIService = new AesirxPimProductApiService();
       const respondedData = await getDetailInfoAPIService.getList(filters);
       if (respondedData) {
         runInAction(() => {
@@ -86,7 +110,7 @@ export default class ProductStore {
     if (!id) return false;
 
     try {
-      const getDetailInfoAPIService = new AesirxMemberApiService();
+      const getDetailInfoAPIService = new AesirxPimProductApiService();
       const respondedData = await getDetailInfoAPIService.getDetailInfo(id);
       return respondedData;
     } catch (error) {

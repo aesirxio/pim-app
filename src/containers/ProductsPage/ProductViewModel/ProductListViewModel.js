@@ -11,7 +11,7 @@
 import { makeAutoObservable } from 'mobx';
 import { transform } from '../utils';
 
-class ListProductsViewModel {
+class ProductListViewModel {
   productStore = null;
 
   successResponse = {
@@ -59,4 +59,4 @@ class ListProductsViewModel {
   };
 }
 
-export default ListProductsViewModel;
+export default ProductListViewModel;

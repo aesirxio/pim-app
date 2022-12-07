@@ -6,12 +6,13 @@
 import AesirxApiInstance from 'aesirx-dma-lib/src/gateway/Instance';
 import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 
-class PimRoute extends BaseRoute {
-  getDetail = (id = 0, dataFilter = {}) => {
+class PimTagRoute extends BaseRoute {
+  option = 'reditem-category_tag_44';
+
+  getList = (dataFilter = {}) => {
     return AesirxApiInstance.get(
       this.createRequestURL({
-        option: 'reditem-item_pim_product_59',
-        id: id,
+        option: this.option,
         ...dataFilter,
       })
     );
@@ -46,16 +47,6 @@ class PimRoute extends BaseRoute {
 
     return buildFilter;
   };
-
-  getList = (filters) => {
-    const buildFilters = this.createFilters(filters);
-    return AesirxApiInstance.get(
-      this.createRequestURL({
-        option: 'reditem-item_pim_product_59',
-        ...buildFilters,
-      })
-    );
-  };
 }
 
-export default PimRoute;
+export default PimTagRoute;

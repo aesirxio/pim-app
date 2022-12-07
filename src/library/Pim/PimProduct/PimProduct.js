@@ -3,39 +3,63 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { ProductDetailModel } from './PimModel';
-import PimRoute from './PimRoute';
+import { ProductItemModel } from './PimProductModel';
+import PimProductRoute from './PimProductRoute';
 import { Component } from 'react';
 import axios from 'axios';
 
 /**
- * API Service - Member
+ * API Service - Product
  */
-class AesirxPimApiService extends Component {
+class AesirxPimProductApiService extends Component {
   route = null;
 
   constructor(props) {
     super(props);
-    this.route = new PimRoute();
+    this.route = new PimProductRoute();
   }
+
+  create = async (data) => {
+    try {
+      const result = await this.route.create(data);
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  update = async (data) => {
+    try {
+      const result = await this.route.update(data);
+      console.log('resultenee', result);
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
 
   getDetail = async (id = 0) => {
     try {
       const data = await this.route.getDetail(id);
       let results = null;
-      let pagination = null;
       if (data) {
-        results = new ProductDetailModel(data);
-        pagination = results.getPagination();
+        results = new ProductItemModel(data);
       }
       if (results) {
         results = results.toJSON();
       }
 
-      return {
-        list: results ?? [],
-        pagination: pagination ?? {},
-      };
+      return results;
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };
@@ -47,11 +71,12 @@ class AesirxPimApiService extends Component {
     try {
       const data = await this.route.getList(filter);
       let results = null;
+
       // let pagination = null;
       if (data?._embedded) {
         results = await Promise.all(
           data._embedded.item.map(async (o) => {
-            return new ProductDetailModel(o);
+            return new ProductItemModel(o);
           })
         );
 
@@ -59,6 +84,7 @@ class AesirxPimApiService extends Component {
         // results = results.toJSON();
         // pagination = results.getPagination();
       }
+
       return {
         listItems: results ?? [],
         // pagination: pagination ?? {},
@@ -71,4 +97,4 @@ class AesirxPimApiService extends Component {
   };
 }
 
-export default AesirxPimApiService;
+export default AesirxPimProductApiService;
