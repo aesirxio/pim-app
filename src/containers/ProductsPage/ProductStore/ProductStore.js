@@ -58,29 +58,6 @@ export default class ProductStore {
     }
   }
 
-  async updateProduct2(updateProductData, callbackOnSuccess, callbackOnError) {
-    try {
-      let resultOnSave;
-
-      const updateProductApiService = new AesirxPimProductApiService();
-
-      resultOnSave = await updateProductApiService.update(updateProductData);
-      if (resultOnSave) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave);
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-    } catch (error) {
-      runInAction(() => {
-        callbackOnError(error);
-      });
-    }
-  }
-
   async getProductDetail(id, callbackOnSuccess, callbackOnError) {
     if (!id) return false;
 
