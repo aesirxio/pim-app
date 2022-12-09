@@ -59,7 +59,7 @@ const CommonInformation = observer(
               //     value: 'organisation-1',
               //   },
               //   {
-              //     label: 'Organisation 2',
+              //     label: 'Organisation 2',CommonInformation
               //     value: 'organisation-2',
               //   },
               // ],
@@ -138,10 +138,10 @@ const CommonInformation = observer(
       ];
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {this.tagListViewModel.formStatus === PAGE_STATUS.LOADING ||
-            (this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING && (
-              <Spinner className="spinner-overlay" />
-            ))}
+          {(this.tagListViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING) && (
+            <Spinner className="spinner-overlay" />
+          )}
           {Object.keys(generateFormSetting)
             .map((groupIndex) => {
               return [...Array(generateFormSetting[groupIndex])].map((group) => {

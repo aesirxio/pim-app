@@ -50,7 +50,7 @@ import { Font, FontFamily } from '@ckeditor/ckeditor5-font/src/index';
 import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
 
 import sanitizeHtml from 'sanitize-html';
-import ImageCustom from './ImageCustom';
+// import ImageCustom from './ImageCustom';
 
 class Editor extends ClassicEditor {}
 
@@ -100,7 +100,7 @@ Editor.builtinPlugins = [
   CodeBlock,
   TableProperties,
   TableCellProperties,
-  ImageCustom,
+  // ImageCustom,
 ];
 
 // Editor configuration.
@@ -126,7 +126,7 @@ Editor.defaultConfig = {
       'bulletedList',
       'numberedList',
       'todoList',
-      'imagecustom',
+      // 'imagecustom',
       '|',
       'alignment',
       'indent',
