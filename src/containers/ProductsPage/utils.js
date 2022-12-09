@@ -4,7 +4,6 @@ import moment from 'moment';
 export const transform = (data) => {
   return data.map((o) => {
     const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP]).format('DD MMM, YYYY');
-    console.log(date)
     return {
       id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
       productInfo: {

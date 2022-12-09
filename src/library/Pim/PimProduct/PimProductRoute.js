@@ -22,10 +22,19 @@ class PimProductRoute extends BaseRoute {
   createFilters = (filters) => {
     let buildFilter = {};
     for (const [key, value] of Object.entries(filters)) {
-      if (Array.isArray(value)) {
-        buildFilter['filter[' + key + '][]'] = value;
+      if (typeof value === 'object') {
+        switch (value.type) {
+          case 'custom_fields':
+            buildFilter['filter[' + value.type + '][' + key + '][]'] = value.value;
+            break;
+          case 'filter':
+            buildFilter['filter[' + key + ']'] = value.value;
+            break;
+          default:
+            break;
+        }
       } else {
-        buildFilter['filter[' + key + ']'] = value;
+        buildFilter[key] = value;
       }
     }
 
