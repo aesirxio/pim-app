@@ -5,6 +5,7 @@
 
 import AesirxPimProductApiService from 'library/Pim/PimProduct/PimProduct';
 import { ProductItemModel } from 'library/Pim/PimProduct/PimProductModel';
+import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
 export default class ProductStore {
@@ -57,6 +58,29 @@ export default class ProductStore {
     }
   }
 
+  async updateProduct2(updateProductData, callbackOnSuccess, callbackOnError) {
+    try {
+      let resultOnSave;
+
+      const updateProductApiService = new AesirxPimProductApiService();
+
+      resultOnSave = await updateProductApiService.update(updateProductData);
+      if (resultOnSave) {
+        runInAction(() => {
+          callbackOnSuccess(resultOnSave);
+        });
+      } else {
+        runInAction(() => {
+          callbackOnError(resultOnSave);
+        });
+      }
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
   async getProductDetail(id, callbackOnSuccess, callbackOnError) {
     if (!id) return false;
 
@@ -89,6 +113,27 @@ export default class ProductStore {
     try {
       const getDetailInfoAPIService = new AesirxPimProductApiService();
       const respondedData = await getDetailInfoAPIService.getList(filters);
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
+  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
       if (respondedData) {
         runInAction(() => {
           callbackOnSuccess(respondedData);

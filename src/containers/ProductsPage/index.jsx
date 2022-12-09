@@ -12,6 +12,7 @@ const productListViewModel = new ProductListViewModel(productStore);
 
 const ProductsPage = observer(
   class ProductsPage extends React.Component {
+    formPropsData=null;
     constructor(props) {
       super(props);
     }

@@ -78,7 +78,7 @@ const Table = ({
     // state: { pageIndex },
     // state,
     rowSpanHeaders,
-    selectedFlatRows,
+    // selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -116,7 +116,6 @@ const Table = ({
     useRowSelect,
     useRowState
   );
-  console.log(selectedFlatRows);
 
   // const handlePagination = async (pageIndex) => {
   //   setLoading(true);
