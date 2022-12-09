@@ -36,7 +36,6 @@ class AesirxPimProductApiService extends Component {
   update = async (data) => {
     try {
       const result = await this.route.update(data);
-      console.log('resultenee', result);
       if (result) {
         return result.result;
       }
@@ -70,24 +69,26 @@ class AesirxPimProductApiService extends Component {
   getList = async (filter) => {
     try {
       const data = await this.route.getList(filter);
-      let results = null;
+      let listItems = null;
+      let pagination = null;
 
-      // let pagination = null;
       if (data?._embedded) {
-        results = await Promise.all(
+        listItems = await Promise.all(
           data._embedded.item.map(async (o) => {
             return new ProductItemModel(o);
           })
         );
-
-        // results = new ProductDetailModel(data);
-        // results = results.toJSON();
-        // pagination = results.getPagination();
       }
 
+      pagination = {
+        totalPages: data.totalPages,
+        totalItems: data.totalItems,
+        limitStart: data.limitstart,
+      };
+
       return {
-        listItems: results ?? [],
-        // pagination: pagination ?? {},
+        listItems: listItems ?? [],
+        pagination: pagination ?? {},
       };
     } catch (error) {
       if (axios.isCancel(error)) {

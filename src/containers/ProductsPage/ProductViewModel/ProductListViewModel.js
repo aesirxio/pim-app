@@ -13,11 +13,16 @@ import { transform } from '../utils';
 
 class ProductListViewModel {
   productStore = null;
+  formPropsData = {};
 
   successResponse = {
     state: false,
-    data: [],
-    filters: {},
+    filters: {
+      'list[limit]': 2,
+    },
+    listPublishStatus: [],
+    listProducts: [],
+    pagination: {},
   };
 
   constructor(productStore) {
@@ -30,6 +35,21 @@ class ProductListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
       this.successResponse.filters
+    );
+
+    await this.productStore.getListPublishStatus(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    this.successResponse.state = true;
+  };
+
+  setFeatured = async (id, featured = 0) => {
+    await this.productStore.updateProduct2(
+      { id: id.toString(), featured: featured.toString() },
+      this.callbackOnSuccessSetFeatured,
+      this.callbackOnErrorHandler
     );
     this.successResponse.state = true;
   };
@@ -44,10 +64,24 @@ class ProductListViewModel {
     this.successResponse.state = true;
   };
 
+  callbackOnSuccessSetFeatured = async (result) => {
+    this.successResponse.listProducts = this.successResponse.listProducts.map((o) => {
+      if (o.id == result) {
+        return { ...o, featured: !o.featured };
+      }
+      return o;
+    });
+  };
+
   callbackOnSuccessHandler = (result) => {
-    if (result) {
-      this.successResponse.data = transform(result.listItems);
+    if (result?.listItems) {
+      this.successResponse.listProducts = transform(result.listItems);
+      this.successResponse.pagination = result.pagination;
     }
+    if (result?.listPublishStatus) {
+      this.successResponse.listPublishStatus = result.listPublishStatus;
+    }
+    console.log('pagination', this.successResponse.pagination);
   };
 
   callbackOnErrorHandler = (result) => {

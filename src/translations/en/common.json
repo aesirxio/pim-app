@@ -260,5 +260,6 @@
   "txt_unpublished": "Unpublished",
   "txt_trash": "Trash",
   "txt_draft": "Draft",
-  "txt_archived": "Archived"
+  "txt_archived": "Archived",
+  "txt_bulk_actions": "Bulk Actions"
 }
