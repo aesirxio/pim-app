@@ -15,10 +15,9 @@ class ProductItemModel extends BaseItemModel {
   category_id = null;
   category_name = null;
   custom_fields = null;
+  pim_product_type = null;
   created_user_name = null;
-  created_time = null;
   publish_up = null;
-
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -27,14 +26,16 @@ class ProductItemModel extends BaseItemModel {
       this.title = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE] ?? '';
       this.alias = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS] ?? '';
       this.published = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED] ?? 0;
-      this.featured = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED]?.toString() ?? '0';
+      this.featured = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] ?? 0;
       this.category_id = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID] ?? 0;
+      this.custom_fields = JSON.parse(entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]) ?? null;
       this.category_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME] ?? '';
-      this.custom_fields = {};
+      this.pim_product_type =
+        JSON.parse(entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS])[
+          PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+        ] ?? null;
       this.created_user_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
-      this.created_time = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
-      this.publish_up = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
-      this.tags = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS][0] ?? '';
+      this.publish_up = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP] ?? '';
     }
   }
 

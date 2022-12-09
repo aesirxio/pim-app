@@ -254,5 +254,11 @@
   "txt_username": "User Name",
   "txt_email": "Email",
   "txt_role": "Role",
-  "txt_date": "Date"
+  "txt_date": "Date",
+  "txt_all_products": "All Products",
+  "txt_published": "Published",
+  "txt_unpublished": "Unpublished",
+  "txt_trash": "Trash",
+  "txt_draft": "Draft",
+  "txt_archived": "Archived"
 }

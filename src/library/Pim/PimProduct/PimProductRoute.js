@@ -9,6 +9,29 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 class PimProductRoute extends BaseRoute {
   option = 'reditem-item_pim_product_59';
 
+  getList = (filters) => {
+    const buildFilters = this.createFilters(filters);
+    return AesirxApiInstance.get(
+      this.createRequestURL({
+        option: this.option,
+        ...buildFilters,
+      })
+    );
+  };
+
+  createFilters = (filters) => {
+    let buildFilter = {};
+    for (const [key, value] of Object.entries(filters)) {
+      if (Array.isArray(value)) {
+        buildFilter['filter[' + key + '][]'] = value;
+      } else {
+        buildFilter['filter[' + key + ']'] = value;
+      }
+    }
+
+    return buildFilter;
+  };
+
   getDetail = (id = 0, dataFilter = {}) => {
     return AesirxApiInstance.get(
       this.createRequestURL({

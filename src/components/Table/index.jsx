@@ -17,6 +17,7 @@ import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 function useInstance(instance) {
   const { allColumns } = instance;
@@ -36,7 +37,7 @@ function useInstance(instance) {
 const Table = ({
   columns,
   data,
-  pagination,
+  // pagination,
   store,
   setLoading,
   onSelect,
@@ -57,7 +58,7 @@ const Table = ({
 
     return (
       <>
-        <input className="form-check-input p-0" type="checkbox" ref={resolvedRef} {...rest} />
+        <input className="form-check-input d-block" type="checkbox" ref={resolvedRef} {...rest} />
       </>
     );
   });
@@ -68,15 +69,16 @@ const Table = ({
     headerGroups,
     prepareRow,
     rows,
-    pageOptions,
-    previousPage,
-    canPreviousPage,
-    canNextPage,
-    gotoPage,
-    nextPage,
-    state: { pageIndex },
-    state,
+    // pageOptions,
+    // previousPage,
+    // canPreviousPage,
+    // canNextPage,
+    // gotoPage,
+    // nextPage,
+    // state: { pageIndex },
+    // state,
     rowSpanHeaders,
+    selectedFlatRows,
   } = useTable(
     {
       columns,
@@ -92,15 +94,15 @@ const Table = ({
         hooks.visibleColumns.push((columns) => [
           {
             id: 'selection',
-            className: 'px-24 py-2 border-bottom-1 text-uppercase',
-            width: '50px',
+            className: 'border-bottom-1 text-uppercase ps-2',
+            width: 10,
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <div>
+              <>
                 <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
-              </div>
+              </>
             ),
             Cell: ({ row }) => (
-              <div className="wrapper_checkbox px-24">
+              <div className="wrapper_checkbox ms-2">
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
             ),
@@ -114,12 +116,13 @@ const Table = ({
     useRowSelect,
     useRowState
   );
+  console.log(selectedFlatRows);
 
-  const handlePagination = async (pageIndex) => {
-    setLoading(true);
-    await store.goToPage(pageIndex);
-    setLoading(false);
-  };
+  // const handlePagination = async (pageIndex) => {
+  //   setLoading(true);
+  //   await store.goToPage(pageIndex);
+  //   setLoading(false);
+  // };
 
   return (
     <>
@@ -299,12 +302,12 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <div className="position-absolute top-50 start-50 translate-middle">
+          <div className="py-5">
             <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
           </div>
         ) : null}
       </div>
-      {pagination && pageOptions.length ? (
+      {/* {pagination && pageOptions.length ? (
         <div className="mt-2 text-center pagination">
           <button
             className="border-1 bg-white opacity-50 text-body btn"
@@ -360,9 +363,9 @@ const Table = ({
             <span className="material-icons fs-4 align-middle">arrow_forward_ios</span>
           </button>
         </div>
-      ) : null}
+      ) : null} */}
     </>
   );
 };
 
-export default withTranslation('common')(Table);
+export default withTranslation('common')(withProductViewModel(Table));
