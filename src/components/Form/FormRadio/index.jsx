@@ -9,7 +9,7 @@ import { Form } from 'react-bootstrap';
 const FormRadio = ({ field }) => {
   return (
     <div className="d-flex align-items-center justify-content-between w-100">
-      {field.option.map((option, key) => (
+      {field.getDataSelectOptions.map((option, key) => (
         <Form.Check
           key={key}
           className={`mb-0 ${option.className}`}
@@ -19,8 +19,8 @@ const FormRadio = ({ field }) => {
           name="group1"
           type={field.checkbox ? 'checkbox' : 'radio'}
           id={`inline-radio-${option.value}`}
-          onChange={field.changed}
-          checked={field.value === option.value}
+          onChange={field.handleChange}
+          checked={field.getValueSelected === option.value}
         />
       ))}
     </div>

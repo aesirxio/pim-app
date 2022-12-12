@@ -208,13 +208,13 @@ const Variants = ({ t, formPropsData }) => {
           field={{
             key: 'variant_select',
             checkbox: true,
-            option: [
+            getDataSelectOptions: [
               {
                 label: t('txt_use_product_attribute'),
                 value: 'yes',
               },
             ],
-            changed: (data) => {
+            handleChange: (data) => {
               console.log(data);
             },
           }}

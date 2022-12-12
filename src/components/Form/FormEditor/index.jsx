@@ -1,13 +1,12 @@
-import ClassicEditor from 'ckeditor5/build/ckeditor';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { useState } from 'react';
 import ModalDAMComponent from 'components/ModalDamComponent';
 import styles from './index.module.scss';
 import ComponentSVG from 'components/ComponentSVG';
-const Editor = ({ field }) => {
+const ClassicEditor = require('ckeditor5-build-custom/build/ckeditor');
+const FormEditor = ({ field }) => {
   const [editorState, setEditorState] = useState();
   const [show, setShow] = useState(false);
-
   const onSelect = (data) => {
     editorState.model.change(() => {
       const imgTag = `<img  src="${data[0]?.url}" alt="${data[0]?.basename}"></img>`;
@@ -52,4 +51,4 @@ const Editor = ({ field }) => {
   );
 };
 
-export default Editor;
+export default FormEditor;

@@ -84,8 +84,8 @@ const PublishOptions = ({ t, formPropsData, isEdit }) => {
           <FormRadio
             field={{
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
-              value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
-              option: [
+              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
+              getDataSelectOptions: [
                 {
                   label: 'Yes',
                   value: '1',
@@ -96,7 +96,7 @@ const PublishOptions = ({ t, formPropsData, isEdit }) => {
                   className: 'me-0',
                 },
               ],
-              changed: (data) => {
+              handleChange: (data) => {
                 formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] = data.target.value;
                 forceUpdate();
               },

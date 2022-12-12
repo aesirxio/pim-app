@@ -21,7 +21,7 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   TAGS: 'tags',
   PUBLISHED_UP: 'publish_up',
   CREATED_USER_NAME: 'created_user_name',
-  PIM_PRODUCT_TYPE: "pim_product_type",
+  PIM_PRODUCT_TYPE: 'pim_product_type',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
 };
@@ -59,18 +59,19 @@ const PIM_TAG_DETAIL_FIELD_KEY = {
 const PIM_FIELD_DETAIL_FIELD_KEY = {
   ID: 'id',
   NAME: 'name',
-  ALIAS: 'alias',
   PUBLISHED: 'published',
   FEATURED: 'featured',
-  PARENT_ID: 'parent_id',
-  ORGANISATION_ID: 'organisation_id',
   CUSTOM_FIELDS: 'custom_fields',
-  ORGANISATION: 'organisation',
   CREATED_USER_NAME: 'created_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
   FIELD_GROUP_ID: 'field_group_id',
   FIELD_GROUP_NAME: 'field_group_name',
+  TYPE: 'type',
+  FIELD_CODE: 'fieldcode',
+  PARAMS: 'params',
+  OPTIONS: 'options',
+  RELEVANCE: 'relevance',
 };
 
 export {

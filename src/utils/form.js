@@ -41,6 +41,17 @@ const renderingGroupFieldHandler = (group, validator) => {
                     })}
                 </Form.Group>
               );
+            case FORM_FIELD_TYPE.NUMBER:
+              return (
+                <Form.Group key={field.key} className={`mb-24 ${className}`}>
+                  <Label text={field.label} required={field.required ?? false} />
+                  <Input field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.value, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
             case FORM_FIELD_TYPE.TEXTAREA:
               return (
                 <Form.Group key={field.key} className={`mb-24 ${className}`}>

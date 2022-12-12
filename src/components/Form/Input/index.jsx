@@ -11,7 +11,7 @@ const Input = ({ field }) => {
   const handleChange = (e) => {
     if (Object.prototype.hasOwnProperty.call(field, 'changed')) {
       e.target.value = e.target.value.normalize('NFKC');
-      field.changed(e);
+      field.handleChange(e);
     }
   };
 
