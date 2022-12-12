@@ -33,19 +33,19 @@ const FormEditor = ({ field }) => {
       <CKEditor
         editor={ClassicEditor}
         data={field?.value ?? ''}
-        onReady={async () => {
-          // setEditorState(editor);
-          // editor.editing.view.change((writer) => {
-          //   writer.setStyle(
-          //     { 'max-height': '400px', 'min-height': '200px' },
-          //     editor.editing.view.document.getRoot()
-          //   );
-          // });
+        onReady={async (editor) => {
+          setEditorState(editor);
+          editor.editing.view.change((writer) => {
+            writer.setStyle(
+              { 'max-height': '400px', 'min-height': '200px' },
+              editor.editing.view.document.getRoot()
+            );
+          });
         }}
-        // onChange={(event, editor) => {
-        //   const data = editor.getData();
-        //   field.handleChange(data);
-        // }}
+        onChange={(event, editor) => {
+          const data = editor.getData();
+          field.handleChange(data);
+        }}
       />
     </div>
   );

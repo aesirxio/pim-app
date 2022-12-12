@@ -13,11 +13,12 @@ export default class ProductStore {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfCreation(createProductData);
+      console.log('convertedUpdateGeneralData', convertedUpdateGeneralData);
 
       let resultOnSave;
-      const createProductApiService = new AesirxPimProductApiService();
+      // const createProductApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+      // resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);

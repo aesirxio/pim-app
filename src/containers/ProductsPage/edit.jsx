@@ -104,8 +104,8 @@ const EditProduct = observer(
                         } else {
                           this.validator.showMessages();
                         }
-                        await this.productDetailViewModel.initializeData();
-                        this.forceUpdate();
+                        // await this.productDetailViewModel.initializeData();
+                        // this.forceUpdate();
                       },
                       icon: '/assets/images/save.svg',
                       variant: 'success',
@@ -123,10 +123,12 @@ const EditProduct = observer(
                         value: this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
                         classNameInput: 'py-1 fs-4',
                         placeholder: t('txt_add_product_name'),
-                        changed: (event) => {
+                        handleChange: (event) => {
                           this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE] =
                             event.target.value;
                         },
+                        required: true,
+                        validation: 'required',
                         blurred: () => {
                           this.validator.showMessageFor('Product Name');
                         },

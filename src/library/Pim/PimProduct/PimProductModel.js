@@ -63,7 +63,26 @@ class ProductItemModel extends BaseItemModel {
 
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
-    const excluded = [PIM_PRODUCT_DETAIL_FIELD_KEY.ID];
+    const excluded = [PIM_PRODUCT_DETAIL_FIELD_KEY.ID, PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS];
+    if (data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]) {
+      let variantData = data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS].map((variant) => {
+        return {
+          options: variant.optionVariants.map((option) => {
+            return { [option.value_name]: variant[option.value_name] };
+          }),
+          price: {
+            price: variant.price,
+            retail_price: variant.retail_price,
+          },
+          // custom_fields: {
+          //   sku: 'test_sku',
+          // },
+        };
+      });
+      formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS], variantData);
+      console.log('testne', variantData);
+    }
+
     Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY).forEach((index) => {
       if (!excluded.includes(index) && data[PIM_PRODUCT_DETAIL_FIELD_KEY[index]]) {
         formData.append(

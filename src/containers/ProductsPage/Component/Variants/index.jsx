@@ -4,6 +4,7 @@ import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
 import Table from 'components/Table';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
@@ -272,7 +273,12 @@ const Variants = ({ t, formPropsData }) => {
             className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
             onClick={() => {
               forceUpdate();
-              formPropsData.variants = dataTable;
+              formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] = dataTable.map((variant) => {
+                return {
+                  ...variant,
+                  optionVariants: optionVariants,
+                };
+              });
             }}
           >
             {t('txt_apply_for_all_variant')}

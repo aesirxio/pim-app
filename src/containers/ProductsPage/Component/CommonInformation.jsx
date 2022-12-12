@@ -44,7 +44,7 @@ const CommonInformation = observer(
               value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS],
               className: 'col-lg-12',
               placeholder: t('txt_type'),
-              changed: (event) => {
+              handleChange: (event) => {
                 formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS] = event.target.value;
               },
             },

@@ -48,9 +48,9 @@ class FieldItemModel extends BaseItemModel {
       this.field_group_name = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME] ?? '';
       this.type = entity[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] ?? '';
       this.fieldcode = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE] ?? '';
-      this.params = entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]
+      this.params = entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS][0]
         ? JSON.parse(JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]))
-        : '';
+        : [];
       this.options = entity[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS] ?? '';
       this.relevance = entity[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] ?? '';
     }
@@ -74,7 +74,7 @@ class FieldItemModel extends BaseItemModel {
       [PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME]: this.field_group_name,
       [PIM_FIELD_DETAIL_FIELD_KEY.TYPE]: this.type,
       [PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]: this.fieldcode,
-      [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]: this.params,
+      // [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]: this.params,
       [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS]: this.options,
       [PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE]: this.relevance,
     };

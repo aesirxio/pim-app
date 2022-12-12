@@ -12,7 +12,7 @@ const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
   const generateFormSetting = [
     {
       fields: itemsByGroup.map((field) => {
-        console.log('field', field);
+        console.log('fieldne', field);
         return {
           label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
           key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],

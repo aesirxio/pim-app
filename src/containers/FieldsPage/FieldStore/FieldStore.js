@@ -92,7 +92,6 @@ export default class FieldStore {
 
       if (results) {
         const getListInfoAPIService = new AesirxPimFieldApiService();
-
         const respondedData = await getListInfoAPIService.getList(filter);
 
         if (respondedData) {

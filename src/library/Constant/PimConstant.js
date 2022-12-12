@@ -24,6 +24,7 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   PIM_PRODUCT_TYPE: 'pim_product_type',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
+  VARIANTS: 'variants',
 };
 
 const PIM_CATEGORY_DETAIL_FIELD_KEY = {
