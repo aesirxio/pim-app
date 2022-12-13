@@ -55,6 +55,7 @@ class PimProductRoute extends BaseRoute {
     return AesirxApiInstance.post(
       this.createRequestURL({
         option: this.option,
+        task: 'createWithVariants',
       }),
       data
     );

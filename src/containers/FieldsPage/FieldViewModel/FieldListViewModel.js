@@ -4,13 +4,15 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from '../../../components/Toast';
+import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 class FieldListViewModel {
   fieldStore = null;
   formStatus = PAGE_STATUS.READY;
   fieldListViewModel = null;
   items = [];
+  groupList = [];
   filter = {};
   successResponse = {
     state: true,
@@ -37,6 +39,30 @@ class FieldListViewModel {
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+
+  getGroupList = () => {
+    let groupList = this.items
+      .map((field) => {
+        return {
+          label: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
+          id: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID],
+        };
+      })
+      .filter(
+        (value, index, self) =>
+          index === self.findIndex((t) => t.label === value.label && t.id === value.id)
+      );
+    runInAction(() => {
+      this.groupList = groupList;
+    });
+  };
+
+  filterByGroup = (groupID) => {
+    let itemsByGroup = this.items.filter(
+      (value) => value[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID] === groupID
+    );
+    return itemsByGroup;
   };
 
   callbackOnErrorHandler = (error) => {

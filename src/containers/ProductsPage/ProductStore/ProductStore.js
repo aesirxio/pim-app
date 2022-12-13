@@ -13,11 +13,12 @@ export default class ProductStore {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfCreation(createProductData);
+      console.log('convertedUpdateGeneralData', convertedUpdateGeneralData);
 
       let resultOnSave;
-      const createProductApiService = new AesirxPimProductApiService();
+      // const createProductApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+      // resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -42,29 +43,6 @@ export default class ProductStore {
       const updateProductApiService = new AesirxPimProductApiService();
 
       resultOnSave = await updateProductApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave);
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-    } catch (error) {
-      runInAction(() => {
-        callbackOnError(error);
-      });
-    }
-  }
-
-  async updateProduct2(updateProductData, callbackOnSuccess, callbackOnError) {
-    try {
-      let resultOnSave;
-
-      const updateProductApiService = new AesirxPimProductApiService();
-
-      resultOnSave = await updateProductApiService.update(updateProductData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);

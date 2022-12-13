@@ -12,7 +12,7 @@ import ErrorBoundary from './layouts/ErrorBoundary';
 import i18n from 'translations/i18n';
 import { I18nextProvider } from 'react-i18next';
 import { ThemesContext, ThemesContextProvider } from 'themes/ThemeContextProvider';
-
+// import 'aesirx-dam-app/dist/index.css';
 class App extends React.Component {
   constructor(props) {
     super(props);

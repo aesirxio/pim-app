@@ -27,3 +27,5 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+src/ckeditor5-build-custom/build
+src/ckeditor5-build-custom/node_modules

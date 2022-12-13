@@ -4,6 +4,7 @@ import { withTranslation } from 'react-i18next';
 import ModalComponent from 'components/Modal';
 import Label from 'components/Form/Label';
 import Input from 'components/Form/Input';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 const ModalVariants = ({
   t,
   dataTable,
@@ -11,6 +12,7 @@ const ModalVariants = ({
   activeVariant,
   showModal,
   setShowModal,
+  formPropsData,
 }) => {
   const handleClose = () => {
     setShowModal(false);
@@ -55,18 +57,36 @@ const ModalVariants = ({
                         <Row className="gx-24">
                           <Col lg={6}>
                             <Form.Group className={`w-100`}>
-                              <Label text="Input Costs" />
+                              <Label text="Price" />
                               <Input
                                 field={{
                                   value: item.price,
                                   classNameInput: 'fs-14',
                                   placeholder: t('txt_type'),
                                   format: 'VND',
-                                  changed: (event) => {
-                                    // this.formPropsData.variants = event.target.value;
+                                  handleChange: (event) => {
+                                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][
+                                      key
+                                    ].price = event.target.value;
+                                    console.log('formPropsData', formPropsData);
                                     item.price = event.target.value;
-                                    console.log('event.target.value', event.target.value);
-                                    console.log('activeVariant', activeVariant);
+                                  },
+                                }}
+                              />
+                            </Form.Group>
+                          </Col>
+                          <Col lg={6}>
+                            <Form.Group className={`w-100`}>
+                              <Label text="Discount Price" />
+                              <Input
+                                field={{
+                                  value: item.retail_price,
+                                  classNameInput: 'fs-14',
+                                  placeholder: t('txt_type'),
+                                  format: 'VND',
+                                  handleChange: (event) => {
+                                    // this.formPropsData.variants = event.target.value;
+                                    item.retail_price = event.target.value;
                                   },
                                 }}
                               />
