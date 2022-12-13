@@ -7,7 +7,7 @@ import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const FormRadio = ({ field }) => {
-  console.log('field', field);
+  console.log('field.getValueSelected ', field.getValueSelected);
   return (
     <div className="d-flex align-items-center justify-content-between w-100">
       {field.getDataSelectOptions?.map((option, key) => (

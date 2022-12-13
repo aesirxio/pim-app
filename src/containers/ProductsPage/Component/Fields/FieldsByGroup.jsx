@@ -1,18 +1,23 @@
 // import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
+import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import {
+  // PIM_PRODUCT_DETAIL_FIELD_KEY,
+  PIM_FIELD_DETAIL_FIELD_KEY,
+} from 'library/Constant/PimConstant';
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
   const [itemsByGroup, SetItemsByGroup] = useState([]);
+  const [, updateState] = React.useState();
+  const forceUpdate = React.useCallback(() => updateState({}), []);
   useEffect(() => {
     SetItemsByGroup(viewModel.fieldListViewModel.filterByGroup(groupID));
   }, []);
   const generateFormSetting = [
     {
       fields: itemsByGroup.map((field) => {
-        console.log('fieldne', field);
         return {
           label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
           key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
@@ -20,7 +25,14 @@ const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
           getValueSelected: formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] ?? null,
           getDataSelectOptions: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
           handleChange: (data) => {
-            formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] = data;
+            if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO) {
+              formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] = data.target.value;
+              forceUpdate();
+            } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
+              formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] = data;
+            } else {
+              formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] = data.target.value;
+            }
           },
           className: 'col-lg-6',
           required: field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2,

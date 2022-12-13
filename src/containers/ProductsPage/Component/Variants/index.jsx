@@ -10,33 +10,6 @@ import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
 import ModalVariants from './ModalVariants';
-const dataStatic = [
-  {
-    name: 'Color',
-    value_name: 'color',
-    options: [
-      { label: 'Grey', value: 'gray' },
-      { label: 'Yellow', value: 'yellow' },
-    ],
-  },
-  {
-    name: 'Size',
-    value_name: 'size',
-    options: [
-      { label: 'S', value: 's' },
-      { label: 'M', value: 'm' },
-      { label: 'L', value: 'l' },
-    ],
-  },
-  // {
-  //   name: 'Test',
-  //   value_name: 'test',
-  //   options: [
-  //     { label: 'E', value: 'e' },
-  //     { label: 'A', value: 'a' },
-  //   ],
-  // },
-];
 
 const Variants = ({ t, formPropsData }) => {
   const [, updateState] = React.useState();
@@ -45,73 +18,51 @@ const Variants = ({ t, formPropsData }) => {
   const [activeVariant, setActiveVariant] = useState({});
   const [showModal, setShowModal] = useState(false);
 
-  const [optionVariants, setOptionVariants] = useState(dataStatic);
+  const [optionVariants, setOptionVariants] = useState([]);
 
-  const variantOptions = () => {
-    return (
-      <>
-        {optionVariants.map((variant, key) => {
-          return (
-            <Row key={key} className="gx-24 mb-24">
-              <Col lg={3}>
-                <div className="d-flex flex-wrap">
-                  <div className="mb-8px fw-semibold w-100">{t('txt_option_name')}</div>
-                  <Form.Group className={`w-100`}>
-                    <Input
-                      field={{
-                        value: variant.name,
-                        classNameInput: 'fs-14',
-                        placeholder: t('txt_type'),
-                        changed: (event) => {
-                          // this.formPropsData.variants = event.target.value;
-                          optionVariants[key] = {
-                            name: event.target.value,
-                            value_name: event.target.value,
-                          };
-                        },
-                      }}
-                    />
-                  </Form.Group>
-                </div>
-              </Col>
-              <Col lg={9}>
-                <div className="d-flex flex-wrap">
-                  <div className="mb-8px fw-semibold w-100">{t('txt_option_value')}</div>
-                  <Form.Group className={`w-100`}>
-                    <FormSelection
-                      field={{
-                        getValueSelected: variant.options ?? null,
-                        creatable: true,
-                        handleChange: (data) => {
-                          // formPropsData.variants = data;
-                          Object.assign(optionVariants[key], {
-                            options: data,
-                          });
-                        },
-                      }}
-                    />
-                  </Form.Group>
-                </div>
-              </Col>
-            </Row>
-          );
-        })}
-      </>
+  const handleOptionToArr = () => {
+    console.log('optionVariants', optionVariants);
+    let filteredOptionVariants = optionVariants.filter(
+      (item) => item?.options && item.options.length > 0
     );
+    console.log('filteredOptionVariants', filteredOptionVariants);
+
+    return recursive([], [], filteredOptionVariants).map((item, index) => {
+      let variant = {};
+      if (formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]) {
+        variant = formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]?.find((x) => {
+          return Object.keys(item).every((option) => {
+            if (x[option] === item[option]) {
+              return true;
+            }
+            return false;
+          });
+        });
+      }
+      return {
+        ...item,
+        price: variant?.price
+          ? variant?.price
+          : formPropsData.quickPrice
+          ? formPropsData.quickPrice
+          : 0,
+        sku: (formPropsData.quickSKU ?? 'SKU-PRODUCT') + '-' + index,
+        field: 'Edit',
+      };
+    });
   };
+
+  let filterSetArr = handleOptionToArr();
+
+  const dataTable = React.useMemo(
+    () => filterSetArr,
+    [filterSetArr, formPropsData.quickPrice, formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]]
+  );
   const headerClass = 'py-15 border text-center text-gray bg-gray-300 fw-semibold';
   const cellClass = 'd-flex align-items-center justify-content-center';
-
-  let variantsTable = [];
-  optionVariants.forEach((item, index) => {
-    if (item.options.length) {
-      variantsTable.push(optionVariants[index]);
-    }
-  });
-
   const columnsTable = React.useMemo(
     () => [
-      ...variantsTable.map((item) => {
+      ...optionVariants.map((item) => {
         return {
           Header: item.name.toUpperCase(),
           accessor: item.value_name,
@@ -144,8 +95,8 @@ const Variants = ({ t, formPropsData }) => {
               <Input
                 field={{
                   value: value,
-                  classNameInput: 'fs-14 me-1 border-0 price-input',
-                  changed: (event) => {
+                  classNameInput: 'fs-14 me-1 border-0 price-input text-end px-0',
+                  handleChange: (event) => {
                     console.log('event.target.value', event.target.value);
                   },
                 }}
@@ -187,19 +138,64 @@ const Variants = ({ t, formPropsData }) => {
         },
       },
     ],
-    [variantsTable]
+    [filterSetArr]
   );
 
-  let filterSetArr = recursive([], [], variantsTable).map((item, index) => {
-    return {
-      ...item,
-      price: formPropsData.quickPrice ?? numberWithCommas(7000000),
-      sku: (formPropsData.quickSKU ?? 'SKU-PRODUCT') + '-' + index,
-      field: 'Edit',
-    };
-  });
-
-  const dataTable = React.useMemo(() => filterSetArr, [variantsTable, formPropsData.quickPrice]);
+  const variantOptions = () => {
+    return (
+      <>
+        {optionVariants.map((variant, key) => {
+          return (
+            <Row key={key} className="gx-24 mb-24">
+              <Col lg={3}>
+                <div className="d-flex flex-wrap">
+                  <div className="mb-8px fw-semibold w-100">{t('txt_option_name')}</div>
+                  <Form.Group className={`w-100`}>
+                    <Input
+                      field={{
+                        value: variant.name,
+                        classNameInput: 'fs-14',
+                        placeholder: t('txt_type'),
+                        handleChange: (event) => {
+                          optionVariants[key] = {
+                            name: event.target.value,
+                            value_name: event.target.value,
+                          };
+                        },
+                      }}
+                    />
+                  </Form.Group>
+                </div>
+              </Col>
+              <Col lg={9}>
+                <div className="d-flex flex-wrap">
+                  <div className="mb-8px fw-semibold w-100">{t('txt_option_value')}</div>
+                  <Form.Group className={`w-100`}>
+                    <FormSelection
+                      field={{
+                        getValueSelected: variant.options ?? null,
+                        creatable: true,
+                        handleChange: async (data) => {
+                          Object.assign(optionVariants[key], {
+                            options: data,
+                          });
+                          if (optionVariants[key].name && optionVariants[key].options.length) {
+                            formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] =
+                              handleOptionToArr();
+                          }
+                          forceUpdate();
+                        },
+                      }}
+                    />
+                  </Form.Group>
+                </div>
+              </Col>
+            </Row>
+          );
+        })}
+      </>
+    );
+  };
 
   return (
     <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
@@ -226,7 +222,10 @@ const Variants = ({ t, formPropsData }) => {
         variant={`light`}
         className={` px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1`}
         onClick={() => {
-          setOptionVariants([...optionVariants, { name: '', options: [] }]);
+          setOptionVariants([
+            ...optionVariants,
+            { name: '', value_name: Math.random().toString(), options: [] },
+          ]);
         }}
       >
         <ComponentSVG url="/assets/images/plus.svg" className={`me-15`} />
@@ -245,7 +244,7 @@ const Variants = ({ t, formPropsData }) => {
                 classNameInput: 'fs-14',
                 placeholder: t('txt_type'),
                 format: 'VND',
-                changed: (event) => {
+                handleChange: (event) => {
                   formPropsData.quickPrice = event.target.value;
                 },
               }}
@@ -260,7 +259,7 @@ const Variants = ({ t, formPropsData }) => {
                 value: formPropsData.quickSKU ?? 'SKU-PRODUCT',
                 classNameInput: 'fs-14',
                 placeholder: t('txt_type'),
-                changed: (event) => {
+                handleChange: (event) => {
                   formPropsData.quickSKU = event.target.value;
                 },
               }}
@@ -279,6 +278,9 @@ const Variants = ({ t, formPropsData }) => {
                   optionVariants: optionVariants,
                 };
               });
+              formPropsData.quickPrice = formPropsData.quickPrice ?? numberWithCommas(7000000);
+              formPropsData.quickSKU = formPropsData.quickSKU ?? 'SKU-PRODUCT';
+              console.log('formPropsData', formPropsData);
             }}
           >
             {t('txt_apply_for_all_variant')}
@@ -298,6 +300,7 @@ const Variants = ({ t, formPropsData }) => {
         showModal={showModal}
         setShowModal={setShowModal}
         activeVariant={activeVariant}
+        formPropsData={formPropsData}
       />
     </div>
   );
@@ -306,15 +309,18 @@ const Variants = ({ t, formPropsData }) => {
 const recursive = (oldArrs, oldItem, arrays) => {
   let test = oldArrs;
   if (arrays && arrays?.length > 0) {
-    arrays[0].options.forEach((b) => {
-      if (arrays?.length === 1 && arrays[0].name) {
-        test.push({
-          ...oldItem,
-          [arrays[0].value_name]: b.label,
-        });
-      }
-      recursive(test, { ...oldItem, [arrays[0].value_name]: b.label }, arrays.slice(1));
-    });
+    console.log('arrays[0].options', arrays[0].options);
+    if (arrays[0].options.length) {
+      arrays[0].options.forEach((b) => {
+        if (arrays?.length === 1 && arrays[0].name) {
+          test.push({
+            ...oldItem,
+            [arrays[0].value_name]: b.label,
+          });
+        }
+        recursive(test, { ...oldItem, [arrays[0].value_name]: b.label }, arrays.slice(1));
+      });
+    }
   }
   return test;
 };
