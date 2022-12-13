@@ -43,7 +43,6 @@ export default class SummaryStore {
         }
       }
     } catch (error) {
-      console.log('errorrrr', error);
       runInAction(() => {
         if (error.response?.data.message) {
           callbackOnError({

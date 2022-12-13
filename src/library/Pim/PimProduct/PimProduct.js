@@ -81,6 +81,8 @@ class AesirxPimProductApiService extends Component {
       }
 
       pagination = {
+        page: data.page,
+        pageLimit: data.pageLimit,
         totalPages: data.totalPages,
         totalItems: data.totalItems,
         limitStart: data.limitstart,
@@ -90,6 +92,25 @@ class AesirxPimProductApiService extends Component {
         listItems: listItems ?? [],
         pagination: pagination ?? {},
       };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  updateStatus = async (arr, status) => {
+    try {
+      const listSelected = arr.map((o) => {
+        return { id: o, published: status };
+      });
+
+      const result = await this.route.updateStatus(listSelected);
+
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };

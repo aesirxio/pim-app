@@ -142,4 +142,16 @@ export default class ProductStore {
 
     return false;
   }
+
+  async updateStatus(arr, status) {
+    try {
+      const updateStatusAPIService = new AesirxPimProductApiService();
+      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }

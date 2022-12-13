@@ -41,7 +41,6 @@ export default class VisitorStore {
         }
       }
     } catch (error) {
-      console.log('errorrrr', error);
       runInAction(() => {
         if (error.response?.data.message) {
           callbackOnError({
