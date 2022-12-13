@@ -18,7 +18,7 @@ class ProductListViewModel {
   successResponse = {
     state: false,
     filters: {
-      'list[limit]': 2,
+      'list[limit]': 8,
     },
     listPublishStatus: [],
     listProducts: [],
@@ -56,11 +56,44 @@ class ProductListViewModel {
 
   getListByFilter = async (key, value) => {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
+
+    //pagination
+    if (key != 'limitstart' && key != 'list[limit]') {
+      delete this.successResponse.filters['limitstart'];
+    } else {
+      if (
+        key == 'list[limit]' &&
+        value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
+      ) {
+        this.successResponse.filters['limitstart'] =
+          Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
+      } else if (
+        key == 'list[limit]' &&
+        value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
+      ) {
+        this.successResponse.filters['limitstart'] =
+          (this.successResponse.pagination.page - 1) * value;
+        console.log(this.successResponse.pagination.page);
+      }
+    }
+
     await this.productStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
+    this.successResponse.state = true;
+  };
+
+  updateStatus = async (arr, status = 0) => {
+    const res = await this.productStore.updateStatus(arr, status);
+    if (res) {
+      await this.productStore.getList(
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+        this.successResponse.filters
+      );
+    }
     this.successResponse.state = true;
   };
 
@@ -81,7 +114,6 @@ class ProductListViewModel {
     if (result?.listPublishStatus) {
       this.successResponse.listPublishStatus = result.listPublishStatus;
     }
-    console.log('pagination', this.successResponse.pagination);
   };
 
   callbackOnErrorHandler = (result) => {

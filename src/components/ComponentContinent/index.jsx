@@ -4,7 +4,6 @@ import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 const ComponentContinent = ({ t, data = [] }) => {
   // const dataMap = [...data];
-  console.log(data);
   const dataMap = [
     {
       country: 'Vietnam',

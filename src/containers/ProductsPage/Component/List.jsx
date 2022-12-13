@@ -173,6 +173,16 @@ const List = observer((props) => {
     productViewModel.initializeData();
   }, []);
 
+  const selectPageHandler = (value) => {
+    if (value != productViewModel.successResponse.pagination.page) {
+      productViewModel.isLoading();
+      productViewModel.getListByFilter(
+        'limitstart',
+        (value - 1) * productViewModel.successResponse.pagination.pageLimit
+      );
+    }
+  };
+
   const featuredBtnHandler = (row) => {
     productViewModel.isLoading();
     const isFeatured = row.values.featured ? 0 : 1;
@@ -193,7 +203,6 @@ const List = observer((props) => {
 
   const selectTypeHandler = (value) => {
     productViewModel.isLoading();
-    // productViewModel.getListByFilter('custom_fields][pim_product_type', [value.value]);
     productViewModel.getListByFilter('pim_product_type', {
       value: value.value,
       type: 'custom_fields',
@@ -203,6 +212,18 @@ const List = observer((props) => {
   const selectShowItemsHandler = (value) => {
     productViewModel.isLoading();
     productViewModel.getListByFilter('list[limit]', value.value);
+  };
+
+  let listSelected = [];
+
+  const currentSelectHandler = (arr) => {
+    listSelected = arr.map((o) => o.cells[1].value);
+    // productViewModel.successResponse.getListSelected(listSelected);
+  };
+
+  const selectBulkActionsHandler = (value) => {
+    productViewModel.isLoading();
+    productViewModel.updateStatus(listSelected, value.value);
   };
 
   return (
@@ -229,7 +250,7 @@ const List = observer((props) => {
                 isBorder={true}
                 placeholder={t('txt_bulk_actions')}
                 plColor={`text-color`}
-                onChange={``}
+                onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'#222328'}
               />
               <SelectComponent
@@ -248,8 +269,10 @@ const List = observer((props) => {
             <div className="d-flex align-items-center">
               <div className="opacity-50 me-2">Showing</div>
               <SelectComponent
+                defaultValue={{ label: '2 items', value: 2 }}
                 options={[
                   { label: '2 items', value: 2 },
+                  { label: '3 items', value: 3 },
                   { label: '4 items', value: 4 },
                 ]}
                 onChange={(o) => selectShowItemsHandler(o)}
@@ -263,17 +286,20 @@ const List = observer((props) => {
         </>
       )}
       {productViewModel?.successResponse?.state ? (
-        <div className="bg-white rounded">
-          <Table
-            columns={columnsTable}
-            data={productViewModel?.successResponse?.listProducts}
-            selection={false}
-          ></Table>
-        </div>
+        <Table
+          classNameTable={`bg-white rounded`}
+          columns={columnsTable}
+          data={productViewModel?.successResponse?.listProducts}
+          selection={false}
+          pagination={productViewModel?.successResponse?.pagination}
+          selectPage={selectPageHandler}
+          currentSelect={currentSelectHandler}
+        ></Table>
       ) : (
         <Spinner />
       )}
     </>
   );
 });
+
 export default withTranslation('common')(withProductViewModel(List));
