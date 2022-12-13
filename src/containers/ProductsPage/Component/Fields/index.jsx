@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-// import Dimension from './Dimension';
-// import GeneralInformation from './GeneralInformation';
 // import ProductAsset from './ProductAsset';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';

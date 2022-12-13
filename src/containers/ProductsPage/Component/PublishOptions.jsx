@@ -11,8 +11,6 @@ import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
 import moment from 'moment';
 const PublishOptions = ({ t, formPropsData, isEdit }) => {
-  const [, updateState] = React.useState();
-  const forceUpdate = React.useCallback(() => updateState({}), []);
   return (
     <div className="p-24 bg-white rounded-1 shadow-sm">
       <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
@@ -98,7 +96,6 @@ const PublishOptions = ({ t, formPropsData, isEdit }) => {
               ],
               handleChange: (data) => {
                 formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] = data.target.value;
-                forceUpdate();
               },
             }}
           />

@@ -84,6 +84,10 @@ class ProductDetailViewModel {
           result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
       });
     }
+    console.log(
+      'this.productDetailViewModel.formPropsData',
+      this.productDetailViewModel.formPropsData
+    );
 
     this.formStatus = PAGE_STATUS.READY;
   };
