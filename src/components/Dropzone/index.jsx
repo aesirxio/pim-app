@@ -17,7 +17,6 @@ const Dropzone = ({ children, noClick, createAssets, className }) => {
     onDragEnter: () => {},
     onDragLeave: () => {},
     onDrop: (acceptedFiles) => {
-      // console.log(acceptedFiles);
       // setFile(URL.createObjectURL(acceptedFiles[0]));
       createAssets(acceptedFiles[0]);
     },

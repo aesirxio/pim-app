@@ -86,6 +86,18 @@ class PimProductRoute extends BaseRoute {
       }
     );
   };
+
+  updateStatus = (listSelected) => {
+    return AesirxApiInstance.post(
+      this.createRequestURL({
+        option: this.option,
+        task: 'bulkUpdate',
+      }),
+      {
+        items: listSelected,
+      }
+    );
+  };
 }
 
 export default PimProductRoute;

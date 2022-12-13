@@ -16,7 +16,12 @@ import { withTranslation } from 'react-i18next';
 import ComponentNoData from '../ComponentNoData';
 import './index.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSortDown, faSortUp } from '@fortawesome/free-solid-svg-icons';
+import {
+  faSortDown,
+  faSortUp,
+  faChevronRight,
+  faChevronLeft,
+} from '@fortawesome/free-solid-svg-icons';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 function useInstance(instance) {
@@ -34,10 +39,10 @@ function useInstance(instance) {
 
   Object.assign(instance, { rowSpanHeaders });
 }
+
 const Table = ({
   columns,
   data,
-  // pagination,
   store,
   setLoading,
   onSelect,
@@ -45,8 +50,11 @@ const Table = ({
   selection = true,
   classNameTable,
   onRightClickItem,
-  canSort,
   sortAPI,
+  canSort,
+  pagination,
+  selectPage,
+  currentSelect,
 }) => {
   const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef();
@@ -78,15 +86,12 @@ const Table = ({
     // state: { pageIndex },
     // state,
     rowSpanHeaders,
-    // selectedFlatRows,
+    selectedFlatRows,
   } = useTable(
     {
       columns,
       data,
       onSelect,
-      initialState: {
-        pageSize: -1,
-      },
     },
     (hooks) => {
       hooks.useInstance.push(useInstance);
@@ -116,12 +121,13 @@ const Table = ({
     useRowSelect,
     useRowState
   );
-
   // const handlePagination = async (pageIndex) => {
   //   setLoading(true);
   //   await store.goToPage(pageIndex);
   //   setLoading(false);
   // };
+
+  currentSelect(selectedFlatRows);
 
   return (
     <>
@@ -363,6 +369,59 @@ const Table = ({
           </button>
         </div>
       ) : null} */}
+
+      {pagination.totalPages > 1 && (
+        <div className="d-flex justify-content-between mt-3">
+          <div>
+            Totals{' '}
+            {pagination.totalPages > pagination.page
+              ? pagination.pageLimit * pagination.page
+              : pagination.totalItems}{' '}
+            / {pagination.totalItems}
+          </div>
+          <div className="d-flex gap-0">
+            <div
+              onClick={() => pagination.page > 1 && selectPage(pagination.page - 1)}
+              className="cursor-pointer border d-flex align-items-center justify-content-center border-end-0"
+              style={{
+                width: '38px',
+                height: '38px',
+                color: '#526269',
+              }}
+            >
+              <FontAwesomeIcon icon={faChevronLeft} />
+            </div>
+            {[...Array(pagination.totalPages)].map((x, index) => (
+              <div
+                onClick={() => selectPage(index + 1)}
+                key={index}
+                className={`cursor-pointer border d-flex align-items-center justify-content-center border-end-0`}
+                style={{
+                  width: '38px',
+                  height: '38px',
+                  backgroundColor: pagination.page == index + 1 && '#526269',
+                  color: pagination.page == index + 1 ? '#fff' : '#526269',
+                }}
+              >
+                {index + 1}
+              </div>
+            ))}
+            <div
+              onClick={() =>
+                pagination.page < pagination.totalPages && selectPage(pagination.page + 1)
+              }
+              className="cursor-pointer border d-flex align-items-center justify-content-center"
+              style={{
+                width: '38px',
+                height: '38px',
+                color: '#526269',
+              }}
+            >
+              <FontAwesomeIcon icon={faChevronRight} />
+            </div>
+          </div>
+        </div>
+      )}
     </>
   );
 };

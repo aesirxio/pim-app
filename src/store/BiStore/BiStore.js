@@ -94,7 +94,6 @@ export default class BiStore {
         }
       }
     } catch (error) {
-      console.log('errorrrr', error);
       runInAction(() => {
         if (error.response?.data.message) {
           callbackOnError({
@@ -145,7 +144,6 @@ export default class BiStore {
         }
       }
     } catch (error) {
-      console.log('errorrrr', error);
       runInAction(() => {
         if (error.response?.data.message) {
           callbackOnError({
