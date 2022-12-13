@@ -9,23 +9,23 @@ import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
-import ModalVariants from './ModalVariants';
+import ModalVariantsPrice from './ModalVariantsPrice';
+import ModalVariantsFields from './ModalVariantsFields';
 
 const Variants = ({ t, formPropsData }) => {
   const [, updateState] = React.useState();
   const forceUpdate = React.useCallback(() => updateState({}), []);
 
   const [activeVariant, setActiveVariant] = useState({});
-  const [showModal, setShowModal] = useState(false);
+  const [showModalPrice, setShowModalPrice] = useState(false);
+  const [showModalFields, setShowModalFields] = useState(false);
 
   const [optionVariants, setOptionVariants] = useState([]);
 
   const handleOptionToArr = () => {
-    console.log('optionVariants', optionVariants);
     let filteredOptionVariants = optionVariants.filter(
       (item) => item?.options && item.options.length > 0
     );
-    console.log('filteredOptionVariants', filteredOptionVariants);
 
     return recursive([], [], filteredOptionVariants).map((item, index) => {
       let variant = {};
@@ -39,6 +39,11 @@ const Variants = ({ t, formPropsData }) => {
           });
         });
       }
+      let skuParams = variant?.custom_fields?.sku
+        ? variant?.custom_fields?.sku
+        : formPropsData.quickSKU
+        ? formPropsData.quickSKU + '-' + index
+        : 'SKU-PRODUCT' + '-' + index;
       return {
         ...item,
         price: variant?.price
@@ -46,8 +51,13 @@ const Variants = ({ t, formPropsData }) => {
           : formPropsData.quickPrice
           ? formPropsData.quickPrice
           : 0,
-        sku: (formPropsData.quickSKU ?? 'SKU-PRODUCT') + '-' + index,
+        sku: skuParams,
         field: 'Edit',
+        property_values: item,
+        custom_fields: {
+          ...formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+          sku: skuParams,
+        },
       };
     });
   };
@@ -73,14 +83,14 @@ const Variants = ({ t, formPropsData }) => {
           },
         };
       }),
-      {
-        Header: 'IMAGE',
-        accessor: 'image',
-        className: headerClass,
-        Cell: ({ value }) => {
-          return <div className={cellClass}>{value}</div>;
-        },
-      },
+      // {
+      //   Header: 'IMAGE',
+      //   accessor: 'image',
+      //   className: headerClass,
+      //   Cell: ({ value }) => {
+      //     return <div className={cellClass}>{value}</div>;
+      //   },
+      // },
       {
         Header: () => (
           <>
@@ -89,7 +99,7 @@ const Variants = ({ t, formPropsData }) => {
         ),
         accessor: 'price',
         className: headerClass,
-        Cell: ({ row, cell, value }) => {
+        Cell: ({ row, value }) => {
           return (
             <div className={cellClass}>
               <Input
@@ -97,7 +107,8 @@ const Variants = ({ t, formPropsData }) => {
                   value: value,
                   classNameInput: 'fs-14 me-1 border-0 price-input text-end px-0',
                   handleChange: (event) => {
-                    console.log('event.target.value', event.target.value);
+                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][row.index].price =
+                      event.target.value;
                   },
                 }}
               />
@@ -105,10 +116,7 @@ const Variants = ({ t, formPropsData }) => {
                 className="cursor-pointer"
                 onClick={() => {
                   setActiveVariant(row);
-                  setShowModal(true);
-                  // formPropsData.quickPrice = '2.000';
-                  console.log('cell', cell);
-                  cell.setState();
+                  setShowModalPrice(true);
                 }}
               >
                 <ComponentSVG url="/assets/images/plus-circle.svg" className={`bg-success ms-0`} />
@@ -125,16 +133,40 @@ const Variants = ({ t, formPropsData }) => {
         ),
         accessor: 'sku',
         className: headerClass,
-        Cell: ({ value }) => {
-          return <div className={cellClass}>{value}</div>;
+        Cell: ({ row, value }) => {
+          return (
+            <div className={cellClass}>
+              <Input
+                field={{
+                  value: value,
+                  classNameInput: 'fs-14 me-1 border-0 price-input px-0 w-100 text-center',
+                  handleChange: (event) => {
+                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][
+                      row.index
+                    ].custom_fields.sku = event.target.value;
+                  },
+                }}
+              />
+            </div>
+          );
         },
       },
       {
         Header: 'FIELD',
         accessor: 'field',
         className: headerClass,
-        Cell: ({ value }) => {
-          return <div className={`${cellClass} text-success`}>{value}</div>;
+        Cell: ({ row, value }) => {
+          return (
+            <div
+              className={`${cellClass} text-success cursor-pointer`}
+              onClick={() => {
+                setActiveVariant(row);
+                setShowModalFields(true);
+              }}
+            >
+              {value}
+            </div>
+          );
         },
       },
     ],
@@ -182,6 +214,10 @@ const Variants = ({ t, formPropsData }) => {
                           if (optionVariants[key].name && optionVariants[key].options.length) {
                             formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] =
                               handleOptionToArr();
+                            console.log(
+                              'formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]',
+                              formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]
+                            );
                           }
                           forceUpdate();
                         },
@@ -275,7 +311,6 @@ const Variants = ({ t, formPropsData }) => {
               formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] = dataTable.map((variant) => {
                 return {
                   ...variant,
-                  optionVariants: optionVariants,
                 };
               });
               formPropsData.quickPrice = formPropsData.quickPrice ?? numberWithCommas(7000000);
@@ -294,11 +329,19 @@ const Variants = ({ t, formPropsData }) => {
         data={dataTable}
         classNameTable={'table-bordered border-gray'}
       ></Table>
-      <ModalVariants
+      <ModalVariantsPrice
         dataTable={dataTable}
         optionVariants={optionVariants}
-        showModal={showModal}
-        setShowModal={setShowModal}
+        showModal={showModalPrice}
+        setShowModal={setShowModalPrice}
+        activeVariant={activeVariant}
+        formPropsData={formPropsData}
+      />
+      <ModalVariantsFields
+        dataTable={dataTable}
+        optionVariants={optionVariants}
+        showModal={showModalFields}
+        setShowModal={setShowModalFields}
         activeVariant={activeVariant}
         formPropsData={formPropsData}
       />

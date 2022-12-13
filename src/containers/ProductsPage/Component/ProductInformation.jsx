@@ -21,8 +21,9 @@ const ProductInformation = observer(
     }
 
     async componentDidMount() {
-      await this.categoryListViewModel.initializeData();
-      this.forceUpdate();
+      if (!this.categoryListViewModel.items.length) {
+        await this.categoryListViewModel.initializeData();
+      }
     }
 
     render() {

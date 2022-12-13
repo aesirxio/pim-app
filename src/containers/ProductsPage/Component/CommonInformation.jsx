@@ -27,9 +27,10 @@ const CommonInformation = observer(
     }
 
     async componentDidMount() {
-      await this.categoryListViewModel.initializeData();
-      await this.tagListViewModel.initializeData();
-      this.forceUpdate();
+      if (!this.categoryListViewModel.items.length || !this.tagListViewModel.items.length) {
+        await this.categoryListViewModel.initializeData();
+        await this.tagListViewModel.initializeData();
+      }
     }
 
     render() {

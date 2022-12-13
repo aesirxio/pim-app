@@ -13,19 +13,41 @@ const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
   const generateFormSetting = [
     {
       fields: itemsByGroup.map((field) => {
+        let selectedValue = '';
+        if (
+          field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
+          field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION
+        ) {
+          selectedValue = formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+          ]
+            ? {
+                label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
+                  (x) =>
+                    x.value ===
+                    formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                    ]
+                )?.label,
+                value:
+                  formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                  ],
+              }
+            : null;
+        } else {
+          selectedValue =
+            formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+              field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+            ] ?? null;
+        }
         return {
           label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
           key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
           type: field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
-          getValueSelected:
-            formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-              field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-            ] ?? null,
+          getValueSelected: selectedValue,
           getDataSelectOptions: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
           handleChange: (data) => {
-            if (!formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]) {
-              formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS] = {};
-            }
             if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO) {
               formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                 field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]

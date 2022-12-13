@@ -11,6 +11,9 @@ import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
 import moment from 'moment';
 const PublishOptions = ({ t, formPropsData, isEdit }) => {
+  let userName = isEdit
+    ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
+    : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
   return (
     <div className="p-24 bg-white rounded-1 shadow-sm">
       <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
@@ -54,20 +57,17 @@ const PublishOptions = ({ t, formPropsData, isEdit }) => {
         <Form.Group className={`w-60`}>
           <FormSelection
             field={{
-              getValueSelected: formPropsData?.user ?? {
-                label: 'Karina Tr',
-                value: 'karina',
+              getValueSelected: {
+                label: userName,
+                value: userName,
               },
               getDataSelectOptions: [
-                {
-                  label: 'Karina Tr',
-                  value: 'karina',
-                },
                 {
                   label: 'User 2',
                   value: 'user-2',
                 },
               ],
+              isDisabled: true,
               arrowColor: '#222328',
               handleChange: (data) => {
                 formPropsData.user = data;
@@ -122,11 +122,7 @@ const PublishOptions = ({ t, formPropsData, isEdit }) => {
       </div>
       <div className="d-flex align-items-center justify-content-between w-100">
         <div>{t('txt_create_by')}:</div>
-        <div className="text-gray">
-          {isEdit
-            ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
-            : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME)}
-        </div>
+        <div className="text-gray">{userName}</div>
       </div>
     </div>
   );

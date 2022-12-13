@@ -64,23 +64,29 @@ class ProductItemModel extends BaseItemModel {
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
     const excluded = [PIM_PRODUCT_DETAIL_FIELD_KEY.ID, PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS];
+    console.log('data', data);
     if (data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]) {
+      console.log(
+        'data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]',
+        data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]
+      );
       let variantData = data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS].map((variant) => {
         return {
-          options: variant.optionVariants.map((option) => {
-            return { [option.value_name]: variant[option.value_name] };
-          }),
           price: {
             price: variant.price,
             retail_price: variant.retail_price,
           },
-          // custom_fields: {
-          //   sku: 'test_sku',
-          // },
+          property_values: Object.keys(variant.property_values).map((key) => ({
+            title: key,
+            property: {
+              title: variant.property_values[key],
+            },
+          })),
+          custom_fields: variant.custom_fields,
         };
       });
+      console.log('variantData', variantData);
       formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS], variantData);
-      console.log('testne', variantData);
     }
 
     Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY).forEach((index) => {
@@ -113,13 +119,15 @@ class ProductItemModel extends BaseItemModel {
       data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
       Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
     ) {
-      formData['custom_fields'] = Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS])
-        .map((key) => {
-          return {
-            [key]: data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key],
-          };
-        })
-        .reduce((prev, curr) => curr);
+      console.log(
+        'data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]',
+        data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]
+      );
+      formData['custom_fields'] = {};
+      Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
+        formData['custom_fields'][key] = data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+      });
+      console.log('custom_fields', formData['custom_fields']);
     }
 
     return formData;

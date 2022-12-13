@@ -5,7 +5,7 @@ import ModalComponent from 'components/Modal';
 import Label from 'components/Form/Label';
 import Input from 'components/Form/Input';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-const ModalVariants = ({
+const ModalVariantsFields = ({
   t,
   dataTable,
   optionVariants,
@@ -22,7 +22,7 @@ const ModalVariants = ({
       show={showModal}
       centered
       onHide={handleClose}
-      header={<div className="fs-2 fw-bold mb-0">{t('txt_edit_price_variant')}</div>}
+      header={<div className="fs-2 fw-bold mb-0">{t('txt_fields')}</div>}
       dialogClassName={'modal-xl'}
       body={
         <div className="">
@@ -33,7 +33,7 @@ const ModalVariants = ({
             <Row className="gx-24">
               <Col lg={3}>
                 <div className="fs-14 pb-16 mb-1 border-bottom fw-semibold text-uppercase">
-                  {t('txt_variants')}
+                  {t('txt_seo')}
                 </div>
                 <Nav variant="tabs" className="flex-column">
                   {dataTable?.map((item, key) => {
@@ -54,45 +54,23 @@ const ModalVariants = ({
                   {dataTable?.map((item, key) => {
                     return (
                       <Tab.Pane key={key} eventKey={`variant-${key}`}>
-                        <Row className="gx-24">
-                          <Col lg={6}>
-                            <Form.Group className={`w-100`}>
-                              <Label text="Price" />
-                              <Input
-                                field={{
-                                  value: item.price,
-                                  classNameInput: 'fs-14',
-                                  placeholder: t('txt_type'),
-                                  format: 'VND',
-                                  handleChange: (event) => {
-                                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][
-                                      key
-                                    ].price = event.target.value;
-                                    console.log('formPropsData', formPropsData);
-                                    item.price = event.target.value;
-                                  },
-                                }}
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col lg={6}>
-                            <Form.Group className={`w-100`}>
-                              <Label text="Discount Price" />
-                              <Input
-                                field={{
-                                  value: item.retail_price,
-                                  classNameInput: 'fs-14',
-                                  placeholder: t('txt_type'),
-                                  format: 'VND',
-                                  handleChange: (event) => {
-                                    // this.formPropsData.variants = event.target.value;
-                                    item.retail_price = event.target.value;
-                                  },
-                                }}
-                              />
-                            </Form.Group>
-                          </Col>
-                        </Row>
+                        <Form.Group className={`w-100`}>
+                          <Label text="Price" />
+                          <Input
+                            field={{
+                              value: item.price,
+                              classNameInput: 'fs-14',
+                              placeholder: t('txt_type'),
+                              format: 'VND',
+                              handleChange: (event) => {
+                                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][key].price =
+                                  event.target.value;
+                                console.log('formPropsData', formPropsData);
+                                item.price = event.target.value;
+                              },
+                            }}
+                          />
+                        </Form.Group>
                       </Tab.Pane>
                     );
                   })}
@@ -118,4 +96,4 @@ const ModalVariants = ({
     />
   );
 };
-export default withTranslation('common')(ModalVariants);
+export default withTranslation('common')(ModalVariantsFields);

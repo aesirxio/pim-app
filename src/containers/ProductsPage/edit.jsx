@@ -56,7 +56,6 @@ const EditProduct = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
-        this.forceUpdate();
       }
     }
 

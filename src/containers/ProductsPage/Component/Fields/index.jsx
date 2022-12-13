@@ -24,11 +24,12 @@ const FieldsTab = observer(
     }
 
     async componentDidMount() {
-      this.fieldListViewModel.handleFilter({ type_id: 59 });
-      await this.fieldListViewModel.initializeData();
-      await this.fieldListViewModel.getGroupList();
+      if (!this.fieldListViewModel.items.length) {
+        this.fieldListViewModel.handleFilter({ type_id: 59 });
+        await this.fieldListViewModel.initializeData();
+        await this.fieldListViewModel.getGroupList();
+      }
       this.setState({ defaultActive: 'group-' + this.fieldListViewModel.groupList[0]?.id });
-      this.forceUpdate();
     }
 
     render() {

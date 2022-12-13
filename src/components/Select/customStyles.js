@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-const customStyles = (isBorder, plColor, arrowColor, creatable) => {
+const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
   return {
     control: (provided) => {
       return {
@@ -19,7 +19,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable) => {
           // borderRight: '1px solid var(--border-color)',
         },
         // borderRight: '1px solid var(--border-color)',
-        backgroundColor: '#ffffff',
+        backgroundColor: isDisabled ? 'var(--border-color)' : '#ffffff',
         cursor: 'pointer',
         width: 'auto',
       };

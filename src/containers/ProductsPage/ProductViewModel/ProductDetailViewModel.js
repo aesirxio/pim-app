@@ -36,10 +36,6 @@ class ProductDetailViewModel {
 
   createProduct = () => {
     // this.formStatus = PAGE_STATUS.LOADING;
-    console.log(
-      'this.productDetailViewModel.formPropsData,',
-      this.productDetailViewModel.formPropsData
-    );
     this.productStore.createProduct(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
