@@ -3,14 +3,12 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { useState } from 'react';
+import React from 'react';
 import { Form } from 'react-bootstrap';
 
 const FormRadio = ({ field }) => {
-  const [selectedValue, setSelectedValue] = useState(field.getValueSelected);
   const handleChange = (data) => {
     field.handleChange(data);
-    setSelectedValue(data.target.value);
   };
   return (
     <div className="d-flex align-items-center justify-content-between w-100">
@@ -25,7 +23,7 @@ const FormRadio = ({ field }) => {
           type={field.checkbox ? 'checkbox' : 'radio'}
           id={`inline-radio-${option.value}`}
           onChange={handleChange}
-          defaultChecked={selectedValue === option.value}
+          defaultChecked={field.getValueSelected?.value === option.value}
         />
       ))}
     </div>
