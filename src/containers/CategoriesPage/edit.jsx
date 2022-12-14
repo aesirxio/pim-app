@@ -10,52 +10,47 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 import { withRouter } from 'react-router-dom';
-import { Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
-import './index.scss';
+import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import CommonInformation from './Component/CommonInformation';
-import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
-import ProductViewModel from 'containers/ProductsPage/ProductViewModel/ProductViewModel';
+import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
+import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
 import {
-  ProductViewModelContextProvider,
-  withProductViewModel,
-} from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
+  CategoryViewModelContextProvider,
+  withCategoryViewModel,
+} from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import {
   PIM_FIELD_DETAIL_FIELD_KEY,
   PIM_PRODUCT_DETAIL_FIELD_KEY,
 } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
-import ProductInformation from './Component/ProductInformation';
-import FieldsTab from './Component/Fields';
-import Variants from './Component/Variants';
 import SimpleReactValidator from 'simple-react-validator';
 
-const productStore = new ProductStore();
-const productViewModel = new ProductViewModel(productStore);
+const categoryStore = new CategoryStore();
+const categoryViewModel = new CategoryViewModel(categoryStore);
 
-const EditProduct = observer(
-  class EditProduct extends Component {
-    productDetailViewModel = null;
+const EditCategory = observer(
+  class EditCategory extends Component {
+    categoryDetailViewModel = null;
     formPropsData = { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
     isEdit = false;
     constructor(props) {
       super(props);
-      this.viewModel = productViewModel ? productViewModel : null;
-      this.state = { key: 'commonInformation' };
+      this.viewModel = categoryViewModel ? categoryViewModel : null;
+      this.state = {};
 
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.productDetailViewModel = this.viewModel
-        ? this.viewModel.getProductDetailViewModel()
+      this.categoryDetailViewModel = this.viewModel
+        ? this.viewModel.getCategoryDetailViewModel()
         : null;
-      this.productDetailViewModel.setForm(this);
+      this.categoryDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
 
     async componentDidMount() {
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
-        await this.productDetailViewModel.initializeData();
+        await this.categoryDetailViewModel.initializeData();
       }
     }
 
@@ -66,14 +61,14 @@ const EditProduct = observer(
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.productDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
-          <ProductViewModelContextProvider viewModel={productViewModel}>
+          <CategoryViewModelContextProvider viewModel={categoryViewModel}>
             <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
               <div className="position-relative">
                 <h2 className="text-blue-0 fw-bold mb-8px">
-                  {this.isEdit ? t('txt_edit') : t('txt_add_new') + ' ' + t('txt_products')}
+                  {this.isEdit ? t('txt_edit') : t('txt_add_new') + ' ' + t('txt_category')}
                 </h2>
               </div>
               <div className="position-relative">
@@ -99,14 +94,14 @@ const EditProduct = observer(
                       handle: async () => {
                         if (this.validator.allValid()) {
                           if (this.isEdit) {
-                            await this.productDetailViewModel.updateProduct();
+                            await this.categoryDetailViewModel.updateProduct();
                           } else {
-                            await this.productDetailViewModel.createProduct();
+                            await this.categoryDetailViewModel.createProduct();
                           }
                         } else {
                           this.validator.showMessages();
                         }
-                        // await this.productDetailViewModel.initializeData();
+                        // await this.categoryDetailViewModel.initializeData();
                         // this.forceUpdate();
                       },
                       icon: '/assets/images/save.svg',
@@ -124,7 +119,7 @@ const EditProduct = observer(
                       field={{
                         value: this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
                         classNameInput: 'py-1 fs-4',
-                        placeholder: t('txt_add_product_name'),
+                        placeholder: t('txt_add_cate_name'),
                         handleChange: (event) => {
                           this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE] =
                             event.target.value;
@@ -145,53 +140,17 @@ const EditProduct = observer(
                       }
                     )}
                   </Form.Group>
-                  <Tabs
-                    defaultActiveKey={'commonInformation'}
-                    id="tab-setting"
-                    onSelect={(k) => this.setState({ key: k })}
-                  >
-                    <Tab
-                      key="commonInformation"
-                      eventKey="commonInformation"
-                      title={t('txt_common_information')}
-                    >
-                      {this.state.key === 'commonInformation' && (
-                        <CommonInformation
-                          formPropsData={this.formPropsData}
-                          validator={this.validator}
-                        />
-                      )}
-                    </Tab>
-                    <Tab
-                      key="productInformation"
-                      eventKey="productInformation"
-                      title={t('txt_product_information')}
-                    >
-                      <ProductInformation
-                        formPropsData={this.formPropsData}
-                        validator={this.validator}
-                      />
-                    </Tab>
-                    <Tab key="fields" eventKey="fields" title={t('txt_fields')}>
-                      <FieldsTab formPropsData={this.formPropsData} validator={this.validator} />
-                    </Tab>
-                    <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
-                      {this.state.key === 'variants' && (
-                        <Variants formPropsData={this.formPropsData} validator={this.validator} />
-                      )}
-                    </Tab>
-                  </Tabs>
                 </Col>
                 <Col lg={3}>
                   <PublishOptions formPropsData={this.formPropsData} isEdit={this.isEdit} />
                 </Col>
               </Row>
             </Form>
-          </ProductViewModelContextProvider>
+          </CategoryViewModelContextProvider>
         </div>
       );
     }
   }
 );
 
-export default withTranslation('common')(withRouter(withProductViewModel(EditProduct)));
+export default withTranslation('common')(withRouter(withCategoryViewModel(EditCategory)));

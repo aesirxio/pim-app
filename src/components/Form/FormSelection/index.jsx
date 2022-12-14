@@ -12,7 +12,15 @@ import './index.scss';
 class FormSelection extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      value: props.field.getValueSelected,
+    };
   }
+
+  handleChange = (data) => {
+    this.props.field.handleChange(data);
+    this.setState({ value: data });
+  };
 
   render() {
     return (
@@ -28,14 +36,14 @@ class FormSelection extends Component {
           />
         ) : (
           <SelectComponent
-            value={this.props.field.getValueSelected}
+            value={this.state.value}
             options={this.props.field.getDataSelectOptions}
             className="fs-14"
             isBorder={true}
             //onFocus={this.props.field.changed}
             onBlur={this.props.field.blurred}
             isMulti={this.props.field.isMulti}
-            onChange={this.props.field.handleChange}
+            onChange={this.handleChange}
             arrowColor={this.props.field.arrowColor}
             placeholder={this.props.field.placeholder}
             isDisabled={this.props.field.isDisabled}

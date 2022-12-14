@@ -20,6 +20,7 @@ const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProduct = lazy(() => import('containers/ProductsPage/edit'));
+const EditCategory = lazy(() => import('containers/CategoriesPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -87,6 +88,16 @@ const mainRoutes = [
     path: '/products/add',
     exact: true,
     main: () => <EditProduct />,
+  },
+  {
+    path: '/categories/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditCategory match={match} />,
+  },
+  {
+    path: '/categories/add',
+    exact: true,
+    main: () => <EditCategory />,
   },
 ];
 

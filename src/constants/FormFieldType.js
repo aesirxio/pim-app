@@ -29,6 +29,7 @@ const FORM_FIELD_TYPE = {
   LOCATION: 23,
   TIMEZONE: 24,
   EDITOR: 25,
+  VIDEO: 26,
 };
 
 const FORMAT_DATE = 'dd MMM, yyyy';
