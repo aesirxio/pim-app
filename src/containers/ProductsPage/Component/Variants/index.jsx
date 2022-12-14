@@ -39,17 +39,17 @@ const Variants = ({ t, formPropsData }) => {
           });
         });
       }
-      let skuParams = variant?.custom_fields?.sku
-        ? variant?.custom_fields?.sku
-        : formPropsData.quickSKU
+      let skuParams = formPropsData.quickSKU
         ? formPropsData.quickSKU + '-' + index
+        : variant?.custom_fields?.sku
+        ? variant?.custom_fields?.sku
         : 'SKU-PRODUCT' + '-' + index;
       return {
         ...item,
-        price: variant?.price
-          ? variant?.price
-          : formPropsData.quickPrice
+        price: formPropsData.quickPrice
           ? formPropsData.quickPrice
+          : variant?.price
+          ? variant?.price
           : 0,
         sku: skuParams,
         field: 'Edit',
@@ -308,13 +308,13 @@ const Variants = ({ t, formPropsData }) => {
             className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
             onClick={() => {
               forceUpdate();
+              formPropsData.quickPrice = formPropsData.quickPrice ?? numberWithCommas(7000000);
+              formPropsData.quickSKU = formPropsData.quickSKU ?? 'SKU-PRODUCT';
               formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] = dataTable.map((variant) => {
                 return {
                   ...variant,
                 };
               });
-              formPropsData.quickPrice = formPropsData.quickPrice ?? numberWithCommas(7000000);
-              formPropsData.quickSKU = formPropsData.quickSKU ?? 'SKU-PRODUCT';
               console.log('formPropsData', formPropsData);
             }}
           >
