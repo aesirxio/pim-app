@@ -127,7 +127,7 @@ const Table = ({
   //   setLoading(false);
   // };
 
-  currentSelect(selectedFlatRows);
+  currentSelect && currentSelect(selectedFlatRows);
 
   return (
     <>
@@ -370,7 +370,7 @@ const Table = ({
         </div>
       ) : null} */}
 
-      {pagination.totalPages > 1 && (
+      {pagination && pagination.totalPages > 1 && (
         <div className="d-flex justify-content-between mt-3">
           <div>
             Totals{' '}

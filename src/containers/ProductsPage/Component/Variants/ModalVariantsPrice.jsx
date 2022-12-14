@@ -5,7 +5,7 @@ import ModalComponent from 'components/Modal';
 import Label from 'components/Form/Label';
 import Input from 'components/Form/Input';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-const ModalVariants = ({
+const ModalVariantsPrice = ({
   t,
   dataTable,
   optionVariants,
@@ -38,7 +38,7 @@ const ModalVariants = ({
                 <Nav variant="tabs" className="flex-column">
                   {dataTable?.map((item, key) => {
                     const variantString = optionVariants.reduce(
-                      (prev, curr) => `${prev}${prev && '-'} ${item[curr.name.toLowerCase()]} `,
+                      (prev, curr) => `${prev}${prev && '-'} ${item[curr.name]} `,
                       ''
                     );
                     return (
@@ -68,7 +68,6 @@ const ModalVariants = ({
                                     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][
                                       key
                                     ].price = event.target.value;
-                                    console.log('formPropsData', formPropsData);
                                     item.price = event.target.value;
                                   },
                                 }}
@@ -85,7 +84,9 @@ const ModalVariants = ({
                                   placeholder: t('txt_type'),
                                   format: 'VND',
                                   handleChange: (event) => {
-                                    // this.formPropsData.variants = event.target.value;
+                                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][
+                                      key
+                                    ].retail_price = event.target.value;
                                     item.retail_price = event.target.value;
                                   },
                                 }}
@@ -118,4 +119,4 @@ const ModalVariants = ({
     />
   );
 };
-export default withTranslation('common')(ModalVariants);
+export default withTranslation('common')(ModalVariantsPrice);

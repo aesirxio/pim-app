@@ -36,10 +36,6 @@ class ProductDetailViewModel {
 
   createProduct = () => {
     // this.formStatus = PAGE_STATUS.LOADING;
-    console.log(
-      'this.productDetailViewModel.formPropsData,',
-      this.productDetailViewModel.formPropsData
-    );
     this.productStore.createProduct(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
@@ -84,6 +80,10 @@ class ProductDetailViewModel {
           result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
       });
     }
+    console.log(
+      'this.productDetailViewModel.formPropsData',
+      this.productDetailViewModel.formPropsData
+    );
 
     this.formStatus = PAGE_STATUS.READY;
   };

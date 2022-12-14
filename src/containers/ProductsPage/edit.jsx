@@ -21,7 +21,10 @@ import {
   withProductViewModel,
 } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 import PublishOptions from './Component/PublishOptions';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import {
+  PIM_FIELD_DETAIL_FIELD_KEY,
+  PIM_PRODUCT_DETAIL_FIELD_KEY,
+} from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
 import ProductInformation from './Component/ProductInformation';
 import FieldsTab from './Component/Fields';
@@ -34,7 +37,7 @@ const productViewModel = new ProductViewModel(productStore);
 const EditProduct = observer(
   class EditProduct extends Component {
     productDetailViewModel = null;
-    formPropsData = {};
+    formPropsData = { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
     isEdit = false;
     constructor(props) {
       super(props);
@@ -53,7 +56,6 @@ const EditProduct = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
-        this.forceUpdate();
       }
     }
 

@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-// import Dimension from './Dimension';
-// import GeneralInformation from './GeneralInformation';
 // import ProductAsset from './ProductAsset';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import FieldsByGroup from './FieldsByGroup';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import FieldsList from 'components/Fields';
 
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
@@ -26,11 +24,12 @@ const FieldsTab = observer(
     }
 
     async componentDidMount() {
-      this.fieldListViewModel.handleFilter({ type_id: 59 });
-      await this.fieldListViewModel.initializeData();
-      await this.fieldListViewModel.getGroupList();
+      if (!this.fieldListViewModel.items.length) {
+        this.fieldListViewModel.handleFilter({ type_id: 59 });
+        await this.fieldListViewModel.initializeData();
+        await this.fieldListViewModel.getGroupList();
+      }
       this.setState({ defaultActive: 'group-' + this.fieldListViewModel.groupList[0]?.id });
-      this.forceUpdate();
     }
 
     render() {
@@ -75,10 +74,11 @@ const FieldsTab = observer(
                         <Tab.Pane eventKey={`group-${group.id}`} key={key}>
                           <h3 className="mb-24 fw-bold">{group.label}</h3>
                           <div className="row">
-                            <FieldsByGroup
+                            <FieldsList
                               formPropsData={formPropsData}
                               validator={validator}
                               groupID={group.id}
+                              fieldClass={'col-lg-6'}
                             />
                           </div>
                         </Tab.Pane>
