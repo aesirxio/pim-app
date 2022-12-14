@@ -23,6 +23,7 @@ const EditProduct = lazy(() => import('containers/ProductsPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
+const PriceManagement = lazy(() => import('../containers/ProductsPage/priceManager'));
 
 const authRoutes = [
   {
@@ -42,6 +43,11 @@ const mainRoutes = [
     path: ['/products', '/products/all'],
     exact: true,
     main: () => <ProductsPage />,
+  },
+  {
+    path: ['/products/price-management'],
+    exact: true,
+    main: () => <PriceManagement />,
   },
   {
     path: ['/categories', '/categories'],

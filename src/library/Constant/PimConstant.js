@@ -39,6 +39,7 @@ const PIM_CATEGORY_DETAIL_FIELD_KEY = {
   CREATED_USER_NAME: 'created_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
+  CHILDREN: 'children',
 };
 
 const PIM_TAG_DETAIL_FIELD_KEY = {

@@ -28,6 +28,7 @@ class CategoryItemModel extends BaseItemModel {
   created_user_name = null;
   created_time = null;
   publish_up = null;
+  children = null;
 
   constructor(entity) {
     super(entity);
@@ -43,6 +44,7 @@ class CategoryItemModel extends BaseItemModel {
       this.created_user_name = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
       this.created_time = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
       this.publish_up = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
+      this.children = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CHILDREN] ?? '';
     }
   }
 

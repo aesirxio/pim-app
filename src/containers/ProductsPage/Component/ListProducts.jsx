@@ -1,20 +1,23 @@
 import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
-import {
-  useProductViewModel,
-  withProductViewModel,
-} from '../ProductViewModel/ProductViewModelContextProvider';
+import { withProductViewModel } from '../ProductViewModel/ProductViewModelContextProvider';
 import Table from 'components/Table';
 import SelectComponent from 'components/Select';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import Spinner from 'components/Spinner';
 import history from 'routes/history';
+import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
+import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
 
-const List = observer((props) => {
-  const productViewModel = useProductViewModel();
+const categoryStore = new CategoryStore();
+const categoryViewModel = new CategoryViewModel(categoryStore);
 
+const ListProducts = observer((props) => {
   const { t } = props;
+
+  const productViewModel = props.viewModel;
+  const categoryListViewModel = categoryViewModel.getCategoryListViewModel();
 
   const columnsTable = [
     {
@@ -171,6 +174,7 @@ const List = observer((props) => {
 
   useEffect(() => {
     productViewModel.initializeData();
+    categoryListViewModel.initializeData();
   }, []);
 
   const selectPageHandler = (value) => {
@@ -201,6 +205,25 @@ const List = observer((props) => {
     }
   };
 
+  let listCategories = [];
+  const getListCategoriesGenerate = (arr) => {
+    arr.forEach((o) => {
+      let title = '';
+      if (parseInt(o.level)) {
+        [...Array(parseInt(o.level))].forEach(() => {
+          title += '- ';
+        });
+      }
+      title += o.title;
+      listCategories.push({ label: title, value: o.id });
+      if (o.children) {
+        getListCategoriesGenerate(o.children);
+      }
+    });
+  };
+
+  getListCategoriesGenerate(categoryListViewModel?.items);
+
   const selectTypeHandler = (value) => {
     productViewModel.isLoading();
     productViewModel.getListByFilter('pim_product_type', {
@@ -215,10 +238,8 @@ const List = observer((props) => {
   };
 
   let listSelected = [];
-
   const currentSelectHandler = (arr) => {
     listSelected = arr.map((o) => o.cells[1].value);
-    // productViewModel.successResponse.getListSelected(listSelected);
   };
 
   const selectBulkActionsHandler = (value) => {
@@ -226,8 +247,16 @@ const List = observer((props) => {
     productViewModel.updateStatus(listSelected, value.value);
   };
 
+  const selectCategoryHandler = (value) => {
+    productViewModel.isLoading();
+    productViewModel.getListByFilter('filter[category]', value.value);
+  };
+
   return (
     <>
+      <div className="d-flex justify-content-between align-items-center mb-3">
+        <h2 className="fw-bold mb-0">{t('txt_title_product_management')}</h2>
+      </div>
       {productViewModel?.successResponse?.listPublishStatus.length > 0 && (
         <>
           <Tabs
@@ -265,12 +294,22 @@ const List = observer((props) => {
                 onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'#222328'}
               />
+              <SelectComponent
+                options={listCategories}
+                className={`fs-sm`}
+                isBorder={true}
+                placeholder={t('txt_all_categories')}
+                plColor={`text-color`}
+                onChange={(o) => selectCategoryHandler(o)}
+                arrowColor={'#222328'}
+              />
             </div>
             <div className="d-flex align-items-center">
               <div className="opacity-50 me-2">Showing</div>
               <SelectComponent
                 defaultValue={{ label: '2 items', value: 2 }}
                 options={[
+                  { label: '1 items', value: 1 },
                   { label: '2 items', value: 2 },
                   { label: '3 items', value: 3 },
                   { label: '4 items', value: 4 },
@@ -302,4 +341,4 @@ const List = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withProductViewModel(List));
+export default withTranslation('common')(withProductViewModel(ListProducts));
