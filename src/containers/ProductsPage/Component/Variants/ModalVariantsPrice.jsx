@@ -38,7 +38,7 @@ const ModalVariantsPrice = ({
                 <Nav variant="tabs" className="flex-column">
                   {dataTable?.map((item, key) => {
                     const variantString = optionVariants.reduce(
-                      (prev, curr) => `${prev}${prev && '-'} ${item[curr.name.toLowerCase()]} `,
+                      (prev, curr) => `${prev}${prev && '-'} ${item[curr.name]} `,
                       ''
                     );
                     return (
