@@ -49,26 +49,26 @@ const CommonInformation = observer(
                 formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS] = event.target.value;
               },
             },
-            {
-              label: 'txt_organisation',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION,
-              type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION] ?? null,
-              // getDataSelectOptions: [
-              //   {
-              //     label: 'Organisation 1',
-              //     value: 'organisation-1',
-              //   },
-              //   {
-              //     label: 'Organisation 2',CommonInformation
-              //     value: 'organisation-2',
-              //   },
-              // ],
-              handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION] = data;
-              },
-              className: 'col-lg-12',
-            },
+            // {
+            //   label: 'txt_organisation',
+            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION,
+            //   type: FORM_FIELD_TYPE.SELECTION,
+            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION] ?? null,
+            //   // getDataSelectOptions: [
+            //   //   {
+            //   //     label: 'Organisation 1',
+            //   //     value: 'organisation-1',
+            //   //   },
+            //   //   {
+            //   //     label: 'Organisation 2',CommonInformation
+            //   //     value: 'organisation-2',
+            //   //   },
+            //   // ],
+            //   handleChange: (data) => {
+            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION] = data;
+            //   },
+            //   className: 'col-lg-12',
+            // },
             {
               label: 'txt_main_category',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,
@@ -114,26 +114,26 @@ const CommonInformation = observer(
               },
               className: 'col-lg-12',
             },
-            {
-              label: 'txt_template',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE,
-              type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE] ?? null,
-              // getDataSelectOptions: [
-              //   {
-              //     label: 'Template 1',
-              //     value: 'template-1',
-              //   },
-              //   {
-              //     label: 'Template 2',
-              //     value: 'template-2',
-              //   },
-              // ],
-              handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE] = data;
-              },
-              className: 'col-lg-12',
-            },
+            // {
+            //   label: 'txt_template',
+            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE,
+            //   type: FORM_FIELD_TYPE.SELECTION,
+            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE] ?? null,
+            //   // getDataSelectOptions: [
+            //   //   {
+            //   //     label: 'Template 1',
+            //   //     value: 'template-1',
+            //   //   },
+            //   //   {
+            //   //     label: 'Template 2',
+            //   //     value: 'template-2',
+            //   //   },
+            //   // ],
+            //   handleChange: (data) => {
+            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE] = data;
+            //   },
+            //   className: 'col-lg-12',
+            // },
           ],
         },
       ];

@@ -31,34 +31,34 @@ const ProductInformation = observer(
       const generateFormSetting = [
         {
           fields: [
-            {
-              label: 'txt_sale_market',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID,
-              type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID]
-                ? {
-                    label: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_NAME],
-                    value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID],
-                  }
-                : null,
-              // getDataSelectOptions: [
-              //   {
-              //     label: 'Sale Market 1',
-              //     value: 'sale-market-1',
-              //   },
-              //   {
-              //     label: 'Sale Market 2',
-              //     value: 'sale-market-2',
-              //   },
-              // ],
-              placeholder: t('txt_select'),
-              handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_NAME] = data.label;
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID] = data.value;
-              },
-              className: 'col-lg-12',
-              isMulti: true,
-            },
+            // {
+            //   label: 'txt_sale_market',
+            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID,
+            //   type: FORM_FIELD_TYPE.SELECTION,
+            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID]
+            //     ? {
+            //         label: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_NAME],
+            //         value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID],
+            //       }
+            //     : null,
+            //   // getDataSelectOptions: [
+            //   //   {
+            //   //     label: 'Sale Market 1',
+            //   //     value: 'sale-market-1',
+            //   //   },
+            //   //   {
+            //   //     label: 'Sale Market 2',
+            //   //     value: 'sale-market-2',
+            //   //   },
+            //   // ],
+            //   placeholder: t('txt_select'),
+            //   handleChange: (data) => {
+            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_NAME] = data.label;
+            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID] = data.value;
+            //   },
+            //   className: 'col-lg-12',
+            //   isMulti: true,
+            // },
             {
               label: 'txt_related_categories',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,

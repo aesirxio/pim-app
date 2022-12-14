@@ -4,7 +4,7 @@
  */
 
 const FORM_FIELD_TYPE = {
-  INPUT: 'input',
+  INPUT: 'text',
   TEXTAREA: 2,
   CHECKBOX: 3,
   NUMBER: 'number',

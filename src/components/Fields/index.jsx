@@ -5,11 +5,17 @@ import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
-  const [itemsByGroup, SetItemsByGroup] = useState([]);
+const FieldsList = ({ formPropsData, validator, groupID, viewModel, fieldClass }) => {
+  const [itemsByGroup, setItemsByGroup] = useState(viewModel.fieldListViewModel.items);
   useEffect(() => {
-    SetItemsByGroup(viewModel.fieldListViewModel.filterByGroup(groupID));
+    groupID && setItemsByGroup(viewModel.fieldListViewModel.filterByGroup(groupID));
+    if (
+      Object.prototype.hasOwnProperty.call(formPropsData, PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS)
+    ) {
+      Object.assign(formPropsData, { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} });
+    }
   }, []);
+
   const generateFormSetting = [
     {
       fields: itemsByGroup.map((field) => {
@@ -62,9 +68,11 @@ const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
               ] = data.target.value;
             }
           },
-          className: 'col-lg-6',
+          className: fieldClass,
           // required: field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2,
           // validation: 'required',
+          creatable:
+            field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.filter_type === 'creatable' ? true : false,
           value: formPropsData.product_width,
           format: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.number_units,
         };
@@ -85,4 +93,4 @@ const FieldsByGroup = ({ formPropsData, validator, groupID, viewModel }) => {
     </>
   );
 };
-export default withTranslation('common')(withFieldViewModel(FieldsByGroup));
+export default withTranslation('common')(withFieldViewModel(FieldsList));

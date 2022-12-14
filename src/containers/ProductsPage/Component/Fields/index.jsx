@@ -7,8 +7,8 @@ import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel'
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import FieldsByGroup from './FieldsByGroup';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import FieldsList from 'components/Fields';
 
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
@@ -74,10 +74,11 @@ const FieldsTab = observer(
                         <Tab.Pane eventKey={`group-${group.id}`} key={key}>
                           <h3 className="mb-24 fw-bold">{group.label}</h3>
                           <div className="row">
-                            <FieldsByGroup
+                            <FieldsList
                               formPropsData={formPropsData}
                               validator={validator}
                               groupID={group.id}
+                              fieldClass={'col-lg-6'}
                             />
                           </div>
                         </Tab.Pane>

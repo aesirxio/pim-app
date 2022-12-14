@@ -214,10 +214,6 @@ const Variants = ({ t, formPropsData }) => {
                           if (optionVariants[key].name && optionVariants[key].options.length) {
                             formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] =
                               handleOptionToArr();
-                            console.log(
-                              'formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]',
-                              formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]
-                            );
                           }
                           forceUpdate();
                         },
@@ -315,7 +311,6 @@ const Variants = ({ t, formPropsData }) => {
                   ...variant,
                 };
               });
-              console.log('formPropsData', formPropsData);
             }}
           >
             {t('txt_apply_for_all_variant')}
