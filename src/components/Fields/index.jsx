@@ -7,8 +7,6 @@ import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 const FieldsList = ({ formPropsData, validator, groupID, viewModel, fieldClass }) => {
   const [itemsByGroup, setItemsByGroup] = useState(viewModel.fieldListViewModel.items);
-  // const [, updateState] = React.useState();
-  // const forceUpdate = React.useCallback(() => updateState({}), []);
   useEffect(() => {
     groupID && setItemsByGroup(viewModel.fieldListViewModel.filterByGroup(groupID));
     if (

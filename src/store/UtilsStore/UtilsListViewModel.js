@@ -3,40 +3,34 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import PAGE_STATUS from '../../../constants/PageStatus';
+import { notify } from 'components/Toast';
+import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { notify } from '../../../components/Toast';
-class CategoryListViewModel {
-  categoryStore = null;
+class UtilsListViewModel {
+  utilsStore = null;
   formStatus = PAGE_STATUS.READY;
-  categoryListViewModel = null;
-  items = [];
-  filter = {};
+  utilsListViewModel = null;
+  listPublishStatus = [];
   successResponse = {
     state: true,
     content_id: '',
   };
 
-  constructor(categoryStore) {
+  constructor(utilsStore) {
     makeAutoObservable(this);
-    this.categoryStore = categoryStore;
+    this.utilsStore = utilsStore;
   }
 
-  setForm = (categoryListViewModel) => {
-    this.categoryListViewModel = categoryListViewModel;
+  setForm = (utilsListViewModel) => {
+    this.utilsListViewModel = utilsListViewModel;
   };
 
-  initializeData = async () => {
+  getListPublishStatus = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.categoryStore.getList(
-      this.filter,
+    await this.utilsStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-  };
-
-  handleFilter = (filter) => {
-    this.filter = { ...this.filter, ...filter };
   };
 
   callbackOnErrorHandler = (error) => {
@@ -54,9 +48,11 @@ class CategoryListViewModel {
   };
 
   callbackOnSuccessHandler = (result) => {
-    this.items = result.items;
+    if (result?.listPublishStatus) {
+      this.listPublishStatus = result.listPublishStatus;
+    }
     this.formStatus = PAGE_STATUS.READY;
   };
 }
 
-export default CategoryListViewModel;
+export default UtilsListViewModel;

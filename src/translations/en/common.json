@@ -187,7 +187,9 @@
   "txt_author": "Author",
   "txt_feature": "Feature",
   "txt_start_publish": "Start Publish",
+  "txt_create_date": "Create Date",
   "txt_create_by": "Create By",
+  "txt_modified_by": "Modified By",
   "txt_sale_market": "Sale market",
   "txt_related_categories": "Related Categories",
   "txt_select_category": "Select category",
@@ -265,5 +267,9 @@
   "txt_trash": "Trash",
   "txt_draft": "Draft",
   "txt_archived": "Archived",
-  "txt_bulk_actions": "Bulk Actions"
+  "txt_bulk_actions": "Bulk Actions",
+  "txt_category_information": "Category Information",
+  "txt_custom_fields": "Custom Fields",
+  "txt_parent_category": "Parent Category",
+  "txt_related_category": "Related Category"
 }

@@ -10,7 +10,7 @@ import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import './index.scss';
 
-const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat }) => {
+const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat, isDisabled }) => {
   const [startDate, setStartDate] = useState();
   useEffect(() => {
     defaultDate &&
@@ -34,6 +34,7 @@ const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat }) => {
         adjustDateOnChange
         fixedHeight={40}
         className="ps-4 m-0 border-0 outline-none position-relative border-1 rounded-1"
+        readOnly={isDisabled}
       />
     </div>
   );

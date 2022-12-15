@@ -1,130 +1,144 @@
 import ComponentSVG from 'components/ComponentSVG';
 import FormSelection from 'components/Form/FormSelection';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-import React from 'react';
+import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
 import CustomizedDatePicker from 'components/DatePicker';
-import { FORMAT_DATE, FORMAT_DATE_UPDATE_POST, FORMAT_TIME } from 'constants/FormFieldType';
+import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
 import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
-import moment from 'moment';
-const PublishOptions = ({ t, formPropsData, isEdit }) => {
-  let userName = isEdit
-    ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
-    : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
-  return (
-    <div className="p-24 bg-white rounded-1 shadow-sm">
-      <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
-        {t('txt_publish_options')}
-      </h5>
-      <div className="d-flex align-items-center justify-content-between w-100 mb-24">
-        <div>
-          <ComponentSVG url="/assets/images/post-status.svg" color="#222328" className="pe-1" />
-          {t('txt_status')}:
-        </div>
-        <Form.Group className={`w-60`}>
-          <FormSelection
-            field={{
-              getValueSelected: formPropsData?.status ?? {
-                label: 'Publish',
-                value: 'publish',
-              },
-              getDataSelectOptions: [
-                {
-                  label: 'Publish',
-                  value: 'publish',
-                },
-                {
-                  label: 'Status 2',
-                  value: 'status-2',
-                },
-              ],
-              arrowColor: '#222328',
-              handleChange: (data) => {
-                formPropsData.status = data;
-              },
-            }}
-          />
-        </Form.Group>
-      </div>
-      <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
-        <div>
-          <ComponentSVG url="/assets/images/user.svg" color="#222328" className="pe-1" />
-          {t('txt_author')}:
-        </div>
-        <Form.Group className={`w-60`}>
-          <FormSelection
-            field={{
-              getValueSelected: {
-                label: userName,
-                value: userName,
-              },
-              getDataSelectOptions: [
-                {
-                  label: 'User 2',
-                  value: 'user-2',
-                },
-              ],
-              isDisabled: true,
-              arrowColor: '#222328',
-              handleChange: (data) => {
-                formPropsData.user = data;
-              },
-            }}
-          />
-        </Form.Group>
-      </div>
-      <div className="d-flex align-items-center justify-content-between w-100 mb-24">
-        <div>{t('txt_feature')}</div>
-        <Form.Group className={`w-40`}>
-          <FormRadio
-            field={{
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
-              getDataSelectOptions: [
-                {
-                  label: 'Yes',
-                  value: '1',
-                },
-                {
-                  label: 'No',
-                  value: '0',
-                  className: 'me-0',
-                },
-              ],
-              handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] = data.target.value;
-              },
-            }}
-          />
-        </Form.Group>
-      </div>
-      <div className="d-flex align-items-center justify-content-between w-100 mb-24">
-        <div>{t('txt_start_publish')}:</div>
-        <Form.Group className={``}>
-          <div className="fs-14">
-            <CustomizedDatePicker
-              dateFormat={FORMAT_DATE + ' ' + FORMAT_TIME}
-              defaultDate={
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]
-                  ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]
-                  : new Date()
-              }
-              handleOnChange={(date) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP] =
-                  moment(date).format(FORMAT_DATE_UPDATE_POST);
-              }}
-            />
+import UtilsStore from 'store/UtilsStore/UtilsStore';
+import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
+import { observer } from 'mobx-react';
+
+const utilsStore = new UtilsStore();
+const utilsViewModel = new UtilsViewModel(utilsStore);
+
+const PublishOptions = observer(
+  class PublishOptions extends Component {
+    constructor(props) {
+      super(props);
+      this.utilsListViewModel = utilsViewModel ? utilsViewModel.getUtilsListViewModel() : null;
+    }
+
+    async componentDidMount() {
+      if (!this.utilsListViewModel.listPublishStatus.length) {
+        await this.utilsListViewModel.getListPublishStatus();
+      }
+    }
+    render() {
+      const { t, detailViewModal, formPropsData, isEdit } = this.props;
+      let createBy = isEdit
+        ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
+        : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
+      let modifiedBy = isEdit
+        ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
+        : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
+
+      return (
+        <div className="p-24 bg-white rounded-1 shadow-sm">
+          <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
+            {t('txt_publish_options')}
+          </h5>
+          <div className="d-flex align-items-center justify-content-between w-100 mb-24">
+            <div>
+              <ComponentSVG url="/assets/images/post-status.svg" color="#222328" className="pe-1" />
+              {t('txt_status')}:
+            </div>
+            <Form.Group className={`w-60`}>
+              <FormSelection
+                field={{
+                  getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
+                    ? {
+                        label: this.utilsListViewModel.listPublishStatus?.find(
+                          (x) => x.value === formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
+                        )?.label,
+                        value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
+                      }
+                    : null,
+                  getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
+                    (status) => ({
+                      label: status.label,
+                      value: status.value,
+                    })
+                  ),
+                  arrowColor: '#222328',
+                  handleChange: (data) => {
+                    detailViewModal.handleFormPropsData(
+                      PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED,
+                      data.value
+                    );
+                  },
+                }}
+              />
+            </Form.Group>
           </div>
-        </Form.Group>
-      </div>
-      <div className="d-flex align-items-center justify-content-between w-100">
-        <div>{t('txt_create_by')}:</div>
-        <div className="text-gray">{userName}</div>
-      </div>
-    </div>
-  );
-};
+          <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
+            <div>{t('txt_modified_by')}:</div>
+            <div className="text-gray">{modifiedBy}</div>
+          </div>
+
+          <div className="d-flex align-items-center justify-content-between w-100 mb-24">
+            <div>{t('txt_feature')}</div>
+            <Form.Group className={`w-40`}>
+              <FormRadio
+                field={{
+                  key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
+                  getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED]
+                    ? {
+                        label:
+                          formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] === '1'
+                            ? 'Yes'
+                            : 'No',
+                        value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
+                      }
+                    : null,
+                  getDataSelectOptions: [
+                    {
+                      label: 'Yes',
+                      value: '1',
+                    },
+                    {
+                      label: 'No',
+                      value: '0',
+                      className: 'me-0',
+                    },
+                  ],
+                  handleChange: (data) => {
+                    detailViewModal.handleFormPropsData(
+                      PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
+                      data.target.value
+                    );
+                  },
+                }}
+              />
+            </Form.Group>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100 mb-24">
+            <div>{t('txt_create_date')}:</div>
+            <Form.Group className={``}>
+              <div className="fs-14">
+                <CustomizedDatePicker
+                  dateFormat={FORMAT_DATE + ' ' + FORMAT_TIME}
+                  defaultDate={
+                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_TIME]
+                      ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_TIME]
+                      : new Date()
+                  }
+                  isDisabled={true}
+                />
+              </div>
+            </Form.Group>
+          </div>
+          <div className="d-flex align-items-center justify-content-between w-100">
+            <div>{t('txt_create_by')}:</div>
+            <div className="text-gray">{createBy}</div>
+          </div>
+        </div>
+      );
+    }
+  }
+);
 export default withTranslation('common')(PublishOptions);

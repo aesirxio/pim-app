@@ -12,16 +12,34 @@ import './index.scss';
 class FormSelection extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      value: props.field.getValueSelected,
-    };
+    // console.log('constructor');
+    // this.state = {
+    //   value: props.field.getValueSelected,
+    // };
   }
 
   handleChange = (data) => {
     this.props.field.handleChange(data);
-    this.setState({ value: data });
+    // if (Array.isArray(data)) {
+    //   this.setState({ value: [this.state.value, data] });
+    //   console.log('datane', data);
+    // } else {
+    //   this.setState({ value: data });
+    // }
   };
 
+  // componentDidUpdate(prevProps) {
+  //   if (prevProps.field.getValueSelected !== this.props.field.getValueSelected) {
+  //     this.setState({ value: this.props.field.getValueSelected });
+  //     // console.log('this.props.field.isMulti', this.props.field.isMulti);
+  //     // if (this.props.field.isMulti) {
+  //     //   console.log('this.props.field.getValueSelected', this.props.field.getValueSelected);
+  //     //   this.setState({ value: [this.props.field.getValueSelected] });
+  //     // } else {
+  //     //   this.setState({ value: this.props.field.getValueSelected });
+  //     // }
+  //   }
+  // }
   render() {
     return (
       <>
@@ -36,7 +54,7 @@ class FormSelection extends Component {
           />
         ) : (
           <SelectComponent
-            value={this.state.value}
+            value={this.props.field.getValueSelected}
             options={this.props.field.getDataSelectOptions}
             className="fs-14"
             isBorder={true}
