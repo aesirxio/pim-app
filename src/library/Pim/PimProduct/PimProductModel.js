@@ -119,15 +119,10 @@ class ProductItemModel extends BaseItemModel {
       data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
       Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
     ) {
-      console.log(
-        'data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]',
-        data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]
-      );
       formData['custom_fields'] = {};
       Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
         formData['custom_fields'][key] = data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
       });
-      console.log('custom_fields', formData['custom_fields']);
     }
 
     return formData;

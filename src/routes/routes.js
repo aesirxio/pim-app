@@ -19,8 +19,8 @@ const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
-const EditProduct = lazy(() => import('containers/ProductsPage/edit'));
-const EditCategory = lazy(() => import('containers/CategoriesPage/edit'));
+const EditProductProvider = lazy(() => import('containers/ProductsPage/edit'));
+const EditCategoryProvider = lazy(() => import('containers/CategoriesPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -82,22 +82,22 @@ const mainRoutes = [
   {
     path: '/products/edit/:id',
     exact: true,
-    main: ({ match }) => <EditProduct match={match} />,
+    main: ({ match }) => <EditProductProvider match={match} />,
   },
   {
     path: '/products/add',
     exact: true,
-    main: () => <EditProduct />,
+    main: () => <EditProductProvider />,
   },
   {
     path: '/categories/edit/:id',
     exact: true,
-    main: ({ match }) => <EditCategory match={match} />,
+    main: ({ match }) => <EditCategoryProvider match={match} />,
   },
   {
     path: '/categories/add',
     exact: true,
-    main: () => <EditCategory />,
+    main: () => <EditCategoryProvider />,
   },
 ];
 

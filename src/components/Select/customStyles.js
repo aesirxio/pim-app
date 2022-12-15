@@ -38,6 +38,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         boxShadow: '0 3px 5px rgb(0 0 0 / 5%)',
         borderTop: '1px solid var(--border-color)',
         borderBottom: '1px solid var(--border-color)',
+        zIndex: 10,
       };
     },
     option: (provided, state) => {

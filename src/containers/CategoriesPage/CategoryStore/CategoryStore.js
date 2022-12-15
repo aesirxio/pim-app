@@ -16,7 +16,7 @@ export default class CategoryStore {
       let resultOnSave;
       const createCategoryApiService = new AesirxPimCategoryApiService();
 
-      resultOnSave = await createCategoryApiService.createCategory(convertedUpdateGeneralData);
+      resultOnSave = await createCategoryApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -26,10 +26,12 @@ export default class CategoryStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);
       });
+      return false;
     }
   }
 
@@ -41,7 +43,7 @@ export default class CategoryStore {
       let resultOnSave;
       const updateCategoryApiService = new AesirxPimCategoryApiService();
 
-      resultOnSave = await updateCategoryApiService.updateCategory(convertedUpdateGeneralData);
+      resultOnSave = await updateCategoryApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -86,14 +88,14 @@ export default class CategoryStore {
     }
   }
 
-  async getList(callbackOnSuccess, callbackOnError) {
+  async getList(filter, callbackOnSuccess, callbackOnError) {
     try {
       const results = true;
 
       if (results) {
         const getListInfoAPIService = new AesirxPimCategoryApiService();
 
-        const respondedData = await getListInfoAPIService.getList();
+        const respondedData = await getListInfoAPIService.getList(filter);
 
         if (respondedData) {
           runInAction(() => {
