@@ -13,6 +13,7 @@ import FormLocationField from '../components/Form/FormLocationField';
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
 const FormImage = lazy(() => import('../components/Form/FormImage'));
+const FormVideo = lazy(() => import('../components/Form/FormVideo'));
 const FormSelection = lazy(() => import('../components/Form/FormSelection'));
 const FormSelectionPersona = lazy(() => import('../components/Form/FormSelectionPersona'));
 const FormInformation = lazy(() => import('../components/FormInformation'));
@@ -84,8 +85,11 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
-
-                  <FormImage key={Math.random(40, 200)} field={field} />
+                  {field.isVideo ? (
+                    <FormVideo key={Math.random(40, 200)} field={field} />
+                  ) : (
+                    <FormImage key={Math.random(40, 200)} field={field} />
+                  )}
                 </Form.Group>
               );
 

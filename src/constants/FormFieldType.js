@@ -9,7 +9,7 @@ const FORM_FIELD_TYPE = {
   CHECKBOX: 3,
   NUMBER: 'number',
   DROPDOWN: 5,
-  IMAGE: 6,
+  IMAGE: 'aesir_dam_asset',
   DATE: 7,
   DATERANGE: 8,
   SELECTION: 'select',

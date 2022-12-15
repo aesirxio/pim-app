@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-// import ProductAsset from './ProductAsset';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+
 import FieldsList from 'components/Fields';
 
 const fieldStore = new FieldStore();
@@ -31,9 +31,8 @@ const FieldsTab = observer(
       }
       this.setState({ defaultActive: 'group-' + this.fieldListViewModel.groupList[0]?.id });
     }
-
     render() {
-      const { t, formPropsData, validator } = this.props;
+      const { t, detailViewModal, formPropsData, validator } = this.props;
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           {this.fieldListViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -62,9 +61,6 @@ const FieldsTab = observer(
                         </Nav.Item>
                       );
                     })}
-                    {/* <Nav.Item>
-                      <Nav.Link eventKey="productAsset">{t('txt_product_asset')}</Nav.Link>
-                    </Nav.Item> */}
                   </Nav>
                 </Col>
                 <Col lg={9}>
@@ -75,6 +71,7 @@ const FieldsTab = observer(
                           <h3 className="mb-24 fw-bold">{group.label}</h3>
                           <div className="row">
                             <FieldsList
+                              detailViewModal={detailViewModal}
                               formPropsData={formPropsData}
                               validator={validator}
                               groupID={group.id}
@@ -84,14 +81,6 @@ const FieldsTab = observer(
                         </Tab.Pane>
                       );
                     })}
-                    {/* <Tab.Pane eventKey="productAsset">
-                      <div className="">
-                        <div className="row">
-                          <h3 className="mb-24 fw-bold">{t('txt_additional_image')}</h3>
-                          <ProductAsset formPropsData={formPropsData} validator={validator} />
-                        </div>
-                      </div>
-                    </Tab.Pane> */}
                   </Tab.Content>
                 </Col>
               </Row>
@@ -102,4 +91,5 @@ const FieldsTab = observer(
     }
   }
 );
+
 export default withTranslation('common')(FieldsTab);

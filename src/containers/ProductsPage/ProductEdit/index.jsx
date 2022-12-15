@@ -92,14 +92,15 @@ const EditProduct = observer(
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.productDetailViewModel.update();
+                          await this.productDetailViewModel.initializeData();
+                          this.forceUpdate();
                         } else {
-                          await this.productDetailViewModel.create();
+                          let result = await this.productDetailViewModel.create();
+                          history.push(`/products/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
                       }
-                      // await this.productDetailViewModel.initializeData();
-                      // this.forceUpdate();
                     },
                     icon: '/assets/images/save.svg',
                     variant: 'success',
@@ -171,7 +172,13 @@ const EditProduct = observer(
                     />
                   </Tab>
                   <Tab key="fields" eventKey="fields" title={t('txt_fields')}>
-                    <FieldsTab formPropsData={this.formPropsData} validator={this.validator} />
+                    <FieldsTab
+                      detailViewModal={this.productDetailViewModel}
+                      formPropsData={
+                        this.productDetailViewModel.productDetailViewModel.formPropsData
+                      }
+                      validator={this.validator}
+                    />
                   </Tab>
                   <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
                     {this.state.key === 'variants' && (

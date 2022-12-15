@@ -11,20 +11,23 @@ import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import ComponentImage from '../../ComponentImage';
 import './index.scss';
 const FormImage = ({ field }) => {
-  const [file, setFile] = useState([]);
+  const [file, setFile] = useState(field.getValueSelected ?? []);
+
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
   };
   const onSelect = (data) => {
     if (field.isMulti) {
-      data.length && setFile([...file, data[0]]);
+      data.length && setFile([...file, data]);
+      field.handleChange([...file, data]);
     } else {
       data.length && setFile(data);
+      field.handleChange(data);
     }
-    field.handleChange(data);
     setShow(false);
   };
+
   return (
     <>
       {field.isMulti ? (
@@ -35,7 +38,7 @@ const FormImage = ({ field }) => {
                 <Col lg={2} key={key}>
                   <Ratio aspectRatio="1x1">
                     <div className="d-flex align-items-center w-100 h-100 border">
-                      <ComponentImage src={item.url} alt={field.value} />
+                      <ComponentImage src={item[0].url} alt={field.value} />
                     </div>
                   </Ratio>
                 </Col>
@@ -61,14 +64,14 @@ const FormImage = ({ field }) => {
               setShow(true);
             }}
           >
-            {!file.length && (
+            {!file?.length && (
               <div className="d-flex align-items-center p-2 w-100">
                 <div className="text-center fs-14 text-body opacity-50 w-100">
                   <p className="mb-0">Browse from computer Choose from media Drag file here</p>
                 </div>
               </div>
             )}
-            <ComponentImage src={file[0]?.url} alt={field.value} />
+            <ComponentImage src={file && file[0]?.url} alt={field.value} />
           </div>
           <p className="my-8px fs-14 opacity-50">
             Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)
