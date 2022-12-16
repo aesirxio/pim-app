@@ -42,6 +42,54 @@ class AesirxPimUtilApiService extends Component {
       } else throw error;
     }
   };
+
+  getListContentType = async () => {
+    try {
+      const data = await this.utilsRoute.getListContentType();
+
+      let results = null;
+
+      if (data?.result) {
+        results = await Promise.all(
+          data.result.map(async (o) => {
+            return new PublishStatusModel(o).toJSON();
+          })
+        );
+      }
+
+      return {
+        listContentType: results ?? [],
+      };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  getListFieldType = async () => {
+    try {
+      const data = await this.utilsRoute.getListFieldType();
+
+      let results = null;
+
+      if (data?.result) {
+        results = await Promise.all(
+          data.result.map(async (o) => {
+            return new PublishStatusModel(o).toJSON();
+          })
+        );
+      }
+
+      return {
+        listFieldType: results ?? [],
+      };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
 }
 
 export default AesirxPimUtilApiService;

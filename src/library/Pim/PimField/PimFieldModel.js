@@ -32,6 +32,8 @@ class FieldItemModel extends BaseItemModel {
   params = null;
   options = null;
   relevance = null;
+  content_types = null;
+  unique = null;
 
   constructor(entity) {
     super(entity);
@@ -49,10 +51,12 @@ class FieldItemModel extends BaseItemModel {
       this.type = entity[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] ?? '';
       this.fieldcode = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE] ?? '';
       this.params = entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS][0]
-        ? JSON.parse(JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]))
+        ? JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS])
         : [];
       this.options = entity[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS] ?? '';
       this.relevance = entity[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] ?? '';
+      this.content_types = entity[PIM_FIELD_DETAIL_FIELD_KEY.SECTION] ?? '';
+      this.unique = entity[PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE] ?? '';
     }
   }
 
@@ -74,24 +78,42 @@ class FieldItemModel extends BaseItemModel {
       [PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME]: this.field_group_name,
       [PIM_FIELD_DETAIL_FIELD_KEY.TYPE]: this.type,
       [PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]: this.fieldcode,
-      // [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]: this.params,
+      [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]: this.params,
       [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS]: this.options,
       [PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE]: this.relevance,
+      [PIM_FIELD_DETAIL_FIELD_KEY.SECTION]: this.content_types,
+      [PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE]: this.unique,
     };
   };
 
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
-    const excluded = [PIM_FIELD_DETAIL_FIELD_KEY.ID];
+    const excluded = [PIM_FIELD_DETAIL_FIELD_KEY.ID, PIM_FIELD_DETAIL_FIELD_KEY.PARAMS];
     Object.keys(PIM_FIELD_DETAIL_FIELD_KEY).forEach((index) => {
-      if (!excluded.includes(index) && data[PIM_FIELD_DETAIL_FIELD_KEY[index]]) {
-        formData.append(
-          [PIM_FIELD_DETAIL_FIELD_KEY[index]],
-          data[PIM_FIELD_DETAIL_FIELD_KEY[index]]
-        );
+      if (
+        !excluded.includes(PIM_FIELD_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_FIELD_DETAIL_FIELD_KEY[index]]
+      ) {
+        if (Array.isArray(data[PIM_FIELD_DETAIL_FIELD_KEY[index]])) {
+          data[PIM_FIELD_DETAIL_FIELD_KEY[index]].map((item) =>
+            formData.append([PIM_FIELD_DETAIL_FIELD_KEY[index] + '[]'], item)
+          );
+        } else {
+          formData.append(
+            [PIM_FIELD_DETAIL_FIELD_KEY[index]],
+            data[PIM_FIELD_DETAIL_FIELD_KEY[index]]
+          );
+        }
       }
     });
-    formData.append([PIM_FIELD_DETAIL_FIELD_KEY.ID], data[PIM_FIELD_DETAIL_FIELD_KEY.ID] ?? 0);
+    if (data[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]) {
+      Object.keys(data[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]).map((key) => {
+        return formData.append(
+          [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS] + '[' + key + ']',
+          data[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS][key]
+        );
+      });
+    }
     return formData;
   };
 
@@ -99,7 +121,10 @@ class FieldItemModel extends BaseItemModel {
     let formData = {};
     const excluded = [];
     Object.keys(PIM_FIELD_DETAIL_FIELD_KEY).forEach((index) => {
-      if (!excluded.includes(index) && data[PIM_FIELD_DETAIL_FIELD_KEY[index]]) {
+      if (
+        !excluded.includes(PIM_FIELD_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_FIELD_DETAIL_FIELD_KEY[index]]
+      ) {
         formData[PIM_FIELD_DETAIL_FIELD_KEY[index]] = data[PIM_FIELD_DETAIL_FIELD_KEY[index]];
       }
     });

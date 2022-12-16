@@ -74,10 +74,24 @@ const PIM_FIELD_DETAIL_FIELD_KEY = {
   FIELD_GROUP_ID: 'field_group_id',
   FIELD_GROUP_NAME: 'field_group_name',
   TYPE: 'type',
+  SECTION: 'content_types',
   FIELD_CODE: 'fieldcode',
   PARAMS: 'params',
   OPTIONS: 'options',
   RELEVANCE: 'relevance',
+  UNIQUE: 'unique',
+};
+
+const PIM_FIELD_GROUP_DETAIL_FIELD_KEY = {
+  ID: 'id',
+  NAME: 'name',
+  PUBLISHED: 'published',
+  FEATURED: 'featured',
+  CREATED_USER_NAME: 'created_user_name',
+  CREATED_TIME: 'created_time',
+  PUBLISH_UP: 'publish_up',
+  ALIAS: 'alias',
+  DESCRIPTIONS: 'description',
 };
 
 const PIM_PRICE_FIELD_KEY = {
@@ -97,4 +111,5 @@ export {
   PIM_TAG_DETAIL_FIELD_KEY,
   PIM_FIELD_DETAIL_FIELD_KEY,
   PIM_PRICE_FIELD_KEY,
+  PIM_FIELD_GROUP_DETAIL_FIELD_KEY,
 };
