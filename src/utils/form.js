@@ -59,10 +59,10 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <Label text={field.label} required={field.required ?? false} />
                   <Form.Control
                     as="textarea"
-                    defaultValue={field.value}
+                    defaultValue={field.getValueSelected}
                     required={field.required ?? false}
                     id={field.key}
-                    onChange={field.changed ?? undefined}
+                    onChange={field.handleChange ?? undefined}
                     onBlur={field.blurred ?? undefined}
                   />
 
@@ -201,7 +201,18 @@ const renderingGroupFieldHandler = (group, validator) => {
                     text={field.label}
                     required={field.required ?? false}
                   />
-                  <FormEditor field={field} />
+                  {field.isEditor === false ? (
+                    <Form.Control
+                      as="textarea"
+                      defaultValue={field.getValueSelected}
+                      required={field.required ?? false}
+                      id={field.key}
+                      onChange={field.handleChange ?? undefined}
+                      onBlur={field.blurred ?? undefined}
+                    />
+                  ) : (
+                    <FormEditor field={field} />
+                  )}
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {
                       className: 'text-danger',

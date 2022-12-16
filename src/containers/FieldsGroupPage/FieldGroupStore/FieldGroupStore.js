@@ -3,19 +3,20 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimFieldApiService from 'library/Pim/PimField/PimField';
-import { FieldItemModel } from 'library/Pim/PimField/PimFieldModel';
+import AesirxPimFieldGroupApiService from 'library/Pim/PimFieldGroup/PimFieldGroup';
+import { FieldGroupItemModel } from 'library/Pim/PimFieldGroup/PimFieldGroupModel';
 import { runInAction } from 'mobx';
 
-export default class FieldStore {
-  async create(createFieldData, callbackOnSuccess, callbackOnError) {
+export default class FieldGroupStore {
+  async create(createFieldGroupData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        FieldItemModel.__transformItemToApiOfCreation(createFieldData);
-      let resultOnSave;
-      const createFieldApiService = new AesirxPimFieldApiService();
+        FieldGroupItemModel.__transformItemToApiOfCreation(createFieldGroupData);
 
-      resultOnSave = await createFieldApiService.create(convertedUpdateGeneralData);
+      let resultOnSave;
+      const createFieldGroupApiService = new AesirxPimFieldGroupApiService();
+
+      resultOnSave = await createFieldGroupApiService.createFieldGroup(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -32,15 +33,15 @@ export default class FieldStore {
     }
   }
 
-  async update(updateFieldData, callbackOnSuccess, callbackOnError) {
+  async update(updateFieldGroupData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        FieldItemModel.__transformItemToApiOfUpdation(updateFieldData);
+        FieldGroupItemModel.__transformItemToApiOfUpdation(updateFieldGroupData);
 
       let resultOnSave;
-      const updateFieldApiService = new AesirxPimFieldApiService();
+      const updateFieldGroupApiService = new AesirxPimFieldGroupApiService();
 
-      resultOnSave = await updateFieldApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await updateFieldGroupApiService.updateFieldGroup(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -50,7 +51,6 @@ export default class FieldStore {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);
@@ -65,7 +65,7 @@ export default class FieldStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimFieldApiService();
+        const getDetailInfoAPIService = new AesirxPimFieldGroupApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -91,7 +91,7 @@ export default class FieldStore {
       const results = true;
 
       if (results) {
-        const getListInfoAPIService = new AesirxPimFieldApiService();
+        const getListInfoAPIService = new AesirxPimFieldGroupApiService();
         const respondedData = await getListInfoAPIService.getList(filter);
 
         if (respondedData) {

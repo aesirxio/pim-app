@@ -11,26 +11,26 @@ import { Button, Col, Ratio, Row } from 'react-bootstrap';
 
 import './index.scss';
 const FormVideo = ({ field }) => {
-  const [file, setFile] = useState(field.getValueSelected);
+  // const [file, setFile] = useState(field.getValueSelected);
   const [show, setShow] = useState(false);
   const handleClose = () => {
     setShow(false);
   };
   const onSelect = (data) => {
-    data.length && setFile(data);
+    // data.length && setFile(data);
     field.handleChange(data);
     setShow(false);
   };
-
+  console.log('dsajdksjakdsa');
   return (
     <>
       <div className="position-relative">
-        {file && (
+        {field.getValueSelected && (
           <Row className="gx-24 mb-16">
             <Col lg={7}>
               <Ratio aspectRatio="16x9">
                 <div className="d-flex align-items-center w-100 h-100 border">
-                  <ComponentVideo src={file && file[0]?.url} />
+                  <ComponentVideo src={field.getValueSelected && field.getValueSelected[0]?.url} />
                 </div>
               </Ratio>
             </Col>

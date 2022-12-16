@@ -16,6 +16,24 @@ class UtilsRoute extends BaseRoute {
       })
     );
   };
+  getListContentType = () => {
+    return AesirxApiInstance.get(
+      this.createRequestURL({
+        option: 'reditem',
+        view: 'pim_select_options',
+        task: 'contentType',
+      })
+    );
+  };
+  getListFieldType = () => {
+    return AesirxApiInstance.get(
+      this.createRequestURL({
+        option: 'reditem',
+        view: 'pim_select_options',
+        task: 'fieldType',
+      })
+    );
+  };
 }
 
 export default UtilsRoute;

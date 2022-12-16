@@ -19,7 +19,7 @@ const FormRadio = ({ field }) => {
     field.handleChange(data);
   };
   return (
-    <div className="d-flex align-items-center justify-content-between w-100">
+    <div className="d-flex align-items-center w-100">
       {field.getDataSelectOptions?.map((option, key) => (
         <Form.Check
           key={field.key + key}

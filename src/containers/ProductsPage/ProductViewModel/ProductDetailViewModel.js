@@ -105,10 +105,6 @@ class ProductDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value) {
       this.productDetailViewModel.formPropsData[key] = value;
-      console.log(
-        'this.productDetailViewModel.formPropsData',
-        this.productDetailViewModel.formPropsData
-      );
     }
   };
 }
