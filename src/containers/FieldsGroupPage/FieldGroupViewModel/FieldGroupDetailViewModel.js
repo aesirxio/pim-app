@@ -7,37 +7,37 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-class FieldDetailViewModel {
-  fieldStore = null;
+class FieldGroupDetailViewModel {
+  fieldGroupStore = null;
   formStatus = PAGE_STATUS.READY;
-  fieldDetailViewModel = null;
+  fieldGroupDetailViewModel = null;
   successResponse = {
     state: true,
     content_id: '',
   };
 
-  constructor(fieldStore) {
+  constructor(fieldGroupStore) {
     makeAutoObservable(this);
-    this.fieldStore = fieldStore;
+    this.fieldGroupStore = fieldGroupStore;
   }
 
-  setForm = (fieldDetailViewModel) => {
-    this.fieldDetailViewModel = fieldDetailViewModel;
+  setForm = (fieldGroupDetailViewModel) => {
+    this.fieldGroupDetailViewModel = fieldGroupDetailViewModel;
   };
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.fieldStore.getDetail(
-      this.fieldDetailViewModel.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetFieldSuccessHandler,
+    await this.fieldGroupStore.getDetail(
+      this.fieldGroupDetailViewModel.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+      this.callbackOnGetFieldGroupSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
 
   create = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return this.fieldStore.create(
-      this.fieldDetailViewModel.formPropsData,
+    this.fieldGroupStore.create(
+      this.fieldGroupDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnCreateSuccessHandler
     );
@@ -45,8 +45,8 @@ class FieldDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.fieldStore.update(
-      this.fieldDetailViewModel.formPropsData,
+    await this.fieldGroupStore.update(
+      this.fieldGroupDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,32 +73,40 @@ class FieldDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetFieldSuccessHandler = (result) => {
+  callbackOnGetFieldGroupSuccessHandler = (result) => {
     if (result) {
-      this.fieldDetailViewModel.formPropsData = {
-        ...this.fieldDetailViewModel.formPropsData,
-        ...Object.keys(PIM_FIELD_DETAIL_FIELD_KEY)
-          .map((index) => {
-            return {
-              [PIM_FIELD_DETAIL_FIELD_KEY[index]]: result[PIM_FIELD_DETAIL_FIELD_KEY[index]],
-            };
-          })
-          .reduce((prev, cur) => ({ ...prev, ...cur })),
+      this.fieldGroupDetailViewModel = {
+        ...this.fieldGroupDetailViewModel,
+        formPropsData: {
+          ...this.fieldGroupDetailViewModel.formPropsData,
+          ...Object.keys(PIM_FIELD_DETAIL_FIELD_KEY)
+            .map((index) => {
+              return {
+                [PIM_FIELD_DETAIL_FIELD_KEY[index]]: result[PIM_FIELD_DETAIL_FIELD_KEY[index]],
+              };
+            })
+            .reduce((prev, cur) => ({ ...prev, ...cur })),
+        },
       };
     }
 
     this.formStatus = PAGE_STATUS.READY;
   };
 
+  initFormPropsData = () => {
+    this.fieldGroupDetailViewModel = {
+      ...this.fieldGroupDetailViewModel,
+      formPropsData: {
+        ...this.fieldGroupDetailViewModel.formPropsData,
+      },
+    };
+  };
+
   handleFormPropsData = (key, value) => {
     if (key && value) {
-      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        Object.assign(this.fieldDetailViewModel.formPropsData[key], value);
-      } else {
-        this.fieldDetailViewModel.formPropsData[key] = value;
-      }
+      this.fieldGroupDetailViewModel.formPropsData[key] = value;
     }
   };
 }
 
-export default FieldDetailViewModel;
+export default FieldGroupDetailViewModel;

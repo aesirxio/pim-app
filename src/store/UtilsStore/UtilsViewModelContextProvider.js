@@ -18,5 +18,7 @@ export const useUtilsViewModel = () => React.useContext(UtilsViewModelContext);
 
 /* HOC to inject store to any functional or class component */
 export const withUtilsViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useUtilsViewModel()} />;
+  return (
+    <Component {...props} parentViewModel={props?.viewModel} viewModel={useUtilsViewModel()} />
+  );
 };

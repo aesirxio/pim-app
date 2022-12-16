@@ -27,4 +27,44 @@ export default class UtilsStore {
 
     return false;
   }
+  async getListContentType(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListContentType();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+  async getListFieldType(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListFieldType();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }

@@ -104,37 +104,6 @@ const FieldsList = observer(
                 format: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.number_units,
               };
             }),
-            // {
-            //   label: 'Thumb Image',
-            //   key: 'thumb_image',
-            //   type: FORM_FIELD_TYPE.IMAGE,
-            //   // getValueSelected: selectedValue,
-            //   handleChange: (data) => {
-            //     formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS].thumb_image = data[0].url;
-            //   },
-            //   className: 'col-lg-12',
-            // },
-            // {
-            //   label: 'Product Photo',
-            //   key: 'product_photo',
-            //   type: FORM_FIELD_TYPE.IMAGE,
-            //   isMulti: true,
-            //   // getValueSelected: selectedValue,
-            //   handleChange: (data) => {
-            //     formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS].product_photo = data;
-            //   },
-            //   className: 'col-lg-12',
-            // },
-            // {
-            //   label: 'Product Video',
-            //   key: 'product_video',
-            //   type: FORM_FIELD_TYPE.VIDEO,
-            //   // getValueSelected: selectedValue,
-            //   handleChange: (data) => {
-            //     formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS].product_photo = data[0].url;
-            //   },
-            //   className: 'col-lg-12',
-            // },
           ],
         },
       ];

@@ -11,6 +11,8 @@ class UtilsListViewModel {
   formStatus = PAGE_STATUS.READY;
   utilsListViewModel = null;
   listPublishStatus = [];
+  listContentType = [];
+  listFieldType = [];
   successResponse = {
     state: true,
     content_id: '',
@@ -28,6 +30,20 @@ class UtilsListViewModel {
   getListPublishStatus = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.utilsStore.getListPublishStatus(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  getListContentType = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.utilsStore.getListContentType(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+  getListFieldType = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.utilsStore.getListFieldType(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -50,6 +66,12 @@ class UtilsListViewModel {
   callbackOnSuccessHandler = (result) => {
     if (result?.listPublishStatus) {
       this.listPublishStatus = result.listPublishStatus;
+    }
+    if (result?.listContentType) {
+      this.listContentType = result.listContentType;
+    }
+    if (result?.listFieldType) {
+      this.listFieldType = result.listFieldType;
     }
     this.formStatus = PAGE_STATUS.READY;
   };
