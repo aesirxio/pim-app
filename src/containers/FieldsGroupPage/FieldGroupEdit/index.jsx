@@ -12,24 +12,17 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import { withFieldGroupViewModel } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import {
-  PIM_CATEGORY_DETAIL_FIELD_KEY,
-  PIM_FIELD_DETAIL_FIELD_KEY,
-} from 'library/Constant/PimConstant';
+import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
-import FieldInformation from './Component/FieldInformation';
-import UtilsStore from 'store/UtilsStore/UtilsStore';
-import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
-import { UtilsViewModelContextProvider } from 'store/UtilsStore/UtilsViewModelContextProvider';
-const utilsStore = new UtilsStore();
-const utilsViewModel = new UtilsViewModel(utilsStore);
-const EditField = observer(
-  class EditField extends Component {
-    fieldDetailViewModel = null;
-    formPropsData = { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+import FieldGroupInformation from './Component/FieldGroupInformation';
+
+const EditFieldGroup = observer(
+  class EditFieldGroup extends Component {
+    fieldGroupDetailViewModel = null;
+    formPropsData = {};
     isEdit = false;
     constructor(props) {
       super(props);
@@ -37,38 +30,36 @@ const EditField = observer(
       this.state = {};
 
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.fieldDetailViewModel = this.viewModel ? this.viewModel.getFieldDetailViewModel() : null;
-      this.fieldDetailViewModel.setForm(this);
+      this.fieldGroupDetailViewModel = this.viewModel
+        ? this.viewModel.getFieldGroupDetailViewModel()
+        : null;
+      this.fieldGroupDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
-        await this.fieldDetailViewModel.initializeData();
-      } else {
-        this.fieldDetailViewModel.initFormPropsData();
+        this.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        await this.fieldGroupDetailViewModel.initializeData();
       }
     }
 
     render() {
-      console.log('testneee', this.fieldDetailViewModel);
-
       const { t } = this.props;
       let history = this.props.history;
-      console.log('rerender Field');
+
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.fieldDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.fieldGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_field')}
+                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_field_group')}
               </h2>
             </div>
             <div className="position-relative">
@@ -94,12 +85,12 @@ const EditField = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.fieldDetailViewModel.update();
-                          await this.fieldDetailViewModel.initializeData();
+                          await this.fieldGroupDetailViewModel.update();
+                          await this.fieldGroupDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          let result = await this.fieldDetailViewModel.create();
-                          history.push(`/fields/edit/${result}`);
+                          let result = await this.fieldGroupDetailViewModel.create();
+                          history.push(`/fields-group/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -118,29 +109,29 @@ const EditField = observer(
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
-                      value:
-                        this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
+                      getValueSelected:
+                        this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
+                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME
                         ],
                       classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_field_name'),
+                      placeholder: t('txt_add_field_group_name'),
                       handleChange: (event) => {
-                        this.fieldDetailViewModel.handleFormPropsData(
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
+                        this.fieldGroupDetailViewModel.handleFormPropsData(
+                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME,
                           event.target.value
                         );
                       },
                       required: true,
                       validation: 'required',
                       blurred: () => {
-                        this.validator.showMessageFor('Field Name');
+                        this.validator.showMessageFor('Field Group Name');
                       },
                     }}
                   />
                   {this.validator.message(
-                    'Field Name',
-                    this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
-                      PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
+                    'Field Group Name',
+                    this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
+                      PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME
                     ],
                     'required',
                     {
@@ -148,15 +139,17 @@ const EditField = observer(
                     }
                   )}
                 </Form.Group>
-                <UtilsViewModelContextProvider viewModel={utilsViewModel}>
-                  <FieldInformation validator={this.validator} />
-                </UtilsViewModelContextProvider>
+                <FieldGroupInformation validator={this.validator} />
               </Col>
               <Col lg={3}>
                 <PublishOptions
-                  detailViewModal={this.fieldDetailViewModel}
-                  formPropsData={this.fieldDetailViewModel.fieldDetailViewModel.formPropsData}
+                  detailViewModal={this.fieldGroupDetailViewModel}
+                  formPropsData={
+                    this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData
+                  }
                   isEdit={this.isEdit}
+                  isPublished={false}
+                  isFeatured={false}
                 />
               </Col>
             </Row>
@@ -167,4 +160,4 @@ const EditField = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withFieldViewModel(EditField)));
+export default withTranslation('common')(withRouter(withFieldGroupViewModel(EditFieldGroup)));

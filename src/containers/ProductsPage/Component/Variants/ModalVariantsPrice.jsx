@@ -60,7 +60,7 @@ const ModalVariantsPrice = ({
                               <Label text="Price" />
                               <Input
                                 field={{
-                                  value: item.price,
+                                  getValueSelected: item.price,
                                   classNameInput: 'fs-14',
                                   placeholder: t('txt_type'),
                                   format: 'VND',
@@ -79,7 +79,7 @@ const ModalVariantsPrice = ({
                               <Label text="Discount Price" />
                               <Input
                                 field={{
-                                  value: item.retail_price,
+                                  getValueSelected: item.retail_price,
                                   classNameInput: 'fs-14',
                                   placeholder: t('txt_type'),
                                   format: 'VND',

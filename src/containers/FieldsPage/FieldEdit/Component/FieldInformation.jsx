@@ -41,13 +41,13 @@ const FieldInformation = observer(
       this.fieldGroupListViewModel = fieldGroupViewModel.fieldGroupListViewModel;
     }
 
-    async componentDidMount() {
-      !this.utilsListViewModel.listContentType.length &&
-        (await this.utilsListViewModel.getListContentType());
-      !this.utilsListViewModel.listFieldType.length &&
-        (await this.utilsListViewModel.getListFieldType());
-      !this.fieldGroupListViewModel.items.length &&
-        (await this.fieldGroupListViewModel.initializeData());
+    componentDidMount() {
+      const fetchData = async () => {
+        await this.utilsListViewModel.getListContentType();
+        await this.utilsListViewModel.getListFieldType();
+        await this.fieldGroupListViewModel.initializeData();
+      };
+      fetchData();
     }
 
     render() {

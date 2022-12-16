@@ -13,8 +13,8 @@ import FieldGroupStore from 'containers/FieldsGroupPage/FieldGroupStore/FieldGro
 import FieldGroupViewModel from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModel';
 import { FieldGroupViewModelContextProvider } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
 import EditFieldGroup from './FieldGroupEdit';
-const fieldStore = new FieldGroupStore();
-const fieldViewModel = new FieldGroupViewModel(fieldStore);
+const fieldGroupStore = new FieldGroupStore();
+const fieldGroupViewModel = new FieldGroupViewModel(fieldGroupStore);
 
 const EditFieldGroupProvider = observer(
   class EditFieldGroupProvider extends Component {
@@ -23,7 +23,7 @@ const EditFieldGroupProvider = observer(
         return <Spinner />;
       }
       return (
-        <FieldGroupViewModelContextProvider viewModel={fieldViewModel}>
+        <FieldGroupViewModelContextProvider viewModel={fieldGroupViewModel}>
           <EditFieldGroup />
         </FieldGroupViewModelContextProvider>
       );
