@@ -29,8 +29,10 @@ class CategoryItemModel extends BaseItemModel {
   modified_user_name = null;
   created_time = null;
   publish_up = null;
+  children = null;
   related_categories = null;
   level = null;
+  
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -46,6 +48,7 @@ class CategoryItemModel extends BaseItemModel {
       this.modified_user_name = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
       this.created_time = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
       this.publish_up = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
+      this.children = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CHILDREN] ?? '';
       this.related_categories = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES] ?? '';
       this.level = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL] ?? '';
     }
