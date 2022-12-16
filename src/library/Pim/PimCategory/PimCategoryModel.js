@@ -30,6 +30,7 @@ class CategoryItemModel extends BaseItemModel {
   created_time = null;
   publish_up = null;
   related_categories = null;
+  level = null;
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -46,6 +47,7 @@ class CategoryItemModel extends BaseItemModel {
       this.created_time = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
       this.publish_up = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
       this.related_categories = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES] ?? '';
+      this.level = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL] ?? '';
     }
   }
 
@@ -67,6 +69,7 @@ class CategoryItemModel extends BaseItemModel {
       [PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
       [PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES]: this.related_categories,
+      [PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL]: this.level,
     };
   };
 

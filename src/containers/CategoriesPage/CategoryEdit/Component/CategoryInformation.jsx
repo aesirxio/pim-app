@@ -24,6 +24,7 @@ const CategoryInformation = observer(
 
     render() {
       const { t, validator } = this.props;
+      console.log('rerender Category Information');
       const filteredCategoryList = this.props.viewModel.categoryListViewModel.items.filter(
         (category) => {
           return (
@@ -32,6 +33,7 @@ const CategoryInformation = observer(
           );
         }
       );
+      console.log('filteredCategoryList', filteredCategoryList);
       const generateFormSetting = [
         {
           fields: [
@@ -74,17 +76,21 @@ const CategoryInformation = observer(
                   }
                 : null,
               getDataSelectOptions: filteredCategoryList
-                ? filteredCategoryList.map((item) => ({
-                    label: item.title,
-                    value: item.id,
-                  }))
+                ? filteredCategoryList.map((item) => {
+                    let levelString = Array.from(Array(parseInt(item.level)).keys())
+                      .map(() => ``)
+                      .join('- ');
+                    return {
+                      label: levelString + item.title,
+                      value: item.id,
+                    };
+                  })
                 : null,
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID,
                   data.value
                 );
-                console.log('data', data);
               },
               className: 'col-lg-12',
             },
@@ -100,10 +106,12 @@ const CategoryInformation = observer(
                   ]?.map((item) => ({ label: item.title, value: item.id }))
                 : null,
               getDataSelectOptions: filteredCategoryList
-                ? filteredCategoryList.map((item) => ({
-                    label: item.title,
-                    value: item.id,
-                  }))
+                ? filteredCategoryList.map((item) => {
+                    ({
+                      label: item.title,
+                      value: item.id,
+                    });
+                  })
                 : null,
               handleChange: (data) => {
                 let convertData = data.map((item) => ({ title: item.label, id: item.value }));

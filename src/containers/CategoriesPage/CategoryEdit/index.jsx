@@ -52,6 +52,7 @@ const EditCategory = observer(
     render() {
       const { t } = this.props;
       let history = this.props.history;
+      console.log('rerender Category');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -94,7 +95,6 @@ const EditCategory = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.categoryDetailViewModel.create();
-                          console.log('result', result);
                           history.push(`/categories/edit/${result}`);
                         }
                       } else {

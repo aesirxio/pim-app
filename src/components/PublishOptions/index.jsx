@@ -36,7 +36,7 @@ const PublishOptions = observer(
       let modifiedBy = isEdit
         ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
-
+      console.log('rerender PublishOptions');
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm">
           <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
@@ -53,15 +53,17 @@ const PublishOptions = observer(
                   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
                     ? {
                         label: this.utilsListViewModel.listPublishStatus?.find(
-                          (x) => x.value === formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
+                          (x) =>
+                            x.value.toString() ===
+                            formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
                         )?.label,
-                        value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
+                        value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
                       }
                     : null,
                   getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
                     (status) => ({
                       label: status.label,
-                      value: status.value,
+                      value: status.value.toString(),
                     })
                   ),
                   arrowColor: '#222328',
