@@ -13,12 +13,14 @@ import FormLocationField from '../components/Form/FormLocationField';
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
 const FormImage = lazy(() => import('../components/Form/FormImage'));
+const FormVideo = lazy(() => import('../components/Form/FormVideo'));
 const FormSelection = lazy(() => import('../components/Form/FormSelection'));
 const FormSelectionPersona = lazy(() => import('../components/Form/FormSelectionPersona'));
 const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
 const FormPriceField = lazy(() => import('../components/Form/FormPriceField'));
 const FormRadio = lazy(() => import('../components/Form/FormRadio'));
+const FormEditor = lazy(() => import('../components/Form/FormEditor'));
 
 const Input = lazy(() => import('../components/Form/Input'));
 
@@ -30,6 +32,17 @@ const renderingGroupFieldHandler = (group, validator) => {
           let className = field.className ? field.className : '';
           switch (field.type) {
             case FORM_FIELD_TYPE.INPUT:
+              return (
+                <Form.Group key={field.key} className={`mb-24 ${className}`}>
+                  <Label text={field.label} required={field.required ?? false} />
+                  <Input field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.value, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.NUMBER:
               return (
                 <Form.Group key={field.key} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
@@ -72,8 +85,11 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
-
-                  <FormImage key={Math.random(40, 200)} field={field} />
+                  {field.isVideo ? (
+                    <FormVideo key={Math.random(40, 200)} field={field} />
+                  ) : (
+                    <FormImage key={Math.random(40, 200)} field={field} />
+                  )}
                 </Form.Group>
               );
 
@@ -174,6 +190,22 @@ const renderingGroupFieldHandler = (group, validator) => {
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
                   <FormLocationField field={field} validator={validator} />
+                </Form.Group>
+              );
+
+            case FORM_FIELD_TYPE.EDITOR:
+              return (
+                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
+                  <Label
+                    labelClassName={field.labelClassName}
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
+                  <FormEditor field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.value, field.validation, {
+                      className: 'text-danger',
+                    })}
                 </Form.Group>
               );
 

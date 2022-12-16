@@ -321,12 +321,10 @@ const ListProducts = observer((props) => {
               <div className="opacity-50 me-2">Showing</div>
               <SelectComponent
                 defaultValue={{ label: '2 items', value: 2 }}
-                options={[
-                  { label: '1 items', value: 1 },
-                  { label: '2 items', value: 2 },
-                  { label: '3 items', value: 3 },
-                  { label: '4 items', value: 4 },
-                ]}
+                options={[...Array(4)].map((o, index) => ({
+                  label: `${(index + 1) * 10} items`,
+                  value: (index + 1) * 10,
+                }))}
                 onChange={(o) => selectShowItemsHandler(o)}
                 className={`fs-sm`}
                 isBorder={true}

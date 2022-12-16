@@ -34,16 +34,16 @@ class CategoryDetailViewModel {
     );
   };
 
-  createCategory = () => {
+  create = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.categoryStore.createCategory(
+    return this.categoryStore.createCategory(
       this.categoryDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnCreateSuccessHandler
+      this.callbackOnCreateSuccessHandler,
+      this.callbackOnErrorHandler
     );
   };
 
-  updateCategory = async () => {
+  update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.categoryStore.updateCategory(
       this.categoryDetailViewModel.formPropsData,
@@ -75,13 +75,38 @@ class CategoryDetailViewModel {
 
   callbackOnGetCategorySuccessHandler = (result) => {
     if (result) {
-      Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY).forEach((index) => {
-        this.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY[index]] =
-          result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]];
-      });
+      this.categoryDetailViewModel = {
+        ...this.categoryDetailViewModel,
+        formPropsData: {
+          ...this.categoryDetailViewModel.formPropsData,
+          ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
+            .map((index) => {
+              return {
+                [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]:
+                  result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
+              };
+            })
+            .reduce((prev, cur) => ({ ...prev, ...cur })),
+        },
+      };
     }
 
     this.formStatus = PAGE_STATUS.READY;
+  };
+
+  initFormPropsData = () => {
+    this.categoryDetailViewModel = {
+      ...this.categoryDetailViewModel,
+      formPropsData: {
+        ...this.categoryDetailViewModel.formPropsData,
+      },
+    };
+  };
+
+  handleFormPropsData = (key, value) => {
+    if (key && value) {
+      this.categoryDetailViewModel.formPropsData[key] = value;
+    }
   };
 }
 

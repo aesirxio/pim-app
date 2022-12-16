@@ -11,6 +11,7 @@ class CategoryListViewModel {
   formStatus = PAGE_STATUS.READY;
   categoryListViewModel = null;
   items = [];
+  filter = {};
   successResponse = {
     state: true,
     content_id: '',
@@ -27,7 +28,15 @@ class CategoryListViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.categoryStore.getList(this.callbackOnSuccessHandler, this.callbackOnErrorHandler);
+    await this.categoryStore.getList(
+      this.filter,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
+  handleFilter = (filter) => {
+    this.filter = { ...this.filter, ...filter };
   };
 
   callbackOnErrorHandler = (error) => {

@@ -19,7 +19,9 @@ const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
 const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
-const EditProduct = lazy(() => import('containers/ProductsPage/edit'));
+const EditProductProvider = lazy(() => import('containers/ProductsPage/edit'));
+const EditCategoryProvider = lazy(() => import('containers/CategoriesPage/edit'));
+const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -87,12 +89,27 @@ const mainRoutes = [
   {
     path: '/products/edit/:id',
     exact: true,
-    main: ({ match }) => <EditProduct match={match} />,
+    main: ({ match }) => <EditProductProvider match={match} />,
   },
   {
     path: '/products/add',
     exact: true,
-    main: () => <EditProduct />,
+    main: () => <EditProductProvider />,
+  },
+  {
+    path: '/categories/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditCategoryProvider match={match} />,
+  },
+  {
+    path: '/categories/add',
+    exact: true,
+    main: () => <EditCategoryProvider />,
+  },
+  {
+    path: '/dam',
+    exact: true,
+    main: () => <DigitalAssetsPage />,
   },
 ];
 

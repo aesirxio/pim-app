@@ -21,9 +21,11 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   TAGS: 'tags',
   PUBLISHED_UP: 'publish_up',
   CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_USER_NAME: 'modified_user_name',
   PIM_PRODUCT_TYPE: 'pim_product_type',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
+  VARIANTS: 'variants',
 };
 
 const PIM_CATEGORY_DETAIL_FIELD_KEY = {
@@ -33,13 +35,16 @@ const PIM_CATEGORY_DETAIL_FIELD_KEY = {
   PUBLISHED: 'published',
   FEATURED: 'featured',
   PARENT_ID: 'parent_id',
+  RELATED_CATEGORIES: 'related_categories',
   ORGANISATION_ID: 'organisation_id',
   CUSTOM_FIELDS: 'custom_fields',
   ORGANISATION: 'organisation',
   CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_USER_NAME: 'modified_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
   CHILDREN: 'children',
+  LEVEL: 'level',
 };
 
 const PIM_TAG_DETAIL_FIELD_KEY = {
@@ -59,17 +64,20 @@ const PIM_TAG_DETAIL_FIELD_KEY = {
 
 const PIM_FIELD_DETAIL_FIELD_KEY = {
   ID: 'id',
-  TITLE: 'title',
-  ALIAS: 'alias',
+  NAME: 'name',
   PUBLISHED: 'published',
   FEATURED: 'featured',
-  PARENT_ID: 'parent_id',
-  ORGANISATION_ID: 'organisation_id',
   CUSTOM_FIELDS: 'custom_fields',
-  ORGANISATION: 'organisation',
   CREATED_USER_NAME: 'created_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
+  FIELD_GROUP_ID: 'field_group_id',
+  FIELD_GROUP_NAME: 'field_group_name',
+  TYPE: 'type',
+  FIELD_CODE: 'fieldcode',
+  PARAMS: 'params',
+  OPTIONS: 'options',
+  RELEVANCE: 'relevance',
 };
 
 const PIM_PRICE_FIELD_KEY = {

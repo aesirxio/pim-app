@@ -9,9 +9,9 @@ import './index.scss';
 
 const Input = ({ field }) => {
   const handleChange = (e) => {
-    if (Object.prototype.hasOwnProperty.call(field, 'changed')) {
+    if (Object.prototype.hasOwnProperty.call(field, 'handleChange')) {
       e.target.value = e.target.value.normalize('NFKC');
-      field.changed(e);
+      field.handleChange(e);
     }
   };
 

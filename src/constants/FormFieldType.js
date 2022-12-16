@@ -4,15 +4,15 @@
  */
 
 const FORM_FIELD_TYPE = {
-  INPUT: 1,
+  INPUT: 'text',
   TEXTAREA: 2,
   CHECKBOX: 3,
-  NUMBER: 4,
+  NUMBER: 'number',
   DROPDOWN: 5,
-  IMAGE: 6,
+  IMAGE: 'aesir_dam_asset',
   DATE: 7,
   DATERANGE: 8,
-  SELECTION: 9,
+  SELECTION: 'select',
   TAB: 10,
   PASSWORD: 11,
   CANVA: 12,
@@ -24,10 +24,12 @@ const FORM_FIELD_TYPE = {
   DAM: 18,
   BIRTHDAY: 19,
   PRICE: 20,
-  RADIO: 21,
+  RADIO: 'radio',
   AGE: 22,
   LOCATION: 23,
   TIMEZONE: 24,
+  EDITOR: 25,
+  VIDEO: 26,
 };
 
 const FORMAT_DATE = 'dd MMM, yyyy';

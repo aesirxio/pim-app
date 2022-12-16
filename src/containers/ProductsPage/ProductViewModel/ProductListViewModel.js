@@ -45,7 +45,7 @@ class ProductListViewModel {
   };
 
   setFeatured = async (id, featured = 0) => {
-    await this.productStore.updateProduct2(
+    await this.productStore.updateProduct(
       { id: id.toString(), featured: featured.toString() },
       this.callbackOnSuccessSetFeatured,
       this.callbackOnErrorHandler

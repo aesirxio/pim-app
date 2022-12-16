@@ -12,34 +12,37 @@ import './index.scss';
 class FormSelection extends Component {
   constructor(props) {
     super(props);
-
-    this.field = this.props.field;
   }
+
+  handleChange = (data) => {
+    this.props.field.handleChange(data);
+  };
 
   render() {
     return (
       <>
-        {this.field.creatable ? (
+        {this.props.field.creatable ? (
           <CreatableComponent
-            defaultValue={this.field.getValueSelected}
+            defaultValue={this.props.field.getValueSelected}
             isBorder={true}
-            arrowColor={this.field.arrowColor}
-            placeholder={this.field.placeholder}
+            arrowColor={this.props.field.arrowColor}
+            placeholder={this.props.field.placeholder}
             className="fs-14"
-            onChange={this.field.handleChange}
+            onChange={this.props.field.handleChange}
           />
         ) : (
           <SelectComponent
-            defaultValue={this.field.getValueSelected}
-            options={this.field.getDataSelectOptions}
+            value={this.props.field.getValueSelected}
+            options={this.props.field.getDataSelectOptions}
             className="fs-14"
             isBorder={true}
-            //onFocus={this.field.changed}
-            onBlur={this.field.blurred}
-            isMulti={this.field.isMulti}
-            onChange={this.field.handleChange}
-            arrowColor={this.field.arrowColor}
-            placeholder={this.field.placeholder}
+            //onFocus={this.props.field.changed}
+            onBlur={this.props.field.blurred}
+            isMulti={this.props.field.isMulti}
+            onChange={this.handleChange}
+            arrowColor={this.props.field.arrowColor}
+            placeholder={this.props.field.placeholder}
+            isDisabled={this.props.field.isDisabled}
           />
         )}
       </>

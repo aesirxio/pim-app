@@ -34,8 +34,8 @@ class ProductDetailViewModel {
     );
   };
 
-  createProduct = () => {
-    this.formStatus = PAGE_STATUS.LOADING;
+  create = () => {
+    // this.formStatus = PAGE_STATUS.LOADING;
     this.productStore.createProduct(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
@@ -43,7 +43,7 @@ class ProductDetailViewModel {
     );
   };
 
-  updateProduct = async () => {
+  update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.productStore.updateProduct(
       this.productDetailViewModel.formPropsData,
@@ -75,13 +75,41 @@ class ProductDetailViewModel {
 
   callbackOnGetProductSuccessHandler = (result) => {
     if (result) {
-      Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY).forEach((index) => {
-        this.productDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY[index]] =
-          result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
-      });
+      this.productDetailViewModel = {
+        ...this.productDetailViewModel,
+        formPropsData: {
+          ...this.productDetailViewModel.formPropsData,
+          ...Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY)
+            .map((index) => {
+              return {
+                [PIM_PRODUCT_DETAIL_FIELD_KEY[index]]: result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]],
+              };
+            })
+            .reduce((prev, cur) => ({ ...prev, ...cur })),
+        },
+      };
     }
 
     this.formStatus = PAGE_STATUS.READY;
+  };
+
+  initFormPropsData = () => {
+    this.productDetailViewModel = {
+      ...this.productDetailViewModel,
+      formPropsData: {
+        ...this.productDetailViewModel.formPropsData,
+      },
+    };
+  };
+
+  handleFormPropsData = (key, value) => {
+    if (key && value) {
+      this.productDetailViewModel.formPropsData[key] = value;
+      console.log(
+        'this.productDetailViewModel.formPropsData',
+        this.productDetailViewModel.formPropsData
+      );
+    }
   };
 }
 

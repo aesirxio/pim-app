@@ -20,11 +20,11 @@ class SelectComponent extends React.Component {
   render() {
     const { t } = this.props;
     const { theme } = this.context;
-    let { isBorder, plColor, async, placeholder, arrowColor } = this.props;
+    let { isBorder, plColor, async, placeholder, arrowColor, creatable, isDisabled } = this.props;
     if (theme == 'dark') {
       plColor = '#bfc9f7';
     }
-    let styles = customStyles(isBorder, plColor, arrowColor);
+    let styles = customStyles(isBorder, plColor, arrowColor, creatable, isDisabled);
 
     if (async) {
       return (

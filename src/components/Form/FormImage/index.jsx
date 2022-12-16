@@ -3,45 +3,83 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
+import ComponentSVG from 'components/ComponentSVG';
+import ModalDAMComponent from 'components/ModalDamComponent';
 import React, { useState } from 'react';
-import { useDropzone } from 'react-dropzone';
+import { Button, Col, Ratio, Row } from 'react-bootstrap';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons/faCloudUploadAlt';
 import ComponentImage from '../../ComponentImage';
-
+import './index.scss';
 const FormImage = ({ field }) => {
-  const [file, setFile] = useState(field.value);
+  const [file, setFile] = useState(field.getValueSelected ?? []);
 
-  const { getRootProps, getInputProps } = useDropzone({
-    accept: 'image/*',
-    maxFiles: 1,
-    multiple: false,
-    onDrop: (acceptedFiles) => {
-      setFile(URL.createObjectURL(acceptedFiles[0]));
-    },
-  });
+  const [show, setShow] = useState(false);
+  const handleClose = () => {
+    setShow(false);
+  };
+  const onSelect = (data) => {
+    if (field.isMulti) {
+      data.length && setFile([...file, data]);
+      field.handleChange([...file, data]);
+    } else {
+      data.length && setFile(data);
+      field.handleChange(data);
+    }
+    setShow(false);
+  };
 
   return (
-    <div className="position-relative cursor-pointer">
-      <div {...getRootProps()} className="d-flex align-items-center justify-content-center p-3">
-        <input {...getInputProps()} className="position-absolute start-0 top-0 bottom-0 end-0" />
-        <div className="d-flex align-items-center p-3">
-          <i className="fs-1 text-blue-0 opacity-25">
-            <FontAwesomeIcon icon={faCloudUploadAlt} />
-          </i>
-          <div className="text-center ms-1">
-            {/* <p className="mb-0">Drag and drop a file here </p> */}
-            <p className="mb-0 ms-2">
-              <strong>Choose file</strong>
-            </p>
-          </div>
+    <>
+      {field.isMulti ? (
+        <div className="position-relative">
+          <Row className="gx-24 mb-16">
+            {file?.map((item, key) => {
+              return (
+                <Col lg={2} key={key}>
+                  <Ratio aspectRatio="1x1">
+                    <div className="d-flex align-items-center w-100 h-100 border">
+                      <ComponentImage src={item[0].url} alt={field.value} />
+                    </div>
+                  </Ratio>
+                </Col>
+              );
+            })}
+          </Row>
+          <Button
+            variant={`light`}
+            className={` px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border`}
+            onClick={() => {
+              setShow(true);
+            }}
+          >
+            <ComponentSVG url="/assets/images/add-media-image.svg" className="bg-black me-1" />
+            Add More Photo
+          </Button>
         </div>
-      </div>
-      <div key={field.value} className="text-center">
-        <ComponentImage src={file} alt={field.value} />
-      </div>
-    </div>
+      ) : (
+        <div className="position-relative cursor-pointer">
+          <div
+            className="d-flex align-items-center justify-content-center p-24 field-single-image border border-da-1 rounded-3 cursor-pointer"
+            onClick={() => {
+              setShow(true);
+            }}
+          >
+            {!file?.length && (
+              <div className="d-flex align-items-center p-2 w-100">
+                <div className="text-center fs-14 text-body opacity-50 w-100">
+                  <p className="mb-0">Browse from computer Choose from media Drag file here</p>
+                </div>
+              </div>
+            )}
+            <ComponentImage src={file && file[0]?.url} alt={field.value} />
+          </div>
+          <p className="my-8px fs-14 opacity-50">
+            Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)
+          </p>
+        </div>
+      )}
+      <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
+    </>
   );
 };
 

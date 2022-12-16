@@ -119,7 +119,7 @@ const UpdateGeneral = observer(
               type: FORM_FIELD_TYPE.INPUT,
               value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME],
               className: 'col-lg-6',
-              changed: (event) => {
+              handleChange: (event) => {
                 this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME] = event.target.value;
               },
             },
@@ -129,7 +129,7 @@ const UpdateGeneral = observer(
               type: FORM_FIELD_TYPE.INPUT,
               value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE],
               className: 'col-lg-6',
-              changed: (event) => {
+              handleChange: (event) => {
                 this.formPropsData[UPDATE_GENERAL_FIELD_KEY.PHONE] = event.target.value;
               },
             },
