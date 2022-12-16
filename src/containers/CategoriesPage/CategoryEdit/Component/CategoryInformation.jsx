@@ -24,7 +24,6 @@ const CategoryInformation = observer(
 
     render() {
       const { t, validator } = this.props;
-      console.log('rerender Category Information');
       const filteredCategoryList = this.props.viewModel.categoryListViewModel.items.filter(
         (category) => {
           return (
@@ -33,7 +32,6 @@ const CategoryInformation = observer(
           );
         }
       );
-      console.log('filteredCategoryList', filteredCategoryList);
       const generateFormSetting = [
         {
           fields: [
