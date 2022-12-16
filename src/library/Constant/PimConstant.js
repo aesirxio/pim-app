@@ -21,7 +21,7 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   TAGS: 'tags',
   PUBLISHED_UP: 'publish_up',
   CREATED_USER_NAME: 'created_user_name',
-  PIM_PRODUCT_TYPE: "pim_product_type",
+  PIM_PRODUCT_TYPE: 'pim_product_type',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
 };
@@ -72,9 +72,21 @@ const PIM_FIELD_DETAIL_FIELD_KEY = {
   PUBLISH_UP: 'publish_up',
 };
 
+const PIM_PRICE_FIELD_KEY = {
+  ID: 'id',
+  PUBLISHED: 'published',
+  CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_TIME: 'modified_time',
+  CUSTOM_FIELDS: 'custom_fields',
+  PRODUCTS: 'products',
+  PRICE: 'price',
+  RETAIL_PRICE: 'retail_price',
+};
+
 export {
   PIM_PRODUCT_DETAIL_FIELD_KEY,
   PIM_CATEGORY_DETAIL_FIELD_KEY,
   PIM_TAG_DETAIL_FIELD_KEY,
   PIM_FIELD_DETAIL_FIELD_KEY,
+  PIM_PRICE_FIELD_KEY,
 };

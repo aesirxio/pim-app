@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import history from 'routes/history';
 import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
 import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
+import ActionsBar from 'components/ActionsBar';
 
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
@@ -256,6 +257,18 @@ const ListProducts = observer((props) => {
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="fw-bold mb-0">{t('txt_title_product_management')}</h2>
+        <ActionsBar
+          buttons={[
+            {
+              title: t('txt_add'),
+              icon: '/assets/images/plus.svg',
+              variant: 'success',
+              handle: async () => {
+                history.push('/products/add');
+              },
+            },
+          ]}
+        />
       </div>
       {productViewModel?.successResponse?.listPublishStatus.length > 0 && (
         <>
