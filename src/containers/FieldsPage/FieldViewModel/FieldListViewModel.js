@@ -62,6 +62,8 @@ class FieldListViewModel {
     let itemsByGroup = this.items.filter(
       (value) => value[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID] === groupID
     );
+    console.log('groupID', groupID);
+    console.log('itemsByGroup', itemsByGroup);
     return itemsByGroup;
   };
 

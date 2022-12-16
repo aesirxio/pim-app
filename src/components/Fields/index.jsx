@@ -10,7 +10,7 @@ const FieldsList = observer(
   class FieldsList extends Component {
     constructor(props) {
       super(props);
-      this.state = { itemsByGroup: props.viewModel.fieldListViewModel.items };
+      this.state = { itemsByGroup: this.props.viewModel.fieldListViewModel.items };
     }
 
     componentDidMount = () => {
@@ -24,7 +24,19 @@ const FieldsList = observer(
           PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
         )
       ) {
-        Object.assign(this.props.formPropsData, { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} });
+        Object.assign(this.props.formPropsData, {
+          [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {},
+        });
+      }
+    };
+    componentDidUpdate = () => {
+      if (
+        !this.props.groupID &&
+        this.state.itemsByGroup.length !== this.props.viewModel.fieldListViewModel.items.length
+      ) {
+        this.setState({
+          itemsByGroup: this.props.viewModel.fieldListViewModel.items,
+        });
       }
     };
     render() {
