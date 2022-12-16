@@ -57,7 +57,7 @@ class FormSelection extends Component {
             {this.props.field.extraField && this.state.field === FORM_FIELD_TYPE.NUMBER && (
               <Input
                 field={{
-                  value: this.props.field.extraFieldNumberValueSelected,
+                  getValueSelected: this.props.field.extraFieldNumberValueSelected,
                   classNameInput: 'fs-14 mt-16',
                   placeholder: 'Format',
                   handleChange: this.props.field.extraFieldNumberHandleChange,

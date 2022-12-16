@@ -115,7 +115,7 @@ const EditProduct = observer(
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
-                      value:
+                      getValueSelected:
                         this.productDetailViewModel.productDetailViewModel.formPropsData[
                           PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
                         ],

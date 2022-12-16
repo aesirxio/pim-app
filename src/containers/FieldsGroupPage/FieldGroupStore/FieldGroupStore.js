@@ -16,7 +16,7 @@ export default class FieldGroupStore {
       let resultOnSave;
       const createFieldGroupApiService = new AesirxPimFieldGroupApiService();
 
-      resultOnSave = await createFieldGroupApiService.createFieldGroup(convertedUpdateGeneralData);
+      resultOnSave = await createFieldGroupApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -26,6 +26,7 @@ export default class FieldGroupStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);
@@ -41,7 +42,7 @@ export default class FieldGroupStore {
       let resultOnSave;
       const updateFieldGroupApiService = new AesirxPimFieldGroupApiService();
 
-      resultOnSave = await updateFieldGroupApiService.updateFieldGroup(convertedUpdateGeneralData);
+      resultOnSave = await updateFieldGroupApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);

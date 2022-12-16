@@ -68,6 +68,7 @@ const PIM_FIELD_DETAIL_FIELD_KEY = {
   FEATURED: 'featured',
   CUSTOM_FIELDS: 'custom_fields',
   CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_USER_NAME: 'modified_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
   FIELD_GROUP_ID: 'field_group_id',
@@ -87,10 +88,12 @@ const PIM_FIELD_GROUP_DETAIL_FIELD_KEY = {
   PUBLISHED: 'published',
   FEATURED: 'featured',
   CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_USER_NAME: 'modified_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
   ALIAS: 'alias',
-  DESCRIPTIONS: 'description',
+  DESCRIPTION: 'description',
+  SECTION: 'content_types',
 };
 
 export {

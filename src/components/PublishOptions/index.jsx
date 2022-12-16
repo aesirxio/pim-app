@@ -29,95 +29,113 @@ const PublishOptions = observer(
       }
     }
     render() {
-      const { t, detailViewModal, formPropsData, isEdit } = this.props;
+      const {
+        t,
+        detailViewModal,
+        formPropsData,
+        isEdit,
+        isPublished = true,
+        isFeatured = true,
+        isLastModified = true,
+        isCreateBy = true,
+      } = this.props;
       let createBy = isEdit
         ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
       let modifiedBy = isEdit
         ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
-      console.log('rerender PublishOptions');
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm">
           <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
             {t('txt_publish_options')}
           </h5>
-          <div className="d-flex align-items-center justify-content-between w-100 mb-24">
-            <div>
-              <ComponentSVG url="/assets/images/post-status.svg" color="#222328" className="pe-1" />
-              {t('txt_status')}:
-            </div>
-            <Form.Group className={`w-60`}>
-              <FormSelection
-                field={{
-                  getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
-                    ? {
-                        label: this.utilsListViewModel.listPublishStatus?.find(
-                          (x) =>
-                            x.value.toString() ===
-                            formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
-                        )?.label,
-                        value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
-                      }
-                    : null,
-                  getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
-                    (status) => ({
-                      label: status.label,
-                      value: status.value.toString(),
-                    })
-                  ),
-                  arrowColor: '#222328',
-                  handleChange: (data) => {
-                    detailViewModal.handleFormPropsData(
-                      PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED,
-                      data.value
-                    );
-                  },
-                }}
-              />
-            </Form.Group>
-          </div>
-          <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
-            <div>{t('txt_modified_by')}:</div>
-            <div className="text-gray">{modifiedBy}</div>
-          </div>
+          {isPublished && (
+            <div className="d-flex align-items-center justify-content-between w-100 mb-24">
+              <div>
+                <ComponentSVG
+                  url="/assets/images/post-status.svg"
+                  color="#222328"
+                  className="pe-1"
+                />
+                {t('txt_status')}:
+              </div>
 
-          <div className="d-flex align-items-center justify-content-between w-100 mb-24">
-            <div>{t('txt_feature')}</div>
-            <Form.Group className={`w-40`}>
-              <FormRadio
-                field={{
-                  key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
-                  getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED]
-                    ? {
-                        label:
-                          formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] === '1'
-                            ? 'Yes'
-                            : 'No',
-                        value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
-                      }
-                    : null,
-                  getDataSelectOptions: [
-                    {
-                      label: 'Yes',
-                      value: '1',
+              <Form.Group className={`w-60`}>
+                <FormSelection
+                  field={{
+                    getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
+                      ? {
+                          label: this.utilsListViewModel.listPublishStatus?.find(
+                            (x) =>
+                              x.value.toString() ===
+                              formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
+                          )?.label,
+                          value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
+                        }
+                      : null,
+                    getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
+                      (status) => ({
+                        label: status.label,
+                        value: status.value.toString(),
+                      })
+                    ),
+                    arrowColor: '#222328',
+                    handleChange: (data) => {
+                      detailViewModal.handleFormPropsData(
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED,
+                        data.value
+                      );
                     },
-                    {
-                      label: 'No',
-                      value: '0',
-                      className: 'me-0',
+                  }}
+                />
+              </Form.Group>
+            </div>
+          )}
+          {isLastModified && (
+            <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
+              <div>{t('txt_modified_by')}:</div>
+              <div className="text-gray">{modifiedBy}</div>
+            </div>
+          )}
+          {isFeatured && (
+            <div className="d-flex align-items-center justify-content-between w-100 mb-24">
+              <div>{t('txt_feature')}</div>
+              <Form.Group className={`w-40`}>
+                <FormRadio
+                  field={{
+                    key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
+                    getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED]
+                      ? {
+                          label:
+                            formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] === '1'
+                              ? 'Yes'
+                              : 'No',
+                          value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
+                        }
+                      : null,
+                    getDataSelectOptions: [
+                      {
+                        label: 'Yes',
+                        value: '1',
+                      },
+                      {
+                        label: 'No',
+                        value: '0',
+                        className: 'me-0',
+                      },
+                    ],
+                    handleChange: (data) => {
+                      detailViewModal.handleFormPropsData(
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
+                        data.target.value
+                      );
                     },
-                  ],
-                  handleChange: (data) => {
-                    detailViewModal.handleFormPropsData(
-                      PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,
-                      data.target.value
-                    );
-                  },
-                }}
-              />
-            </Form.Group>
-          </div>
+                  }}
+                />
+              </Form.Group>
+            </div>
+          )}
           <div className="d-flex align-items-center justify-content-between w-100 mb-24">
             <div>{t('txt_create_date')}:</div>
             <Form.Group className={``}>
@@ -134,10 +152,12 @@ const PublishOptions = observer(
               </div>
             </Form.Group>
           </div>
-          <div className="d-flex align-items-center justify-content-between w-100">
-            <div>{t('txt_create_by')}:</div>
-            <div className="text-gray">{createBy}</div>
-          </div>
+          {isCreateBy && (
+            <div className="d-flex align-items-center justify-content-between w-100">
+              <div>{t('txt_create_by')}:</div>
+              <div className="text-gray">{createBy}</div>
+            </div>
+          )}
         </div>
       );
     }

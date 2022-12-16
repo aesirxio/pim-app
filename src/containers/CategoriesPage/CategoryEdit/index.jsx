@@ -114,7 +114,7 @@ const EditCategory = observer(
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
-                      value:
+                      getValueSelected:
                         this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
                           PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
                         ],

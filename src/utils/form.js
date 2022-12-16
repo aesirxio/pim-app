@@ -101,7 +101,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <FormSelection key={Math.random(40, 200)} field={field} />
 
                   {field.validation &&
-                    validator.message(field.label, field.value, field.validation, {
+                    validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',
                     })}
                 </Form.Group>

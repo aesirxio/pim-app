@@ -19,7 +19,7 @@ const Input = ({ field }) => {
     <div className="position-relative">
       <Form.Control
         as="input"
-        defaultValue={field.value ?? ''}
+        defaultValue={field.getValueSelected ?? ''}
         type={field.typeFormat ? (field.typeFormat == 11 ? 'password' : 'text') : 'text'}
         required={field.required ?? false}
         id={field.key}
