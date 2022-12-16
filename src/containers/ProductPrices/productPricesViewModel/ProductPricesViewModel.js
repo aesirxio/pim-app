@@ -3,55 +3,27 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-/*
- * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
- * @license     GNU General Public License version 3, see LICENSE.
- */
-
+import { PIM_PRICE_FIELD_KEY } from 'library/Constant/PimConstant';
 import { makeAutoObservable } from 'mobx';
-import { transform } from '../utils';
+import moment from 'moment';
 
-class ProductListViewModel {
-  productStore = null;
+class ProductPricesViewModel {
+  productPricesStore = null;
 
   successResponse = {
     state: false,
     filters: {
-      'list[limit]': 8,
+      'list[limit]': 5,
     },
     listPublishStatus: [],
-    listProducts: [],
+    listProductPrices: [],
     pagination: {},
   };
 
-  constructor(productStore) {
+  constructor(productPricesStore) {
     makeAutoObservable(this);
-    this.productStore = productStore;
+    this.productPricesStore = productPricesStore;
   }
-
-  initializeData = async () => {
-    await this.productStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
-
-    await this.productStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-
-    this.successResponse.state = true;
-  };
-
-  setFeatured = async (id, featured = 0) => {
-    await this.productStore.updateProduct(
-      { id: id.toString(), featured: featured.toString() },
-      this.callbackOnSuccessSetFeatured,
-      this.callbackOnErrorHandler
-    );
-    this.successResponse.state = true;
-  };
 
   getListByFilter = async (key, value) => {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
@@ -76,7 +48,7 @@ class ProductListViewModel {
       }
     }
 
-    await this.productStore.getList(
+    await this.productPricesStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
       this.successResponse.filters
@@ -84,10 +56,37 @@ class ProductListViewModel {
     this.successResponse.state = true;
   };
 
+  initializeData = async () => {
+    await this.productPricesStore.getList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+      this.successResponse.filters
+    );
+
+    await this.productPricesStore.getListPublishStatus(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    this.successResponse.state = true;
+  };
+
   updateStatus = async (arr, status = 0) => {
-    const res = await this.productStore.updateStatus(arr, status);
+    const res = await this.productPricesStore.updateStatus(arr, status);
     if (res) {
-      await this.productStore.getList(
+      await this.productPricesStore.getList(
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+        this.successResponse.filters
+      );
+    }
+    this.successResponse.state = true;
+  };
+
+  updatePrices = async (listPrices) => {
+    const res = await this.productPricesStore.updatePrices(listPrices);
+    if (res) {
+      await this.productPricesStore.getList(
         this.callbackOnSuccessHandler,
         this.callbackOnErrorHandler,
         this.successResponse.filters
@@ -107,7 +106,7 @@ class ProductListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result?.listItems) {
-      this.successResponse.listProducts = transform(result.listItems);
+      this.successResponse.listProductPrices = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
@@ -122,6 +121,23 @@ class ProductListViewModel {
   isLoading = () => {
     this.successResponse.state = false;
   };
+
+  transform = (data) => {
+    return data.map((o) => {
+      const date = moment(o[PIM_PRICE_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      return {
+        id: o[PIM_PRICE_FIELD_KEY.ID],
+        author: o[PIM_PRICE_FIELD_KEY.CREATED_USER_NAME],
+        lastModified: {
+          status: o[PIM_PRICE_FIELD_KEY.PUBLISHED],
+          dateTime: date ?? '',
+          author: o[PIM_PRICE_FIELD_KEY.CREATED_USER_NAME],
+        },
+        price: o[PIM_PRICE_FIELD_KEY.CUSTOM_FIELDS][PIM_PRICE_FIELD_KEY.PRICE],
+        retailPrice: o[PIM_PRICE_FIELD_KEY.CUSTOM_FIELDS][PIM_PRICE_FIELD_KEY.RETAIL_PRICE],
+      };
+    });
+  };
 }
 
-export default ProductListViewModel;
+export default ProductPricesViewModel;
