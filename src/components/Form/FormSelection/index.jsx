@@ -19,7 +19,11 @@ class FormSelection extends Component {
 
   handleChange = (data) => {
     this.props.field.handleChange(data);
-    if (data.value === FORM_FIELD_TYPE.NUMBER || data.value === FORM_FIELD_TYPE.SELECTION) {
+    if (
+      data.value === FORM_FIELD_TYPE.NUMBER ||
+      data.value === FORM_FIELD_TYPE.SELECTION ||
+      this.state.field === FORM_FIELD_TYPE.NUMBER
+    ) {
       this.setState({ field: data.value });
     }
   };
