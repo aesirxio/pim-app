@@ -105,7 +105,11 @@ class CategoryDetailViewModel {
 
   handleFormPropsData = (key, value) => {
     if (key && value) {
-      this.categoryDetailViewModel.formPropsData[key] = value;
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        Object.assign(this.categoryDetailViewModel.formPropsData[key], value);
+      } else {
+        this.categoryDetailViewModel.formPropsData[key] = value;
+      }
     }
   };
 }

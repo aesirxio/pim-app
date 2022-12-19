@@ -8,7 +8,7 @@ import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/Categ
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 import Spinner from 'components/Spinner';
-import { withProductViewModel } from '../ProductViewModel/ProductViewModelContextProvider';
+import { withProductViewModel } from '../../ProductViewModel/ProductViewModelContextProvider';
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
 
@@ -41,9 +41,7 @@ const ProductInformation = observer(
             //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID]
             //     ? {
             //         label: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_NAME],
-            //         value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID],
-            //       }
-            //     : null,
+            //         value: formPropsData[PIM_PRasd
             //   // getDataSelectOptions: [
             //   //   {
             //   //     label: 'Sale Market 1',
@@ -82,7 +80,7 @@ const ProductInformation = observer(
                   })
                 : null,
               handleChange: (data) => {
-                let convertData = data.map((item) => ({ title: item.label, id: item.value }));
+                let convertData = data.map((item) => item.value);
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
                   convertData
@@ -93,17 +91,32 @@ const ProductInformation = observer(
               className: 'col-lg-12',
             },
             {
-              label: 'txt_description',
+              label: 'txt_product_description',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION,
               type: FORM_FIELD_TYPE.EDITOR,
               value:
                 this.viewModel.productDetailViewModel.formPropsData[
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION
-                ],
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION],
               handleChange: (data) => {
                 this.viewModel.productDetailViewModel.formPropsData[
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION
-                ] = data;
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION] = data;
+              },
+              className: 'col-lg-12',
+            },
+            {
+              label: 'txt_short_description',
+              key: PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION,
+              type: FORM_FIELD_TYPE.EDITOR,
+              value:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION],
+              handleChange: (data) => {
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION] = data;
               },
               className: 'col-lg-12',
             },

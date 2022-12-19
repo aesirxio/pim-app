@@ -105,10 +105,10 @@ const CategoryInformation = observer(
                 : null,
               getDataSelectOptions: filteredCategoryList
                 ? filteredCategoryList.map((item) => {
-                    ({
+                    return {
                       label: item.title,
                       value: item.id,
-                    });
+                    };
                   })
                 : null,
               handleChange: (data) => {
