@@ -49,26 +49,6 @@ const CommonInformation = observer(
                 formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS] = event.target.value;
               },
             },
-            // {
-            //   label: 'txt_organisation',
-            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION,
-            //   type: FORM_FIELD_TYPE.SELECTION,
-            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION] ?? null,
-            //   // getDataSelectOptions: [
-            //   //   {
-            //   //     label: 'Organisation 1',
-            //   //     value: 'organisation-1',
-            //   //   },
-            //   //   {
-            //   //     label: 'Organisation 2',CommonInformation
-            //   //     value: 'organisation-2',
-            //   //   },
-            //   // ],
-            //   handleChange: (data) => {
-            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ORGANISATION] = data;
-            //   },
-            //   className: 'col-lg-12',
-            // },
             {
               label: 'txt_main_category',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,
@@ -80,10 +60,15 @@ const CommonInformation = observer(
                   }
                 : null,
               getDataSelectOptions: this.categoryListViewModel.items
-                ? this.categoryListViewModel.items.map((item) => ({
-                    label: item.title,
-                    value: item.id,
-                  }))
+                ? this.categoryListViewModel.items.map((item) => {
+                    let levelString = Array.from(Array(parseInt(item.level)).keys())
+                      .map(() => ``)
+                      .join('- ');
+                    return {
+                      label: levelString + item.title,
+                      value: item.id,
+                    };
+                  })
                 : null,
               handleChange: (data) => {
                 formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME] = data.label;
@@ -95,10 +80,12 @@ const CommonInformation = observer(
               label: 'txt_tags',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS]
+              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag
                 ? {
-                    label: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS]?.title,
-                    value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS]?.id,
+                    label: this.tagListViewModel.items?.find(
+                      (x) => x.id === formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag
+                    )?.title,
+                    value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag,
                   }
                 : null,
               getDataSelectOptions: this.tagListViewModel.items
@@ -107,33 +94,12 @@ const CommonInformation = observer(
                     value: item.id,
                   }))
                 : null,
+              isMulti: true,
               handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS].title = data.label;
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS].id = data.value;
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag = [data.value];
+                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag = data;
               },
               className: 'col-lg-12',
             },
-            // {
-            //   label: 'txt_template',
-            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE,
-            //   type: FORM_FIELD_TYPE.SELECTION,
-            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE] ?? null,
-            //   // getDataSelectOptions: [
-            //   //   {
-            //   //     label: 'Template 1',
-            //   //     value: 'template-1',
-            //   //   },
-            //   //   {
-            //   //     label: 'Template 2',
-            //   //     value: 'template-2',
-            //   //   },
-            //   // ],
-            //   handleChange: (data) => {
-            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.TEMPLATE] = data;
-            //   },
-            //   className: 'col-lg-12',
-            // },
           ],
         },
       ];

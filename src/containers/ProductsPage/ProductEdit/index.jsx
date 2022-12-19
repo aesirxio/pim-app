@@ -23,7 +23,7 @@ import {
 import Input from 'components/Form/Input';
 import ProductInformation from '../Component/ProductInformation';
 import FieldsTab from '../Component/Fields';
-import Variants from '../Component/Variants';
+// import Variants from '../Component/Variants';
 import SimpleReactValidator from 'simple-react-validator';
 
 const EditProduct = observer(
@@ -47,8 +47,6 @@ const EditProduct = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
-      } else {
-        this.productDetailViewModel.initFormPropsData();
       }
     }
 
@@ -180,11 +178,11 @@ const EditProduct = observer(
                       validator={this.validator}
                     />
                   </Tab>
-                  <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
+                  {/* <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
                     {this.state.key === 'variants' && (
                       <Variants formPropsData={this.formPropsData} validator={this.validator} />
                     )}
-                  </Tab>
+                  </Tab> */}
                 </Tabs>
               </Col>
               <Col lg={3}>

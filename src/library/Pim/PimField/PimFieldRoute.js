@@ -24,7 +24,7 @@ class PimFieldRoute extends BaseRoute {
 
   getList = (filter = {}) => {
     const buildFilter = this.createFilter(filter);
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         ...buildFilter,
@@ -33,7 +33,7 @@ class PimFieldRoute extends BaseRoute {
   };
 
   getDetail = (id = 0, filter = {}) => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         id: id,
@@ -43,7 +43,7 @@ class PimFieldRoute extends BaseRoute {
   };
 
   create = (data) => {
-    return AesirxApiInstance.post(
+    return AesirxApiInstance().post(
       this.createRequestURL({
         option: this.option,
       }),
@@ -51,7 +51,7 @@ class PimFieldRoute extends BaseRoute {
     );
   };
   update = (data) => {
-    return AesirxApiInstance.put(
+    return AesirxApiInstance().put(
       this.createRequestURL({
         option: this.option,
       }),
@@ -64,7 +64,7 @@ class PimFieldRoute extends BaseRoute {
     );
   };
   delete = (id) => {
-    return AesirxApiInstance.delete(
+    return AesirxApiInstance().delete(
       this.createRequestURL({
         option: this.option,
       }),

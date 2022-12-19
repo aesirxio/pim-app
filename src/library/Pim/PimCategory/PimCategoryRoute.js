@@ -10,7 +10,7 @@ class PimCategoryRoute extends BaseRoute {
   option = 'reditem-category_product_category_60';
 
   getList = (dataFilter = {}) => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         ...dataFilter,
@@ -19,7 +19,7 @@ class PimCategoryRoute extends BaseRoute {
   };
 
   getDetail = (id = 0, dataFilter = {}) => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         id: id,
@@ -29,7 +29,7 @@ class PimCategoryRoute extends BaseRoute {
   };
 
   create = (data) => {
-    return AesirxApiInstance.post(
+    return AesirxApiInstance().post(
       this.createRequestURL({
         option: this.option,
       }),
@@ -37,7 +37,7 @@ class PimCategoryRoute extends BaseRoute {
     );
   };
   update = (data) => {
-    return AesirxApiInstance.put(
+    return AesirxApiInstance().put(
       this.createRequestURL({
         option: this.option,
       }),
@@ -50,7 +50,7 @@ class PimCategoryRoute extends BaseRoute {
     );
   };
   delete = (id) => {
-    return AesirxApiInstance.delete(
+    return AesirxApiInstance().delete(
       this.createRequestURL({
         option: this.option,
       }),
