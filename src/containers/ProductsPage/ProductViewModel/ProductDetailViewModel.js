@@ -93,18 +93,13 @@ class ProductDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  initFormPropsData = () => {
-    this.productDetailViewModel = {
-      ...this.productDetailViewModel,
-      formPropsData: {
-        ...this.productDetailViewModel.formPropsData,
-      },
-    };
-  };
-
   handleFormPropsData = (key, value) => {
     if (key && value) {
-      this.productDetailViewModel.formPropsData[key] = value;
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        Object.assign(this.productDetailViewModel.formPropsData[key], value);
+      } else {
+        this.productDetailViewModel.formPropsData[key] = value;
+      }
     }
   };
 }

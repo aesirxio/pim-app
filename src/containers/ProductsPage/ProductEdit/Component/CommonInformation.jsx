@@ -5,8 +5,8 @@ import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
 import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
-import TagStore from 'containers/ProductsPage/TagStore/TagStore';
-import TagViewModel from 'containers/ProductsPage/TagViewModel/TagViewModel';
+// import TagStore from 'containers/ProductsPage/TagStore/TagStore';
+// import TagViewModel from 'containers/ProductsPage/TagViewModel/TagViewModel';
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
@@ -14,8 +14,8 @@ import { observer } from 'mobx-react';
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
 
-const tagStore = new TagStore();
-const tagViewModel = new TagViewModel(tagStore);
+// const tagStore = new TagStore();
+// const tagViewModel = new TagViewModel(tagStore);
 const CommonInformation = observer(
   class CommonInformation extends Component {
     constructor(props) {
@@ -23,13 +23,13 @@ const CommonInformation = observer(
       this.categoryListViewModel = categoryViewModel
         ? categoryViewModel.getCategoryListViewModel()
         : null;
-      this.tagListViewModel = tagViewModel ? tagViewModel.getTagListViewModel() : null;
+      // this.tagListViewModel = tagViewModel ? tagViewModel.getTagListViewModel() : null;
     }
 
     async componentDidMount() {
       if (!this.categoryListViewModel.items.length || !this.tagListViewModel.items.length) {
         await this.categoryListViewModel.initializeData();
-        await this.tagListViewModel.initializeData();
+        // await this.tagListViewModel.initializeData();
       }
     }
 
@@ -76,37 +76,47 @@ const CommonInformation = observer(
               },
               className: 'col-lg-12',
             },
-            {
-              label: 'txt_tags',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS,
-              type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag
-                ? {
-                    label: this.tagListViewModel.items?.find(
-                      (x) => x.id === formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag
-                    )?.title,
-                    value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag,
-                  }
-                : null,
-              getDataSelectOptions: this.tagListViewModel.items
-                ? this.tagListViewModel.items.map((item) => ({
-                    label: item.title,
-                    value: item.id,
-                  }))
-                : null,
-              isMulti: true,
-              handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS].tag = data;
-              },
-              className: 'col-lg-12',
-            },
+            // {
+            //   label: 'txt_tags',
+            //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS,
+            //   type: FORM_FIELD_TYPE.SELECTION,
+            //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            //     PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
+            //   ]
+            //     ? {
+            //         label: this.tagListViewModel.items?.find(
+            //           (x) =>
+            //             x.id ===
+            //             formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            //               PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
+            //             ]
+            //         )?.title,
+            //         value:
+            //           formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            //             PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
+            //           ],
+            //       }
+            //     : null,
+            //   getDataSelectOptions: this.tagListViewModel.items
+            //     ? this.tagListViewModel.items.map((item) => ({
+            //         label: item.title,
+            //         value: item.id,
+            //       }))
+            //     : null,
+            //   isMulti: true,
+            //   handleChange: (data) => {
+            //     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            //       PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS
+            //     ] = data.map((tag) => tag.value);
+            //   },
+            //   className: 'col-lg-12',
+            // },
           ],
         },
       ];
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {(this.tagListViewModel.formStatus === PAGE_STATUS.LOADING ||
-            this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING) && (
+          {this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)

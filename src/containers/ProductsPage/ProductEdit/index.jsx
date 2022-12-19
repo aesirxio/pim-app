@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 import { Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
 import '../index.scss';
 import ActionsBar from 'components/ActionsBar';
-import CommonInformation from '../Component/CommonInformation';
+import CommonInformation from './Component/CommonInformation';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import {
@@ -21,8 +21,8 @@ import {
   PIM_PRODUCT_DETAIL_FIELD_KEY,
 } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
-import ProductInformation from '../Component/ProductInformation';
-import FieldsTab from '../Component/Fields';
+import ProductInformation from './Component/ProductInformation';
+import FieldsTab from './Component/Fields';
 // import Variants from '../Component/Variants';
 import SimpleReactValidator from 'simple-react-validator';
 
