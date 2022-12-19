@@ -48,6 +48,16 @@ const FieldsList = observer(
         {
           fields: [
             ...this.state.itemsByGroup.map((field) => {
+              console.log(
+                'field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE]',
+                field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE]
+              );
+              console.log('field', field);
+              console.log(
+                'field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple',
+                field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1'
+              );
               let selectedValue = '';
               if (
                 field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
@@ -113,8 +123,7 @@ const FieldsList = observer(
                 // validation: 'required',
                 isMulti:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
-                  field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.webservice?.name ===
-                    'aesir_dam_gallery',
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',
                 isVideo:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.webservice?.name === 'aesir_dam_video',
