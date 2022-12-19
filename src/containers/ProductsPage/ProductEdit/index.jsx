@@ -51,7 +51,7 @@ const EditProduct = observer(
     }
 
     render() {
-      const { t } = this.props;
+      const { t, history } = this.props;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -94,7 +94,7 @@ const EditProduct = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.productDetailViewModel.create();
-                          history.push(`/products/edit/${result}`);
+                          result && history.push(`/products/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
