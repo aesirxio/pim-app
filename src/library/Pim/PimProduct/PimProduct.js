@@ -21,11 +21,8 @@ class AesirxPimProductApiService extends Component {
 
   create = async (data) => {
     try {
-      console.log('dataneee', data);
-
       const result = await this.route.create(data);
 
-      console.log('result1111', result);
       if (result) {
         return result.result;
       }

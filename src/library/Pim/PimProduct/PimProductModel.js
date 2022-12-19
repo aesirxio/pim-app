@@ -57,7 +57,6 @@ class ProductItemModel extends BaseItemModel {
 
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
-    console.log('dataneee', data);
     const excluded = [
       PIM_PRODUCT_DETAIL_FIELD_KEY.ID,
       PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS,
