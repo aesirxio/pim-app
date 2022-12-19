@@ -10,7 +10,7 @@ class PimTagRoute extends BaseRoute {
   option = 'reditem-category_tag_44';
 
   getList = (dataFilter = {}) => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         ...dataFilter,

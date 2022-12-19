@@ -11,7 +11,7 @@ class PimProductPricesRoute extends BaseRoute {
 
   getList = (filters) => {
     const buildFilters = this.createFilters(filters);
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         'list[ordering]': 'id',
@@ -44,7 +44,7 @@ class PimProductPricesRoute extends BaseRoute {
   };
 
   updateStatus = (listSelected) => {
-    return AesirxApiInstance.post(
+    return AesirxApiInstance().post(
       this.createRequestURL({
         option: this.option,
         task: 'bulkUpdate',
@@ -56,7 +56,7 @@ class PimProductPricesRoute extends BaseRoute {
   };
 
   updatePrices = (listPrices) => {
-    return AesirxApiInstance.post(
+    return AesirxApiInstance().post(
       this.createRequestURL({
         option: this.option,
         task: 'bulkUpdate',

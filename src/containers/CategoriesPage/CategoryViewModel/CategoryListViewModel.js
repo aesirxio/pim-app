@@ -28,7 +28,6 @@ class CategoryListViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    console.log('initializeDataCategory', this.filter);
     await this.categoryStore.getList(
       this.filter,
       this.callbackOnSuccessHandler,

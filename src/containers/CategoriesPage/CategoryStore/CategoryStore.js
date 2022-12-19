@@ -93,11 +93,8 @@ export default class CategoryStore {
       const results = true;
 
       if (results) {
-        console.log('resultOnSave', filter);
         const getListInfoAPIService = new AesirxPimCategoryApiService();
-        console.log('getListInfoAPIService', getListInfoAPIService);
         const respondedData = await getListInfoAPIService.getList(filter);
-        console.log('respondedData', respondedData);
         if (respondedData) {
           runInAction(() => {
             callbackOnSuccess(respondedData);

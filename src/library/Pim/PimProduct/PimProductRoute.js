@@ -11,7 +11,7 @@ class PimProductRoute extends BaseRoute {
 
   getList = (filters) => {
     const buildFilters = this.createFilters(filters);
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         ...buildFilters,
@@ -42,7 +42,7 @@ class PimProductRoute extends BaseRoute {
   };
 
   getDetail = (id = 0, dataFilter = {}) => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         id: id,
@@ -52,7 +52,7 @@ class PimProductRoute extends BaseRoute {
   };
 
   create = (data) => {
-    return AesirxApiInstance.post(
+    return AesirxApiInstance().post(
       this.createRequestURL({
         option: this.option,
         task: 'createWithVariants',
@@ -61,7 +61,7 @@ class PimProductRoute extends BaseRoute {
     );
   };
   update = (data) => {
-    return AesirxApiInstance.put(
+    return AesirxApiInstance().put(
       this.createRequestURL({
         option: this.option,
       }),
@@ -74,7 +74,7 @@ class PimProductRoute extends BaseRoute {
     );
   };
   delete = (id) => {
-    return AesirxApiInstance.delete(
+    return AesirxApiInstance().delete(
       this.createRequestURL({
         option: this.option,
       }),
@@ -88,7 +88,7 @@ class PimProductRoute extends BaseRoute {
   };
 
   updateStatus = (listSelected) => {
-    return AesirxApiInstance.post(
+    return AesirxApiInstance().post(
       this.createRequestURL({
         option: this.option,
         task: 'bulkUpdate',
