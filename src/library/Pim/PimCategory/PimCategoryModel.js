@@ -32,7 +32,7 @@ class CategoryItemModel extends BaseItemModel {
   children = null;
   related_categories = null;
   level = null;
-  
+
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -100,7 +100,7 @@ class CategoryItemModel extends BaseItemModel {
     ) {
       Object.keys(data[PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
         formData.append(
-          [PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key],
+          [PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS] + '[' + key + ']',
           data[PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key]
         );
       });
