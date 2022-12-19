@@ -69,7 +69,6 @@ class AesirxPimCategoryApiService extends Component {
 
   getList = async (filter) => {
     try {
-      console.log('filtergetList', filter);
       const data = await this.route.getList(filter);
       let results = null;
       if (data) {
