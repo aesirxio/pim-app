@@ -40,10 +40,15 @@ const FieldsList = observer(
       }
     };
     render() {
+      console.log(
+        'this.props.viewModel.fieldListViewModel',
+        this.props.viewModel.fieldListViewModel.items.length
+      );
       const generateFormSetting = [
         {
           fields: [
             ...this.state.itemsByGroup.map((field) => {
+              console.log('field', field);
               let selectedValue = '';
               if (
                 field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
