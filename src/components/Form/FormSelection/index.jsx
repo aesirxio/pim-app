@@ -36,19 +36,19 @@ class FormSelection extends Component {
         ) : (
           <>
             <SelectComponent
-              value={this.state.field}
-              options={this.props.field.getDataSelectOptions}
+              value={this.state.field ?? null}
+              options={this.props.field?.getDataSelectOptions}
               className="fs-14"
               isBorder={true}
               //onFocus={this.props.field.changed}
-              onBlur={this.props.field.blurred}
-              isMulti={this.props.field.isMulti}
+              onBlur={this.props.field?.blurred}
+              isMulti={this.props.field?.isMulti}
               onChange={this.handleChange}
-              arrowColor={this.props.field.arrowColor}
-              placeholder={this.props.field.placeholder}
-              isDisabled={this.props.field.isDisabled}
+              arrowColor={this.props.field?.arrowColor}
+              placeholder={this.props.field?.placeholder}
+              isDisabled={this.props.field?.isDisabled}
             />
-            {this.props.field.extraField && this.state.field.value === FORM_FIELD_TYPE.NUMBER && (
+            {this.props.field?.extraField && this.state.field?.value === FORM_FIELD_TYPE.NUMBER && (
               <Input
                 field={{
                   getValueSelected: this.props.field.extraFieldNumberValueSelected,
