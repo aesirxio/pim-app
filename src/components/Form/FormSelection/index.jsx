@@ -42,7 +42,7 @@ class FormSelection extends Component {
         ) : (
           <>
             <SelectComponent
-              defaultValue={this.props.field.getValueSelected}
+              value={this.props.field.getValueSelected}
               options={this.props.field.getDataSelectOptions}
               className="fs-14"
               isBorder={true}

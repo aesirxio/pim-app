@@ -39,7 +39,7 @@ const CategoryInformation = observer(
               label: 'txt_alias',
               key: PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS,
               type: FORM_FIELD_TYPE.INPUT,
-              value:
+              getValueSelected:
                 this.viewModel.categoryDetailViewModel.formPropsData[
                   PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
                 ],
