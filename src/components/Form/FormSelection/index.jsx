@@ -14,18 +14,12 @@ import './index.scss';
 class FormSelection extends Component {
   constructor(props) {
     super(props);
-    this.state = { field: props.field?.getValueSelected?.value };
+    this.state = { field: props.field?.getValueSelected };
   }
 
   handleChange = (data) => {
     this.props.field.handleChange(data);
-    if (
-      data.value === FORM_FIELD_TYPE.NUMBER ||
-      data.value === FORM_FIELD_TYPE.SELECTION ||
-      this.state.field === FORM_FIELD_TYPE.NUMBER
-    ) {
-      this.setState({ field: data.value });
-    }
+    this.setState({ field: data });
   };
   render() {
     return (
@@ -42,7 +36,7 @@ class FormSelection extends Component {
         ) : (
           <>
             <SelectComponent
-              value={this.props.field.getValueSelected}
+              value={this.state.field}
               options={this.props.field.getDataSelectOptions}
               className="fs-14"
               isBorder={true}
@@ -54,7 +48,7 @@ class FormSelection extends Component {
               placeholder={this.props.field.placeholder}
               isDisabled={this.props.field.isDisabled}
             />
-            {this.props.field.extraField && this.state.field === FORM_FIELD_TYPE.NUMBER && (
+            {this.props.field.extraField && this.state.field.value === FORM_FIELD_TYPE.NUMBER && (
               <Input
                 field={{
                   getValueSelected: this.props.field.extraFieldNumberValueSelected,

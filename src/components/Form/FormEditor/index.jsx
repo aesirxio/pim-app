@@ -31,7 +31,7 @@ const FormEditor = ({ field }) => {
       </p>
       <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
       <CKEditor
-        editor={ClassicEditor}
+        editor={ClassicEditor ?? window.ClassicEditor}
         data={field?.getValueSelected ?? ''}
         onReady={async (editor) => {
           setEditorState(editor);

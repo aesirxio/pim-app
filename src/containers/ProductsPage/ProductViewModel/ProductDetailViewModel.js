@@ -34,9 +34,13 @@ class ProductDetailViewModel {
     );
   };
 
-  create = () => {
-    // this.formStatus = PAGE_STATUS.LOADING;
-    this.productStore.createProduct(
+  create = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    console.log(
+      'this.productDetailViewModel.formPropsData',
+      this.productDetailViewModel.formPropsData
+    );
+    await this.productStore.create(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnCreateSuccessHandler
@@ -45,7 +49,7 @@ class ProductDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.updateProduct(
+    await this.productStore.update(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
