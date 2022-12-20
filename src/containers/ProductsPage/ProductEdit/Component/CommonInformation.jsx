@@ -27,7 +27,7 @@ const CommonInformation = observer(
     }
 
     async componentDidMount() {
-      if (!this.categoryListViewModel.items.length || !this.tagListViewModel.items.length) {
+      if (!this.categoryListViewModel?.items.length) {
         await this.categoryListViewModel.initializeData();
         // await this.tagListViewModel.initializeData();
       }
@@ -42,7 +42,7 @@ const CommonInformation = observer(
               label: 'txt_alias',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS,
               type: FORM_FIELD_TYPE.INPUT,
-              value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS],
+              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS],
               className: 'col-lg-12',
               placeholder: t('txt_type'),
               handleChange: (event) => {

@@ -32,7 +32,6 @@ const FormImage = ({ field }) => {
     }
     setShow(false);
   };
-  console.log('file', file);
   return (
     <>
       {field.isMulti ? (
