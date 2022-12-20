@@ -94,7 +94,7 @@ const PublishOptions = observer(
           )}
           {isLastModified && (
             <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
-              <div>{t('txt_modified_by')}:</div>
+              <div>{t('txt_last_modified')}:</div>
               <div className="text-gray">{modifiedBy}</div>
             </div>
           )}

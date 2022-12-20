@@ -198,7 +198,6 @@
   "txt_start_publish": "Start Publish",
   "txt_create_date": "Create Date",
   "txt_create_by": "Create By",
-  "txt_modified_by": "Modified By",
   "txt_sale_market": "Sale market",
   "txt_related_categories": "Related Categories",
   "txt_select_category": "Select category",
@@ -250,6 +249,9 @@
   "txt_add_new": "Add New",
   "txt_add_product_name": "Add product name",
   "txt_add_cate_name": "Add cate name",
+  "txt_left_menu_prices":"Prices",
+  "txt_left_menu_list_prices":"List Prices",
+  "txt_left_menu_debtor_group":"Debtor Group",
   "txt_left_menu_categories": "Categories",
   "txt_left_menu_member_list": "Members List",
   "txt_left_menu_import_export": "Import / Export",
@@ -282,5 +284,8 @@
   "txt_category_information": "Category Information",
   "txt_custom_fields": "Custom Fields",
   "txt_parent_category": "Parent Category",
-  "txt_related_category": "Related Category"
+  "txt_related_category": "Related Category",
+  "txt_debtor_code": "Debtor Code",
+  "txt_debtor_group": "Debtor Group",
+  "txt_add_debtor_group_name": "Add Debtor Group Name"
 }

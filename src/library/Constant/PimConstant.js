@@ -49,6 +49,12 @@ const PIM_CATEGORY_DETAIL_FIELD_KEY = {
   LEVEL: 'level',
 };
 
+const PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY = {
+  ID: 'id',
+  TITLE: 'title',
+  DEBTOR_CODE: 'debtor_code',
+};
+
 const PIM_TAG_DETAIL_FIELD_KEY = {
   ID: 'id',
   TITLE: 'title',
@@ -117,4 +123,5 @@ export {
   PIM_FIELD_DETAIL_FIELD_KEY,
   PIM_PRICE_FIELD_KEY,
   PIM_FIELD_GROUP_DETAIL_FIELD_KEY,
+  PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY,
 };

@@ -25,12 +25,12 @@ const dataMenuSetup = [
     icons: '/assets/images/fields-group.svg',
     icons_color: '/assets/images/fields-group.svg',
   },
-  {
-    text: 'txt_left_menu_taxonomies',
-    link: '/taxonomies',
-    icons: '/assets/images/taxonomies.svg',
-    icons_color: '/assets/images/taxonomies.svg',
-  },
+  // {
+  //   text: 'txt_left_menu_taxonomies',
+  //   link: '/taxonomies',
+  //   icons: '/assets/images/taxonomies.svg',
+  //   icons_color: '/assets/images/taxonomies.svg',
+  // },
   {
     text: 'txt_menu_setting',
     link: '/setting',
@@ -99,23 +99,39 @@ const Menu = observer((props) => {
       ],
     },
     {
+      text: 'txt_left_menu_prices',
+      link: `/prices`,
+      icons: '/assets/images/price-tag.png',
+      icons_color: '/assets/images/price-tag.png',
+      submenu: [
+        {
+          text: 'txt_left_menu_list_prices',
+          link: `/prices`,
+        },
+        {
+          text: 'txt_left_menu_debtor_group',
+          link: `/debtor-group`,
+        },
+      ],
+    },
+    {
       text: 'txt_left_menu_categories',
       link: `/categories`,
       icons: '/assets/images/categories.svg',
       icons_color: '/assets/images/categories.svg',
     },
-    {
-      text: 'txt_left_menu_member_list',
-      link: `/members-list`,
-      icons: '/assets/images/members-list.svg',
-      icons_color: '/assets/images/member-list.svg',
-    },
-    {
-      text: 'txt_left_menu_import_export',
-      link: `/import-export`,
-      icons: '/assets/images/import.svg',
-      icons_color: '/assets/images/import.svg',
-    },
+    // {
+    //   text: 'txt_left_menu_member_list',
+    //   link: `/members-list`,
+    //   icons: '/assets/images/members-list.svg',
+    //   icons_color: '/assets/images/member-list.svg',
+    // },
+    // {
+    //   text: 'txt_left_menu_import_export',
+    //   link: `/import-export`,
+    //   icons: '/assets/images/import.svg',
+    //   icons_color: '/assets/images/import.svg',
+    // },
     {
       text: 'txt_left_menu_dam',
       link: `/dam`,
