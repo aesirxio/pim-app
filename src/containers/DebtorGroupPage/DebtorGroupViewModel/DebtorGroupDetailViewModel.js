@@ -94,15 +94,6 @@ class DebtorGroupDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  initFormPropsData = () => {
-    this.debtorGroupDetailViewModel = {
-      ...this.debtorGroupDetailViewModel,
-      formPropsData: {
-        ...this.debtorGroupDetailViewModel.formPropsData,
-      },
-    };
-  };
-
   handleFormPropsData = (key, value) => {
     if (key && value) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {

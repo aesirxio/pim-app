@@ -15,6 +15,7 @@ const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
 const FormImage = lazy(() => import('../components/Form/FormImage'));
 const FormVideo = lazy(() => import('../components/Form/FormVideo'));
 const FormSelection = lazy(() => import('../components/Form/FormSelection'));
+const FormSelectionFields = lazy(() => import('../components/Form/FormSelectionFields'));
 const FormSelectionPersona = lazy(() => import('../components/Form/FormSelectionPersona'));
 const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
@@ -99,6 +100,19 @@ const renderingGroupFieldHandler = (group, validator) => {
                   {field.label && <Label text={field.label} required={field.required ?? false} />}
 
                   <FormSelection key={Math.random(40, 200)} field={field} />
+
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.SELECTION_FIELDS:
+              return (
+                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
+                  {field.label && <Label text={field.label} required={field.required ?? false} />}
+
+                  <FormSelectionFields key={Math.random(40, 200)} field={field} />
 
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {

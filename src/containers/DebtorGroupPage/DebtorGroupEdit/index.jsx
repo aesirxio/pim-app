@@ -41,8 +41,6 @@ const EditDebtorGroup = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.debtorGroupDetailViewModel.initializeData();
-      } else {
-        this.debtorGroupDetailViewModel.initFormPropsData();
       }
     }
 

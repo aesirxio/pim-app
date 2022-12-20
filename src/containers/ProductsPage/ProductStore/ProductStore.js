@@ -29,6 +29,7 @@ export default class ProductStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);

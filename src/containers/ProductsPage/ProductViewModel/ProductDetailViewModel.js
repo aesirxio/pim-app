@@ -36,11 +36,7 @@ class ProductDetailViewModel {
 
   create = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    console.log(
-      'this.productDetailViewModel.formPropsData',
-      this.productDetailViewModel.formPropsData
-    );
-    await this.productStore.create(
+    return await this.productStore.create(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnCreateSuccessHandler
@@ -79,18 +75,15 @@ class ProductDetailViewModel {
 
   callbackOnGetProductSuccessHandler = (result) => {
     if (result) {
-      this.productDetailViewModel = {
-        ...this.productDetailViewModel,
-        formPropsData: {
-          ...this.productDetailViewModel.formPropsData,
-          ...Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY)
-            .map((index) => {
-              return {
-                [PIM_PRODUCT_DETAIL_FIELD_KEY[index]]: result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]],
-              };
-            })
-            .reduce((prev, cur) => ({ ...prev, ...cur })),
-        },
+      this.productDetailViewModel.formPropsData = {
+        ...this.productDetailViewModel.formPropsData,
+        ...Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY)
+          .map((index) => {
+            return {
+              [PIM_PRODUCT_DETAIL_FIELD_KEY[index]]: result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]],
+            };
+          })
+          .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
     }
 

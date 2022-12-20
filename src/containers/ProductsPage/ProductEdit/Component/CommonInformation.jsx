@@ -10,6 +10,7 @@ import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/Categ
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
+import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
@@ -20,6 +21,7 @@ const CommonInformation = observer(
   class CommonInformation extends Component {
     constructor(props) {
       super(props);
+      this.viewModel = this.props.viewModel.productDetailViewModel;
       this.categoryListViewModel = categoryViewModel
         ? categoryViewModel.getCategoryListViewModel()
         : null;
@@ -34,7 +36,7 @@ const CommonInformation = observer(
     }
 
     render() {
-      const { t, formPropsData, validator } = this.props;
+      const { t, validator } = this.props;
       const generateFormSetting = [
         {
           fields: [
@@ -42,21 +44,34 @@ const CommonInformation = observer(
               label: 'txt_alias',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS,
               type: FORM_FIELD_TYPE.INPUT,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS],
+              getValueSelected:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
+                ],
               className: 'col-lg-12',
               placeholder: t('txt_type'),
               handleChange: (event) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS] = event.target.value;
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
+                ] = event.target.value;
               },
             },
             {
               label: 'txt_main_category',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID]
+              getValueSelected: this.viewModel.productDetailViewModel.formPropsData[
+                PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
+              ]
                 ? {
-                    label: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
-                    value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID],
+                    label:
+                      this.viewModel.productDetailViewModel.formPropsData[
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME
+                      ],
+                    value:
+                      this.viewModel.productDetailViewModel.formPropsData[
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
+                      ],
                   }
                 : null,
               getDataSelectOptions: this.categoryListViewModel.items
@@ -71,8 +86,12 @@ const CommonInformation = observer(
                   })
                 : null,
               handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME] = data.label;
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID] = data.value;
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME
+                ] = data.label;
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
+                ] = data.value;
               },
               className: 'col-lg-12',
             },
@@ -133,4 +152,4 @@ const CommonInformation = observer(
     }
   }
 );
-export default withTranslation('common')(CommonInformation);
+export default withTranslation('common')(withProductViewModel(CommonInformation));
