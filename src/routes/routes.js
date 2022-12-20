@@ -5,7 +5,6 @@
 
 // import { isLogin } from 'auth';
 
-import CategoriesPage from 'containers/CategoriesPage';
 import React, { lazy } from 'react';
 // import { Redirect } from 'react-router-dom';
 
@@ -29,6 +28,7 @@ const EditDebtorGroupProvider = lazy(() => import('containers/DebtorGroupPage/ed
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 const ProductPrices = lazy(() => import('../containers/ProductPrices'));
+const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
 
 const authRoutes = [
   {
