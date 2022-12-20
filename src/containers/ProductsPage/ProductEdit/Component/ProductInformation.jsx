@@ -3,30 +3,17 @@ import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
-import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 import Spinner from 'components/Spinner';
 import { withProductViewModel } from '../../ProductViewModel/ProductViewModelContextProvider';
-const categoryStore = new CategoryStore();
-const categoryViewModel = new CategoryViewModel(categoryStore);
 
 const ProductInformation = observer(
   class ProductInformation extends Component {
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.productDetailViewModel;
-      this.categoryListViewModel = categoryViewModel
-        ? categoryViewModel.getCategoryListViewModel()
-        : null;
-    }
-
-    async componentDidMount() {
-      if (!this.categoryListViewModel.items.length) {
-        await this.categoryListViewModel.handleFilter({ limit: 0 });
-        await this.categoryListViewModel.initializeData();
-      }
+      this.categoryListViewModel = this.props.categoryListViewModel;
     }
 
     render() {

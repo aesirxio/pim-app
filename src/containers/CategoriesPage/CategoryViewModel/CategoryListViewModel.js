@@ -49,6 +49,19 @@ class CategoryListViewModel {
     this.successResponse.state = true;
   };
 
+  initializeDataCustom = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.categoryStore.getList(
+      this.callbackOnSuccessHandlerCustom,
+      this.callbackOnErrorHandler,
+      this.filter
+    );
+  };
+  callbackOnSuccessHandlerCustom = (result) => {
+    this.items = result.listItems;
+    this.formStatus = PAGE_STATUS.READY;
+  };
+
   getListByFilter = async (key, value) => {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
 
