@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 class DebtorGroupDetailViewModel {
   debtorGroupStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -28,7 +28,7 @@ class DebtorGroupDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.debtorGroupStore.getDetail(
-      this.debtorGroupDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+      this.debtorGroupDetailViewModel.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetDebtorGroupSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -75,32 +75,20 @@ class DebtorGroupDetailViewModel {
 
   callbackOnGetDebtorGroupSuccessHandler = (result) => {
     if (result) {
-      this.debtorGroupDetailViewModel = {
-        ...this.debtorGroupDetailViewModel,
-        formPropsData: {
-          ...this.debtorGroupDetailViewModel.formPropsData,
-          ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
-            .map((index) => {
-              return {
-                [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]:
-                  result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
-              };
-            })
-            .reduce((prev, cur) => ({ ...prev, ...cur })),
-        },
+      this.debtorGroupDetailViewModel.formPropsData = {
+        ...this.debtorGroupDetailViewModel.formPropsData,
+        ...Object.keys(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY)
+          .map((index) => {
+            return {
+              [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]:
+                result[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]],
+            };
+          })
+          .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
     }
 
     this.formStatus = PAGE_STATUS.READY;
-  };
-
-  initFormPropsData = () => {
-    this.debtorGroupDetailViewModel = {
-      ...this.debtorGroupDetailViewModel,
-      formPropsData: {
-        ...this.debtorGroupDetailViewModel.formPropsData,
-      },
-    };
   };
 
   handleFormPropsData = (key, value) => {

@@ -14,10 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import {
-  PIM_CATEGORY_DETAIL_FIELD_KEY,
-  PIM_FIELD_DETAIL_FIELD_KEY,
-} from 'library/Constant/PimConstant';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
 import CategoryTab from './Component/CategoryTab';
 import SimpleReactValidator from 'simple-react-validator';
@@ -25,7 +22,7 @@ import SimpleReactValidator from 'simple-react-validator';
 const EditCategory = observer(
   class EditCategory extends Component {
     categoryDetailViewModel = null;
-    formPropsData = { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = { [PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
     isEdit = false;
     constructor(props) {
       super(props);

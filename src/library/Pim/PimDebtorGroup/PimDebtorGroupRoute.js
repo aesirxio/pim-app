@@ -7,7 +7,7 @@ import AesirxApiInstance from 'aesirx-dma-lib/src/gateway/Instance';
 import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 
 class PimDebtorGroupRoute extends BaseRoute {
-  option = 'reditem-category_tag_44';
+  option = 'reditem-item_debtor_group_52';
 
   getList = (dataFilter = {}) => {
     return AesirxApiInstance().get(

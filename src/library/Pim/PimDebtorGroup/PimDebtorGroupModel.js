@@ -19,14 +19,24 @@ class DebtorGroupModel extends BaseModel {
 class DebtorGroupItemModel extends BaseItemModel {
   id = null;
   title = null;
-  debtor_code = null;
+  published = 0;
+  featured = 0;
+  created_user_name = null;
+  modified_user_name = null;
+  created_time = null;
+  custom_fields = null;
 
   constructor(entity) {
     super(entity);
     if (entity) {
       this.id = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID] ?? '';
       this.title = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE] ?? '';
-      this.debtor_code = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.DEBTOR_CODE] ?? '';
+      this.published = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED] ?? '';
+      this.featured = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.FEATURED] ?? '';
+      this.created_user_name = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
+      this.modified_user_name = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
+      this.created_time = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
+      this.custom_fields = entity[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS] ?? '';
     }
   }
 
@@ -39,37 +49,68 @@ class DebtorGroupItemModel extends BaseItemModel {
       ...this.baseToJSON(),
       [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID]: this.id,
       [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE]: this.title,
-      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.DEBTOR_CODE]: this.debtor_code,
+      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED]: this.published,
+      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.FEATURED]: this.featured,
+      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME]: this.created_user_name,
+      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
+      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CREATED_TIME]: this.created_time,
+      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: this.custom_fields,
     };
   };
 
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
-    const excluded = [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID];
+    const excluded = [
+      PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID,
+      PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS,
+    ];
     Object.keys(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY).forEach((index) => {
-      if (!excluded.includes(index) && data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]) {
+      if (
+        !excluded.includes(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]
+      ) {
         formData.append(
           [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]],
           data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]
         );
       }
     });
-    formData.append(
-      [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
-      data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID] ?? 0
-    );
+    if (
+      data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
+      Object.keys(data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
+    ) {
+      Object.keys(data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
+        formData.append(
+          [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS] + '[' + key + ']',
+          data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key]
+        );
+      });
+    }
     return formData;
   };
 
   static __transformItemToApiOfUpdation = (data) => {
     let formData = {};
-    const excluded = [];
+    const excluded = [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS];
     Object.keys(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY).forEach((index) => {
-      if (!excluded.includes(index) && data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]) {
+      if (
+        !excluded.includes(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]
+      ) {
         formData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]] =
           data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]];
       }
     });
+    if (
+      data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
+      Object.keys(data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
+    ) {
+      formData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS] = {};
+      Object.keys(data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
+        formData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] =
+          data[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+      });
+    }
     return formData;
   };
 }

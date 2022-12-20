@@ -94,7 +94,7 @@ const ProductInformation = observer(
               label: 'txt_product_description',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION,
               type: FORM_FIELD_TYPE.EDITOR,
-              value:
+              getValueSelected:
                 this.viewModel.productDetailViewModel.formPropsData[
                   PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
                 ][PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION],
@@ -109,7 +109,7 @@ const ProductInformation = observer(
               label: 'txt_short_description',
               key: PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION,
               type: FORM_FIELD_TYPE.EDITOR,
-              value:
+              getValueSelected:
                 this.viewModel.productDetailViewModel.formPropsData[
                   PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
                 ][PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION],

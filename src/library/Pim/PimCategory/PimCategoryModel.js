@@ -115,7 +115,10 @@ class CategoryItemModel extends BaseItemModel {
         );
       });
     }
-    if (data[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES].length) {
+    if (
+      data[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES] &&
+      data[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES].length
+    ) {
       data[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES].map((category) => {
         return formData.append(
           [PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES + '[]'],

@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { DebtorGroupModel } from './PimDebtorGroupModel';
+import { DebtorGroupItemModel, DebtorGroupModel } from './PimDebtorGroupModel';
 import PimDebtorGroupRoute from './PimDebtorGroupRoute';
 import { Component } from 'react';
 import axios from 'axios';
@@ -53,7 +53,7 @@ class AesirxPimDebtorGroupApiService extends Component {
       const data = await this.route.getDetail(id);
       let results = null;
       if (data) {
-        results = new DebtorGroupModel(data);
+        results = new DebtorGroupItemModel(data);
       }
       if (results) {
         results = results.toJSON();

@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withDebtorGroupViewModel } from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import DebtorGroupInformation from './Component/DebtorGroupInformation';
@@ -22,7 +22,8 @@ import DebtorGroupInformation from './Component/DebtorGroupInformation';
 const EditDebtorGroup = observer(
   class EditDebtorGroup extends Component {
     debtorGroupDetailViewModel = null;
-    formPropsData = {};
+    formPropsData = { [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+
     isEdit = false;
     constructor(props) {
       super(props);
@@ -39,17 +40,14 @@ const EditDebtorGroup = observer(
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.debtorGroupDetailViewModel.initializeData();
-      } else {
-        this.debtorGroupDetailViewModel.initFormPropsData();
       }
     }
 
     render() {
       const { t } = this.props;
       let history = this.props.history;
-      console.log('rerender DebtorGroup');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -92,7 +90,7 @@ const EditDebtorGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.debtorGroupDetailViewModel.create();
-                          history.push(`/categories/edit/${result}`);
+                          result && history.push(`/debtor-group/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -113,13 +111,13 @@ const EditDebtorGroup = observer(
                     field={{
                       getValueSelected:
                         this.debtorGroupDetailViewModel.debtorGroupDetailViewModel.formPropsData[
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
+                          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
                         ],
                       classNameInput: 'py-1 fs-4',
                       placeholder: t('txt_add_debtor_group_name'),
                       handleChange: (event) => {
                         this.debtorGroupDetailViewModel.handleFormPropsData(
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
+                          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE,
                           event.target.value
                         );
                       },
@@ -133,7 +131,7 @@ const EditDebtorGroup = observer(
                   {this.validator.message(
                     'DebtorGroup Name',
                     this.debtorGroupDetailViewModel.debtorGroupDetailViewModel.formPropsData[
-                      PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
+                      PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
                     ],
                     'required',
                     {

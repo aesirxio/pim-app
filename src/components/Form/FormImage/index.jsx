@@ -75,7 +75,9 @@ const FormImage = ({ field }) => {
                 </div>
               </div>
             )}
-            <ComponentImage src={file && file[0]?.download_url} alt={field.value} />
+            {file.length ? (
+              <ComponentImage src={file && file[0]?.download_url} alt={field.value} />
+            ) : null}
           </div>
           <p className="my-8px fs-14 opacity-50">
             Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)
