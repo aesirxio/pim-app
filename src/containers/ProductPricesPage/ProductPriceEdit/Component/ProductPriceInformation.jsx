@@ -6,7 +6,7 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import { withProductPricesViewModel } from 'containers/ProductPrices/productPricesViewModel/ProductPricesViewModelContextProvider';
+import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 
 const ProductPriceInformation = observer(
   class ProductPriceInformation extends Component {
@@ -61,4 +61,4 @@ const ProductPriceInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withProductPricesViewModel(ProductPriceInformation));
+export default withTranslation('common')(withProductPriceViewModel(ProductPriceInformation));

@@ -7,37 +7,37 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { PIM_PRICES_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-class ProductPricesDetailViewModel {
-  productPricesStore = null;
+class ProductPriceDetailViewModel {
+  productPriceStore = null;
   formStatus = PAGE_STATUS.READY;
-  productPricesDetailViewModel = null;
+  productPriceDetailViewModel = null;
   successResponse = {
     state: true,
     content_id: '',
   };
 
-  constructor(productPricesStore) {
+  constructor(productPriceStore) {
     makeAutoObservable(this);
-    this.productPricesStore = productPricesStore;
+    this.productPriceStore = productPriceStore;
   }
 
-  setForm = (productPricesDetailViewModel) => {
-    this.productPricesDetailViewModel = productPricesDetailViewModel;
+  setForm = (productPriceDetailViewModel) => {
+    this.productPriceDetailViewModel = productPriceDetailViewModel;
   };
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productPricesStore.getDetail(
-      this.productPricesDetailViewModel.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetProductPricesSuccessHandler,
+    await this.productPriceStore.getDetail(
+      this.productPriceDetailViewModel.formPropsData[PIM_PRICES_DETAIL_FIELD_KEY.ID],
+      this.callbackOnGetProductPriceSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
 
   create = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return this.productPricesStore.create(
-      this.productPricesDetailViewModel.formPropsData,
+    return this.productPriceStore.create(
+      this.productPriceDetailViewModel.formPropsData,
       this.callbackOnCreateSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -45,8 +45,8 @@ class ProductPricesDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productPricesStore.update(
-      this.productPricesDetailViewModel.formPropsData,
+    await this.productPriceStore.update(
+      this.productPriceDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -73,15 +73,14 @@ class ProductPricesDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetProductPricesSuccessHandler = (result) => {
+  callbackOnGetProductPriceSuccessHandler = (result) => {
     if (result) {
-      this.productPricesDetailViewModel.formPropsData = {
-        ...this.productPricesDetailViewModel.formPropsData,
-        ...Object.keys(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY)
+      this.productPriceDetailViewModel.formPropsData = {
+        ...this.productPriceDetailViewModel.formPropsData,
+        ...Object.keys(PIM_PRICES_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]]:
-                result[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY[index]],
+              [PIM_PRICES_DETAIL_FIELD_KEY[index]]: result[PIM_PRICES_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
@@ -94,12 +93,12 @@ class ProductPricesDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        Object.assign(this.productPricesDetailViewModel.formPropsData[key], value);
+        Object.assign(this.productPriceDetailViewModel.formPropsData[key], value);
       } else {
-        this.productPricesDetailViewModel.formPropsData[key] = value;
+        this.productPriceDetailViewModel.formPropsData[key] = value;
       }
     }
   };
 }
 
-export default ProductPricesDetailViewModel;
+export default ProductPriceDetailViewModel;

@@ -9,12 +9,12 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import ProductPriceStore from 'containers/ProductPrices/productPricesStore/ProductPricesStore';
-import ProductPricesViewModel from 'containers/ProductPrices/productPricesViewModel/ProductPricesViewModel';
-import { ProductPricesViewModelContextProvider } from 'containers/ProductPrices/productPricesViewModel/ProductPricesViewModelContextProvider';
+import ProductPriceStore from 'containers/ProductPricesPage/ProductPriceStore/ProductPriceStore';
+import ProductPriceViewModel from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModel';
+import { ProductPriceViewModelContextProvider } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import EditProductPrice from './ProductPriceEdit';
 const productPriceStore = new ProductPriceStore();
-const productPriceViewModel = new ProductPricesViewModel(productPriceStore);
+const productPriceViewModel = new ProductPriceViewModel(productPriceStore);
 
 const EditProductPriceProvider = observer(
   class EditProductPriceProvider extends Component {
@@ -23,9 +23,9 @@ const EditProductPriceProvider = observer(
         return <Spinner />;
       }
       return (
-        <ProductPricesViewModelContextProvider viewModel={productPriceViewModel}>
+        <ProductPriceViewModelContextProvider viewModel={productPriceViewModel}>
           <EditProductPrice />
-        </ProductPricesViewModelContextProvider>
+        </ProductPriceViewModelContextProvider>
       );
     }
   }

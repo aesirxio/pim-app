@@ -41,8 +41,6 @@ const EditCategory = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.categoryDetailViewModel.initializeData();
-      } else {
-        this.categoryDetailViewModel.initFormPropsData();
       }
     }
 
@@ -148,7 +146,6 @@ const EditCategory = observer(
               </Col>
               <Col lg={3}>
                 <PublishOptions
-                  detailViewModal={this.categoryDetailViewModel}
                   formPropsData={this.categoryDetailViewModel.categoryDetailViewModel.formPropsData}
                   isEdit={this.isEdit}
                 />

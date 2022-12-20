@@ -12,17 +12,16 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import { withProductPricesViewModel } from 'containers/ProductPrices/productPricesViewModel/ProductPricesViewModelContextProvider';
+import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-import Input from 'components/Form/Input';
+import { PIM_PRICES_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
 
 const EditProductPrice = observer(
   class EditProductPrice extends Component {
     productPriceDetailViewModel = null;
-    formPropsData = { [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+    formPropsData = { [PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
 
     isEdit = false;
     constructor(props) {
@@ -40,7 +39,7 @@ const EditProductPrice = observer(
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[PIM_PRICES_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productPriceDetailViewModel.initializeData();
       }
     }
@@ -59,7 +58,7 @@ const EditProductPrice = observer(
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_debtor_group')}
+                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_price')}
               </h2>
             </div>
             <div className="position-relative">
@@ -106,39 +105,6 @@ const EditProductPrice = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
-                  <Input
-                    field={{
-                      getValueSelected:
-                        this.productPriceDetailViewModel.productPriceDetailViewModel.formPropsData[
-                          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
-                        ],
-                      classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_debtor_group_name'),
-                      handleChange: (event) => {
-                        this.productPriceDetailViewModel.handleFormPropsData(
-                          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE,
-                          event.target.value
-                        );
-                      },
-                      required: true,
-                      validation: 'required',
-                      blurred: () => {
-                        this.validator.showMessageFor('ProductPrice Name');
-                      },
-                    }}
-                  />
-                  {this.validator.message(
-                    'ProductPrice Name',
-                    this.productPriceDetailViewModel.productPriceDetailViewModel.formPropsData[
-                      PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
-                    ],
-                    'required',
-                    {
-                      className: 'text-danger mt-8px',
-                    }
-                  )}
-                </Form.Group>
                 <ProductPriceInformation validator={this.validator} />
               </Col>
               <Col lg={3}>
@@ -158,4 +124,4 @@ const EditProductPrice = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withProductPricesViewModel(EditProductPrice)));
+export default withTranslation('common')(withRouter(withProductPriceViewModel(EditProductPrice)));

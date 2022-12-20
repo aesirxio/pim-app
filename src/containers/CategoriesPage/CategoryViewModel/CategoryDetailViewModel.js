@@ -75,32 +75,19 @@ class CategoryDetailViewModel {
 
   callbackOnGetCategorySuccessHandler = (result) => {
     if (result) {
-      this.categoryDetailViewModel = {
-        ...this.categoryDetailViewModel,
-        formPropsData: {
-          ...this.categoryDetailViewModel.formPropsData,
-          ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
-            .map((index) => {
-              return {
-                [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]:
-                  result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
-              };
-            })
-            .reduce((prev, cur) => ({ ...prev, ...cur })),
-        },
+      this.categoryDetailViewModel.formPropsData = {
+        ...this.categoryDetailViewModel.formPropsData,
+        ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
+          .map((index) => {
+            return {
+              [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]: result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
+            };
+          })
+          .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
     }
 
     this.formStatus = PAGE_STATUS.READY;
-  };
-
-  initFormPropsData = () => {
-    this.categoryDetailViewModel = {
-      ...this.categoryDetailViewModel,
-      formPropsData: {
-        ...this.categoryDetailViewModel.formPropsData,
-      },
-    };
   };
 
   handleFormPropsData = (key, value) => {

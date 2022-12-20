@@ -59,4 +59,4 @@ class ProductPriceItemModel extends BaseItemModel {
   };
 }
 
-export { ProductPriceModel };
+export { ProductPriceModel, ProductPriceItemModel };
