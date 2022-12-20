@@ -57,41 +57,72 @@ class ProductItemModel extends BaseItemModel {
 
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
-    const excluded = [PIM_PRODUCT_DETAIL_FIELD_KEY.ID, PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS];
-    console.log('data', data);
-    if (data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]) {
-      console.log(
-        'data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]',
-        data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]
-      );
-      let variantData = data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS].map((variant) => {
-        return {
-          price: {
-            price: variant.price,
-            retail_price: variant.retail_price,
-          },
-          property_values: Object.keys(variant.property_values).map((key) => ({
-            title: key,
-            property: {
-              title: variant.property_values[key],
-            },
-          })),
-          custom_fields: variant.custom_fields,
-        };
-      });
-      console.log('variantData', variantData);
-      formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS], variantData);
-    }
-
+    const excluded = [
+      PIM_PRODUCT_DETAIL_FIELD_KEY.ID,
+      PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS,
+      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS,
+      PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
+    ];
     Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY).forEach((index) => {
-      if (!excluded.includes(index) && data[PIM_PRODUCT_DETAIL_FIELD_KEY[index]]) {
+      if (
+        !excluded.includes(PIM_PRODUCT_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_PRODUCT_DETAIL_FIELD_KEY[index]]
+      ) {
         formData.append(
           [PIM_PRODUCT_DETAIL_FIELD_KEY[index]],
           data[PIM_PRODUCT_DETAIL_FIELD_KEY[index]]
         );
       }
     });
-    formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.ID], data[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] ?? 0);
+
+    if (
+      data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
+      Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
+    ) {
+      Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
+        if (Array.isArray(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key])) {
+          data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key].map((field) => {
+            return formData.append(
+              [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] + '[' + key + '][]',
+              typeof field === 'object' ? JSON.stringify(field) : field
+            );
+          });
+        } else {
+          formData.append(
+            [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] + '[' + key + ']',
+            data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key]
+          );
+        }
+      });
+    }
+    if (data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES].length) {
+      data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES].map((category) => {
+        return formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES + '[]'], category);
+      });
+    }
+    // if (data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]) {
+    //   console.log(
+    //     'data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]',
+    //     data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS]
+    //   );
+    //   let variantData = data[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS].map((variant) => {
+    //     return {
+    //       price: {
+    //         price: variant.price,
+    //         retail_price: variant.retail_price,
+    //       },
+    //       property_values: Object.keys(variant.property_values).map((key) => ({
+    //         title: key,
+    //         property: {
+    //           title: variant.property_values[key],
+    //         },
+    //       })),
+    //       custom_fields: variant.custom_fields,
+    //     };
+    //   });
+    //   console.log('variantData', variantData);
+    //   formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS], variantData);
+    // }
     return formData;
   };
 

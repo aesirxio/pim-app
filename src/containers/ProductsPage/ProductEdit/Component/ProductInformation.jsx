@@ -8,6 +8,7 @@ import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/Categ
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 import Spinner from 'components/Spinner';
+import { withProductViewModel } from '../../ProductViewModel/ProductViewModelContextProvider';
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
 
@@ -15,6 +16,7 @@ const ProductInformation = observer(
   class ProductInformation extends Component {
     constructor(props) {
       super(props);
+      this.viewModel = this.props.viewModel.productDetailViewModel;
       this.categoryListViewModel = categoryViewModel
         ? categoryViewModel.getCategoryListViewModel()
         : null;
@@ -22,12 +24,13 @@ const ProductInformation = observer(
 
     async componentDidMount() {
       if (!this.categoryListViewModel.items.length) {
+        await this.categoryListViewModel.handleFilter({ limit: 0 });
         await this.categoryListViewModel.initializeData();
       }
     }
 
     render() {
-      const { t, formPropsData, validator } = this.props;
+      const { t, validator } = this.props;
       const generateFormSetting = [
         {
           fields: [
@@ -38,9 +41,7 @@ const ProductInformation = observer(
             //   getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID]
             //     ? {
             //         label: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_NAME],
-            //         value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.SALE_MARKET_ID],
-            //       }
-            //     : null,
+            //         value: formPropsData[PIM_PRasd
             //   // getDataSelectOptions: [
             //   //   {
             //   //     label: 'Sale Market 1',
@@ -60,30 +61,62 @@ const ProductInformation = observer(
             //   isMulti: true,
             // },
             {
-              label: 'txt_related_categories',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID,
+              label: 'txt_related_category',
+              key: PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: null,
-              getDataSelectOptions: this.categoryListViewModel.items
-                ? this.categoryListViewModel.items.map((item) => ({
-                    label: item.title,
-                    value: item.id,
-                  }))
+              getValueSelected: this.viewModel.productDetailViewModel.formPropsData[
+                PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES
+              ]
+                ? this.viewModel.productDetailViewModel.formPropsData[
+                    PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES
+                  ]?.map((item) => ({ label: item.title, value: item.id }))
                 : null,
+              getDataSelectOptions: this.categoryListViewModel.items
+                ? this.categoryListViewModel.items.map((item) => {
+                    return {
+                      label: item.title,
+                      value: item.id,
+                    };
+                  })
+                : null,
+              handleChange: (data) => {
+                let convertData = data.map((item) => item.value);
+                this.viewModel.handleFormPropsData(
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
+                  convertData
+                );
+              },
               isMulti: true,
               placeholder: t('txt_select_category'),
+              className: 'col-lg-12',
+            },
+            {
+              label: 'txt_product_description',
+              key: PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION,
+              type: FORM_FIELD_TYPE.EDITOR,
+              value:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION],
               handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] = data;
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION] = data;
               },
               className: 'col-lg-12',
             },
             {
-              label: 'txt_description',
-              key: PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION,
+              label: 'txt_short_description',
+              key: PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION,
               type: FORM_FIELD_TYPE.EDITOR,
-              value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION],
+              value:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION],
               handleChange: (data) => {
-                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.DESCRIPTION] = data;
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRODUCT_DETAIL_FIELD_KEY.SHORT_DESCRIPTION] = data;
               },
               className: 'col-lg-12',
             },
@@ -109,4 +142,4 @@ const ProductInformation = observer(
     }
   }
 );
-export default withTranslation('common')(ProductInformation);
+export default withTranslation('common')(withProductViewModel(ProductInformation));

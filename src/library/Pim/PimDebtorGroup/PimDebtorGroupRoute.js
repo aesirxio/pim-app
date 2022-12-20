@@ -6,47 +6,38 @@
 import AesirxApiInstance from 'aesirx-dma-lib/src/gateway/Instance';
 import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 
-class PimCategoryRoute extends BaseRoute {
-  option = 'reditem-category_product_category_60';
+class PimDebtorGroupRoute extends BaseRoute {
+  option = 'reditem-category_tag_44';
 
-  getList = (filters) => {
-    const buildFilters = this.createFilters(filters);
-    return AesirxApiInstance.get(
+  getList = (dataFilter = {}) => {
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
-        ...buildFilters,
+        ...dataFilter,
       })
     );
   };
 
   createFilters = (filters) => {
     let buildFilter = {};
+
     for (const [key, value] of Object.entries(filters)) {
-      if (typeof value === 'object') {
-        switch (value.type) {
-          case 'custom_fields':
-            buildFilter['filter[' + value.type + '][' + key + '][]'] = value.value;
-            break;
-          case 'filter':
-            buildFilter['filter[' + key + ']'] = value.value;
-            break;
-          default:
-            break;
-        }
+      if (Array.isArray(value)) {
+        buildFilter['filter[' + key + '][]'] = value;
       } else {
-        buildFilter[key] = value;
+        buildFilter['filter[' + key + ']'] = value;
       }
     }
 
     return buildFilter;
   };
 
-  getDetail = (id = 0, dataFilter = {}) => {
+  getDetail = (id = 0, filter = {}) => {
     return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         id: id,
-        ...dataFilter,
+        ...filter,
       })
     );
   };
@@ -87,4 +78,4 @@ class PimCategoryRoute extends BaseRoute {
   };
 }
 
-export default PimCategoryRoute;
+export default PimDebtorGroupRoute;

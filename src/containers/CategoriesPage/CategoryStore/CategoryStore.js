@@ -13,7 +13,6 @@ export default class CategoryStore {
     try {
       const convertedUpdateGeneralData =
         CategoryItemModel.__transformItemToApiOfCreation(createCategoryData);
-
       let resultOnSave;
       const createCategoryApiService = new AesirxPimCategoryApiService();
 

@@ -26,7 +26,7 @@ class FieldGroupItemModel extends BaseItemModel {
   publish_up = null;
   alias = null;
   description = null;
-
+  modified_user_name = null;
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -35,10 +35,11 @@ class FieldGroupItemModel extends BaseItemModel {
       this.published = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PUBLISHED] ?? 0;
       this.featured = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.FEATURED]?.toString() ?? '0';
       this.created_user_name = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
+      this.modified_user_name = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
       this.created_time = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
       this.publish_up = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
       this.alias = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS] ?? '';
-      this.description = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTIONS] ?? '';
+      this.description = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION] ?? '';
     }
   }
 
@@ -54,34 +55,33 @@ class FieldGroupItemModel extends BaseItemModel {
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PUBLISHED]: this.published,
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.FEATURED]: this.featured,
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME]: this.created_user_name,
+      [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS]: this.alias,
-      [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTIONS]: this.description,
+      [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION]: this.description,
     };
   };
 
   static __transformItemToApiOfCreation = (data) => {
     let formData = new FormData();
-    const excluded = [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID, PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PARAMS];
+    const excluded = [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID];
     Object.keys(PIM_FIELD_GROUP_DETAIL_FIELD_KEY).forEach((index) => {
       if (
         !excluded.includes(PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]) &&
         data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]]
       ) {
-        formData.append(
-          [PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]],
-          data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]]
-        );
+        if (Array.isArray(data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]])) {
+          data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]].map((item) =>
+            formData.append([PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index] + '[]'], item)
+          );
+        } else {
+          formData.append(
+            [PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]],
+            data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]]
+          );
+        }
       }
     });
-    if (data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PARAMS]) {
-      Object.keys(PIM_FIELD_GROUP_DETAIL_FIELD_KEY).map((key) => {
-        return formData.append(
-          [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PARAMS] + '[' + key + ']',
-          data[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PARAMS][key]
-        );
-      });
-    }
     return formData;
   };
 

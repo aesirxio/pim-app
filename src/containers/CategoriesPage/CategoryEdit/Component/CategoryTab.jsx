@@ -25,8 +25,9 @@ const CategoryTab = observer(
 
     async componentDidMount() {
       if (!this.fieldListViewModel.items.length) {
-        this.fieldListViewModel.handleFilter({ type_id: 59 });
+        this.fieldListViewModel.handleFilter({ type_id: 61 });
         await this.fieldListViewModel.initializeData();
+        this.forceUpdate();
       }
     }
     render() {
@@ -71,9 +72,10 @@ const CategoryTab = observer(
                       <div className="row">
                         <FieldViewModelContextProvider viewModel={fieldViewModel}>
                           <FieldsList
+                            detailViewModal={detailViewModal}
                             formPropsData={detailViewModal.categoryDetailViewModel.formPropsData}
                             validator={validator}
-                            fieldClass={'col-lg-6'}
+                            fieldClass={'col-lg-12'}
                           />
                         </FieldViewModelContextProvider>
                       </div>

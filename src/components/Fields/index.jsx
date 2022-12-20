@@ -10,7 +10,7 @@ const FieldsList = observer(
   class FieldsList extends Component {
     constructor(props) {
       super(props);
-      this.state = { itemsByGroup: props.viewModel.fieldListViewModel.items };
+      this.state = { itemsByGroup: this.props.viewModel.fieldListViewModel.items };
     }
 
     componentDidMount = () => {
@@ -24,10 +24,26 @@ const FieldsList = observer(
           PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
         )
       ) {
-        Object.assign(this.props.formPropsData, { [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} });
+        Object.assign(this.props.formPropsData, {
+          [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {},
+        });
+      }
+    };
+    componentDidUpdate = () => {
+      if (
+        !this.props.groupID &&
+        this.state.itemsByGroup.length !== this.props.viewModel.fieldListViewModel.items.length
+      ) {
+        this.setState({
+          itemsByGroup: this.props.viewModel.fieldListViewModel.items,
+        });
       }
     };
     render() {
+      console.log(
+        'this.props.viewModel.fieldListViewModel',
+        this.props.viewModel.fieldListViewModel.items.length
+      );
       const generateFormSetting = [
         {
           fields: [
@@ -37,21 +53,28 @@ const FieldsList = observer(
                 field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
                 field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION
               ) {
-                selectedValue = this.props.formPropsData[
+                selectedValue = this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                   field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
                 ]
                   ? {
                       label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
                         (x) =>
                           x.value ===
-                          this.props.formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]
+                          this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                            field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                          ]
                       )?.label,
-                      value: this.props.formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]],
+                      value:
+                        this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                          field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                        ],
                     }
                   : null;
               } else {
                 selectedValue =
-                  this.props.formPropsData[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] ?? null;
+                  this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                  ] ?? null;
               }
               return {
                 label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
@@ -67,18 +90,18 @@ const FieldsList = observer(
                     );
                   } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
                     this.props.detailViewModal.handleFormPropsData(
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
-                      data.value
+                      [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                      { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [data.value] }
                     );
                   } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE) {
                     this.props.detailViewModal.handleFormPropsData(
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
-                      data
+                      [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                      { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data }
                     );
                   } else {
                     this.props.detailViewModal.handleFormPropsData(
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
-                      data.target.value
+                      [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                      { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data.target.value }
                     );
                   }
                 },
@@ -90,8 +113,7 @@ const FieldsList = observer(
                 // validation: 'required',
                 isMulti:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
-                  field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.webservice?.name ===
-                    'aesir_dam_gallery',
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',
                 isVideo:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.webservice?.name === 'aesir_dam_video',
@@ -100,7 +122,8 @@ const FieldsList = observer(
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.filter_type === 'creatable'
                     ? true
                     : false,
-                value: this.props.formPropsData.product_width,
+                value:
+                  this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS].product_width,
                 format: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.number_units,
               };
             }),

@@ -6,51 +6,47 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-class ProductDetailViewModel {
-  productStore = null;
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+class DebtorGroupDetailViewModel {
+  debtorGroupStore = null;
   formStatus = PAGE_STATUS.READY;
-  productDetailViewModel = null;
+  debtorGroupDetailViewModel = null;
   successResponse = {
     state: true,
     content_id: '',
   };
 
-  constructor(productStore) {
+  constructor(debtorGroupStore) {
     makeAutoObservable(this);
-    this.productStore = productStore;
+    this.debtorGroupStore = debtorGroupStore;
   }
 
-  setForm = (productDetailViewModel) => {
-    this.productDetailViewModel = productDetailViewModel;
+  setForm = (debtorGroupDetailViewModel) => {
+    this.debtorGroupDetailViewModel = debtorGroupDetailViewModel;
   };
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.getProductDetail(
-      this.productDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetProductSuccessHandler,
+    await this.debtorGroupStore.getDetail(
+      this.debtorGroupDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+      this.callbackOnGetDebtorGroupSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
 
-  create = async () => {
+  create = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    console.log(
-      'this.productDetailViewModel.formPropsData',
-      this.productDetailViewModel.formPropsData
-    );
-    await this.productStore.create(
-      this.productDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnCreateSuccessHandler
+    return this.debtorGroupStore.create(
+      this.debtorGroupDetailViewModel.formPropsData,
+      this.callbackOnCreateSuccessHandler,
+      this.callbackOnErrorHandler
     );
   };
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.update(
-      this.productDetailViewModel.formPropsData,
+    await this.debtorGroupStore.update(
+      this.debtorGroupDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -77,16 +73,17 @@ class ProductDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetProductSuccessHandler = (result) => {
+  callbackOnGetDebtorGroupSuccessHandler = (result) => {
     if (result) {
-      this.productDetailViewModel = {
-        ...this.productDetailViewModel,
+      this.debtorGroupDetailViewModel = {
+        ...this.debtorGroupDetailViewModel,
         formPropsData: {
-          ...this.productDetailViewModel.formPropsData,
-          ...Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY)
+          ...this.debtorGroupDetailViewModel.formPropsData,
+          ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
             .map((index) => {
               return {
-                [PIM_PRODUCT_DETAIL_FIELD_KEY[index]]: result[PIM_PRODUCT_DETAIL_FIELD_KEY[index]],
+                [PIM_CATEGORY_DETAIL_FIELD_KEY[index]]:
+                  result[PIM_CATEGORY_DETAIL_FIELD_KEY[index]],
               };
             })
             .reduce((prev, cur) => ({ ...prev, ...cur })),
@@ -97,15 +94,24 @@ class ProductDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
+  initFormPropsData = () => {
+    this.debtorGroupDetailViewModel = {
+      ...this.debtorGroupDetailViewModel,
+      formPropsData: {
+        ...this.debtorGroupDetailViewModel.formPropsData,
+      },
+    };
+  };
+
   handleFormPropsData = (key, value) => {
     if (key && value) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        Object.assign(this.productDetailViewModel.formPropsData[key], value);
+        Object.assign(this.debtorGroupDetailViewModel.formPropsData[key], value);
       } else {
-        this.productDetailViewModel.formPropsData[key] = value;
+        this.debtorGroupDetailViewModel.formPropsData[key] = value;
       }
     }
   };
 }
 
-export default ProductDetailViewModel;
+export default DebtorGroupDetailViewModel;

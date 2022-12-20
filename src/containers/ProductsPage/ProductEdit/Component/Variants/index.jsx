@@ -104,7 +104,7 @@ const Variants = ({ t, formPropsData }) => {
             <div className={cellClass}>
               <Input
                 field={{
-                  value: value,
+                  getValueSelected: value,
                   classNameInput: 'fs-14 me-1 border-0 price-input text-end px-0',
                   handleChange: (event) => {
                     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][row.index].price =
@@ -138,7 +138,7 @@ const Variants = ({ t, formPropsData }) => {
             <div className={cellClass}>
               <Input
                 field={{
-                  value: value,
+                  getValueSelected: value,
                   classNameInput: 'fs-14 me-1 border-0 price-input px-0 w-100 text-center',
                   handleChange: (event) => {
                     formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS][
@@ -185,7 +185,7 @@ const Variants = ({ t, formPropsData }) => {
                   <Form.Group className={`w-100`}>
                     <Input
                       field={{
-                        value: variant.name,
+                        getValueSelected: variant.name,
                         classNameInput: 'fs-14',
                         placeholder: t('txt_type'),
                         handleChange: (event) => {
@@ -272,7 +272,7 @@ const Variants = ({ t, formPropsData }) => {
             <Label text={t('txt_price')} />
             <Input
               field={{
-                value: formPropsData.quickPrice ?? numberWithCommas(7000000),
+                getValueSelected: formPropsData.quickPrice ?? numberWithCommas(7000000),
                 classNameInput: 'fs-14',
                 placeholder: t('txt_type'),
                 format: 'VND',
@@ -288,7 +288,7 @@ const Variants = ({ t, formPropsData }) => {
             <Label text={t('txt_sku_product')} />
             <Input
               field={{
-                value: formPropsData.quickSKU ?? 'SKU-PRODUCT',
+                getValueSelected: formPropsData.quickSKU ?? 'SKU-PRODUCT',
                 classNameInput: 'fs-14',
                 placeholder: t('txt_type'),
                 handleChange: (event) => {

@@ -20,7 +20,6 @@ const FormEditor = ({ field }) => {
   const handleClose = () => {
     setShow(false);
   };
-
   return (
     <div key={field.key} className="position-relative">
       <p
@@ -31,8 +30,8 @@ const FormEditor = ({ field }) => {
       </p>
       <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
       <CKEditor
-        editor={ClassicEditor}
-        data={field?.value ?? ''}
+        editor={window.ClassicEditor ?? ClassicEditor}
+        data={field?.getValueSelected ?? ''}
         onReady={async (editor) => {
           setEditorState(editor);
           editor.editing.view.change((writer) => {

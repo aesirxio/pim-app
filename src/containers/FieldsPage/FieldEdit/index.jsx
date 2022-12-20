@@ -108,7 +108,7 @@ const EditField = observer(
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
-                      value:
+                      getValueSelected:
                         this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.NAME
                         ],
@@ -145,6 +145,10 @@ const EditField = observer(
                   detailViewModal={this.fieldDetailViewModel}
                   formPropsData={this.fieldDetailViewModel.fieldDetailViewModel.formPropsData}
                   isEdit={this.isEdit}
+                  isPublished={false}
+                  isFeatured={false}
+                  isLastModified={false}
+                  isCreateBy={false}
                 />
               </Col>
             </Row>

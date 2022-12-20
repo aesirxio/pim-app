@@ -14,12 +14,11 @@ const Input = ({ field }) => {
       field.handleChange(e);
     }
   };
-
   return (
     <div className="position-relative">
       <Form.Control
         as="input"
-        defaultValue={field.value ?? ''}
+        defaultValue={field.getValueSelected ?? ''}
         type={field.typeFormat ? (field.typeFormat == 11 ? 'password' : 'text') : 'text'}
         required={field.required ?? false}
         id={field.key}
@@ -27,7 +26,7 @@ const Input = ({ field }) => {
         onPaste={field.pasted ?? undefined}
         className={`${field.classNameInput}`}
         onBlur={field.blurred ?? undefined}
-        placeholder={field.placeholder ?? undefined}
+        placeholder={field.placeholder ?? 'Type'}
         readOnly={field.readOnly}
         disabled={field.disabled}
       />

@@ -3,26 +3,25 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { ProductItemModel } from './PimProductModel';
-import PimProductRoute from './PimProductRoute';
+import { DebtorGroupModel } from './PimDebtorGroupModel';
+import PimDebtorGroupRoute from './PimDebtorGroupRoute';
 import { Component } from 'react';
 import axios from 'axios';
 
 /**
- * API Service - Product
+ * API Service - DebtorGroups
  */
-class AesirxPimProductApiService extends Component {
+class AesirxPimDebtorGroupApiService extends Component {
   route = null;
 
   constructor(props) {
     super(props);
-    this.route = new PimProductRoute();
+    this.route = new PimDebtorGroupRoute();
   }
 
   create = async (data) => {
     try {
       const result = await this.route.create(data);
-
       if (result) {
         return result.result;
       }
@@ -37,6 +36,7 @@ class AesirxPimProductApiService extends Component {
   update = async (data) => {
     try {
       const result = await this.route.update(data);
+      console.log('resultenee', result);
       if (result) {
         return result.result;
       }
@@ -53,7 +53,7 @@ class AesirxPimProductApiService extends Component {
       const data = await this.route.getDetail(id);
       let results = null;
       if (data) {
-        results = new ProductItemModel(data);
+        results = new DebtorGroupModel(data);
       }
       if (results) {
         results = results.toJSON();
@@ -67,51 +67,14 @@ class AesirxPimProductApiService extends Component {
     }
   };
 
-  getList = async (filter) => {
+  getList = async () => {
     try {
-      const data = await this.route.getList(filter);
-      let listItems = null;
-      let pagination = null;
-
-      if (data?._embedded) {
-        listItems = await Promise.all(
-          data._embedded.item.map(async (o) => {
-            return new ProductItemModel(o);
-          })
-        );
+      const data = await this.route.getList();
+      let results = null;
+      if (data) {
+        results = new DebtorGroupModel(data);
       }
-
-      pagination = {
-        page: data.page,
-        pageLimit: data.pageLimit,
-        totalPages: data.totalPages,
-        totalItems: data.totalItems,
-        limitStart: data.limitstart,
-      };
-
-      return {
-        listItems: listItems ?? [],
-        pagination: pagination ?? {},
-      };
-    } catch (error) {
-      if (axios.isCancel(error)) {
-        return { message: 'isCancel' };
-      } else throw error;
-    }
-  };
-
-  updateStatus = async (arr, status) => {
-    try {
-      const listSelected = arr.map((o) => {
-        return { id: o, published: status };
-      });
-
-      const result = await this.route.updateStatus(listSelected);
-
-      if (result) {
-        return result.result;
-      }
-      return { message: 'Something have problem' };
+      return results;
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };
@@ -120,4 +83,4 @@ class AesirxPimProductApiService extends Component {
   };
 }
 
-export default AesirxPimProductApiService;
+export default AesirxPimDebtorGroupApiService;

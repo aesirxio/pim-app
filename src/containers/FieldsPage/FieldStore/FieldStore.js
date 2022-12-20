@@ -25,6 +25,7 @@ export default class FieldStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);

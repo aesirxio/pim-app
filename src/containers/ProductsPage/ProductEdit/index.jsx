@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 import { Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
 import '../index.scss';
 import ActionsBar from 'components/ActionsBar';
-import CommonInformation from '../Component/CommonInformation';
+import CommonInformation from './Component/CommonInformation';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import {
@@ -21,9 +21,9 @@ import {
   PIM_PRODUCT_DETAIL_FIELD_KEY,
 } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
-import ProductInformation from '../Component/ProductInformation';
-import FieldsTab from '../Component/Fields';
-import Variants from '../Component/Variants';
+import ProductInformation from './Component/ProductInformation';
+import FieldsTab from './Component/Fields';
+// import Variants from '../Component/Variants';
 import SimpleReactValidator from 'simple-react-validator';
 
 const EditProduct = observer(
@@ -47,13 +47,11 @@ const EditProduct = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
-      } else {
-        this.productDetailViewModel.initFormPropsData();
       }
     }
 
     render() {
-      const { t } = this.props;
+      const { t, history } = this.props;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -96,7 +94,7 @@ const EditProduct = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.productDetailViewModel.create();
-                          history.push(`/products/edit/${result}`);
+                          result && history.push(`/products/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -115,7 +113,7 @@ const EditProduct = observer(
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
-                      value:
+                      getValueSelected:
                         this.productDetailViewModel.productDetailViewModel.formPropsData[
                           PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
                         ],
@@ -180,11 +178,11 @@ const EditProduct = observer(
                       validator={this.validator}
                     />
                   </Tab>
-                  <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
+                  {/* <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
                     {this.state.key === 'variants' && (
                       <Variants formPropsData={this.formPropsData} validator={this.validator} />
                     )}
-                  </Tab>
+                  </Tab> */}
                 </Tabs>
               </Col>
               <Col lg={3}>

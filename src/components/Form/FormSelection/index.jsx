@@ -14,18 +14,12 @@ import './index.scss';
 class FormSelection extends Component {
   constructor(props) {
     super(props);
-    this.state = { field: props.field?.getValueSelected?.value };
+    this.state = { field: props.field?.getValueSelected };
   }
 
   handleChange = (data) => {
     this.props.field.handleChange(data);
-    if (
-      data.value === FORM_FIELD_TYPE.NUMBER ||
-      data.value === FORM_FIELD_TYPE.SELECTION ||
-      this.state.field === FORM_FIELD_TYPE.NUMBER
-    ) {
-      this.setState({ field: data.value });
-    }
+    this.setState({ field: data });
   };
   render() {
     return (
@@ -42,22 +36,22 @@ class FormSelection extends Component {
         ) : (
           <>
             <SelectComponent
-              defaultValue={this.props.field.getValueSelected}
-              options={this.props.field.getDataSelectOptions}
+              value={this.state.field ?? null}
+              options={this.props.field?.getDataSelectOptions}
               className="fs-14"
               isBorder={true}
               //onFocus={this.props.field.changed}
-              onBlur={this.props.field.blurred}
-              isMulti={this.props.field.isMulti}
+              onBlur={this.props.field?.blurred}
+              isMulti={this.props.field?.isMulti}
               onChange={this.handleChange}
-              arrowColor={this.props.field.arrowColor}
-              placeholder={this.props.field.placeholder}
-              isDisabled={this.props.field.isDisabled}
+              arrowColor={this.props.field?.arrowColor}
+              placeholder={this.props.field?.placeholder}
+              isDisabled={this.props.field?.isDisabled}
             />
-            {this.props.field.extraField && this.state.field === FORM_FIELD_TYPE.NUMBER && (
+            {this.props.field?.extraField && this.state.field?.value === FORM_FIELD_TYPE.NUMBER && (
               <Input
                 field={{
-                  value: this.props.field.extraFieldNumberValueSelected,
+                  getValueSelected: this.props.field.extraFieldNumberValueSelected,
                   classNameInput: 'fs-14 mt-16',
                   placeholder: 'Format',
                   handleChange: this.props.field.extraFieldNumberHandleChange,

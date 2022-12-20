@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 class FieldGroupDetailViewModel {
   fieldGroupStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -28,7 +28,7 @@ class FieldGroupDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.fieldGroupStore.getDetail(
-      this.fieldGroupDetailViewModel.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+      this.fieldGroupDetailViewModel.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID],
       this.callbackOnGetFieldGroupSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -36,7 +36,7 @@ class FieldGroupDetailViewModel {
 
   create = () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.fieldGroupStore.create(
+    return this.fieldGroupStore.create(
       this.fieldGroupDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnCreateSuccessHandler
@@ -75,36 +75,29 @@ class FieldGroupDetailViewModel {
 
   callbackOnGetFieldGroupSuccessHandler = (result) => {
     if (result) {
-      this.fieldGroupDetailViewModel = {
-        ...this.fieldGroupDetailViewModel,
-        formPropsData: {
-          ...this.fieldGroupDetailViewModel.formPropsData,
-          ...Object.keys(PIM_FIELD_DETAIL_FIELD_KEY)
-            .map((index) => {
-              return {
-                [PIM_FIELD_DETAIL_FIELD_KEY[index]]: result[PIM_FIELD_DETAIL_FIELD_KEY[index]],
-              };
-            })
-            .reduce((prev, cur) => ({ ...prev, ...cur })),
-        },
+      this.fieldGroupDetailViewModel.formPropsData = {
+        ...this.fieldGroupDetailViewModel.formPropsData,
+        ...Object.keys(PIM_FIELD_GROUP_DETAIL_FIELD_KEY)
+          .map((index) => {
+            return {
+              [PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]]:
+                result[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]],
+            };
+          })
+          .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
     }
 
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  initFormPropsData = () => {
-    this.fieldGroupDetailViewModel = {
-      ...this.fieldGroupDetailViewModel,
-      formPropsData: {
-        ...this.fieldGroupDetailViewModel.formPropsData,
-      },
-    };
-  };
-
   handleFormPropsData = (key, value) => {
     if (key && value) {
-      this.fieldGroupDetailViewModel.formPropsData[key] = value;
+      if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
+        Object.assign(this.fieldGroupDetailViewModel.formPropsData[key], value);
+      } else {
+        this.fieldGroupDetailViewModel.formPropsData[key] = value;
+      }
     }
   };
 }

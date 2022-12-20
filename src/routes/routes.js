@@ -21,7 +21,9 @@ const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProductProvider = lazy(() => import('containers/ProductsPage/edit'));
 const EditCategoryProvider = lazy(() => import('containers/CategoriesPage/edit'));
 const EditFieldProvider = lazy(() => import('containers/FieldsPage/edit'));
+const EditFieldGroupProvider = lazy(() => import('containers/FieldsGroupPage/edit'));
 const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
+const EditDebtorGroupProvider = lazy(() => import('containers/DebtorGroupPage/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -118,9 +120,29 @@ const mainRoutes = [
     main: () => <EditFieldProvider />,
   },
   {
+    path: '/fields-group/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditFieldGroupProvider match={match} />,
+  },
+  {
+    path: '/fields-group/add',
+    exact: true,
+    main: () => <EditFieldGroupProvider />,
+  },
+  {
     path: '/dam',
     exact: true,
     main: () => <DigitalAssetsPage />,
+  },
+  {
+    path: '/debtor-group/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditDebtorGroupProvider match={match} />,
+  },
+  {
+    path: '/debtor-group/add',
+    exact: true,
+    main: () => <EditDebtorGroupProvider />,
   },
 ];
 

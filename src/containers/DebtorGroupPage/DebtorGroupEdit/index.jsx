@@ -12,16 +12,16 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import { withFieldGroupViewModel } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
+import { withDebtorGroupViewModel } from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
-import FieldGroupInformation from './Component/FieldGroupInformation';
+import DebtorGroupInformation from './Component/DebtorGroupInformation';
 
-const EditFieldGroup = observer(
-  class EditFieldGroup extends Component {
-    fieldGroupDetailViewModel = null;
+const EditDebtorGroup = observer(
+  class EditDebtorGroup extends Component {
+    debtorGroupDetailViewModel = null;
     formPropsData = {};
     isEdit = false;
     constructor(props) {
@@ -30,36 +30,38 @@ const EditFieldGroup = observer(
       this.state = {};
 
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.fieldGroupDetailViewModel = this.viewModel
-        ? this.viewModel.getFieldGroupDetailViewModel()
+      this.debtorGroupDetailViewModel = this.viewModel
+        ? this.viewModel.getDebtorGroupDetailViewModel()
         : null;
-      this.fieldGroupDetailViewModel.setForm(this);
+      this.debtorGroupDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
-        await this.fieldGroupDetailViewModel.initializeData();
+        this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        await this.debtorGroupDetailViewModel.initializeData();
+      } else {
+        this.debtorGroupDetailViewModel.initFormPropsData();
       }
     }
 
     render() {
       const { t } = this.props;
       let history = this.props.history;
-
+      console.log('rerender DebtorGroup');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.fieldGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.debtorGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_field_group')}
+                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_debtor_group')}
               </h2>
             </div>
             <div className="position-relative">
@@ -85,12 +87,12 @@ const EditFieldGroup = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.fieldGroupDetailViewModel.update();
-                          await this.fieldGroupDetailViewModel.initializeData();
+                          await this.debtorGroupDetailViewModel.update();
+                          await this.debtorGroupDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          let result = await this.fieldGroupDetailViewModel.create();
-                          history.push(`/fields-group/edit/${result}`);
+                          let result = await this.debtorGroupDetailViewModel.create();
+                          history.push(`/categories/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -110,28 +112,28 @@ const EditFieldGroup = observer(
                   <Input
                     field={{
                       getValueSelected:
-                        this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
-                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME
+                        this.debtorGroupDetailViewModel.debtorGroupDetailViewModel.formPropsData[
+                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
                         ],
                       classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_field_group_name'),
+                      placeholder: t('txt_add_debtor_group_name'),
                       handleChange: (event) => {
-                        this.fieldGroupDetailViewModel.handleFormPropsData(
-                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME,
+                        this.debtorGroupDetailViewModel.handleFormPropsData(
+                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
                           event.target.value
                         );
                       },
                       required: true,
                       validation: 'required',
                       blurred: () => {
-                        this.validator.showMessageFor('Field Group Name');
+                        this.validator.showMessageFor('DebtorGroup Name');
                       },
                     }}
                   />
                   {this.validator.message(
-                    'Field Group Name',
-                    this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
-                      PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME
+                    'DebtorGroup Name',
+                    this.debtorGroupDetailViewModel.debtorGroupDetailViewModel.formPropsData[
+                      PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
                     ],
                     'required',
                     {
@@ -139,17 +141,15 @@ const EditFieldGroup = observer(
                     }
                   )}
                 </Form.Group>
-                <FieldGroupInformation validator={this.validator} />
+                <DebtorGroupInformation validator={this.validator} />
               </Col>
               <Col lg={3}>
                 <PublishOptions
-                  detailViewModal={this.fieldGroupDetailViewModel}
+                  detailViewModal={this.debtorGroupDetailViewModel}
                   formPropsData={
-                    this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData
+                    this.debtorGroupDetailViewModel.debtorGroupDetailViewModel.formPropsData
                   }
                   isEdit={this.isEdit}
-                  isPublished={false}
-                  isFeatured={false}
                 />
               </Col>
             </Row>
@@ -160,4 +160,4 @@ const EditFieldGroup = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withFieldGroupViewModel(EditFieldGroup)));
+export default withTranslation('common')(withRouter(withDebtorGroupViewModel(EditDebtorGroup)));

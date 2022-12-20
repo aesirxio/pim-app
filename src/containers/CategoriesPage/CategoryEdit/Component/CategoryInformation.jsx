@@ -24,7 +24,6 @@ const CategoryInformation = observer(
 
     render() {
       const { t, validator } = this.props;
-      console.log('rerender Category Information');
       const filteredCategoryList = this.props.viewModel.categoryListViewModel.items.filter(
         (category) => {
           return (
@@ -33,7 +32,6 @@ const CategoryInformation = observer(
           );
         }
       );
-      console.log('filteredCategoryList', filteredCategoryList);
       const generateFormSetting = [
         {
           fields: [
@@ -41,7 +39,7 @@ const CategoryInformation = observer(
               label: 'txt_alias',
               key: PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS,
               type: FORM_FIELD_TYPE.INPUT,
-              value:
+              getValueSelected:
                 this.viewModel.categoryDetailViewModel.formPropsData[
                   PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
                 ],
@@ -107,10 +105,10 @@ const CategoryInformation = observer(
                 : null,
               getDataSelectOptions: filteredCategoryList
                 ? filteredCategoryList.map((item) => {
-                    ({
+                    return {
                       label: item.title,
                       value: item.id,
-                    });
+                    };
                   })
                 : null,
               handleChange: (data) => {

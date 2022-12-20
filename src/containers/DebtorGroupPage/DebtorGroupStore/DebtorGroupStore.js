@@ -3,20 +3,19 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimFieldGroupApiService from 'library/Pim/PimFieldGroup/PimFieldGroup';
-import { FieldGroupItemModel } from 'library/Pim/PimFieldGroup/PimFieldGroupModel';
+import AesirxPimDebtorGroupApiService from 'library/Pim/PimDebtorGroup/PimDebtorGroup';
+import { DebtorGroupItemModel } from 'library/Pim/PimDebtorGroup/PimDebtorGroupModel';
 import { runInAction } from 'mobx';
 
-export default class FieldGroupStore {
-  async create(createFieldGroupData, callbackOnSuccess, callbackOnError) {
+export default class DebtorGroupStore {
+  async create(createDebtorGroupData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        FieldGroupItemModel.__transformItemToApiOfCreation(createFieldGroupData);
-
+        DebtorGroupItemModel.__transformItemToApiOfCreation(createDebtorGroupData);
       let resultOnSave;
-      const createFieldGroupApiService = new AesirxPimFieldGroupApiService();
+      const createDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
 
-      resultOnSave = await createFieldGroupApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await createDebtorGroupApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -31,18 +30,19 @@ export default class FieldGroupStore {
       runInAction(() => {
         callbackOnError(error);
       });
+      return false;
     }
   }
 
-  async update(updateFieldGroupData, callbackOnSuccess, callbackOnError) {
+  async update(updateDebtorGroupData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
-        FieldGroupItemModel.__transformItemToApiOfUpdation(updateFieldGroupData);
+        DebtorGroupItemModel.__transformItemToApiOfUpdation(updateDebtorGroupData);
 
       let resultOnSave;
-      const updateFieldGroupApiService = new AesirxPimFieldGroupApiService();
+      const updateDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
 
-      resultOnSave = await updateFieldGroupApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await updateDebtorGroupApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -66,7 +66,7 @@ export default class FieldGroupStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimFieldGroupApiService();
+        const getDetailInfoAPIService = new AesirxPimDebtorGroupApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -92,9 +92,8 @@ export default class FieldGroupStore {
       const results = true;
 
       if (results) {
-        const getListInfoAPIService = new AesirxPimFieldGroupApiService();
+        const getListInfoAPIService = new AesirxPimDebtorGroupApiService();
         const respondedData = await getListInfoAPIService.getList(filter);
-
         if (respondedData) {
           runInAction(() => {
             callbackOnSuccess(respondedData);

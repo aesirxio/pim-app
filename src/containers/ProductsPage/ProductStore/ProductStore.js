@@ -9,16 +9,17 @@ import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
 export default class ProductStore {
-  async createProduct(createProductData, callbackOnSuccess, callbackOnError) {
+  async create(createProductData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfCreation(createProductData);
-      console.log('convertedUpdateGeneralData', convertedUpdateGeneralData);
 
       let resultOnSave;
-      // const createProductApiService = new AesirxPimProductApiService();
 
-      // resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+      const createProductApiService = new AesirxPimProductApiService();
+
+      resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -35,7 +36,7 @@ export default class ProductStore {
     }
   }
 
-  async updateProduct(updateProductData, callbackOnSuccess, callbackOnError) {
+  async update(updateProductData, callbackOnSuccess, callbackOnError) {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfUpdation(updateProductData);

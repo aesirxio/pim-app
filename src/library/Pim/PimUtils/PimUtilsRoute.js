@@ -8,7 +8,7 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 
 class UtilsRoute extends BaseRoute {
   getListPublishStatus = () => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: 'reditem',
         view: 'pim_select_options',
@@ -17,7 +17,7 @@ class UtilsRoute extends BaseRoute {
     );
   };
   getListContentType = () => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: 'reditem',
         view: 'pim_select_options',
@@ -26,7 +26,7 @@ class UtilsRoute extends BaseRoute {
     );
   };
   getListFieldType = () => {
-    return AesirxApiInstance.get(
+    return AesirxApiInstance().get(
       this.createRequestURL({
         option: 'reditem',
         view: 'pim_select_options',

@@ -25,7 +25,6 @@ stages:
     - echo REACT_APP_ENCRYPT=$REACT_APP_ENCRYPT >> .env
     - echo REACT_APP_LICENSE=$REACT_APP_LICENSE >> .env
     - echo REACT_APP_TEST_MODE=$REACT_APP_TEST_MODE >> .env
-    - rm yarn.lock
     - yarn install --network-concurrency 1
 test:
   <<: *build_before

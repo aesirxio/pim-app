@@ -18,16 +18,20 @@ const FormImage = ({ field }) => {
     setShow(false);
   };
   const onSelect = (data) => {
+    let convertedData = data?.map((item) => ({
+      id: item.id,
+      download_url: item.download_url,
+      name: item.name,
+    }));
     if (field.isMulti) {
-      data.length && setFile([...file, data]);
-      field.handleChange([...file, data]);
+      convertedData.length && setFile([...file, ...convertedData]);
+      field.handleChange([...file, ...convertedData]);
     } else {
-      data.length && setFile(data);
-      field.handleChange(data);
+      convertedData.length && setFile(convertedData);
+      field.handleChange(convertedData);
     }
     setShow(false);
   };
-
   return (
     <>
       {field.isMulti ? (
@@ -38,7 +42,7 @@ const FormImage = ({ field }) => {
                 <Col lg={2} key={key}>
                   <Ratio aspectRatio="1x1">
                     <div className="d-flex align-items-center w-100 h-100 border">
-                      <ComponentImage src={item[0].url} alt={field.value} />
+                      <ComponentImage src={item?.download_url} alt={field.value} />
                     </div>
                   </Ratio>
                 </Col>
@@ -71,7 +75,7 @@ const FormImage = ({ field }) => {
                 </div>
               </div>
             )}
-            <ComponentImage src={file && file[0]?.url} alt={field.value} />
+            <ComponentImage src={file && file[0]?.download_url} alt={field.value} />
           </div>
           <p className="my-8px fs-14 opacity-50">
             Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)
