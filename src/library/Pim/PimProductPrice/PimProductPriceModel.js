@@ -57,6 +57,67 @@ class ProductPriceItemModel extends BaseItemModel {
       [PIM_PRICES_DETAIL_FIELD_KEY.CREATED_TIME]: this.created_time,
     };
   };
+
+  static __transformItemToApiOfCreation = (data) => {
+    let formData = new FormData();
+    const excluded = [PIM_PRICES_DETAIL_FIELD_KEY.ID, PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS];
+    Object.keys(PIM_PRICES_DETAIL_FIELD_KEY).forEach((index) => {
+      if (
+        !excluded.includes(PIM_PRICES_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_PRICES_DETAIL_FIELD_KEY[index]]
+      ) {
+        formData.append(
+          [PIM_PRICES_DETAIL_FIELD_KEY[index]],
+          data[PIM_PRICES_DETAIL_FIELD_KEY[index]]
+        );
+      }
+    });
+    if (
+      data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
+      Object.keys(data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
+    ) {
+      Object.keys(data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
+        if (Array.isArray(data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key])) {
+          data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key].map((field) => {
+            return formData.append(
+              [PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS] + '[' + key + '][]',
+              typeof field === 'object' ? JSON.stringify(field) : field
+            );
+          });
+        } else {
+          formData.append(
+            [PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS] + '[' + key + ']',
+            data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key]
+          );
+        }
+      });
+    }
+    return formData;
+  };
+
+  static __transformItemToApiOfUpdation = (data) => {
+    let formData = {};
+    const excluded = [PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS];
+    Object.keys(PIM_PRICES_DETAIL_FIELD_KEY).forEach((index) => {
+      if (
+        !excluded.includes(PIM_PRICES_DETAIL_FIELD_KEY[index]) &&
+        data[PIM_PRICES_DETAIL_FIELD_KEY[index]]
+      ) {
+        formData[PIM_PRICES_DETAIL_FIELD_KEY[index]] = data[PIM_PRICES_DETAIL_FIELD_KEY[index]];
+      }
+    });
+    if (
+      data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
+      Object.keys(data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
+    ) {
+      formData[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS] = {};
+      Object.keys(data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
+        formData[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] =
+          data[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+      });
+    }
+    return formData;
+  };
 }
 
 export { ProductPriceModel, ProductPriceItemModel };

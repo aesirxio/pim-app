@@ -4,19 +4,30 @@
  */
 
 import ComponentSVG from 'components/ComponentSVG';
-import { FORMAT_DATE_UPDATE_POST } from 'constants/FormFieldType';
+import { FORMAT_DATE_TIME_UPDATE_POST } from 'constants/FormFieldType';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 import DatePicker from 'react-datepicker';
 import './index.scss';
 
-const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat, isDisabled }) => {
+const CustomizedDatePicker = ({
+  handleOnChange,
+  defaultDate,
+  dateFormat,
+  isDisabled,
+  showTimeSelect,
+  placeholderText,
+  isUTC,
+}) => {
   const [startDate, setStartDate] = useState();
   useEffect(() => {
     defaultDate &&
-      setStartDate(new Date(moment(defaultDate).utc().format(FORMAT_DATE_UPDATE_POST)));
+      setStartDate(
+        isUTC
+          ? new Date(moment(defaultDate).utc().format(FORMAT_DATE_TIME_UPDATE_POST))
+          : new Date(moment(defaultDate).format(FORMAT_DATE_TIME_UPDATE_POST))
+      );
   }, [defaultDate]);
-
   return (
     <div className="d-flex align-items-center bg-white position-relative date-picker">
       <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
@@ -30,11 +41,12 @@ const CustomizedDatePicker = ({ handleOnChange, defaultDate, dateFormat, isDisab
           handleOnChange(date);
           setStartDate(date);
         }}
-        showTimeSelect
+        showTimeSelect={showTimeSelect}
         adjustDateOnChange
         fixedHeight={40}
         className="ps-4 m-0 border-0 outline-none position-relative border-1 rounded-1"
         readOnly={isDisabled}
+        placeholderText={placeholderText ?? dateFormat ?? null}
       />
     </div>
   );

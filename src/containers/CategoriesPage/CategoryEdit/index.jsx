@@ -67,7 +67,9 @@ const EditCategory = observer(
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: () => {},
+                    handle: async () => {
+                      history.push(`/categories`);
+                    },
                     icon: '/assets/images/cancel.svg',
                   },
                   // {
@@ -77,7 +79,18 @@ const EditCategory = observer(
                   // },
                   {
                     title: t('txt_save_close'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.productDetailViewModel.update();
+                        } else {
+                          await this.productDetailViewModel.create();
+                        }
+                        history.push(`/categories`);
+                      } else {
+                        this.validator.showMessages();
+                      }
+                    },
                   },
                   {
                     title: t('txt_save'),

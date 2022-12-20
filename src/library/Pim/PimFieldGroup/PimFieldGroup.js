@@ -36,7 +36,6 @@ class AesirxPimFieldGroupApiService extends Component {
   update = async (data) => {
     try {
       const result = await this.route.update(data);
-      console.log('resultenee', result);
       if (result) {
         return result.result;
       }

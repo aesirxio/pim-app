@@ -67,7 +67,9 @@ const EditDebtorGroup = observer(
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: () => {},
+                    handle: async () => {
+                      history.push(`/debtor-group`);
+                    },
                     icon: '/assets/images/cancel.svg',
                   },
                   // {
@@ -77,7 +79,18 @@ const EditDebtorGroup = observer(
                   // },
                   {
                     title: t('txt_save_close'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.productDetailViewModel.update();
+                        } else {
+                          await this.productDetailViewModel.create();
+                        }
+                        history.push(`/debtor-group`);
+                      } else {
+                        this.validator.showMessages();
+                      }
+                    },
                   },
                   {
                     title: t('txt_save'),

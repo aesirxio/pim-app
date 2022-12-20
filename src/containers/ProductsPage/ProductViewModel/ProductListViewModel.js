@@ -8,12 +8,14 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
+import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { transform } from '../utils';
 
 class ProductListViewModel {
   productStore = null;
-
+  formStatus = PAGE_STATUS.READY;
+  items = [];
   successResponse = {
     state: false,
     filters: {
@@ -30,6 +32,7 @@ class ProductListViewModel {
   }
 
   initializeData = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.productStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
@@ -109,10 +112,13 @@ class ProductListViewModel {
     if (result?.listItems) {
       this.successResponse.listProducts = transform(result.listItems);
       this.successResponse.pagination = result.pagination;
+      // Need improve response
+      this.items = result.listItems;
     }
     if (result?.listPublishStatus) {
       this.successResponse.listPublishStatus = result.listPublishStatus;
     }
+    this.formStatus = PAGE_STATUS.READY;
   };
 
   callbackOnErrorHandler = (result) => {

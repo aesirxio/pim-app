@@ -45,10 +45,6 @@ const PublishOptions = observer(
       let modifiedBy = isEdit
         ? formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
         : Storage.getItem(AUTHORIZATION_KEY.MEMBER_FULL_NAME);
-      console.log(
-        'formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]',
-        formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]
-      );
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm">
           <h5 className="fw-bold text-blue-0 text-uppercase fs-6 border-bottom pb-24 mb-24">
@@ -155,6 +151,8 @@ const PublishOptions = observer(
                       : new Date()
                   }
                   isDisabled={true}
+                  showTimeSelect={true}
+                  isUTC={true}
                 />
               </div>
             </Form.Group>

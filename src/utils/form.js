@@ -38,7 +38,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <Label text={field.label} required={field.required ?? false} />
                   <Input field={field} />
                   {field.validation &&
-                    validator.message(field.label, field.value, field.validation, {
+                    validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',
                     })}
                 </Form.Group>
@@ -49,7 +49,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                   <Label text={field.label} required={field.required ?? false} />
                   <Input field={field} />
                   {field.validation &&
-                    validator.message(field.label, field.value, field.validation, {
+                    validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',
                     })}
                 </Form.Group>
@@ -68,7 +68,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                   />
 
                   {field.validation &&
-                    validator.message(field.label, field.value, field.validation, {
+                    validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',
                     })}
                 </Form.Group>
@@ -162,14 +162,14 @@ const renderingGroupFieldHandler = (group, validator) => {
 
             case FORM_FIELD_TYPE.DATE:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
+                <Form.Group key={Math.random(40, 200)} className={`mb-24 fs-14 ${className}`}>
                   <Label text={field.label} />
-                  <div className="form-control w-full">
-                    <CustomizedDatePicker
-                      handleOnChange={(date) => field.changed(date)}
-                      defaultDate={field.value ? field.value.split(' ')[0] : null}
-                    />
-                  </div>
+                  <CustomizedDatePicker
+                    dateFormat={'dd/MM/yyyy'}
+                    handleOnChange={(date) => field.handleChange(date)}
+                    defaultDate={field.getValueSelected ? field.getValueSelected : null}
+                    placeholderText={field.placeholder}
+                  />
                 </Form.Group>
               );
 
