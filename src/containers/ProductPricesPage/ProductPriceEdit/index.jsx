@@ -29,7 +29,7 @@ const EditProductPrice = observer(
       this.viewModel = props.viewModel ? props.viewModel : null;
       this.state = {};
 
-      this.validator = new SimpleReactValidator({ autoForceUpdate: this });
+      this.validator = new SimpleReactValidator({ autoForceUpdate: this, messagesShown: false });
       this.productPriceDetailViewModel = this.viewModel
         ? this.viewModel.getProductPriceDetailViewModel()
         : null;
@@ -66,7 +66,9 @@ const EditProductPrice = observer(
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: () => {},
+                    handle: async () => {
+                      history.push(`/prices`);
+                    },
                     icon: '/assets/images/cancel.svg',
                   },
                   // {
@@ -76,7 +78,18 @@ const EditProductPrice = observer(
                   // },
                   {
                     title: t('txt_save_close'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.productDetailViewModel.update();
+                        } else {
+                          await this.productDetailViewModel.create();
+                        }
+                        history.push(`/prices`);
+                      } else {
+                        this.validator.showMessages();
+                      }
+                    },
                   },
                   {
                     title: t('txt_save'),
@@ -86,7 +99,6 @@ const EditProductPrice = observer(
                         if (this.isEdit) {
                           await this.productPriceDetailViewModel.update();
                           await this.productPriceDetailViewModel.initializeData();
-                          this.forceUpdate();
                         } else {
                           let result = await this.productPriceDetailViewModel.create();
                           result && history.push(`/prices/edit/${result}`);
@@ -94,6 +106,7 @@ const EditProductPrice = observer(
                       } else {
                         this.validator.showMessages();
                       }
+                      console.log('this.validator.allValid()', this.validator);
                     },
                     icon: '/assets/images/save.svg',
                     variant: 'success',
@@ -105,7 +118,10 @@ const EditProductPrice = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <ProductPriceInformation validator={this.validator} />
+                <ProductPriceInformation
+                  validator={this.validator}
+                  isShowValidator={this.validator.messagesShown}
+                />
               </Col>
               <Col lg={3}>
                 <PublishOptions

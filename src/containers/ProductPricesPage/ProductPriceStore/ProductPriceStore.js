@@ -4,6 +4,7 @@
  */
 
 import AesirxPimProductPriceApiService from 'library/Pim/PimProductPrice/PimProductPrice';
+import { ProductPriceItemModel } from 'library/Pim/PimProductPrice/PimProductPriceModel';
 import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
@@ -72,5 +73,86 @@ export default class ProductPriceStore {
     }
 
     return false;
+  }
+
+  async create(createProductPriceData, callbackOnSuccess, callbackOnError) {
+    try {
+      console.log('createProductPriceData', createProductPriceData);
+      const convertedUpdateGeneralData =
+        ProductPriceItemModel.__transformItemToApiOfCreation(createProductPriceData);
+      let resultOnSave;
+      const createProductPriceApiService = new AesirxPimProductPriceApiService();
+      console.log('createProductPriceData', createProductPriceData);
+
+      resultOnSave = await createProductPriceApiService.create(convertedUpdateGeneralData);
+      if (resultOnSave) {
+        runInAction(() => {
+          callbackOnSuccess(resultOnSave);
+        });
+      } else {
+        runInAction(() => {
+          callbackOnError(resultOnSave);
+        });
+      }
+      return resultOnSave;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error);
+      });
+      return false;
+    }
+  }
+
+  async update(updateProductPriceData, callbackOnSuccess, callbackOnError) {
+    try {
+      const convertedUpdateGeneralData =
+        ProductPriceItemModel.__transformItemToApiOfUpdation(updateProductPriceData);
+
+      let resultOnSave;
+      const updateProductPriceApiService = new AesirxPimProductPriceApiService();
+
+      resultOnSave = await updateProductPriceApiService.update(convertedUpdateGeneralData);
+      if (resultOnSave) {
+        runInAction(() => {
+          callbackOnSuccess(resultOnSave);
+        });
+      } else {
+        runInAction(() => {
+          callbackOnError(resultOnSave);
+        });
+      }
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
+  }
+
+  async getDetail(id, callbackOnSuccess, callbackOnError) {
+    if (!id) return false;
+
+    try {
+      const results = true;
+
+      if (results) {
+        const getDetailInfoAPIService = new AesirxPimProductPriceApiService();
+
+        const respondedData = await getDetailInfoAPIService.getDetail(id);
+
+        if (respondedData) {
+          runInAction(() => {
+            callbackOnSuccess(respondedData);
+          });
+        } else {
+          callbackOnError({
+            message: 'Something went wrong from Server response',
+          });
+        }
+      }
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error);
+      });
+    }
   }
 }
