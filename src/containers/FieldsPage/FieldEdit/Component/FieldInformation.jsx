@@ -58,7 +58,7 @@ const FieldInformation = observer(
             {
               label: 'txt_type',
               key: PIM_FIELD_DETAIL_FIELD_KEY.TYPE,
-              type: FORM_FIELD_TYPE.SELECTION,
+              type: FORM_FIELD_TYPE.SELECTION_FIELDS,
               getValueSelected: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.TYPE
               ]

@@ -3,16 +3,18 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
+import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import React, { Component } from 'react';
 
 import SelectComponent from '../../../components/Select';
 import CreatableComponent from '../../../components/Select/Creatable';
+import Input from '../Input';
 import './index.scss';
 
-class FormSelection extends Component {
+class FormSelectionFields extends Component {
   constructor(props) {
     super(props);
-    this.state = { field: props.field.getValueSelected };
+    this.state = { field: props.field?.getValueSelected };
   }
 
   handleChange = (data) => {
@@ -51,6 +53,16 @@ class FormSelection extends Component {
               placeholder={this.props.field?.placeholder}
               isDisabled={this.props.field?.isDisabled}
             />
+            {this.props.field?.extraField && this.state.field?.value === FORM_FIELD_TYPE.NUMBER && (
+              <Input
+                field={{
+                  getValueSelected: this.props.field.extraFieldNumberValueSelected,
+                  classNameInput: 'fs-14 mt-16',
+                  placeholder: 'Format',
+                  handleChange: this.props.field.extraFieldNumberHandleChange,
+                }}
+              />
+            )}
           </>
         )}
       </>
@@ -58,4 +70,4 @@ class FormSelection extends Component {
   }
 }
 
-export default FormSelection;
+export default FormSelectionFields;

@@ -16,6 +16,7 @@ class ProductItemModel extends BaseItemModel {
   category_name = null;
   custom_fields = null;
   created_user_name = null;
+  modified_user_name = null;
   publish_up = null;
   constructor(entity) {
     super(entity);
@@ -30,6 +31,7 @@ class ProductItemModel extends BaseItemModel {
       this.custom_fields = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] ?? null;
       this.category_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME] ?? '';
       this.created_user_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
+      this.modified_user_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
       this.publish_up = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP] ?? '';
     }
   }
@@ -51,6 +53,7 @@ class ProductItemModel extends BaseItemModel {
       [PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME]: this.category_name,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: this.custom_fields,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]: this.created_user_name,
+      [PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
     };
   };
@@ -95,7 +98,10 @@ class ProductItemModel extends BaseItemModel {
         }
       });
     }
-    if (data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES].length) {
+    if (
+      data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] &&
+      data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES].length
+    ) {
       data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES].map((category) => {
         return formData.append([PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES + '[]'], category);
       });
@@ -125,7 +131,6 @@ class ProductItemModel extends BaseItemModel {
     // }
     return formData;
   };
-
   static __transformItemToApiOfUpdation = (data) => {
     let formData = {};
     const excluded = [
@@ -140,13 +145,28 @@ class ProductItemModel extends BaseItemModel {
         formData[PIM_PRODUCT_DETAIL_FIELD_KEY[index]] = data[PIM_PRODUCT_DETAIL_FIELD_KEY[index]];
       }
     });
+
     if (
       data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] &&
       Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).length
     ) {
-      formData['custom_fields'] = {};
+      formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] = {};
       Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
-        formData['custom_fields'][key] = data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+        if (key !== 'variant' && key !== 'property' && key !== 'tag') {
+          formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] =
+            data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+        }
+      });
+    }
+
+    if (
+      data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] &&
+      data[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES].length
+    ) {
+      formData[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] = data[
+        PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES
+      ].map((category) => {
+        return category.id;
       });
     }
 
