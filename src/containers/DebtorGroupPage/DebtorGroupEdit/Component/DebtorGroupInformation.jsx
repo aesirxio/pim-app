@@ -24,18 +24,18 @@ const DebtorGroupInformation = observer(
           fields: [
             {
               label: 'txt_debtor_code',
-              key: PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.DEBTOR_CODE,
+              key: 'debtor_code',
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
                 this.viewModel.debtorGroupDetailViewModel.formPropsData[
-                  PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.DEBTOR_CODE
-                ],
+                  PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]?.code,
               className: 'col-lg-12',
               placeholder: t('txt_type'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData(
-                  PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.DEBTOR_CODE,
-                  event.target.value
+                  [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                  { code: event.target.value }
                 );
               },
             },

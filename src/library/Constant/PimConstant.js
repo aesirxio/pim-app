@@ -52,7 +52,13 @@ const PIM_CATEGORY_DETAIL_FIELD_KEY = {
 const PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY = {
   ID: 'id',
   TITLE: 'title',
-  DEBTOR_CODE: 'debtor_code',
+  PUBLISHED: 'published',
+  FEATURED: 'featured',
+  CUSTOM_FIELDS: 'custom_fields',
+  CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_USER_NAME: 'modified_user_name',
+  CREATED_TIME: 'created_time',
+  PUBLISH_UP: 'publish_up',
 };
 
 const PIM_TAG_DETAIL_FIELD_KEY = {
