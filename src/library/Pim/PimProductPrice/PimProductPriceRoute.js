@@ -6,7 +6,7 @@
 import AesirxApiInstance from 'aesirx-dma-lib/src/gateway/Instance';
 import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 
-class PimProductPricesRoute extends BaseRoute {
+class PimProductPriceRoute extends BaseRoute {
   option = 'reditem-item_price_51';
 
   getList = (filters) => {
@@ -68,4 +68,4 @@ class PimProductPricesRoute extends BaseRoute {
   };
 }
 
-export default PimProductPricesRoute;
+export default PimProductPriceRoute;

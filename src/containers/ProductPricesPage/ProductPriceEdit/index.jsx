@@ -12,17 +12,17 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
+import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-import Input from 'components/Form/Input';
-import CategoryTab from './Component/CategoryTab';
+import { PIM_PRICES_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import SimpleReactValidator from 'simple-react-validator';
+import ProductPriceInformation from './Component/ProductPriceInformation';
 
-const EditCategory = observer(
-  class EditCategory extends Component {
-    categoryDetailViewModel = null;
-    formPropsData = { [PIM_CATEGORY_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+const EditProductPrice = observer(
+  class EditProductPrice extends Component {
+    productPriceDetailViewModel = null;
+    formPropsData = { [PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+
     isEdit = false;
     constructor(props) {
       super(props);
@@ -30,36 +30,35 @@ const EditCategory = observer(
       this.state = {};
 
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.categoryDetailViewModel = this.viewModel
-        ? this.viewModel.getCategoryDetailViewModel()
+      this.productPriceDetailViewModel = this.viewModel
+        ? this.viewModel.getProductPriceDetailViewModel()
         : null;
-      this.categoryDetailViewModel.setForm(this);
+      this.productPriceDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
-        await this.categoryDetailViewModel.initializeData();
+        this.formPropsData[PIM_PRICES_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        await this.productPriceDetailViewModel.initializeData();
       }
     }
 
     render() {
       const { t } = this.props;
       let history = this.props.history;
-      console.log('rerender Category');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.productPriceDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <div className="position-relative">
               <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_category')}
+                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_price')}
               </h2>
             </div>
             <div className="position-relative">
@@ -85,12 +84,12 @@ const EditCategory = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.categoryDetailViewModel.update();
-                          await this.categoryDetailViewModel.initializeData();
+                          await this.productPriceDetailViewModel.update();
+                          await this.productPriceDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          let result = await this.categoryDetailViewModel.create();
-                          history.push(`/categories/edit/${result}`);
+                          let result = await this.productPriceDetailViewModel.create();
+                          result && history.push(`/prices/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -106,47 +105,14 @@ const EditCategory = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
-                  <Input
-                    field={{
-                      getValueSelected:
-                        this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
-                        ],
-                      classNameInput: 'py-1 fs-4',
-                      placeholder: t('txt_add_cate_name'),
-                      handleChange: (event) => {
-                        this.categoryDetailViewModel.handleFormPropsData(
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
-                          event.target.value
-                        );
-                      },
-                      required: true,
-                      validation: 'required',
-                      blurred: () => {
-                        this.validator.showMessageFor('Category Name');
-                      },
-                    }}
-                  />
-                  {this.validator.message(
-                    'Category Name',
-                    this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
-                      PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
-                    ],
-                    'required',
-                    {
-                      className: 'text-danger mt-8px',
-                    }
-                  )}
-                </Form.Group>
-                <CategoryTab
-                  detailViewModal={this.categoryDetailViewModel}
-                  validator={this.validator}
-                />
+                <ProductPriceInformation validator={this.validator} />
               </Col>
               <Col lg={3}>
                 <PublishOptions
-                  formPropsData={this.categoryDetailViewModel.categoryDetailViewModel.formPropsData}
+                  detailViewModal={this.productPriceDetailViewModel}
+                  formPropsData={
+                    this.productPriceDetailViewModel.productPriceDetailViewModel.formPropsData
+                  }
                   isEdit={this.isEdit}
                 />
               </Col>
@@ -158,4 +124,4 @@ const EditCategory = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withCategoryViewModel(EditCategory)));
+export default withTranslation('common')(withRouter(withProductPriceViewModel(EditProductPrice)));

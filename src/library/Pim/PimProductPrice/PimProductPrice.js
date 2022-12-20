@@ -5,18 +5,18 @@
 
 import { Component } from 'react';
 import axios from 'axios';
-import PimProductPricesRoute from './PimProductPricesRoute';
-import { ProductPriceModel } from './PimProductPricesModel';
+import PimProductPriceRoute from './PimProductPriceRoute';
+import { ProductPriceItemModel } from './PimProductPriceModel';
 
 /**
  * API Service - Product
  */
-class AesirxPimProductPricesApiService extends Component {
+class AesirxPimProductPriceApiService extends Component {
   route = null;
 
   constructor(props) {
     super(props);
-    this.route = new PimProductPricesRoute();
+    this.route = new PimProductPriceRoute();
   }
 
   getList = async (filter) => {
@@ -28,7 +28,7 @@ class AesirxPimProductPricesApiService extends Component {
       if (data?._embedded) {
         listItems = await Promise.all(
           data._embedded.item.map(async (o) => {
-            return new ProductPriceModel(o);
+            return new ProductPriceItemModel(o);
           })
         );
       }
@@ -84,7 +84,6 @@ class AesirxPimProductPricesApiService extends Component {
       } else throw error;
     }
   };
-  
 }
 
-export default AesirxPimProductPricesApiService;
+export default AesirxPimProductPriceApiService;

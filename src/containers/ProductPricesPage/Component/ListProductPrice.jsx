@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
-import { withProductPricesViewModel } from '../productPricesViewModel/ProductPricesViewModelContextProvider';
+import { withProductPriceViewModel } from '../ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import { Tab, Tabs } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
 import Spinner from 'components/Spinner';
@@ -11,40 +11,40 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ActionsBar from 'components/ActionsBar';
 
-const ListProductPrices = observer((props) => {
+const ListProductPrice = observer((props) => {
   const { t } = props;
   let listSelected = [];
   let listUpdatePrices = [];
 
-  const productPricesViewModel = props.viewModel;
+  const productPriceViewModel = props.viewModel;
 
   useEffect(() => {
-    productPricesViewModel.initializeData();
+    productPriceViewModel.initializeData();
   }, []);
 
   const selectTabHandler = (value) => {
-    productPricesViewModel.isLoading();
+    productPriceViewModel.isLoading();
     if (value != 'default') {
-      productPricesViewModel.getListByFilter('state', {
+      productPriceViewModel.getListByFilter('state', {
         value: value,
         type: 'filter',
       });
     } else {
-      productPricesViewModel.getListByFilter('state', '');
+      productPriceViewModel.getListByFilter('state', '');
     }
   };
 
   const selectShowItemsHandler = (value) => {
-    productPricesViewModel.isLoading();
-    productPricesViewModel.getListByFilter('list[limit]', value.value);
+    productPriceViewModel.isLoading();
+    productPriceViewModel.getListByFilter('list[limit]', value.value);
   };
 
   const selectPageHandler = (value) => {
-    if (value != productPricesViewModel.successResponse.pagination.page) {
-      productPricesViewModel.isLoading();
-      productPricesViewModel.getListByFilter(
+    if (value != productPriceViewModel.successResponse.pagination.page) {
+      productPriceViewModel.isLoading();
+      productPriceViewModel.getListByFilter(
         'limitstart',
-        (value - 1) * productPricesViewModel.successResponse.pagination.pageLimit
+        (value - 1) * productPriceViewModel.successResponse.pagination.pageLimit
       );
     }
   };
@@ -54,8 +54,8 @@ const ListProductPrices = observer((props) => {
   };
 
   const selectBulkActionsHandler = (value) => {
-    productPricesViewModel.isLoading();
-    productPricesViewModel.updateStatus(listSelected, value.value);
+    productPriceViewModel.isLoading();
+    productPriceViewModel.updateStatus(listSelected, value.value);
   };
 
   const priceOnChangeHandler = (e, row) => {
@@ -90,8 +90,8 @@ const ListProductPrices = observer((props) => {
 
   const updatePricesHandler = () => {
     if (listUpdatePrices.length > 0) {
-      productPricesViewModel.isLoading();
-      productPricesViewModel.updatePrices(listUpdatePrices);
+      productPriceViewModel.isLoading();
+      productPriceViewModel.updatePrices(listUpdatePrices);
     }
   };
 
@@ -188,7 +188,7 @@ const ListProductPrices = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {
-                productPricesViewModel?.successResponse?.listPublishStatus.find(
+                productPriceViewModel?.successResponse?.listPublishStatus.find(
                   (o) => o.value == value.status
                 ).label
               }
@@ -218,7 +218,7 @@ const ListProductPrices = observer((props) => {
         />
       </div>
 
-      {productPricesViewModel?.successResponse?.listPublishStatus.length > 0 && (
+      {productPriceViewModel?.successResponse?.listPublishStatus.length > 0 && (
         <>
           <Tabs
             defaultActiveKey={'default'}
@@ -227,7 +227,7 @@ const ListProductPrices = observer((props) => {
             className="mb-3"
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
-            {productPricesViewModel?.successResponse?.listPublishStatus.map((o) => (
+            {productPriceViewModel?.successResponse?.listPublishStatus.map((o) => (
               <Tab key={o.value} eventKey={o.value} title={o.label} />
             ))}
           </Tabs>
@@ -235,7 +235,7 @@ const ListProductPrices = observer((props) => {
           <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
             <div className="d-flex gap-2">
               <SelectComponent
-                options={productPricesViewModel?.successResponse?.listPublishStatus}
+                options={productPriceViewModel?.successResponse?.listPublishStatus}
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_bulk_actions')}
@@ -248,8 +248,8 @@ const ListProductPrices = observer((props) => {
               <div className="opacity-50 me-2">Showing</div>
               <SelectComponent
                 defaultValue={{
-                  label: `${productPricesViewModel?.successResponse?.filters['list[limit]']} items`,
-                  value: productPricesViewModel?.successResponse?.filters['list[limit]'],
+                  label: `${productPriceViewModel?.successResponse?.filters['list[limit]']} items`,
+                  value: productPriceViewModel?.successResponse?.filters['list[limit]'],
                 }}
                 options={[...Array(4)].map((o, index) => ({
                   label: `${(index + 1) * 10} items`,
@@ -266,13 +266,13 @@ const ListProductPrices = observer((props) => {
         </>
       )}
 
-      {productPricesViewModel?.successResponse?.state ? (
+      {productPriceViewModel?.successResponse?.state ? (
         <Table
           classNameTable={`bg-white rounded`}
           columns={columnsTable}
-          data={productPricesViewModel?.successResponse?.listProductPrices}
+          data={productPriceViewModel?.successResponse?.listProductPrice}
           selection={false}
-          pagination={productPricesViewModel?.successResponse?.pagination}
+          pagination={productPriceViewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}
           currentSelect={currentSelectHandler}
         ></Table>
@@ -283,4 +283,4 @@ const ListProductPrices = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withProductPricesViewModel(ListProductPrices));
+export default withTranslation('common')(withProductPriceViewModel(ListProductPrice));

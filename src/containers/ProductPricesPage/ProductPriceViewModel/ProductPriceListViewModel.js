@@ -7,7 +7,7 @@ import { PIM_PRICE_FIELD_KEY } from 'library/Constant/PimConstant';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 
-class ProductPricesViewModel {
+class ProductPriceListViewModel {
   productPricesStore = null;
 
   successResponse = {
@@ -16,7 +16,7 @@ class ProductPricesViewModel {
       'list[limit]': 5,
     },
     listPublishStatus: [],
-    listProductPrices: [],
+    listProductPrice: [],
     pagination: {},
   };
 
@@ -106,7 +106,7 @@ class ProductPricesViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result?.listItems) {
-      this.successResponse.listProductPrices = this.transform(result.listItems);
+      this.successResponse.listProductPrice = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
@@ -140,4 +140,4 @@ class ProductPricesViewModel {
   };
 }
 
-export default ProductPricesViewModel;
+export default ProductPriceListViewModel;
