@@ -32,6 +32,9 @@ class CategoryItemModel extends BaseItemModel {
   children = null;
   related_categories = null;
   level = null;
+  modified_time = null;
+  product_quantity = null;
+  parent_name = null;
 
   constructor(entity) {
     super(entity);
@@ -48,9 +51,12 @@ class CategoryItemModel extends BaseItemModel {
       this.modified_user_name = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
       this.created_time = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_TIME] ?? '';
       this.publish_up = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
-      this.children = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CHILDREN] ?? '';
+      this.children = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.CHILDREN] ?? [];
       this.related_categories = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES] ?? '';
       this.level = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL] ?? '';
+      this.modified_time = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_TIME] ?? '';
+      this.product_quantity = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_QUANTITY] ?? '';
+      this.parent_name = entity[PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_NAME] ?? '';
     }
   }
 
@@ -71,8 +77,12 @@ class CategoryItemModel extends BaseItemModel {
       [PIM_CATEGORY_DETAIL_FIELD_KEY.CREATED_USER_NAME]: this.created_user_name,
       [PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
+      [PIM_CATEGORY_DETAIL_FIELD_KEY.CHILDREN]: this.children,
       [PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES]: this.related_categories,
       [PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL]: this.level,
+      [PIM_CATEGORY_DETAIL_FIELD_KEY.MODIFIED_TIME]: this.modified_time,
+      [PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_QUANTITY]: this.product_quantity,
+      [PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_NAME]: this.parent_name,
     };
   };
 

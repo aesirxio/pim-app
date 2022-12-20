@@ -22,7 +22,6 @@ import {
   faChevronRight,
   faChevronLeft,
 } from '@fortawesome/free-solid-svg-icons';
-import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 function useInstance(instance) {
   const { allColumns } = instance;
@@ -426,4 +425,4 @@ const Table = ({
   );
 };
 
-export default withTranslation('common')(withProductViewModel(Table));
+export default withTranslation('common')(Table);

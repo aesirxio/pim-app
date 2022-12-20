@@ -4,7 +4,6 @@ import { observer } from 'mobx-react-lite';
 import { withProductPricesViewModel } from '../productPricesViewModel/ProductPricesViewModelContextProvider';
 import { Tab, Tabs } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
-// import Table from 'components/Table';
 import Spinner from 'components/Spinner';
 import Table from 'components/Table';
 import '../index.scss';
