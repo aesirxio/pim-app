@@ -5,6 +5,7 @@
 
 import AesirxPimCategoryApiService from 'library/Pim/PimCategory/PimCategory';
 import { CategoryItemModel } from 'library/Pim/PimCategory/PimCategoryModel';
+import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
 export default class CategoryStore {
@@ -41,9 +42,10 @@ export default class CategoryStore {
         CategoryItemModel.__transformItemToApiOfUpdation(updateCategoryData);
 
       let resultOnSave;
-      const updateCategoryApiService = new AesirxPimCategoryApiService();
 
+      const updateCategoryApiService = new AesirxPimCategoryApiService();
       resultOnSave = await updateCategoryApiService.update(convertedUpdateGeneralData);
+
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -88,29 +90,45 @@ export default class CategoryStore {
     }
   }
 
-  async getList(filter, callbackOnSuccess, callbackOnError) {
+  async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const results = true;
-
-      if (results) {
-        const getListInfoAPIService = new AesirxPimCategoryApiService();
-
-        const respondedData = await getListInfoAPIService.getList(filter);
-
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+      const getListAPIService = new AesirxPimCategoryApiService();
+      const respondedData = await getListAPIService.getList(filters);
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
+      return respondedData;
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error);
-      });
+      // no error throw
     }
+
+    return false;
+  }
+
+  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
   }
 }

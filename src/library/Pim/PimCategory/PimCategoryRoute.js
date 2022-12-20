@@ -9,13 +9,37 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 class PimCategoryRoute extends BaseRoute {
   option = 'reditem-category_product_category_60';
 
-  getList = (dataFilter = {}) => {
+  getList = (filters) => {
+    const buildFilters = this.createFilters(filters);
+    console.log(buildFilters);
     return AesirxApiInstance.get(
       this.createRequestURL({
         option: this.option,
-        ...dataFilter,
+        ...buildFilters,
       })
     );
+  };
+
+  createFilters = (filters) => {
+    let buildFilter = {};
+    for (const [key, value] of Object.entries(filters)) {
+      if (typeof value === 'object') {
+        switch (value.type) {
+          case 'custom_fields':
+            buildFilter['filter[' + value.type + '][' + key + '][]'] = value.value;
+            break;
+          case 'filter':
+            buildFilter['filter[' + key + ']'] = value.value;
+            break;
+          default:
+            break;
+        }
+      } else {
+        buildFilter[key] = value;
+      }
+    }
+
+    return buildFilter;
   };
 
   getDetail = (id = 0, dataFilter = {}) => {

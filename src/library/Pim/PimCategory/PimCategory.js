@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { CategoryItemModel, CategoryModel } from './PimCategoryModel';
+import { CategoryItemModel } from './PimCategoryModel';
 import PimCategoryRoute from './PimCategoryRoute';
 import { Component } from 'react';
 import axios from 'axios';
@@ -36,7 +36,6 @@ class AesirxPimCategoryApiService extends Component {
   update = async (data) => {
     try {
       const result = await this.route.update(data);
-      console.log('resultenee', result);
       if (result) {
         return result.result;
       }
@@ -70,11 +69,29 @@ class AesirxPimCategoryApiService extends Component {
   getList = async (filter) => {
     try {
       const data = await this.route.getList(filter);
-      let results = null;
-      if (data) {
-        results = new CategoryModel(data);
+      let listItems = null;
+      let pagination = null;
+
+      if (data?._embedded) {
+        listItems = await Promise.all(
+          data._embedded.item.map(async (o) => {
+            return new CategoryItemModel(o);
+          })
+        );
       }
-      return results;
+
+      pagination = {
+        page: data.page,
+        pageLimit: data.pageLimit,
+        totalPages: data.totalPages,
+        totalItems: data.totalItems,
+        limitStart: data.limitstart,
+      };
+
+      return {
+        listItems: listItems ?? [],
+        pagination: pagination ?? {},
+      };
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };

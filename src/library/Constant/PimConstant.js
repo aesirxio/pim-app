@@ -45,6 +45,9 @@ const PIM_CATEGORY_DETAIL_FIELD_KEY = {
   PUBLISH_UP: 'publish_up',
   CHILDREN: 'children',
   LEVEL: 'level',
+  MODIFIED_TIME: 'modified_time',
+  PRODUCT_QUANTITY: "product_quantity",
+  PARENT_NAME: "parent_name"
 };
 
 const PIM_TAG_DETAIL_FIELD_KEY = {
