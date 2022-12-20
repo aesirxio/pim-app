@@ -25,6 +25,7 @@ const EditFieldProvider = lazy(() => import('containers/FieldsPage/edit'));
 const EditFieldGroupProvider = lazy(() => import('containers/FieldsGroupPage/edit'));
 const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
 const EditDebtorGroupProvider = lazy(() => import('containers/DebtorGroupPage/edit'));
+const EditProductPriceProvider = lazy(() => import('containers/ProductPrices/edit'));
 
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
@@ -143,6 +144,16 @@ const mainRoutes = [
     path: '/debtor-group/add',
     exact: true,
     main: () => <EditDebtorGroupProvider />,
+  },
+  {
+    path: '/prices/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditProductPriceProvider match={match} />,
+  },
+  {
+    path: '/prices/add',
+    exact: true,
+    main: () => <EditProductPriceProvider />,
   },
 ];
 
