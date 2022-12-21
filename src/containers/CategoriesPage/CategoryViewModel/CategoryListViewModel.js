@@ -20,7 +20,7 @@ class CategoryListViewModel {
     listPublishStatus: [],
     1: [],
     filters: {
-      'list[limit]': 5,
+      'list[limit]': 10,
     },
   };
 
@@ -81,7 +81,6 @@ class CategoryListViewModel {
       ) {
         this.successResponse.filters['limitstart'] =
           (this.successResponse.pagination.page - 1) * value;
-        console.log(this.successResponse.pagination.page);
       }
     }
 

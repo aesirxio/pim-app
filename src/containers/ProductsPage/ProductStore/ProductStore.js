@@ -3,6 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
+import AesirxPimCategoryApiService from 'library/Pim/PimCategory/PimCategory';
 import AesirxPimProductApiService from 'library/Pim/PimProduct/PimProduct';
 import { ProductItemModel } from 'library/Pim/PimProduct/PimProductModel';
 import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
@@ -89,7 +90,31 @@ export default class ProductStore {
     }
   }
 
+  async getListCategories(callbackOnSuccess, callbackOnError) {
+    try {
+      const getPimCategoyAPIService = new AesirxPimCategoryApiService();
+      const respondedData = await getPimCategoyAPIService.getList({ 'list[limit]': 9999 });
+
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
   async getList(callbackOnSuccess, callbackOnError, filters) {
+    console.log('filters', filters);
+
     try {
       const getPimProductAPIService = new AesirxPimProductApiService();
       const respondedData = await getPimProductAPIService.getList(filters);

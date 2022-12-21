@@ -10,8 +10,8 @@
 
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { transform } from '../utils';
-
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import moment from 'moment';
 class ProductListViewModel {
   productStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -19,10 +19,11 @@ class ProductListViewModel {
   successResponse = {
     state: false,
     filters: {
-      'list[limit]': 8,
+      'list[limit]': 10,
     },
     listPublishStatus: [],
     listProducts: [],
+    listCategories: [],
     pagination: {},
   };
 
@@ -44,11 +45,16 @@ class ProductListViewModel {
       this.callbackOnErrorHandler
     );
 
+    await this.productStore.getListCategories(
+      this.callbackOnSuccessGetCategoriesHandler,
+      this.callbackOnErrorHandler
+    );
+
     this.successResponse.state = true;
   };
 
   setFeatured = async (id, featured = 0) => {
-    await this.productStore.updateProduct(
+    await this.productStore.update(
       { id: id.toString(), featured: featured.toString() },
       this.callbackOnSuccessSetFeatured,
       this.callbackOnErrorHandler
@@ -75,7 +81,6 @@ class ProductListViewModel {
       ) {
         this.successResponse.filters['limitstart'] =
           (this.successResponse.pagination.page - 1) * value;
-        console.log(this.successResponse.pagination.page);
       }
     }
 
@@ -84,6 +89,7 @@ class ProductListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
+
     this.successResponse.state = true;
   };
 
@@ -110,7 +116,7 @@ class ProductListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result?.listItems) {
-      this.successResponse.listProducts = transform(result.listItems);
+      this.successResponse.listProducts = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
       // Need improve response
       this.items = result.listItems;
@@ -121,8 +127,47 @@ class ProductListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
+  callbackOnSuccessGetCategoriesHandler = (result) => {
+    this.successResponse.listCategories = result.listItems.map((o) => {
+      let dash = '';
+      for (let index = 1; index < o.level; index++) {
+        dash += '- ';
+      }
+      return { value: o.id, label: `${dash}${o.title}` };
+    });
+  };
+
   callbackOnErrorHandler = (result) => {
     console.log('error', result);
+  };
+
+  transform = (data) => {
+    return data.map((o) => {
+      const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP]).format('DD MMM, YYYY');
+      return {
+        id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+        productInfo: {
+          name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
+          image: '',
+        },
+        categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
+        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
+        type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+          PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+        ].slice(
+          2,
+          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+          ].length - 2
+        ),
+        lastModified: {
+          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATE],
+          dateTime: date ?? '',
+          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        },
+      };
+    });
   };
 
   isLoading = () => {

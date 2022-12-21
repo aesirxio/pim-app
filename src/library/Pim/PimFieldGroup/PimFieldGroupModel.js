@@ -27,6 +27,9 @@ class FieldGroupItemModel extends BaseItemModel {
   alias = null;
   description = null;
   modified_user_name = null;
+  modified_date = null;
+  state = null;
+
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -40,6 +43,8 @@ class FieldGroupItemModel extends BaseItemModel {
       this.publish_up = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PUBLISH_UP] ?? '';
       this.alias = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS] ?? '';
       this.description = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION] ?? '';
+      this.modified_date = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_DATE] ?? '';
+      this.state = entity[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.STATE] ?? '';
     }
   }
 
@@ -59,6 +64,8 @@ class FieldGroupItemModel extends BaseItemModel {
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS]: this.alias,
       [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION]: this.description,
+      [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_DATE]: this.modified_date,
+      [PIM_FIELD_GROUP_DETAIL_FIELD_KEY.STATE]: this.state,
     };
   };
 

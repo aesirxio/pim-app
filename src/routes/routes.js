@@ -30,6 +30,9 @@ const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 const ProductPrice = lazy(() => import('../containers/ProductPricesPage'));
 const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
+const FieldsPage = lazy(() => import('../containers/FieldsPage'));
+const DebtorGroupPage = lazy(() => import('../containers/DebtorGroupPage'));
+const FieldsGroupPage = lazy(() => import('../containers/FieldsGroupPage'));
 
 const authRoutes = [
   {
@@ -106,6 +109,11 @@ const mainRoutes = [
     main: () => <EditCategoryProvider />,
   },
   {
+    path: '/fields',
+    exact: true,
+    main: () => <FieldsPage />,
+  },
+  {
     path: '/fields/edit/:id',
     exact: true,
     main: ({ match }) => <EditFieldProvider match={match} />,
@@ -114,6 +122,11 @@ const mainRoutes = [
     path: '/fields/add',
     exact: true,
     main: () => <EditFieldProvider />,
+  },
+  {
+    path: '/fields-group',
+    exact: true,
+    main: () => <FieldsGroupPage />,
   },
   {
     path: '/fields-group/edit/:id',
@@ -129,6 +142,11 @@ const mainRoutes = [
     path: '/dam',
     exact: true,
     main: () => <DigitalAssetsPage />,
+  },
+  {
+    path: '/debtor-group',
+    exact: true,
+    main: () => <DebtorGroupPage />,
   },
   {
     path: '/debtor-group/edit/:id',

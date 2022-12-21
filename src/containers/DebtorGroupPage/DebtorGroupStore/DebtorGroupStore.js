@@ -5,6 +5,7 @@
 
 import AesirxPimDebtorGroupApiService from 'library/Pim/PimDebtorGroup/PimDebtorGroup';
 import { DebtorGroupItemModel } from 'library/Pim/PimDebtorGroup/PimDebtorGroupModel';
+import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
 export default class DebtorGroupStore {
@@ -89,25 +90,54 @@ export default class DebtorGroupStore {
 
   async getList(filter, callbackOnSuccess, callbackOnError) {
     try {
-      const results = true;
-
-      if (results) {
-        const getListInfoAPIService = new AesirxPimDebtorGroupApiService();
-        const respondedData = await getListInfoAPIService.getList(filter);
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+      const getListInfoAPIService = new AesirxPimDebtorGroupApiService();
+      const respondedData = await getListInfoAPIService.getList(filter);
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);
       });
     }
+  }
+
+  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
+  async updateStatus(arr, status) {
+    try {
+      const updateStatusAPIService = new AesirxPimDebtorGroupApiService();
+      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
   }
 }
