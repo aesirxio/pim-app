@@ -6,6 +6,9 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
+import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import moment from 'moment';
+
 class FieldGroupListViewModel {
   fieldGroupStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -33,10 +36,35 @@ class FieldGroupListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
+    this.successResponse.state = true;
   };
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+
+  getListByFilter = async (key, value) => {
+    value ? (this.filter[key] = value) : delete this.filter[key];
+
+    await this.fieldGroupStore.getList(
+      this.filter,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    this.successResponse.state = true;
+  };
+
+  updateStatus = async (arr, status = 0) => {
+    const res = await this.fieldGroupStore.updateStatus(arr, status);
+    if (res) {
+      await this.fieldGroupStore.getList(
+        this.filter,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+      );
+    }
+    this.successResponse.state = true;
   };
 
   callbackOnErrorHandler = (error) => {
@@ -56,6 +84,28 @@ class FieldGroupListViewModel {
   callbackOnSuccessHandler = (result) => {
     this.items = result.items;
     this.formStatus = PAGE_STATUS.READY;
+  };
+
+  transform = (data) => {
+    return data.map((o) => {
+      const date = moment(o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_DATE]).format('DD MMM, YYYY');
+      return {
+        fieldGroups: {
+          name: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME],
+          id: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID],
+        },
+        createdUserName: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        lastModified: {
+          status: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.STATE],
+          lastModifiedDate: date ?? '',
+          modifiedUserName: o[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME],
+        },
+      };
+    });
+  };
+
+  isLoading = () => {
+    this.successResponse.state = false;
   };
 }
 

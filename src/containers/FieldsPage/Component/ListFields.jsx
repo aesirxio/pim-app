@@ -87,15 +87,15 @@ const ListFields = observer((props) => {
     },
   ];
 
-  const selectPageHandler = (value) => {
-    if (value != viewModel.successResponse.pagination.page) {
-      viewModel.isLoading();
-      viewModel.getListByFilter(
-        'limitstart',
-        (value - 1) * viewModel.successResponse.pagination.pageLimit
-      );
-    }
-  };
+  // const selectPageHandler = (value) => {
+  //   if (value != viewModel.successResponse.pagination.page) {
+  //     viewModel.isLoading();
+  //     viewModel.getListByFilter(
+  //       'limitstart',
+  //       (value - 1) * viewModel.successResponse.pagination.pageLimit
+  //     );
+  //   }
+  // };
 
   // const currentSelectHandler = (arr) => {
   //   listSelected = arr.map((o) => o.cells[1].value);
@@ -126,7 +126,7 @@ const ListFields = observer((props) => {
           data={viewModel?.transform(viewModel?.items)}
           selection={false}
           pagination={viewModel?.successResponse?.pagination}
-          selectPage={selectPageHandler}
+          // selectPage={selectPageHandler}
           // currentSelect={currentSelectHandler}
         ></Table>
       ) : (

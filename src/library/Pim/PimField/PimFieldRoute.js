@@ -14,7 +14,7 @@ class PimFieldRoute extends BaseRoute {
     return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
-        'list[limit]': 2,
+        'list[limit]': 10,
         ...buildFilter,
       })
     );

@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { FieldGroupItemModel, FieldGroupModel } from './PimFieldGroupModel';
+import { FieldGroupItemModel } from './PimFieldGroupModel';
 import PimFieldGroupRoute from './PimFieldGroupRoute';
 import { Component } from 'react';
 import axios from 'axios';
@@ -69,11 +69,48 @@ class AesirxPimFieldGroupApiService extends Component {
   getList = async (filter) => {
     try {
       const data = await this.route.getList(filter);
-      let results = null;
-      if (data) {
-        results = new FieldGroupModel(data);
+      let listItems = null;
+      let pagination = null;
+
+      if (data?._embedded) {
+        listItems = await Promise.all(
+          data._embedded.item.map(async (o) => {
+            return new FieldGroupItemModel(o);
+          })
+        );
       }
-      return results;
+
+      pagination = {
+        page: data.page,
+        pageLimit: data.pageLimit,
+        totalPages: data.totalPages,
+        totalItems: data.totalItems,
+        limitStart: data.limitstart,
+      };
+
+      return {
+        items: listItems ?? [],
+        pagination: pagination ?? {},
+      };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  updateStatus = async (arr, status) => {
+    try {
+      const listSelected = arr.map((o) => {
+        return { id: o, state: status };
+      });
+
+      const result = await this.route.updateStatus(listSelected);
+
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };

@@ -9,27 +9,36 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 class PimFieldGroupRoute extends BaseRoute {
   option = 'reditem-pim_field_group';
 
-  createFilter = (filter) => {
-    let buildFilter = {};
-    for (const [key, value] of Object.entries(filter)) {
-      if (Array.isArray(value)) {
-        buildFilter['filter[' + key + '][]'] = value;
-      } else {
-        buildFilter['filter[' + key + ']'] = value;
-      }
-    }
-
-    return buildFilter;
-  };
-
   getList = (filter = {}) => {
-    const buildFilter = this.createFilter(filter);
+    const buildFilter = this.createFilters(filter);
     return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         ...buildFilter,
       })
     );
+  };
+
+  createFilters = (filters) => {
+    let buildFilter = {};
+    for (const [key, value] of Object.entries(filters)) {
+      if (typeof value === 'object') {
+        switch (value.type) {
+          case 'custom_fields':
+            buildFilter['filter[' + value.type + '][' + key + '][]'] = value.value;
+            break;
+          case 'filter':
+            buildFilter['filter[' + key + ']'] = value.value;
+            break;
+          default:
+            break;
+        }
+      } else {
+        buildFilter[key] = value;
+      }
+    }
+
+    return buildFilter;
   };
 
   getDetail = (id = 0, filter = {}) => {
@@ -63,6 +72,19 @@ class PimFieldGroupRoute extends BaseRoute {
       }
     );
   };
+
+  updateStatus = (listSelected) => {
+    return AesirxApiInstance().post(
+      this.createRequestURL({
+        option: this.option,
+        task: 'bulkUpdate',
+      }),
+      {
+        items: listSelected,
+      }
+    );
+  };
+
   delete = (id) => {
     return AesirxApiInstance().delete(
       this.createRequestURL({

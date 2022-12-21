@@ -44,7 +44,6 @@ class FieldListViewModel {
     );
 
     this.successResponse.state = true;
-
   };
 
   getListByFilter = async (key, value) => {
@@ -135,7 +134,7 @@ class FieldListViewModel {
     return data.map((o) => {
       const date = moment(o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
       return {
-        id: o['id'],
+        id: o[PIM_FIELD_DETAIL_FIELD_KEY.ID],
         name: o[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
         groupName: o[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
         type: o[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
