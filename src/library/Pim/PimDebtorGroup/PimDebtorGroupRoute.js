@@ -9,18 +9,18 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 class PimDebtorGroupRoute extends BaseRoute {
   option = 'reditem-item_debtor_group_52';
 
-  getList = (dataFilter = {}) => {
+  getList = (filters = {}) => {
+    const buildFilters = this.createFilters(filters);
     return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
-        ...dataFilter,
+        ...buildFilters,
       })
     );
   };
 
   createFilters = (filters) => {
     let buildFilter = {};
-
     for (const [key, value] of Object.entries(filters)) {
       if (Array.isArray(value)) {
         buildFilter['filter[' + key + '][]'] = value;
@@ -28,7 +28,6 @@ class PimDebtorGroupRoute extends BaseRoute {
         buildFilter['filter[' + key + ']'] = value;
       }
     }
-
     return buildFilter;
   };
 

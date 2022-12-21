@@ -62,6 +62,7 @@ const PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY = {
   MODIFIED_USER_NAME: 'modified_user_name',
   CREATED_TIME: 'created_time',
   PUBLISH_UP: 'publish_up',
+  CODE: 'code',
 };
 
 const PIM_TAG_DETAIL_FIELD_KEY = {
