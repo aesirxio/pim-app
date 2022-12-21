@@ -9,6 +9,17 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 class PimFieldRoute extends BaseRoute {
   option = 'reditem-pim_field';
 
+  getList = (filter = {}) => {
+    const buildFilter = this.createFilter(filter);
+    return AesirxApiInstance().get(
+      this.createRequestURL({
+        option: this.option,
+        'list[limit]': 2,
+        ...buildFilter,
+      })
+    );
+  };
+
   createFilter = (filter) => {
     let buildFilter = {};
     for (const [key, value] of Object.entries(filter)) {
@@ -20,16 +31,6 @@ class PimFieldRoute extends BaseRoute {
     }
 
     return buildFilter;
-  };
-
-  getList = (filter = {}) => {
-    const buildFilter = this.createFilter(filter);
-    return AesirxApiInstance().get(
-      this.createRequestURL({
-        option: this.option,
-        ...buildFilter,
-      })
-    );
   };
 
   getDetail = (id = 0, filter = {}) => {

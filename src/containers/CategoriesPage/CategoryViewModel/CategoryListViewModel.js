@@ -68,7 +68,6 @@ class CategoryListViewModel {
       ) {
         this.successResponse.filters['limitstart'] =
           (this.successResponse.pagination.page - 1) * value;
-        console.log(this.successResponse.pagination.page);
       }
     }
 
@@ -77,7 +76,7 @@ class CategoryListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
-    
+
     this.successResponse.state = true;
   };
 

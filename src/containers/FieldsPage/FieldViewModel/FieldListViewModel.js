@@ -7,6 +7,7 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import moment from 'moment';
 class FieldListViewModel {
   fieldStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -14,8 +15,9 @@ class FieldListViewModel {
   items = [];
   groupList = [];
   filter = {};
+  listPublishStatus = [];
   successResponse = {
-    state: true,
+    state: false,
     content_id: '',
   };
 
@@ -35,6 +37,45 @@ class FieldListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
+
+    await this.fieldStore.getListPublishStatus(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    this.successResponse.state = true;
+
+  };
+
+  getListByFilter = async (key, value) => {
+    value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
+
+    //pagination
+    if (key != 'limitstart' && key != 'list[limit]') {
+      delete this.successResponse.filters['limitstart'];
+    } else {
+      if (
+        key == 'list[limit]' &&
+        value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
+      ) {
+        this.successResponse.filters['limitstart'] =
+          Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
+      } else if (
+        key == 'list[limit]' &&
+        value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
+      ) {
+        this.successResponse.filters['limitstart'] =
+          (this.successResponse.pagination.page - 1) * value;
+      }
+    }
+
+    await this.categoryStore.getList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+      this.successResponse.filters
+    );
+
+    this.successResponse.state = true;
   };
 
   handleFilter = (filter) => {
@@ -80,8 +121,35 @@ class FieldListViewModel {
   };
 
   callbackOnSuccessHandler = (result) => {
-    this.items = result.items;
     this.formStatus = PAGE_STATUS.READY;
+    if (result?.listItems) {
+      this.items = result.listItems;
+    }
+
+    if (result?.listPublishStatus) {
+      this.listPublishStatus = result.listPublishStatus;
+    }
+  };
+
+  transform = (data) => {
+    return data.map((o) => {
+      const date = moment(o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
+      return {
+        id: o['id'],
+        name: o[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+        groupName: o[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
+        type: o[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
+        lastModified: {
+          status: o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED],
+          dateTime: date ?? '',
+          author: o[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        },
+      };
+    });
+  };
+
+  isLoading = () => {
+    this.successResponse.state = false;
   };
 }
 
