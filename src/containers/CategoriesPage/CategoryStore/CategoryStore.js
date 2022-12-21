@@ -104,7 +104,9 @@ export default class CategoryStore {
       }
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;

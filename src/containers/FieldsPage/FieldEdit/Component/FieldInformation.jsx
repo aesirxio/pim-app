@@ -52,6 +52,7 @@ const FieldInformation = observer(
 
     render() {
       const { validator } = this.props;
+      console.log('this.fieldDetailViewModel', this.fieldDetailViewModel);
       const generateFormSetting = [
         {
           fields: [
@@ -91,16 +92,7 @@ const FieldInformation = observer(
                 );
               },
               className: 'col-lg-12',
-              extraField: true,
-              extraFieldNumberValueSelected:
-                this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
-                  PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                ].number_units,
-              extraFieldNumberHandleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData([PIM_FIELD_DETAIL_FIELD_KEY.PARAMS], {
-                  number_units: data.target.value,
-                });
-              },
+              viewModel: this.fieldDetailViewModel,
             },
             {
               label: 'txt_section',

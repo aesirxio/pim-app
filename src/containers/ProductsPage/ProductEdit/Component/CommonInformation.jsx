@@ -3,17 +3,12 @@ import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
-import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
 // import TagStore from 'containers/ProductsPage/TagStore/TagStore';
 // import TagViewModel from 'containers/ProductsPage/TagViewModel/TagViewModel';
 import Spinner from 'components/Spinner';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
-
-const categoryStore = new CategoryStore();
-const categoryViewModel = new CategoryViewModel(categoryStore);
 
 // const tagStore = new TagStore();
 // const tagViewModel = new TagViewModel(tagStore);
@@ -22,17 +17,12 @@ const CommonInformation = observer(
     constructor(props) {
       super(props);
       this.viewModel = this.props.viewModel.productDetailViewModel;
-      this.categoryListViewModel = categoryViewModel
-        ? categoryViewModel.getCategoryListViewModel()
-        : null;
+      this.categoryListViewModel = this.props.categoryListViewModel;
       // this.tagListViewModel = tagViewModel ? tagViewModel.getTagListViewModel() : null;
     }
 
     async componentDidMount() {
-      if (!this.categoryListViewModel?.items.length) {
-        await this.categoryListViewModel.initializeData();
-        // await this.tagListViewModel.initializeData();
-      }
+      // await this.tagListViewModel.initializeData();
     }
 
     render() {

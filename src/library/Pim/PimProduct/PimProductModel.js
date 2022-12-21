@@ -41,6 +41,15 @@ class ProductItemModel extends BaseItemModel {
   };
 
   toJSON = () => {
+    // let customFields = Object.keys(this.custom_fields).map((key) => {
+    //   // console.log(this.custom_fields[key]);
+    //   // console.log(JSON.parse(this.custom_fields[key]));
+    //   return {
+    //     [key]: this.custom_fields[key],
+    //   };
+    // });
+    // console.log('testttttttttttttttt');
+    // console.log('customFields', customFields);
     return {
       ...this.baseToJSON(),
       [PIM_PRODUCT_DETAIL_FIELD_KEY.ID]: this.id,
