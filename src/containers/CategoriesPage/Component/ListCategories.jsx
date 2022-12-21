@@ -97,7 +97,7 @@ const ListCategories = observer((props) => {
       className: 'py-2 border-bottom-1 text-center',
       Cell: ({ value }) => (
         <div className="text-center pe-5">
-          {value.state ? (
+          {value.state == 1 ? (
             <svg
               style={{ cursor: 'pointer' }}
               onClick={() => publishedBtnHandler(value)}
@@ -208,7 +208,7 @@ const ListCategories = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_left_menu_price_management')}</h2>
+        <h2 className="fw-bold mb-0">{t('txt_categories')}</h2>
         <ActionsBar
           buttons={[
             {

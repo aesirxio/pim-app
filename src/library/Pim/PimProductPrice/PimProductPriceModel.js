@@ -27,6 +27,7 @@ class ProductPriceItemModel extends BaseItemModel {
   featured = 0;
   modified_user_name = null;
   created_time = null;
+  debtor_groups = null;
 
   constructor(entity) {
     super(entity);
@@ -40,6 +41,7 @@ class ProductPriceItemModel extends BaseItemModel {
       this.featured = entity[PIM_PRICES_DETAIL_FIELD_KEY.FEATURED] ?? [];
       this.modified_user_name = entity[PIM_PRICES_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? [];
       this.created_time = entity[PIM_PRICES_DETAIL_FIELD_KEY.CREATED_TIME] ?? [];
+      this.debtor_groups = entity[PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUPS] ?? [];
     }
   }
 
@@ -55,6 +57,7 @@ class ProductPriceItemModel extends BaseItemModel {
       [PIM_PRICES_DETAIL_FIELD_KEY.FEATURED]: this.featured,
       [PIM_PRICES_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_PRICES_DETAIL_FIELD_KEY.CREATED_TIME]: this.created_time,
+      [PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUPS]: this.debtor_groups,
     };
   };
 

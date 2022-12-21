@@ -299,5 +299,6 @@
   "txt_add_new_debtor_group": "Add New Debtor Group",
   "txt_fields_group": "Field Groups",
   "txt_add_new_field_group": "Add New Field Groups",
-  "txt_all_field_groups": "All Field Groups"
+  "txt_all_field_groups": "All Field Groups",
+  "txt_add_new_prices": "Add New Prices"
 }
