@@ -54,7 +54,7 @@ class ProductListViewModel {
   };
 
   setFeatured = async (id, featured = 0) => {
-    await this.productStore.updateProduct(
+    await this.productStore.update(
       { id: id.toString(), featured: featured.toString() },
       this.callbackOnSuccessSetFeatured,
       this.callbackOnErrorHandler
@@ -81,7 +81,6 @@ class ProductListViewModel {
       ) {
         this.successResponse.filters['limitstart'] =
           (this.successResponse.pagination.page - 1) * value;
-        console.log(this.successResponse.pagination.page);
       }
     }
 
@@ -90,6 +89,7 @@ class ProductListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
+    
     this.successResponse.state = true;
   };
 
@@ -155,7 +155,12 @@ class ProductListViewModel {
         featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
         type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
           PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-        ],
+        ].slice(
+          2,
+          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+          ].length - 2
+        ),
         lastModified: {
           status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',

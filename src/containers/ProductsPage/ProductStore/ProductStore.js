@@ -94,7 +94,7 @@ export default class ProductStore {
     try {
       const getPimCategoyAPIService = new AesirxPimCategoryApiService();
       const respondedData = await getPimCategoyAPIService.getList({ 'list[limit]': 9999 });
-      
+
       if (respondedData) {
         runInAction(() => {
           callbackOnSuccess(respondedData);
@@ -113,6 +113,8 @@ export default class ProductStore {
   }
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
+    console.log('filters', filters);
+
     try {
       const getPimProductAPIService = new AesirxPimProductApiService();
       const respondedData = await getPimProductAPIService.getList(filters);
