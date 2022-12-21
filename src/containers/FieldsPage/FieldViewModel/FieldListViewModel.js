@@ -15,6 +15,9 @@ class FieldListViewModel {
   items = [];
   groupList = [];
   filter = {};
+  filterList = {
+    limit: 10,
+  };
   listPublishStatus = [];
   successResponse = {
     state: false,
@@ -34,6 +37,7 @@ class FieldListViewModel {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.fieldStore.getList(
       this.filter,
+      this.filterList,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -50,6 +54,7 @@ class FieldListViewModel {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.fieldStore.getList(
       this.filter,
+      this.filterList,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
@@ -88,6 +93,9 @@ class FieldListViewModel {
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+  handleFilterList = (filterList) => {
+    this.filterList = { ...this.filterList, ...filterList };
   };
 
   getGroupList = () => {
