@@ -84,7 +84,7 @@ const ListDebtorGroup = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_fields')}</h2>
+        <h2 className="fw-bold mb-0">{t('txt_debtor_group')}</h2>
         <ActionsBar
           buttons={[
             {
@@ -108,9 +108,9 @@ const ListDebtorGroup = observer((props) => {
             className="mb-3"
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
-            {viewModel?.listPublishStatus.map((o) => (
+            {/* {viewModel?.listPublishStatus.map((o) => (
               <Tab key={o.value} eventKey={o.value} title={o.label} />
-            ))}
+            ))} */}
           </Tabs>
         </>
       )}

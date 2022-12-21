@@ -20,7 +20,7 @@ class CategoryListViewModel {
     listPublishStatus: [],
     1: [],
     filters: {
-      'list[limit]': 5,
+      'list[limit]': 10,
     },
   };
 

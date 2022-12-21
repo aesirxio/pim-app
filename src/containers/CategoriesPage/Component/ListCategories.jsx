@@ -12,7 +12,7 @@ const ListCategories = observer((props) => {
   const { t } = props;
   let listSelected = [];
 
-  const listCategoriesViewModel = props.viewModel;
+  const viewModel = props.viewModel;
 
   const columnsTable = [
     {
@@ -146,9 +146,8 @@ const ListCategories = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {
-                listCategoriesViewModel?.successResponse?.listPublishStatus.find(
-                  (o) => o.value == value.status
-                )?.label
+                viewModel?.successResponse?.listPublishStatus.find((o) => o.value == value.status)
+                  ?.label
               }
             </div>
             <div>
@@ -161,25 +160,25 @@ const ListCategories = observer((props) => {
   ];
 
   useEffect(() => {
-    listCategoriesViewModel.initializeData();
+    viewModel.initializeData();
   }, []);
 
   const selectBulkActionsHandler = (value) => {
-    // listCategoriesViewModel.updateStatus(listSelected, value.value);
+    // viewModel.updateStatus(listSelected, value.value);
     console.log(listSelected, '-', value);
   };
 
   const selectShowItemsHandler = (value) => {
-    listCategoriesViewModel.isLoading();
-    listCategoriesViewModel.getListByFilter('list[limit]', value.value);
+    viewModel.isLoading();
+    viewModel.getListByFilter('list[limit]', value.value);
   };
 
   const selectPageHandler = (value) => {
-    if (value != listCategoriesViewModel.successResponse.pagination.page) {
-      listCategoriesViewModel.isLoading();
-      listCategoriesViewModel.getListByFilter(
+    if (value != viewModel.successResponse.pagination.page) {
+      viewModel.isLoading();
+      viewModel.getListByFilter(
         'limitstart',
-        (value - 1) * listCategoriesViewModel.successResponse.pagination.pageLimit
+        (value - 1) * viewModel.successResponse.pagination.pageLimit
       );
     }
   };
@@ -189,9 +188,9 @@ const ListCategories = observer((props) => {
   };
 
   const publishedBtnHandler = (value) => {
-    listCategoriesViewModel.isLoading();
+    viewModel.isLoading();
     const isPublished = value.state != 1 ? 1 : 0;
-    listCategoriesViewModel.setPublished(value.id, isPublished);
+    viewModel.setPublished(value.id, isPublished);
   };
 
   return (
@@ -217,7 +216,7 @@ const ListCategories = observer((props) => {
         className="mb-3"
       >
         <Tab eventKey={'default'} title={t('txt_all_category')} />
-        {/* {listCategoriesViewModel?.successResponse?.listPublishStatus.map((o) => (
+        {/* {viewModel?.successResponse?.listPublishStatus.map((o) => (
           <Tab key={o.value} eventKey={o.value} title={o.label} />
         ))} */}
       </Tabs>
@@ -225,10 +224,10 @@ const ListCategories = observer((props) => {
       <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
         <div className="d-flex gap-2">
           <SelectComponent
-            options={listCategoriesViewModel?.successResponse?.listPublishStatus}
+            options={viewModel?.successResponse?.listPublishStatus}
             className={`fs-sm`}
             isBorder={true}
-            pagination={listCategoriesViewModel?.successResponse?.pagination}
+            pagination={viewModel?.successResponse?.pagination}
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
@@ -238,8 +237,11 @@ const ListCategories = observer((props) => {
         <div className="d-flex align-items-center">
           <div className="opacity-50 me-2">Showing</div>
           <SelectComponent
-            defaultValue={{ label: '5 items', value: 5 }}
-            options={[...Array(4)].map((o, index) => ({
+            defaultValue={{
+              label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
+              value: viewModel?.successResponse?.filters['list[limit]'],
+            }}
+            options={[...Array(9)].map((o, index) => ({
               label: `${(index + 1) * 10} items`,
               value: (index + 1) * 10,
             }))}
@@ -252,13 +254,13 @@ const ListCategories = observer((props) => {
         </div>
       </div>
 
-      {listCategoriesViewModel?.successResponse?.state ? (
+      {viewModel?.successResponse?.state ? (
         <Table
           classNameTable={`bg-white rounded`}
           columns={columnsTable}
-          data={listCategoriesViewModel?.successResponse?.listCategories}
+          data={viewModel?.successResponse?.listCategories}
           selection={false}
-          pagination={listCategoriesViewModel?.successResponse?.pagination}
+          pagination={viewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}
           currentSelect={currentSelectHandler}
         ></Table>

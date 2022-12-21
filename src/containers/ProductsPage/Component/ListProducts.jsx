@@ -11,11 +11,12 @@ import ActionsBar from 'components/ActionsBar';
 
 const ListProducts = observer((props) => {
   const { t } = props;
+  let listSelected = [];
 
-  const productViewModel = props.viewModel;
+  const viewModel = props.viewModel;
 
   useEffect(() => {
-    productViewModel.initializeData();
+    viewModel.initializeData();
   }, []);
 
   const columnsTable = [
@@ -46,12 +47,12 @@ const ListProducts = observer((props) => {
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
-                  Edit
+                  {t('txt_edit')}
                 </button>{' '}
-                |{' '}
+                {/* |{' '}
                 <button className="p-0 border-0 bg-transparent d-inline-block text-green">
                   Duplicate
-                </button>
+                </button> */}
               </div>
             </div>
           </div>
@@ -157,9 +158,8 @@ const ListProducts = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {
-                productViewModel?.successResponse?.listPublishStatus.find(
-                  (o) => o.value == value.status
-                )?.label
+                viewModel?.successResponse?.listPublishStatus.find((o) => o.value == value.status)
+                  ?.label
               }
             </div>
             <div>
@@ -172,60 +172,59 @@ const ListProducts = observer((props) => {
   ];
 
   const selectPageHandler = (value) => {
-    if (value != productViewModel.successResponse.pagination.page) {
-      productViewModel.isLoading();
-      productViewModel.getListByFilter(
+    if (value != viewModel.successResponse.pagination.page) {
+      viewModel.isLoading();
+      viewModel.getListByFilter(
         'limitstart',
-        (value - 1) * productViewModel.successResponse.pagination.pageLimit
+        (value - 1) * viewModel.successResponse.pagination.pageLimit
       );
     }
   };
 
+  const currentSelectHandler = (arr) => {
+    listSelected = arr.map((o) => o.cells[1].value);
+  };
+
   const featuredBtnHandler = (row) => {
-    productViewModel.isLoading();
-    const isFeatured = row.values.featured ? 0 : 1;
-    productViewModel.setFeatured(row.values.id, isFeatured);
+    viewModel.isLoading();
+    const isFeatured = !row.values.featured;
+    viewModel.setFeatured(row.values.id, isFeatured);
   };
 
   const selectTabHandler = (value) => {
-    productViewModel.isLoading();
+    viewModel.isLoading();
     if (value != 'default') {
-      productViewModel.getListByFilter('state', {
+      viewModel.getListByFilter('state', {
         value: value,
         type: 'filter',
       });
     } else {
-      productViewModel.getListByFilter('state', '');
+      viewModel.getListByFilter('state', '');
     }
   };
 
   const selectTypeHandler = (value) => {
-    productViewModel.isLoading();
-    productViewModel.getListByFilter('pim_product_type', {
+    viewModel.isLoading();
+    viewModel.getListByFilter('pim_product_type', {
       value: value.value,
       type: 'custom_fields',
     });
   };
 
   const selectShowItemsHandler = (value) => {
-    productViewModel.isLoading();
-    productViewModel.getListByFilter('list[limit]', value.value);
-  };
-
-  let listSelected = [];
-  const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value);
+    viewModel.isLoading();
+    viewModel.getListByFilter('list[limit]', value.value);
   };
 
   const selectBulkActionsHandler = (value) => {
-    productViewModel.isLoading();
-    productViewModel.updateStatus(listSelected, value.value);
+    viewModel.isLoading();
+    viewModel.updateStatus(listSelected, value.value);
   };
 
   const selectCategoryHandler = (value) => {
     console.log(value.value);
-    productViewModel.isLoading();
-    productViewModel.getListByFilter('filter[category]', value.value);
+    viewModel.isLoading();
+    viewModel.getListByFilter('filter[category]', value.value);
   };
 
   return (
@@ -245,7 +244,7 @@ const ListProducts = observer((props) => {
           ]}
         />
       </div>
-      {productViewModel?.successResponse?.listPublishStatus.length > 0 && (
+      {viewModel?.successResponse?.listPublishStatus.length > 0 && (
         <>
           <Tabs
             defaultActiveKey={'default'}
@@ -254,7 +253,7 @@ const ListProducts = observer((props) => {
             className="mb-3"
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
-            {productViewModel?.successResponse?.listPublishStatus.map((o) => (
+            {viewModel?.successResponse?.listPublishStatus.map((o) => (
               <Tab key={o.value} eventKey={o.value} title={o.label} />
             ))}
           </Tabs>
@@ -262,7 +261,7 @@ const ListProducts = observer((props) => {
           <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
             <div className="d-flex gap-2">
               <SelectComponent
-                options={productViewModel?.successResponse?.listPublishStatus}
+                options={viewModel?.successResponse?.listPublishStatus}
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_bulk_actions')}
@@ -283,7 +282,7 @@ const ListProducts = observer((props) => {
                 arrowColor={'#222328'}
               />
               <SelectComponent
-                options={productViewModel?.successResponse?.listCategories}
+                options={viewModel?.successResponse?.listCategories}
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_all_categories')}
@@ -295,8 +294,11 @@ const ListProducts = observer((props) => {
             <div className="d-flex align-items-center">
               <div className="opacity-50 me-2">Showing</div>
               <SelectComponent
-                defaultValue={{ label: '2 items', value: 2 }}
-                options={[...Array(4)].map((o, index) => ({
+                defaultValue={{
+                  label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
+                  value: viewModel?.successResponse?.filters['list[limit]'],
+                }}
+                options={[...Array(9)].map((o, index) => ({
                   label: `${(index + 1) * 10} items`,
                   value: (index + 1) * 10,
                 }))}
@@ -310,13 +312,13 @@ const ListProducts = observer((props) => {
           </div>
         </>
       )}
-      {productViewModel?.successResponse?.state ? (
+      {viewModel?.successResponse?.state ? (
         <Table
           classNameTable={`bg-white rounded`}
           columns={columnsTable}
-          data={productViewModel?.successResponse?.listProducts}
+          data={viewModel?.successResponse?.listProducts}
           selection={false}
-          pagination={productViewModel?.successResponse?.pagination}
+          pagination={viewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}
           currentSelect={currentSelectHandler}
         ></Table>
