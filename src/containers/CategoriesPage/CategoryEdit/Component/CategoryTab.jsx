@@ -28,7 +28,7 @@ const CategoryTab = observer(
     async componentDidMount() {
       if (!this.fieldListViewModel.items.length) {
         this.fieldListViewModel.handleFilter({ type_id: 61 });
-        await this.fieldListViewModel.initializeData();
+        await this.fieldListViewModel.initializeDataCustom();
         this.forceUpdate();
       }
     }

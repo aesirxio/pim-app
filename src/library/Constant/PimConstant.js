@@ -139,6 +139,18 @@ const PIM_PRICES_DETAIL_FIELD_KEY = {
   ENDING_DATE: 'ending_date',
 };
 
+const PIM_DASH_BOARD_DETAIL_FIELD_KEY = {
+  TOTAL_PRODUCT: 'total_product',
+  PERCENT_NEW_PRODUCT: 'percent_new_product',
+  PERCENT_NEW_CATEGORIES: 'percent_new_categories',
+  PERCENT_PRODUCT_PUBLISH: 'percent_product_publish',
+  PERCENT_PRODUCT_UNPUBLISH: 'percent_product_unPublish',
+  PERCENT_PRODUCT_DRAFT: 'percent_product_draft',
+  PERCENT_PRODUCT_ARCHIVED: 'percent_product_Archived',
+  PERCENT_PRODUCT_WAITTING_APPROVAL: 'percent_product_wattingApproval',
+  PERCENT_PRODUCT_TRASH: 'percent_product_trash',
+};
+
 export {
   PIM_PRODUCT_DETAIL_FIELD_KEY,
   PIM_CATEGORY_DETAIL_FIELD_KEY,
@@ -147,4 +159,5 @@ export {
   PIM_PRICES_DETAIL_FIELD_KEY,
   PIM_FIELD_GROUP_DETAIL_FIELD_KEY,
   PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY,
+  PIM_DASH_BOARD_DETAIL_FIELD_KEY,
 };

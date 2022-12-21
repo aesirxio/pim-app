@@ -46,6 +46,15 @@ class FieldListViewModel {
     this.successResponse.state = true;
   };
 
+  initializeDataCustom = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.fieldStore.getList(
+      this.filter,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   getListByFilter = async (key, value) => {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
 
@@ -122,8 +131,8 @@ class FieldListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     this.formStatus = PAGE_STATUS.READY;
-    if (result?.listItems) {
-      this.items = result.listItems;
+    if (result?.items) {
+      this.items = result.items;
     }
 
     if (result?.listPublishStatus) {
