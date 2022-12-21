@@ -98,6 +98,25 @@ class AesirxPimCategoryApiService extends Component {
       } else throw error;
     }
   };
+
+  updateStatus = async (arr, status) => {
+    try {
+      const listSelected = arr.map((o) => {
+        return { id: o, published: status };
+      });
+
+      const result = await this.route.updateStatus(listSelected);
+
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
 }
 
 export default AesirxPimCategoryApiService;
