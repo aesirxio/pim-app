@@ -20,15 +20,15 @@ const fieldGroupViewModel = new FieldGroupViewModel(fieldGroupStore);
 const relevanceArray = [
   {
     label: 'Optional',
-    value: 0,
+    value: '0',
   },
   {
     label: 'Recommend',
-    value: 1,
+    value: '1',
   },
   {
     label: 'Required',
-    value: 2,
+    value: '2',
   },
 ];
 
@@ -52,7 +52,6 @@ const FieldInformation = observer(
 
     render() {
       const { validator } = this.props;
-      console.log('this.fieldDetailViewModel', this.fieldDetailViewModel);
       const generateFormSetting = [
         {
           fields: [
@@ -85,6 +84,13 @@ const FieldInformation = observer(
                     };
                   })
                 : null,
+              getValueSelectedOptions: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS
+              ]
+                ? this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                    PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS
+                  ]
+                : [],
               handleChange: (data) => {
                 this.fieldDetailViewModel.handleFormPropsData(
                   PIM_FIELD_DETAIL_FIELD_KEY.TYPE,
@@ -102,17 +108,14 @@ const FieldInformation = observer(
                 PIM_FIELD_DETAIL_FIELD_KEY.SECTION
               ]?.length
                 ? {
-                    label: this.utilsListViewModel.listContentType?.find(
-                      (x) =>
-                        x.value ===
-                        this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
-                          PIM_FIELD_DETAIL_FIELD_KEY.SECTION
-                        ][0]
-                    )?.label,
+                    label:
+                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                        PIM_FIELD_DETAIL_FIELD_KEY.SECTION
+                      ][0].title,
                     value:
                       this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.SECTION
-                      ][0],
+                      ][0].id,
                   }
                 : null,
               getDataSelectOptions: this.utilsListViewModel.listContentType.length
@@ -149,7 +152,7 @@ const FieldInformation = observer(
                         PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE
                       ].toString(),
                   }
-                : null,
+                : { label: 'No', value: '0' },
               getDataSelectOptions: [
                 { label: 'No', value: '0' },
                 { label: 'Yes', value: '1' },
@@ -203,23 +206,24 @@ const FieldInformation = observer(
               label: 'txt_relevance',
               key: PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
-                PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
-              ]
-                ? {
-                    label: relevanceArray?.find(
-                      (x) =>
-                        x.value ===
+              getValueSelected:
+                this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                  PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
+                ] !== undefined
+                  ? {
+                      label: relevanceArray?.find(
+                        (x) =>
+                          x.value ===
+                          this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                            PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
+                          ].toString()
+                      )?.label,
+                      value:
                         this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
-                        ]
-                    )?.label,
-                    value:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
-                        PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
-                      ],
-                  }
-                : null,
+                        ].toString(),
+                    }
+                  : null,
               getDataSelectOptions: relevanceArray,
               handleChange: (data) => {
                 this.fieldDetailViewModel.handleFormPropsData(
@@ -236,10 +240,10 @@ const FieldInformation = observer(
               getValueSelected:
                 this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                   PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                ].note ?? null,
+                ]?.note ?? null,
               isEditor: false,
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData([PIM_FIELD_DETAIL_FIELD_KEY.PARAMS], {
+                this.fieldDetailViewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.PARAMS, {
                   note: data.target.value,
                 });
               },

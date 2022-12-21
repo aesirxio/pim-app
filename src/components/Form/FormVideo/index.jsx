@@ -21,7 +21,7 @@ const FormVideo = ({ field }) => {
       id: item.id,
       download_url: item.download_url,
     }));
-    convertedData.length && setFile(convertedData);
+    convertedData.length && setFile(convertedData[0]);
     field.handleChange(convertedData);
     setShow(false);
   };
@@ -33,7 +33,7 @@ const FormVideo = ({ field }) => {
             <Col lg={7}>
               <Ratio aspectRatio="16x9">
                 <div className="d-flex align-items-center w-100 h-100 border">
-                  <ComponentVideo src={file && file[0]?.download_url} />
+                  <ComponentVideo src={file && file?.download_url} />
                 </div>
               </Ratio>
             </Col>
