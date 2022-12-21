@@ -26,6 +26,7 @@ const FieldsTab = observer(
     async componentDidMount() {
       if (!this.fieldListViewModel.items.length) {
         this.fieldListViewModel.handleFilter({ type_id: 59 });
+        this.fieldListViewModel.handleFilterList({ limit: 0 });
         await this.fieldListViewModel.initializeDataCustom();
         await this.fieldListViewModel.getGroupList();
       }

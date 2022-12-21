@@ -66,9 +66,9 @@ class AesirxPimFieldApiService extends Component {
     }
   };
 
-  getList = async (filter) => {
+  getList = async (filter, filterList) => {
     try {
-      const data = await this.route.getList(filter);
+      const data = await this.route.getList(filter, filterList);
       let listItems = null;
       let pagination = null;
 
