@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { DebtorGroupItemModel, DebtorGroupModel } from './PimDebtorGroupModel';
+import { DebtorGroupItemModel } from './PimDebtorGroupModel';
 import PimDebtorGroupRoute from './PimDebtorGroupRoute';
 import { Component } from 'react';
 import axios from 'axios';
@@ -66,14 +66,33 @@ class AesirxPimDebtorGroupApiService extends Component {
     }
   };
 
-  getList = async () => {
+
+  getList = async (filter) => {
     try {
-      const data = await this.route.getList();
-      let results = null;
-      if (data) {
-        results = new DebtorGroupModel(data);
+      const data = await this.route.getList(filter);
+      let listItems = null;
+      let pagination = null;
+
+      if (data?._embedded) {
+        listItems = await Promise.all(
+          data._embedded.item.map(async (o) => {
+            return new DebtorGroupItemModel(o);
+          })
+        );
       }
-      return results;
+
+      pagination = {
+        page: data.page,
+        pageLimit: data.pageLimit,
+        totalPages: data.totalPages,
+        totalItems: data.totalItems,
+        limitStart: data.limitstart,
+      };
+
+      return {
+        items: listItems ?? [],
+        pagination: pagination ?? {},
+      };
     } catch (error) {
       if (axios.isCancel(error)) {
         return { message: 'isCancel' };

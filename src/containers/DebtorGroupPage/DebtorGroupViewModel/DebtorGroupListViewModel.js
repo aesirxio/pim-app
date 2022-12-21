@@ -6,14 +6,17 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
+import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import moment from 'moment';
 class DebtorGroupListViewModel {
   debtorGroupStore = null;
   formStatus = PAGE_STATUS.READY;
   debtorGroupListViewModel = null;
   items = [];
   filter = {};
+  listPublishStatus = [];
   successResponse = {
-    state: true,
+    state: false,
     content_id: '',
   };
 
@@ -33,6 +36,25 @@ class DebtorGroupListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
+
+    await this.debtorGroupStore.getListPublishStatus(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    this.successResponse.state = true;
+  };
+
+  getListByFilter = async (key, value) => {
+    value ? (this.filter[key] = value) : delete this.filter[key];
+
+    await this.debtorGroupStore.getList(
+      this.filter,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+
+    this.successResponse.state = true;
   };
 
   handleFilter = (filter) => {
@@ -54,8 +76,35 @@ class DebtorGroupListViewModel {
   };
 
   callbackOnSuccessHandler = (result) => {
-    this.items = result.items;
+    if (result?.items) {
+      this.items = result.items;
+    }
+    if (result?.listPublishStatus) {
+      this.listPublishStatus = result.listPublishStatus;
+    }
     this.formStatus = PAGE_STATUS.READY;
+  };
+
+  transform = (data) => {
+    return data.map((o) => {
+      const date = moment(o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
+      return {
+        id: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
+        title: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE],
+        lastModified: {
+          status: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED],
+          dateTime: date ?? '',
+          author: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        },
+        code: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+          PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CODE
+        ],
+      };
+    });
+  };
+
+  isLoading = () => {
+    this.successResponse.state = false;
   };
 }
 

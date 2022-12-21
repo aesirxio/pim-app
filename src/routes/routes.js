@@ -31,6 +31,7 @@ const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 const ProductPrice = lazy(() => import('../containers/ProductPricesPage'));
 const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
 const FieldsPage = lazy(() => import('../containers/FieldsPage'));
+const DebtorGroupPage = lazy(() => import('../containers/DebtorGroupPage'));
 
 const authRoutes = [
   {
@@ -135,6 +136,11 @@ const mainRoutes = [
     path: '/dam',
     exact: true,
     main: () => <DigitalAssetsPage />,
+  },
+  {
+    path: '/debtor-group',
+    exact: true,
+    main: () => <DebtorGroupPage />,
   },
   {
     path: '/debtor-group/edit/:id',
