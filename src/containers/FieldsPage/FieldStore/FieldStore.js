@@ -5,6 +5,7 @@
 
 import AesirxPimFieldApiService from 'library/Pim/PimField/PimField';
 import { FieldItemModel } from 'library/Pim/PimField/PimFieldModel';
+import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
 export default class FieldStore {
@@ -89,26 +90,43 @@ export default class FieldStore {
 
   async getList(filter, callbackOnSuccess, callbackOnError) {
     try {
-      const results = true;
+      const getListInfoAPIService = new AesirxPimFieldApiService();
+      const respondedData = await getListInfoAPIService.getList(filter);
 
-      if (results) {
-        const getListInfoAPIService = new AesirxPimFieldApiService();
-        const respondedData = await getListInfoAPIService.getList(filter);
-
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
     } catch (error) {
       runInAction(() => {
         callbackOnError(error);
       });
     }
+  }
+
+  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
   }
 }

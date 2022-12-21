@@ -30,6 +30,7 @@ const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 const ProductPrice = lazy(() => import('../containers/ProductPricesPage'));
 const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
+const FieldsPage = lazy(() => import('../containers/FieldsPage'));
 
 const authRoutes = [
   {
@@ -104,6 +105,11 @@ const mainRoutes = [
     path: '/categories/add',
     exact: true,
     main: () => <EditCategoryProvider />,
+  },
+  {
+    path: '/fields',
+    exact: true,
+    main: () => <FieldsPage />,
   },
   {
     path: '/fields/edit/:id',

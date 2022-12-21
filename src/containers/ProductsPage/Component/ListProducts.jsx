@@ -7,18 +7,16 @@ import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
 import Spinner from 'components/Spinner';
 import history from 'routes/history';
-import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
-import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
 import ActionsBar from 'components/ActionsBar';
-
-const categoryStore = new CategoryStore();
-const categoryViewModel = new CategoryViewModel(categoryStore);
 
 const ListProducts = observer((props) => {
   const { t } = props;
 
   const productViewModel = props.viewModel;
-  const categoryListViewModel = categoryViewModel.getCategoryListViewModel();
+
+  useEffect(() => {
+    productViewModel.initializeData();
+  }, []);
 
   const columnsTable = [
     {
@@ -173,11 +171,6 @@ const ListProducts = observer((props) => {
     },
   ];
 
-  useEffect(() => {
-    productViewModel.initializeData();
-    categoryListViewModel.initializeData();
-  }, []);
-
   const selectPageHandler = (value) => {
     if (value != productViewModel.successResponse.pagination.page) {
       productViewModel.isLoading();
@@ -206,25 +199,6 @@ const ListProducts = observer((props) => {
     }
   };
 
-  let listCategories = [];
-  const getListCategoriesGenerate = (arr) => {
-    arr.forEach((o) => {
-      let title = '';
-      if (parseInt(o.level)) {
-        [...Array(parseInt(o.level))].forEach(() => {
-          title += '- ';
-        });
-      }
-      title += o.title;
-      listCategories.push({ label: title, value: o.id });
-      if (o.children) {
-        getListCategoriesGenerate(o.children);
-      }
-    });
-  };
-
-  getListCategoriesGenerate(categoryListViewModel?.items);
-
   const selectTypeHandler = (value) => {
     productViewModel.isLoading();
     productViewModel.getListByFilter('pim_product_type', {
@@ -249,6 +223,7 @@ const ListProducts = observer((props) => {
   };
 
   const selectCategoryHandler = (value) => {
+    console.log(value.value);
     productViewModel.isLoading();
     productViewModel.getListByFilter('filter[category]', value.value);
   };
@@ -308,7 +283,7 @@ const ListProducts = observer((props) => {
                 arrowColor={'#222328'}
               />
               <SelectComponent
-                options={listCategories}
+                options={productViewModel?.successResponse?.listCategories}
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_all_categories')}
