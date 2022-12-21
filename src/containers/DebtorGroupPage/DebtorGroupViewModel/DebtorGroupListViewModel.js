@@ -13,7 +13,10 @@ class DebtorGroupListViewModel {
   formStatus = PAGE_STATUS.READY;
   debtorGroupListViewModel = null;
   items = [];
-  filter = {};
+  filter = {
+    'list[limit]': 10,
+  };
+  pagination = {};
   listPublishStatus = [];
   successResponse = {
     state: false,
@@ -48,12 +51,42 @@ class DebtorGroupListViewModel {
   getListByFilter = async (key, value) => {
     value ? (this.filter[key] = value) : delete this.filter[key];
 
+    //pagination
+    if (key != 'limitstart' && key != 'list[limit]') {
+      delete this.filter['limitstart'];
+    } else {
+      if (
+        key == 'list[limit]' &&
+        value * this.pagination.page >= this.pagination.totalItems
+      ) {
+        this.filter['limitstart'] =
+          Math.ceil(this.pagination.totalItems / value - 1) * value;
+      } else if (
+        key == 'list[limit]' &&
+        value * this.pagination.page < this.pagination.totalItems
+      ) {
+        this.filter['limitstart'] = (this.pagination.page - 1) * value;
+      }
+    }
+
     await this.debtorGroupStore.getList(
       this.filter,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
 
+    this.successResponse.state = true;
+  };
+
+  updateStatus = async (arr, status = 0) => {
+    const res = await this.debtorGroupStore.updateStatus(arr, status);
+    if (res) {
+      await this.debtorGroupStore.getList(
+        this.filter,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler
+      );
+    }
     this.successResponse.state = true;
   };
 
@@ -76,8 +109,10 @@ class DebtorGroupListViewModel {
   };
 
   callbackOnSuccessHandler = (result) => {
+    console.log('result.pagination', result.pagination);
     if (result?.items) {
       this.items = result.items;
+      this.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
       this.listPublishStatus = result.listPublishStatus;
@@ -93,12 +128,13 @@ class DebtorGroupListViewModel {
         title: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE],
         lastModified: {
           status: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED],
-          dateTime: date ?? '',
-          author: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          lastModifiedDate: date ?? '',
+          modifiedUserName: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_USER_NAME],
         },
         code: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
           PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CODE
         ],
+        organisationName: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ORGANISATION_NAME],
       };
     });
   };

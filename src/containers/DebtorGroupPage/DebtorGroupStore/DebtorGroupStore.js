@@ -128,4 +128,16 @@ export default class DebtorGroupStore {
 
     return false;
   }
+
+  async updateStatus(arr, status) {
+    try {
+      const updateStatusAPIService = new AesirxPimDebtorGroupApiService();
+      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }
