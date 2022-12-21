@@ -10,6 +10,7 @@ import { observer } from 'mobx-react';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import FieldsList from 'components/Fields';
 import CategoryInformation from './CategoryInformation';
+import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
 const CategoryTab = observer(
@@ -18,6 +19,7 @@ const CategoryTab = observer(
     constructor(props) {
       super(props);
       this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
+      this.detailViewModal = this.props.viewModel.categoryDetailViewModel;
       this.state = {
         defaultActive: 'categoryInformation',
       };
@@ -31,7 +33,7 @@ const CategoryTab = observer(
       }
     }
     render() {
-      const { t, detailViewModal, validator } = this.props;
+      const { t, validator } = this.props;
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           {this.fieldListViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -72,8 +74,10 @@ const CategoryTab = observer(
                       <div className="row">
                         <FieldViewModelContextProvider viewModel={fieldViewModel}>
                           <FieldsList
-                            detailViewModal={detailViewModal}
-                            formPropsData={detailViewModal.categoryDetailViewModel.formPropsData}
+                            detailViewModal={this.detailViewModal}
+                            formPropsData={
+                              this.detailViewModal.categoryDetailViewModel.formPropsData
+                            }
                             validator={validator}
                             fieldClass={'col-lg-12'}
                           />
@@ -90,4 +94,4 @@ const CategoryTab = observer(
     }
   }
 );
-export default withTranslation('common')(CategoryTab);
+export default withTranslation('common')(withCategoryViewModel(CategoryTab));

@@ -66,7 +66,9 @@ const EditField = observer(
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: () => {},
+                    handle: async () => {
+                      history.push(`/fields`);
+                    },
                     icon: '/assets/images/cancel.svg',
                   },
                   // {
@@ -76,7 +78,18 @@ const EditField = observer(
                   // },
                   {
                     title: t('txt_save_close'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.productDetailViewModel.update();
+                        } else {
+                          await this.productDetailViewModel.create();
+                        }
+                        history.push(`/fields`);
+                      } else {
+                        this.validator.showMessages();
+                      }
+                    },
                   },
                   {
                     title: t('txt_save'),

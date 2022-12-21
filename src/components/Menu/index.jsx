@@ -88,10 +88,6 @@ const Menu = observer((props) => {
           text: 'txt_left_menu_add_new',
           link: `/products/add`,
         },
-        {
-          text: 'txt_left_menu_price_management',
-          link: `/products/price-management`,
-        },
         // {
         //   text: 'txt_left_menu_products_variant',
         //   link: `/products/products-variant`,

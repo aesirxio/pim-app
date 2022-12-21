@@ -5,19 +5,66 @@
 
 import { Component } from 'react';
 import axios from 'axios';
-import PimProductPricesRoute from './PimProductPricesRoute';
-import { ProductPriceModel } from './PimProductPricesModel';
+import PimProductPriceRoute from './PimProductPriceRoute';
+import { ProductPriceItemModel } from './PimProductPriceModel';
 
 /**
  * API Service - Product
  */
-class AesirxPimProductPricesApiService extends Component {
+class AesirxPimProductPriceApiService extends Component {
   route = null;
 
   constructor(props) {
     super(props);
-    this.route = new PimProductPricesRoute();
+    this.route = new PimProductPriceRoute();
   }
+
+  create = async (data) => {
+    try {
+      const result = await this.route.create(data);
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  update = async (data) => {
+    try {
+      const result = await this.route.update(data);
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
+  getDetail = async (id = 0) => {
+    try {
+      const data = await this.route.getDetail(id);
+      let results = null;
+      if (data) {
+        results = new ProductPriceItemModel(data);
+      }
+      if (results) {
+        results = results.toJSON();
+      }
+
+      return results;
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
 
   getList = async (filter) => {
     try {
@@ -28,7 +75,7 @@ class AesirxPimProductPricesApiService extends Component {
       if (data?._embedded) {
         listItems = await Promise.all(
           data._embedded.item.map(async (o) => {
-            return new ProductPriceModel(o);
+            return new ProductPriceItemModel(o);
           })
         );
       }
@@ -84,7 +131,6 @@ class AesirxPimProductPricesApiService extends Component {
       } else throw error;
     }
   };
-  
 }
 
-export default AesirxPimProductPricesApiService;
+export default AesirxPimProductPriceApiService;

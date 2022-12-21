@@ -41,8 +41,6 @@ const EditCategory = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.categoryDetailViewModel.initializeData();
-      } else {
-        this.categoryDetailViewModel.initFormPropsData();
       }
     }
 
@@ -69,7 +67,9 @@ const EditCategory = observer(
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: () => {},
+                    handle: async () => {
+                      history.push(`/categories`);
+                    },
                     icon: '/assets/images/cancel.svg',
                   },
                   // {
@@ -79,7 +79,18 @@ const EditCategory = observer(
                   // },
                   {
                     title: t('txt_save_close'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.productDetailViewModel.update();
+                        } else {
+                          await this.productDetailViewModel.create();
+                        }
+                        history.push(`/categories`);
+                      } else {
+                        this.validator.showMessages();
+                      }
+                    },
                   },
                   {
                     title: t('txt_save'),
@@ -148,7 +159,6 @@ const EditCategory = observer(
               </Col>
               <Col lg={3}>
                 <PublishOptions
-                  detailViewModal={this.categoryDetailViewModel}
                   formPropsData={this.categoryDetailViewModel.categoryDetailViewModel.formPropsData}
                   isEdit={this.isEdit}
                 />

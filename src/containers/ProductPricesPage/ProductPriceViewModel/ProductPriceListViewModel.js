@@ -3,20 +3,21 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { PIM_PRICE_FIELD_KEY } from 'library/Constant/PimConstant';
+import PAGE_STATUS from 'constants/PageStatus';
+import { PIM_PRICES_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
 
-class ProductPricesViewModel {
+class ProductPriceListViewModel {
   productPricesStore = null;
-
+  formStatus = PAGE_STATUS.READY;
   successResponse = {
     state: false,
     filters: {
       'list[limit]': 5,
     },
     listPublishStatus: [],
-    listProductPrices: [],
+    listProductPrice: [],
     pagination: {},
   };
 
@@ -57,6 +58,7 @@ class ProductPricesViewModel {
   };
 
   initializeData = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
     await this.productPricesStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
@@ -106,12 +108,13 @@ class ProductPricesViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result?.listItems) {
-      this.successResponse.listProductPrices = this.transform(result.listItems);
+      this.successResponse.listProductPrice = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
       this.successResponse.listPublishStatus = result.listPublishStatus;
     }
+    this.formStatus = PAGE_STATUS.READY;
   };
 
   callbackOnErrorHandler = (result) => {
@@ -124,20 +127,21 @@ class ProductPricesViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_PRICE_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      const date = moment(o[PIM_PRICES_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
-        id: o[PIM_PRICE_FIELD_KEY.ID],
-        author: o[PIM_PRICE_FIELD_KEY.CREATED_USER_NAME],
+        id: o[PIM_PRICES_DETAIL_FIELD_KEY.ID],
+        author: o[PIM_PRICES_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         lastModified: {
-          status: o[PIM_PRICE_FIELD_KEY.PUBLISHED],
+          status: o[PIM_PRICES_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_PRICE_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_PRICES_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         },
-        price: o[PIM_PRICE_FIELD_KEY.CUSTOM_FIELDS][PIM_PRICE_FIELD_KEY.PRICE],
-        retailPrice: o[PIM_PRICE_FIELD_KEY.CUSTOM_FIELDS][PIM_PRICE_FIELD_KEY.RETAIL_PRICE],
+        price: o[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRICES_DETAIL_FIELD_KEY.PRICE],
+        retailPrice:
+          o[PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRICES_DETAIL_FIELD_KEY.RETAIL_PRICE],
       };
     });
   };
 }
 
-export default ProductPricesViewModel;
+export default ProductPriceListViewModel;

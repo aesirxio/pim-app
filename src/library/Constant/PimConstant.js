@@ -48,8 +48,8 @@ const PIM_CATEGORY_DETAIL_FIELD_KEY = {
   CHILDREN: 'children',
   LEVEL: 'level',
   MODIFIED_TIME: 'modified_time',
-  PRODUCT_QUANTITY: "product_quantity",
-  PARENT_NAME: "parent_name"
+  PRODUCT_QUANTITY: 'product_quantity',
+  PARENT_NAME: 'parent_name',
 };
 
 const PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY = {
@@ -114,15 +114,25 @@ const PIM_FIELD_GROUP_DETAIL_FIELD_KEY = {
   SECTION: 'content_types',
 };
 
-const PIM_PRICE_FIELD_KEY = {
+const PIM_PRICES_DETAIL_FIELD_KEY = {
   ID: 'id',
   PUBLISHED: 'published',
+  FEATURED: 'featured',
   CREATED_USER_NAME: 'created_user_name',
+  MODIFIED_USER_NAME: 'modified_user_name',
+  CREATED_TIME: 'created_time',
   MODIFIED_TIME: 'modified_time',
-  CUSTOM_FIELDS: 'custom_fields',
   PRODUCTS: 'products',
+  PUBLISH_UP: 'publish_up',
+  CUSTOM_FIELDS: 'custom_fields',
   PRICE: 'price',
   RETAIL_PRICE: 'retail_price',
+  PIM_PRODUCT: 'pim_product',
+  DEBTOR_GROUP: 'debtor_group',
+  QUANTITY_MIN: 'quantity_min',
+  QUANTITY_MAX: 'quantity_max',
+  STARTING_DATE: 'starting_date',
+  ENDING_DATE: 'ending_date',
 };
 
 export {
@@ -130,7 +140,7 @@ export {
   PIM_CATEGORY_DETAIL_FIELD_KEY,
   PIM_TAG_DETAIL_FIELD_KEY,
   PIM_FIELD_DETAIL_FIELD_KEY,
-  PIM_PRICE_FIELD_KEY,
+  PIM_PRICES_DETAIL_FIELD_KEY,
   PIM_FIELD_GROUP_DETAIL_FIELD_KEY,
   PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY,
 };

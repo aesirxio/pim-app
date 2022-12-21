@@ -289,5 +289,11 @@
   "txt_debtor_code": "Debtor Code",
   "txt_debtor_group": "Debtor Group",
   "txt_add_debtor_group_name": "Add Debtor Group Name",
-  "txt_add_new_fields": "Add New Fields"
+  "txt_add_new_fields": "Add New Fields",
+  "txt_retail_price": "Retail Price",
+  "txt_quantity_min": "Quantity Min",
+  "txt_quantity_max": "Quantity Max",
+  "txt_start_time":"Start Time",
+  "txt_end_time":"End Time",
+  "txt_product_name": "Product Name"
 }

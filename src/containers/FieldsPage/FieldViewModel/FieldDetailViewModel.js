@@ -90,10 +90,14 @@ class FieldDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  handleFormPropsData = (key, value) => {
+  handleFormPropsData = (key, value, arrayIndex) => {
     if (key && value) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        Object.assign(this.fieldDetailViewModel.formPropsData[key], value);
+        if (arrayIndex) {
+          Object.assign(this.fieldDetailViewModel.formPropsData[key][arrayIndex], value);
+        } else {
+          Object.assign(this.fieldDetailViewModel.formPropsData[key], value);
+        }
       } else {
         this.fieldDetailViewModel.formPropsData[key] = value;
       }

@@ -107,7 +107,7 @@ class FieldListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    notify('Update unsuccessfully', 'error');
+    notify('Update unsuccessfullyg', 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;

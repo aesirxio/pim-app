@@ -25,7 +25,10 @@ import ProductInformation from './Component/ProductInformation';
 import FieldsTab from './Component/Fields';
 // import Variants from '../Component/Variants';
 import SimpleReactValidator from 'simple-react-validator';
-
+import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
+import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
+const categoryStore = new CategoryStore();
+const categoryViewModel = new CategoryViewModel(categoryStore);
 const EditProduct = observer(
   class EditProduct extends Component {
     productDetailViewModel = null;
@@ -38,6 +41,9 @@ const EditProduct = observer(
       this.productDetailViewModel = this.viewModel
         ? this.viewModel.getProductDetailViewModel()
         : null;
+      this.categoryListViewModel = categoryViewModel
+        ? categoryViewModel.getCategoryListViewModel()
+        : null;
       this.productDetailViewModel.setForm(this);
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
       this.isEdit = props.match.params?.id ? true : false;
@@ -47,6 +53,10 @@ const EditProduct = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
+      }
+      if (!this.categoryListViewModel.items.length) {
+        await this.categoryListViewModel.handleFilter({ limit: 0 });
+        await this.categoryListViewModel.initializeDataCustom();
       }
     }
 
@@ -71,7 +81,9 @@ const EditProduct = observer(
                 buttons={[
                   {
                     title: t('txt_cancel'),
-                    handle: () => {},
+                    handle: async () => {
+                      history.push(`/products/all`);
+                    },
                     icon: '/assets/images/cancel.svg',
                   },
                   // {
@@ -81,7 +93,18 @@ const EditProduct = observer(
                   // },
                   {
                     title: t('txt_save_close'),
-                    handle: () => {},
+                    handle: async () => {
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.productDetailViewModel.update();
+                        } else {
+                          await this.productDetailViewModel.create();
+                        }
+                        history.push(`/products/all`);
+                      } else {
+                        this.validator.showMessages();
+                      }
+                    },
                   },
                   {
                     title: t('txt_save'),
@@ -156,6 +179,7 @@ const EditProduct = observer(
                       <CommonInformation
                         formPropsData={this.formPropsData}
                         validator={this.validator}
+                        categoryListViewModel={this.categoryListViewModel}
                       />
                     )}
                   </Tab>
@@ -167,6 +191,7 @@ const EditProduct = observer(
                     <ProductInformation
                       formPropsData={this.formPropsData}
                       validator={this.validator}
+                      categoryListViewModel={this.categoryListViewModel}
                     />
                   </Tab>
                   <Tab key="fields" eventKey="fields" title={t('txt_fields')}>

@@ -159,7 +159,7 @@ const ListProducts = observer((props) => {
               {
                 productViewModel?.successResponse?.listPublishStatus.find(
                   (o) => o.value == value.status
-                ).label
+                )?.label
               }
             </div>
             <div>

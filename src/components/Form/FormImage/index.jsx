@@ -37,17 +37,18 @@ const FormImage = ({ field }) => {
       {field.isMulti ? (
         <div className="position-relative">
           <Row className="gx-24 mb-16">
-            {file?.map((item, key) => {
-              return (
-                <Col lg={2} key={key}>
-                  <Ratio aspectRatio="1x1">
-                    <div className="d-flex align-items-center w-100 h-100 border">
-                      <ComponentImage src={item?.download_url} alt={field.value} />
-                    </div>
-                  </Ratio>
-                </Col>
-              );
-            })}
+            {file &&
+              file?.map((item, key) => {
+                return (
+                  <Col lg={2} key={key}>
+                    <Ratio aspectRatio="1x1">
+                      <div className="d-flex align-items-center w-100 h-100 border">
+                        <ComponentImage src={item?.download_url} alt={field.value} />
+                      </div>
+                    </Ratio>
+                  </Col>
+                );
+              })}
           </Row>
           <Button
             variant={`light`}
