@@ -128,7 +128,7 @@ const FieldInformation = observer(
                 : null,
               handleChange: (data) => {
                 this.fieldDetailViewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.SECTION, [
-                  data.value,
+                  { id: data.value },
                 ]);
               },
               className: 'col-lg-12',
