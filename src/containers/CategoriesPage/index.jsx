@@ -5,7 +5,7 @@ import { observer } from 'mobx-react';
 import { CategoryViewModelContextProvider } from './CategoryViewModel/CategoryViewModelContextProvider';
 import CategoryStore from './CategoryStore/CategoryStore';
 import CategoryListViewModel from './CategoryViewModel/CategoryListViewModel';
-import ListCategories from '../Component/ListCategories';
+import ListCategories from './Component/ListCategories';
 
 const categoryStore = new CategoryStore();
 const categoryListViewModel = new CategoryListViewModel(categoryStore);
