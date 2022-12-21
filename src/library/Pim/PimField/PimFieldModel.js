@@ -51,7 +51,7 @@ class FieldItemModel extends BaseItemModel {
       this.type = entity[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] ?? '';
       this.fieldcode = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE] ?? '';
       this.params = entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS][0]
-        ? JSON.parse(JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]))
+        ? JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS])
         : [];
       this.options = entity[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS] ?? '';
       this.relevance = entity[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] ?? '';
@@ -95,9 +95,18 @@ class FieldItemModel extends BaseItemModel {
         data[PIM_FIELD_DETAIL_FIELD_KEY[index]]
       ) {
         if (Array.isArray(data[PIM_FIELD_DETAIL_FIELD_KEY[index]])) {
-          data[PIM_FIELD_DETAIL_FIELD_KEY[index]].map((item) =>
-            formData.append([PIM_FIELD_DETAIL_FIELD_KEY[index] + '[]'], item)
-          );
+          data[PIM_FIELD_DETAIL_FIELD_KEY[index]].map((item, itemKey) => {
+            if (typeof item === 'object' && !Array.isArray(item) && item !== null) {
+              Object.keys(item).map((key) => {
+                formData.append(
+                  [PIM_FIELD_DETAIL_FIELD_KEY[index] + '[' + itemKey + ']' + '[' + key + ']'],
+                  item[key]
+                );
+              });
+            } else {
+              formData.append([PIM_FIELD_DETAIL_FIELD_KEY[index] + '[]'], item);
+            }
+          });
         } else {
           formData.append(
             [PIM_FIELD_DETAIL_FIELD_KEY[index]],

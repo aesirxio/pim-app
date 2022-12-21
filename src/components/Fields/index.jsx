@@ -53,19 +53,19 @@ const FieldsList = observer(
               ) {
                 selectedValue = this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                   field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                ]
+                ]?.length
                   ? {
                       label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
                         (x) =>
                           x.value ===
                           this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                             field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                          ]
+                          ][0]
                       )?.label,
                       value:
                         this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                           field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                        ],
+                        ][0],
                     }
                   : null;
               } else {
@@ -83,8 +83,8 @@ const FieldsList = observer(
                 handleChange: (data) => {
                   if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO) {
                     this.props.detailViewModal.handleFormPropsData(
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
-                      data.target.value
+                      [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                      { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [data.target.value] }
                     );
                   } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
                     this.props.detailViewModal.handleFormPropsData(

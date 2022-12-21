@@ -347,7 +347,6 @@ const Variants = ({ t, formPropsData }) => {
 const recursive = (oldArrs, oldItem, arrays) => {
   let test = oldArrs;
   if (arrays && arrays?.length > 0) {
-    console.log('arrays[0].options', arrays[0].options);
     if (arrays[0].options.length) {
       arrays[0].options.forEach((b) => {
         if (arrays?.length === 1 && arrays[0].name) {

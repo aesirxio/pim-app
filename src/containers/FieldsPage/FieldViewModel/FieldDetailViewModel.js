@@ -93,7 +93,7 @@ class FieldDetailViewModel {
   handleFormPropsData = (key, value, arrayIndex) => {
     if (key && value) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        if (arrayIndex) {
+        if (arrayIndex !== undefined) {
           Object.assign(this.fieldDetailViewModel.formPropsData[key][arrayIndex], value);
         } else {
           Object.assign(this.fieldDetailViewModel.formPropsData[key], value);

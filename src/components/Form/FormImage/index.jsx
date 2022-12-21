@@ -11,7 +11,9 @@ import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import ComponentImage from '../../ComponentImage';
 import './index.scss';
 const FormImage = ({ field }) => {
-  const [file, setFile] = useState(field.getValueSelected ?? []);
+  const [file, setFile] = useState(
+    field.isMulti ? field.getValueSelected ?? [] : field.getValueSelected ?? null
+  );
 
   const [show, setShow] = useState(false);
   const handleClose = () => {
@@ -27,17 +29,19 @@ const FormImage = ({ field }) => {
       convertedData.length && setFile([...file, ...convertedData]);
       field.handleChange([...file, ...convertedData]);
     } else {
-      convertedData.length && setFile(convertedData);
+      convertedData.length && setFile(convertedData[0]);
       field.handleChange(convertedData);
     }
     setShow(false);
   };
+  console.log('field.getValueSelected', field.getValueSelected);
   return (
     <>
       {field.isMulti ? (
         <div className="position-relative">
           <Row className="gx-24 mb-16">
             {file &&
+              Array.isArray(file) &&
               file?.map((item, key) => {
                 return (
                   <Col lg={2} key={key}>
@@ -69,16 +73,14 @@ const FormImage = ({ field }) => {
               setShow(true);
             }}
           >
-            {!file?.length && (
+            {!file && (
               <div className="d-flex align-items-center p-2 w-100">
                 <div className="text-center fs-14 text-body opacity-50 w-100">
                   <p className="mb-0">Browse from computer Choose from media Drag file here</p>
                 </div>
               </div>
             )}
-            {file.length ? (
-              <ComponentImage src={file && file[0]?.download_url} alt={field.value} />
-            ) : null}
+            {file ? <ComponentImage src={file && file?.download_url} alt={field.value} /> : null}
           </div>
           <p className="my-8px fs-14 opacity-50">
             Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)

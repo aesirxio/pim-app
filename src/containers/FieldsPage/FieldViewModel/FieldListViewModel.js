@@ -51,7 +51,8 @@ class FieldListViewModel {
       })
       .filter(
         (value, index, self) =>
-          index === self.findIndex((t) => t.label === value.label && t.id === value.id)
+          index ===
+          self.findIndex((t) => t.label === value.label && t.id === value.id && value.id !== 0)
       );
     runInAction(() => {
       this.groupList = groupList;

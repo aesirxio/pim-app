@@ -53,10 +53,14 @@ const ProductInformation = observer(
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.viewModel.productDetailViewModel.formPropsData[
                 PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES
-              ]
+              ]?.length
                 ? this.viewModel.productDetailViewModel.formPropsData[
                     PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES
-                  ]?.map((item) => ({ label: item.title, value: item.id }))
+                  ]?.map((item) => ({
+                    label: this.categoryListViewModel.items?.find((x) => x.id.toString() === item)
+                      ?.title,
+                    value: item,
+                  }))
                 : null,
               getDataSelectOptions: this.categoryListViewModel.items
                 ? this.categoryListViewModel.items.map((item) => {
@@ -67,7 +71,7 @@ const ProductInformation = observer(
                   })
                 : null,
               handleChange: (data) => {
-                let convertData = data.map((item) => item.value);
+                let convertData = data.map((item) => item.value.toString());
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
                   convertData
