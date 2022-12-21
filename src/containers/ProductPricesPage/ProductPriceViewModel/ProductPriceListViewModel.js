@@ -14,7 +14,7 @@ class ProductPriceListViewModel {
   successResponse = {
     state: false,
     filters: {
-      'list[limit]': 5,
+      'list[limit]': 10,
     },
     listPublishStatus: [],
     listProductPrice: [],
@@ -130,7 +130,10 @@ class ProductPriceListViewModel {
       const date = moment(o[PIM_PRICES_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
         id: o[PIM_PRICES_DETAIL_FIELD_KEY.ID],
+        title: o[PIM_PRICES_DETAIL_FIELD_KEY.TITLE],
         author: o[PIM_PRICES_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        debtorGroup:
+          o[PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUPS],
         lastModified: {
           status: o[PIM_PRICES_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
