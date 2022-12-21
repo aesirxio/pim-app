@@ -7,31 +7,17 @@ import Spinner from 'components/Spinner';
 import ActionsBar from 'components/ActionsBar';
 import history from 'routes/history';
 import { Tab, Tabs } from 'react-bootstrap';
-// import ActionsBar from 'components/ActionsBar';
-// import Table from 'components/Table';
-// import Spinner from 'components/Spinner';
+import SelectComponent from 'components/Select';
 
 const ListDebtorGroup = observer((props) => {
   const { t } = props;
-  // let listSelected = [];
+  let listSelected = [];
 
   const viewModel = props.viewModel;
 
   useEffect(() => {
     viewModel.initializeData();
   }, []);
-
-  const selectTabHandler = (value) => {
-    viewModel.isLoading();
-    if (value != 'default') {
-      viewModel.getListByFilter('state', {
-        value: value,
-        type: 'filter',
-      });
-    } else {
-      viewModel.getListByFilter('state', '');
-    }
-  };
 
   const columnsTable = [
     {
@@ -62,6 +48,15 @@ const ListDebtorGroup = observer((props) => {
       },
     },
     {
+      Header: 'Owner Company',
+      accessor: 'organisationName',
+      width: 250,
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      Cell: ({ value }) => {
+        return <>{value}</>;
+      },
+    },
+    {
       Header: 'Last modified',
       accessor: 'lastModified',
       width: 250,
@@ -73,13 +68,46 @@ const ListDebtorGroup = observer((props) => {
               {viewModel?.listPublishStatus.find((o) => o.value == value.status).label}
             </div>
             <div>
-              {value.dateTime} by {value.author}
+              {value.lastModifiedDate} by {value.modifiedUserName}
             </div>
           </div>
         );
       },
     },
   ];
+
+  const selectBulkActionsHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.updateStatus(listSelected, value.value);
+  };
+
+  const currentSelectHandler = (arr) => {
+    listSelected = arr.map((o) => o.cells[1].value);
+  };
+
+  const selectTabHandler = (value) => {
+    viewModel.isLoading();
+    if (value != 'default') {
+      viewModel.getListByFilter('state', {
+        value: value,
+        type: 'filter',
+      });
+    } else {
+      viewModel.getListByFilter('state', '');
+    }
+  };
+
+  const selectShowItemsHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('list[limit]', value.value);
+  };
+
+  const selectPageHandler = (value) => {
+    if (value != viewModel.pagination.page) {
+      viewModel.isLoading();
+      viewModel.getListByFilter('limitstart', (value - 1) * viewModel.pagination.pageLimit);
+    }
+  };
 
   return (
     <>
@@ -108,10 +136,43 @@ const ListDebtorGroup = observer((props) => {
             className="mb-3"
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
-            {/* {viewModel?.listPublishStatus.map((o) => (
+            {viewModel?.listPublishStatus.map((o) => (
               <Tab key={o.value} eventKey={o.value} title={o.label} />
-            ))} */}
+            ))}
           </Tabs>
+
+          <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+            <div className="d-flex gap-2">
+              <SelectComponent
+                options={viewModel?.listPublishStatus}
+                className={`fs-sm`}
+                isBorder={true}
+                pagination={viewModel?.pagination}
+                placeholder={t('txt_bulk_actions')}
+                plColor={`text-color`}
+                onChange={(o) => selectBulkActionsHandler(o)}
+                arrowColor={'#222328'}
+              />
+            </div>
+            <div className="d-flex align-items-center">
+              <div className="opacity-50 me-2">Showing</div>
+              <SelectComponent
+                defaultValue={{
+                  label: `${viewModel?.filter['list[limit]']} items`,
+                  value: viewModel?.filter['list[limit]'],
+                }}
+                options={[...Array(9)].map((o, index) => ({
+                  label: `${(index + 1) * 10} items`,
+                  value: (index + 1) * 10,
+                }))}
+                onChange={(o) => selectShowItemsHandler(o)}
+                className={`fs-sm`}
+                isBorder={true}
+                placeholder={`Select`}
+                arrowColor={'#222328'}
+              />
+            </div>
+          </div>
         </>
       )}
 
@@ -121,9 +182,9 @@ const ListDebtorGroup = observer((props) => {
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}
-          pagination={viewModel?.successResponse?.pagination}
-          //   selectPage={selectPageHandler}
-          // currentSelect={currentSelectHandler}
+          pagination={viewModel?.pagination}
+          selectPage={selectPageHandler}
+          currentSelect={currentSelectHandler}
         ></Table>
       ) : (
         <Spinner />
