@@ -32,6 +32,7 @@ const ProductPrice = lazy(() => import('../containers/ProductPricesPage'));
 const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
 const FieldsPage = lazy(() => import('../containers/FieldsPage'));
 const DebtorGroupPage = lazy(() => import('../containers/DebtorGroupPage'));
+const FieldsGroupPage = lazy(() => import('../containers/FieldsGroupPage'));
 
 const authRoutes = [
   {
@@ -121,6 +122,11 @@ const mainRoutes = [
     path: '/fields/add',
     exact: true,
     main: () => <EditFieldProvider />,
+  },
+  {
+    path: '/fields-group',
+    exact: true,
+    main: () => <FieldsGroupPage />,
   },
   {
     path: '/fields-group/edit/:id',

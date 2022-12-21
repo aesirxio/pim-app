@@ -89,7 +89,7 @@ class ProductListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
-    
+
     this.successResponse.state = true;
   };
 
@@ -162,7 +162,7 @@ class ProductListViewModel {
           ].length - 2
         ),
         lastModified: {
-          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATE],
           dateTime: date ?? '',
           author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         },

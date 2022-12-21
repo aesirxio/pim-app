@@ -89,7 +89,7 @@ class AesirxPimFieldApiService extends Component {
       };
 
       return {
-        listItems: listItems ?? [],
+        items: listItems ?? [],
         pagination: pagination ?? {},
       };
     } catch (error) {

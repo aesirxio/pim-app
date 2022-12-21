@@ -59,6 +59,18 @@ export default class FieldGroupStore {
     }
   }
 
+  async updateStatus(arr, status) {
+    try {
+      const updateStatusAPIService = new AesirxPimFieldGroupApiService();
+      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
   async getDetail(id, callbackOnSuccess, callbackOnError) {
     if (!id) return false;
 
@@ -89,21 +101,17 @@ export default class FieldGroupStore {
 
   async getList(filter, callbackOnSuccess, callbackOnError) {
     try {
-      const results = true;
+      const getListInfoAPIService = new AesirxPimFieldGroupApiService();
+      const respondedData = await getListInfoAPIService.getList(filter);
 
-      if (results) {
-        const getListInfoAPIService = new AesirxPimFieldGroupApiService();
-        const respondedData = await getListInfoAPIService.getList(filter);
-
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
       }
     } catch (error) {
       runInAction(() => {

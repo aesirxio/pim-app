@@ -113,6 +113,8 @@ const PIM_FIELD_GROUP_DETAIL_FIELD_KEY = {
   ALIAS: 'alias',
   DESCRIPTION: 'description',
   SECTION: 'content_types',
+  MODIFIED_DATE: 'modified_date',
+  STATE: 'state',
 };
 
 const PIM_PRICES_DETAIL_FIELD_KEY = {
