@@ -72,14 +72,7 @@ const ListProductPrice = observer((props) => {
       width: 150,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        return (
-          <div className="d-flex align-items-center">
-            {/* <div className="me-2"><img width={64} src={value.image} alt={value.name} /></div> */}
-            <div>
-              <div className="mb-1">{value}</div>
-            </div>
-          </div>
-        );
+        return <>{value}</>;
       },
     },
     {
