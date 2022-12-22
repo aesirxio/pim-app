@@ -55,17 +55,16 @@ class ProductItemModel extends BaseItemModel {
       .map((key) => {
         let value = JSON.parse(JSON.stringify(this.custom_fields[key]));
         let isJson = this.isJsonString(value);
-        if (isJson) {
+        if (Array.isArray(value)) {
+          value = value.map((data) => data && JSON.parse(data));
+        } else if (isJson) {
           value = JSON.parse(value);
-        } else if (Array.isArray(value)) {
-          value = value.map((a) => JSON.parse(a));
         }
         return {
           [key]: value,
         };
       })
       .reduce((prev, cur) => ({ ...prev, ...cur }));
-
     return {
       ...this.baseToJSON(),
       [PIM_PRODUCT_DETAIL_FIELD_KEY.ID]: this.id,

@@ -21,19 +21,19 @@ const FormVideo = ({ field }) => {
       id: item.id,
       download_url: item.download_url,
     }));
-    convertedData.length && setFile(convertedData[0]);
+    convertedData.length && setFile(convertedData);
     field.handleChange(convertedData);
     setShow(false);
   };
   return (
     <>
       <div className="position-relative">
-        {file && (
+        {file?.length && file[0] && (
           <Row className="gx-24 mb-16">
             <Col lg={7}>
               <Ratio aspectRatio="16x9">
                 <div className="d-flex align-items-center w-100 h-100 border">
-                  <ComponentVideo src={file && file?.download_url} />
+                  <ComponentVideo src={file[0] && file[0]?.download_url} />
                 </div>
               </Ratio>
             </Col>
