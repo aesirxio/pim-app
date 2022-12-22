@@ -103,7 +103,8 @@ const FieldsList = observer(
                   }
                 },
                 className:
-                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE ||
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR
                     ? 'col-lg-12'
                     : this.props.fieldClass,
                 // required: field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2,
@@ -114,7 +115,11 @@ const FieldsList = observer(
                 isVideo:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.webservice?.name === 'aesir_dam_video',
-
+                isEditor:
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR &&
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.editor === 'none'
+                    ? false
+                    : true,
                 creatable:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.filter_type === 'creatable'
                     ? true
