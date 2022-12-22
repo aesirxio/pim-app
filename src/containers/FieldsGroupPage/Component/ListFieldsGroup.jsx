@@ -19,15 +19,6 @@ const ListFieldsGroup = observer((props) => {
     viewModel.initializeData();
   }, []);
 
-  const selectBulkActionsHandler = (value) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value.value);
-  };
-
-  const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value.id);
-  };
-
   const columnsTable = [
     {
       Header: 'Field group name',
@@ -80,6 +71,27 @@ const ListFieldsGroup = observer((props) => {
       },
     },
   ];
+
+  const selectBulkActionsHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.updateStatus(listSelected, value.value);
+  };
+
+  const currentSelectHandler = (arr) => {
+    listSelected = arr.map((o) => o.cells[1].value.id);
+  };
+
+  const selectShowItemsHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('list[limit]', value.value);
+  };
+
+  const selectPageHandler = (value) => {
+    if (value != viewModel.pagination.page) {
+      viewModel.isLoading();
+      viewModel.getListByFilter('limitstart', (value - 1) * viewModel.pagination.pageLimit);
+    }
+  };
 
   const selectTabHandler = (value) => {
     viewModel.isLoading();
@@ -137,6 +149,24 @@ const ListFieldsGroup = observer((props) => {
             arrowColor={'#222328'}
           />
         </div>
+        <div className="d-flex align-items-center">
+          <div className="opacity-50 me-2">Showing</div>
+          <SelectComponent
+            defaultValue={{
+              label: `${viewModel?.filter['list[limit]']} items`,
+              value: viewModel?.filter['list[limit]'],
+            }}
+            options={[...Array(9)].map((o, index) => ({
+              label: `${(index + 1) * 10} items`,
+              value: (index + 1) * 10,
+            }))}
+            onChange={(o) => selectShowItemsHandler(o)}
+            className={`fs-sm`}
+            isBorder={true}
+            placeholder={`Select`}
+            arrowColor={'#222328'}
+          />
+        </div>
       </div>
 
       {viewModel?.successResponse?.state ? (
@@ -145,8 +175,8 @@ const ListFieldsGroup = observer((props) => {
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}
-          pagination={viewModel?.successResponse?.pagination}
-          // selectPage={selectPageHandler}
+          pagination={viewModel?.pagination}
+          selectPage={selectPageHandler}
           currentSelect={currentSelectHandler}
         ></Table>
       ) : (
