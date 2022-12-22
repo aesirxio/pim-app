@@ -19,6 +19,9 @@ class ProductItemModel extends BaseItemModel {
   modified_user_name = null;
   publish_up = null;
   related_categories = null;
+  thumb_image = null;
+  modified_time= null;
+
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -35,6 +38,7 @@ class ProductItemModel extends BaseItemModel {
       this.modified_user_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
       this.publish_up = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP] ?? '';
       this.related_categories = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] ?? '';
+      this.modified_time = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME] ?? '';
     }
   }
 
@@ -80,6 +84,7 @@ class ProductItemModel extends BaseItemModel {
       [PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES]: this.related_categories,
+      [PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]: this.modified_time,
     };
   };
 

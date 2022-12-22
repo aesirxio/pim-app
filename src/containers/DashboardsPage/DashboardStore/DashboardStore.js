@@ -4,6 +4,8 @@
  */
 
 import AesirxPimDashboardApiService from 'library/Pim/PimDashboard/PimDashboard';
+import AesirxPimProductApiService from 'library/Pim/PimProduct/PimProduct';
+import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
 import { runInAction } from 'mobx';
 
 export default class DashboardStore {
@@ -29,5 +31,54 @@ export default class DashboardStore {
         callbackOnError(error);
       });
     }
+  }
+
+  async getListFeaturedProducts(
+    callbackOnSuccess,
+    callbackOnError,
+    filters = {
+      'list[limit]': 5,
+      'filter[featured]': 1,
+    }
+  ) {
+    try {
+      const getPimProductAPIService = new AesirxPimProductApiService();
+      const respondedData = await getPimProductAPIService.getList(filters);
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
+  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
   }
 }

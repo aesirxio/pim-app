@@ -69,13 +69,14 @@ class FieldListViewModel {
     if (key != 'limitstart' && key != 'list[limit]') {
       delete this.filter['limitstart'];
     } else {
-      this.filterList = {};
       if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
+        this.filterList = {};
         this.filter['limitstart'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.pagination.page < this.pagination.totalItems
       ) {
+        this.filterList = {};
         this.filter['limitstart'] = (this.pagination.page - 1) * value;
       }
     }

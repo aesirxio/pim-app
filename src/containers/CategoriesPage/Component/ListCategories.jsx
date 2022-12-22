@@ -7,6 +7,7 @@ import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
 import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
+import history from 'routes/history';
 
 const ListCategories = observer((props) => {
   const { t } = props;
@@ -40,14 +41,15 @@ const ListCategories = observer((props) => {
                 </div>
               )}
               <div>
-                {value.id} - {value.name}
+                <div className="mb-1">{value.name}</div>
                 <div className="text-green">
-                  <button className="p-0 border-0 bg-transparent d-inline-block text-green">
-                    Edit
-                  </button>{' '}
-                  |{' '}
-                  <button className="p-0 border-0 bg-transparent d-inline-block text-green">
-                    Duplicate
+                  <button
+                    onClick={() => {
+                      history.push(`/categories/edit/${value.id}`);
+                    }}
+                    className="p-0 border-0 bg-transparent d-inline-block text-green"
+                  >
+                    {t('txt_edit')}
                   </button>
                 </div>
               </div>
