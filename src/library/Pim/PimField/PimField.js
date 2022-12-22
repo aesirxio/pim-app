@@ -47,6 +47,25 @@ class AesirxPimFieldApiService extends Component {
     }
   };
 
+  updateStatus = async (arr, status) => {
+    try {
+      const listSelected = arr.map((o) => {
+        return { id: o, published: status };
+      });
+
+      const result = await this.route.updateStatus(listSelected);
+
+      if (result) {
+        return result.result;
+      }
+      return { message: 'Something have problem' };
+    } catch (error) {
+      if (axios.isCancel(error)) {
+        return { message: 'isCancel' };
+      } else throw error;
+    }
+  };
+
   getDetail = async (id = 0) => {
     try {
       const data = await this.route.getDetail(id);
@@ -66,20 +85,18 @@ class AesirxPimFieldApiService extends Component {
     }
   };
 
-  getList = async (filter) => {
+  getList = async (filter, filterList) => {
     try {
-      const data = await this.route.getList(filter);
+      const data = await this.route.getList(filter, filterList);
       let listItems = null;
       let pagination = null;
 
       if (data?._embedded) {
-        console.log('aaaaaaaaaaaaaaaaaaa');
         listItems = await Promise.all(
           data._embedded.item.map(async (o) => {
             return new FieldItemModel(o);
           })
         );
-        console.log('listItems', listItems);
       }
 
 

@@ -13,8 +13,12 @@ class FieldListViewModel {
   formStatus = PAGE_STATUS.READY;
   fieldListViewModel = null;
   items = [];
+  pagination = {};
   groupList = [];
   filter = {};
+  filterList = {
+    limit: 10,
+  };
   listPublishStatus = [];
   successResponse = {
     state: false,
@@ -34,9 +38,10 @@ class FieldListViewModel {
     this.formStatus = PAGE_STATUS.LOADING;
 
     await this.fieldStore.getList(
+      this.filter,
+      this.filterList,
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.filter
+      this.callbackOnErrorHandler
     );
 
     await this.fieldStore.getListPublishStatus(
@@ -47,32 +52,39 @@ class FieldListViewModel {
     this.successResponse.state = true;
   };
 
+  initializeDataCustom = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.fieldStore.getList(
+      this.filter,
+      this.filterList,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+  };
+
   getListByFilter = async (key, value) => {
-    value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
+    value ? (this.filter[key] = value) : delete this.filter[key];
 
     //pagination
     if (key != 'limitstart' && key != 'list[limit]') {
-      delete this.successResponse.filters['limitstart'];
+      delete this.filter['limitstart'];
     } else {
-      if (
-        key == 'list[limit]' &&
-        value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
-      ) {
-        this.successResponse.filters['limitstart'] =
-          Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
+      this.filterList = {};
+      if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
+        this.filter['limitstart'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
-        value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
+        value * this.pagination.page < this.pagination.totalItems
       ) {
-        this.successResponse.filters['limitstart'] =
-          (this.successResponse.pagination.page - 1) * value;
+        this.filter['limitstart'] = (this.pagination.page - 1) * value;
       }
     }
 
     await this.fieldStore.getList(
+      this.filter,
+      this.filterList,
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.filter
+      this.callbackOnErrorHandler
     );
 
     this.successResponse.state = true;
@@ -80,6 +92,9 @@ class FieldListViewModel {
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+  handleFilterList = (filterList) => {
+    this.filterList = { ...this.filterList, ...filterList };
   };
 
   getGroupList = () => {
@@ -92,7 +107,8 @@ class FieldListViewModel {
       })
       .filter(
         (value, index, self) =>
-          index === self.findIndex((t) => t.label === value.label && t.id === value.id)
+          index ===
+          self.findIndex((t) => t.label === value.label && t.id === value.id && value.id !== 0)
       );
     runInAction(() => {
       this.groupList = groupList;
@@ -104,6 +120,19 @@ class FieldListViewModel {
       (value) => value[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID] === groupID
     );
     return itemsByGroup;
+  };
+
+  updateStatus = async (arr, status = 0) => {
+    const res = await this.fieldStore.updateStatus(arr, status);
+    if (res) {
+      await this.fieldStore.getList(
+        this.filter,
+        this.filterList,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler
+      );
+    }
+    this.successResponse.state = true;
   };
 
   callbackOnErrorHandler = (error) => {
@@ -122,30 +151,35 @@ class FieldListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     this.formStatus = PAGE_STATUS.READY;
-    
-    this.items = result.items;
+
+    if (result?.items) {
+      this.items = result.items;
+      this.pagination = result.pagination;
+    }
 
     if (result?.listPublishStatus) {
       this.listPublishStatus = result.listPublishStatus;
     }
   };
 
-  // transform = (data) => {
-  //   return data?.map((o) => {
-  //     const date = moment(o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
-  //     return {
-  //       id: o[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-  //       name: o[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
-  //       groupName: o[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
-  //       type: o[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
-  //       lastModified: {
-  //         status: o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED],
-  //         dateTime: date ?? '',
-  //         author: o[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME],
-  //       },
-  //     };
-  //   });
-  // };
+  transform = (data) => {
+    return data.map((o) => {
+      // const date = moment(o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
+      return {
+        field: {
+          id: o[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+          name: o[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+        },
+        groupName: o[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
+        type: o[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
+        // lastModified: {
+        //   status: o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED],
+        //   dateTime: date ?? '',
+        //   author: o[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        // },
+      };
+    });
+  };
 
   isLoading = () => {
     this.successResponse.state = false;

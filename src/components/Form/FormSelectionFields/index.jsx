@@ -11,13 +11,19 @@ import { Button, Col, Row } from 'react-bootstrap';
 
 import SelectComponent from '../../../components/Select';
 import CreatableComponent from '../../../components/Select/Creatable';
+import FormRadio from '../FormRadio';
 import Input from '../Input';
+import Label from '../Label';
 import './index.scss';
 
 class FormSelectionFields extends Component {
   constructor(props) {
     super(props);
-    this.state = { field: props.field?.getValueSelected, listOptions: [] };
+    console.log('this.props', this.props);
+    this.state = {
+      field: props.field?.getValueSelected,
+      listOptions: this.props.field.getValueSelectedOptions,
+    };
   }
 
   handleChange = (data) => {
@@ -33,9 +39,13 @@ class FormSelectionFields extends Component {
         };
       });
     }
+    this.state.listOptions.length &&
+      this.props.field.viewModel.handleFormPropsData(
+        [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
+        [...this.state.listOptions]
+      );
   };
   render() {
-    console.log('this.props.viewModel', this.state);
     return (
       <>
         {this.props.field.creatable ? (
@@ -82,7 +92,8 @@ class FormSelectionFields extends Component {
                 }}
               />
             )}
-            {this.state.field?.value === FORM_FIELD_TYPE.SELECTION && (
+            {(this.state.field?.value === FORM_FIELD_TYPE.SELECTION ||
+              this.state.field?.value === FORM_FIELD_TYPE.RADIO) && (
               <>
                 {this.state.listOptions.length
                   ? this.state.listOptions.map((option, index) => (
@@ -90,20 +101,14 @@ class FormSelectionFields extends Component {
                         <Col lg={4}>
                           <Input
                             field={{
-                              getValueSelected:
-                                this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                                  PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                                ].number_units,
+                              getValueSelected: option.label,
                               classNameInput: 'fs-14',
                               placeholder: 'Label',
                               handleChange: (data) => {
                                 this.props.field.viewModel.handleFormPropsData(
-                                  PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS + '[' + index + ']',
-                                  { label: data.target.value, value: 'test' }
-                                );
-                                console.log(
-                                  'this.props.field.viewModel',
-                                  this.props.field.viewModel.fieldDetailViewModel.formPropsData
+                                  PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS,
+                                  { label: data.target.value },
+                                  index
                                 );
                               },
                             }}
@@ -112,20 +117,14 @@ class FormSelectionFields extends Component {
                         <Col lg={8}>
                           <Input
                             field={{
-                              getValueSelected:
-                                this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                                  PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                                ].number_units,
+                              getValueSelected: option.value,
                               classNameInput: 'fs-14',
                               placeholder: 'Value',
                               handleChange: (data) => {
                                 this.props.field.viewModel.handleFormPropsData(
-                                  [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS][index],
-                                  { value: data.target.value }
-                                );
-                                console.log(
-                                  'this.props.field.viewModel',
-                                  this.props.field.viewModel.fieldDetailViewModel.formPropsData
+                                  PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS,
+                                  { value: data.target.value },
+                                  index
                                 );
                               },
                             }}
@@ -139,26 +138,77 @@ class FormSelectionFields extends Component {
                   variant={`light`}
                   className={`px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1 mt-16`}
                   onClick={() => {
-                    this.setState((prevState) => {
-                      return {
-                        ...prevState,
-                        listOptions: [...this.state.listOptions, { label: '', value: '' }],
-                      };
-                    });
-                    this.props.field.viewModel.handleFormPropsData(
-                      [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
-                      [...this.state.listOptions, { label: '', value: '' }]
-                    );
-                    console.log(
-                      'this.props.field.viewModel',
-                      this.props.field.viewModel.fieldDetailViewModel.formPropsData
-                    );
+                    if (this.state.listOptions.length) {
+                      this.setState((prevState) => {
+                        return {
+                          ...prevState,
+                          listOptions: [
+                            ...this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                              PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS
+                            ],
+                            { label: '', value: '' },
+                          ],
+                        };
+                      });
+                    } else {
+                      this.setState((prevState) => {
+                        return {
+                          ...prevState,
+                          listOptions: [...this.state.listOptions, { label: '', value: '' }],
+                        };
+                      });
+                    }
                   }}
                 >
                   <ComponentSVG url="/assets/images/plus.svg" className={`me-15`} />
                   Add More Option
                 </Button>
               </>
+            )}
+            {this.state.field?.value === FORM_FIELD_TYPE.IMAGE && (
+              <div className="mt-16">
+                <Label text={'Multiple'} />
+                <FormRadio
+                  field={{
+                    key: 'isMulti',
+                    getValueSelected: this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                    ]?.multiple
+                      ? {
+                          label:
+                            this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                              PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                            ]?.multiple === '1'
+                              ? 'Yes'
+                              : 'No',
+                          value:
+                            this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                              PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                            ]?.multiple.toString(),
+                        }
+                      : {
+                          label: 'No',
+                          value: '0',
+                        },
+                    getDataSelectOptions: [
+                      {
+                        label: 'No',
+                        value: '0',
+                      },
+                      {
+                        label: 'Yes',
+                        value: '1',
+                      },
+                    ],
+                    handleChange: (data) => {
+                      this.props.field.viewModel.handleFormPropsData(
+                        PIM_FIELD_DETAIL_FIELD_KEY.PARAMS,
+                        { multiple: data.target.value }
+                      );
+                    },
+                  }}
+                />
+              </div>
             )}
           </>
         )}

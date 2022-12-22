@@ -9,12 +9,14 @@ import BaseRoute from 'aesirx-dma-lib/src/Abstract/BaseRoute';
 class PimFieldRoute extends BaseRoute {
   option = 'reditem-pim_field';
 
-  getList = (filter = {}) => {
+  getList = (filter = {}, filterList = {}) => {
     const buildFilter = this.createFilters(filter);
+    const buildFilterList = this.createFilterList(filterList);
     return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
         ...buildFilter,
+        ...buildFilterList,
       })
     );
   };
@@ -41,6 +43,18 @@ class PimFieldRoute extends BaseRoute {
     return buildFilter;
   };
 
+  createFilterList = (filter) => {
+    let buildFilterList = {};
+    for (const [key, value] of Object.entries(filter)) {
+      if (Array.isArray(value)) {
+        buildFilterList['list[' + key + '][]'] = value;
+      } else {
+        buildFilterList['list[' + key + ']'] = value;
+      }
+    }
+    return buildFilterList;
+  };
+
   getDetail = (id = 0, filter = {}) => {
     return AesirxApiInstance().get(
       this.createRequestURL({
@@ -59,6 +73,7 @@ class PimFieldRoute extends BaseRoute {
       data
     );
   };
+
   update = (data) => {
     return AesirxApiInstance().put(
       this.createRequestURL({
@@ -72,6 +87,19 @@ class PimFieldRoute extends BaseRoute {
       }
     );
   };
+
+  updateStatus = (listSelected) => {
+    return AesirxApiInstance().post(
+      this.createRequestURL({
+        option: this.option,
+        task: 'bulkUpdate',
+      }),
+      {
+        items: listSelected,
+      }
+    );
+  };
+
   delete = (id) => {
     return AesirxApiInstance().delete(
       this.createRequestURL({

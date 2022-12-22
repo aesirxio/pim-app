@@ -18,6 +18,7 @@ class ProductItemModel extends BaseItemModel {
   created_user_name = null;
   modified_user_name = null;
   publish_up = null;
+  related_categories = null;
   constructor(entity) {
     super(entity);
     if (entity) {
@@ -33,23 +34,38 @@ class ProductItemModel extends BaseItemModel {
       this.created_user_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME] ?? '';
       this.modified_user_name = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME] ?? '';
       this.publish_up = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP] ?? '';
+      this.related_categories = entity[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] ?? '';
     }
   }
 
   toObject = () => {
     return {};
   };
+  isJsonString = (str) => {
+    try {
+      JSON.parse(str);
+    } catch (e) {
+      return false;
+    }
+    return true;
+  };
 
   toJSON = () => {
-    // let customFields = Object.keys(this.custom_fields).map((key) => {
-    //   // console.log(this.custom_fields[key]);
-    //   // console.log(JSON.parse(this.custom_fields[key]));
-    //   return {
-    //     [key]: this.custom_fields[key],
-    //   };
-    // });
-    // console.log('testttttttttttttttt');
-    // console.log('customFields', customFields);
+    let customFields = Object.keys(this.custom_fields)
+      .map((key) => {
+        let value = JSON.parse(JSON.stringify(this.custom_fields[key]));
+        let isJson = this.isJsonString(value);
+        if (isJson) {
+          value = JSON.parse(value);
+        } else if (Array.isArray(value)) {
+          value = value.map((a) => JSON.parse(a));
+        }
+        return {
+          [key]: value,
+        };
+      })
+      .reduce((prev, cur) => ({ ...prev, ...cur }));
+
     return {
       ...this.baseToJSON(),
       [PIM_PRODUCT_DETAIL_FIELD_KEY.ID]: this.id,
@@ -60,10 +76,11 @@ class ProductItemModel extends BaseItemModel {
       [PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED]: this.featured,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID]: this.category_id,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME]: this.category_name,
-      [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: this.custom_fields,
+      [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: customFields ?? this.custom_fields,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME]: this.created_user_name,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME]: this.modified_user_name,
       [PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISH_UP]: this.publish_up,
+      [PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES]: this.related_categories,
     };
   };
 
@@ -162,8 +179,16 @@ class ProductItemModel extends BaseItemModel {
       formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS] = {};
       Object.keys(data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS]).forEach(function (key) {
         if (key !== 'variant' && key !== 'property' && key !== 'tag') {
-          formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] =
-            data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+          let fieldData = data[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key];
+          if (typeof fieldData === 'object' && fieldData !== null && !Array.isArray(fieldData)) {
+            formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] = [JSON.stringify(fieldData)];
+          } else if (Array.isArray(fieldData)) {
+            formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] = fieldData.map((field) =>
+              typeof field === 'object' && field !== null ? JSON.stringify(field) : field
+            );
+          } else {
+            formData[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][key] = fieldData;
+          }
         }
       });
     }
@@ -175,7 +200,7 @@ class ProductItemModel extends BaseItemModel {
       formData[PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES] = data[
         PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES
       ].map((category) => {
-        return category.id;
+        return category;
       });
     }
 

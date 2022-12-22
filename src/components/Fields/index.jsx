@@ -48,24 +48,28 @@ const FieldsList = observer(
             ...this.state.itemsByGroup.map((field) => {
               let selectedValue = '';
               if (
-                field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
-                field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION
+                field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO
               ) {
+                let fieldValue =
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION &&
+                  this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                  ]
+                    ? this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                        field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                      ][0]
+                    : this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                        field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                      ];
                 selectedValue = this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                   field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                ]
+                ]?.length
                   ? {
                       label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
-                        (x) =>
-                          x.value ===
-                          this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-                            field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                          ]
+                        (x) => x.value === fieldValue
                       )?.label,
-                      value:
-                        this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-                          field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                        ],
+                      value: fieldValue,
                     }
                   : null;
               } else {
@@ -81,12 +85,7 @@ const FieldsList = observer(
                 getValueSelected: selectedValue,
                 getDataSelectOptions: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
                 handleChange: (data) => {
-                  if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO) {
-                    this.props.detailViewModal.handleFormPropsData(
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
-                      data.target.value
-                    );
-                  } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
+                  if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
                     this.props.detailViewModal.handleFormPropsData(
                       [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
                       { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [data.value] }

@@ -77,12 +77,10 @@ export default class ProductPriceStore {
 
   async create(createProductPriceData, callbackOnSuccess, callbackOnError) {
     try {
-      console.log('createProductPriceData', createProductPriceData);
       const convertedUpdateGeneralData =
         ProductPriceItemModel.__transformItemToApiOfCreation(createProductPriceData);
       let resultOnSave;
       const createProductPriceApiService = new AesirxPimProductPriceApiService();
-      console.log('createProductPriceData', createProductPriceData);
 
       resultOnSave = await createProductPriceApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
