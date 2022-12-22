@@ -23,6 +23,7 @@ import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
 import { PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import moment from 'moment';
+import ListFeaturedProducts from './Component/ListFeaturedProducts';
 
 const Dashboard = observer(
   class Dashboard extends Component {
@@ -76,85 +77,92 @@ const Dashboard = observer(
           ? this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 100
           : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 1000;
       return (
-        <div className="py-4 px-3 h-100 d-flex flex-column">
-          <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
-              <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
-            </div>
-            <div className="position-relative">
-              {/* <DateRangePicker
+        <>
+          <div className="py-4 px-3 d-flex flex-column">
+            <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
+              <div className="position-relative">
+                <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
+                <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
+              </div>
+              <div className="position-relative">
+                {/* <DateRangePicker
                 viewModelArr={[summaryViewModel.summaryListViewModel]}
               ></DateRangePicker> */}
+              </div>
             </div>
-          </div>
-          <Row className="gx-24 mb-24">
-            <Col lg={5}>
-              <Row className="gx-24 h-100">
-                <Col lg={6}>
-                  <ComponentCard
-                    title={t('txt_products')}
-                    icon={'/assets/images/product-icon.svg'}
-                    iconColor={'#1AB394'}
-                    value={numberWithCommas(
-                      this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_PRODUCT] ?? 0
-                    )}
-                    loading={this.viewModel.formStatus}
-                    isIncrease={
-                      this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] *
-                        100 >
-                      1
-                        ? true
-                        : false
-                    }
-                    percent={`${percentProduct}%`}
-                    textPercent={`form ${moment().subtract(1, 'months').format('MMMM')}`}
-                    titleLink={t('txt_manage_products')}
-                    link={'/products/all'}
-                  ></ComponentCard>
-                </Col>
-                <Col lg={6}>
-                  <ComponentCard
-                    title={t('txt_categories')}
-                    icon={'/assets/images/categories.svg'}
-                    iconColor={'#EF3737'}
-                    value={numberWithCommas(
-                      this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_CATEGORIES] ?? 0
-                    )}
-                    loading={this.viewModel.formStatus}
-                    isIncrease={
-                      this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] *
-                        100 >
-                      1
-                        ? true
-                        : false
-                    }
-                    percent={`${percentCategories}%`}
-                    textPercent={`form ${moment().subtract(1, 'months').format('MMMM')}`}
-                    titleLink={t('txt_manage_categories')}
-                    link={'/categories'}
-                  ></ComponentCard>
-                </Col>
-              </Row>
-            </Col>
-            <Col lg={4}>
-              <PieChartComponent
-                height={190}
-                chartTitle={t('txt_products_state')}
-                data={dataPieChart}
-                colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
-                legendPosition="bottom"
-              />
-            </Col>
-            {/* <Col lg={3}>
+            <Row className="gx-24 mb-24">
+              <Col lg={5}>
+                <Row className="gx-24 h-100">
+                  <Col lg={6}>
+                    <ComponentCard
+                      title={t('txt_products')}
+                      icon={'/assets/images/product-icon.svg'}
+                      iconColor={'#1AB394'}
+                      value={numberWithCommas(
+                        this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_PRODUCT] ?? 0
+                      )}
+                      loading={this.viewModel.formStatus}
+                      isIncrease={
+                        this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] *
+                          100 >
+                        1
+                          ? true
+                          : false
+                      }
+                      percent={`${percentProduct}%`}
+                      textPercent={`form ${moment().subtract(1, 'months').format('MMMM')}`}
+                      titleLink={t('txt_manage_products')}
+                      link={'/products/all'}
+                    ></ComponentCard>
+                  </Col>
+                  <Col lg={6}>
+                    <ComponentCard
+                      title={t('txt_categories')}
+                      icon={'/assets/images/categories.svg'}
+                      iconColor={'#EF3737'}
+                      value={numberWithCommas(
+                        this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_CATEGORIES] ?? 0
+                      )}
+                      loading={this.viewModel.formStatus}
+                      isIncrease={
+                        this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] *
+                          100 >
+                        1
+                          ? true
+                          : false
+                      }
+                      percent={`${percentCategories}%`}
+                      textPercent={`form ${moment().subtract(1, 'months').format('MMMM')}`}
+                      titleLink={t('txt_manage_categories')}
+                      link={'/categories'}
+                    ></ComponentCard>
+                  </Col>
+                </Row>
+              </Col>
+              <Col lg={4}>
+                <PieChartComponent
+                  height={190}
+                  chartTitle={t('txt_products_state')}
+                  data={dataPieChart}
+                  colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
+                  legendPosition="bottom"
+                />
+              </Col>
+              {/* <Col lg={3}>
               <DataCompleteness />
             </Col> */}
-            <Col lg={9} className="mt-24"></Col>
-            {/* <Col lg={3} className="mt-24">
+              <Col lg={9} className="mt-24"></Col>
+              {/* <Col lg={3} className="mt-24">
               <RecentsActivities />
             </Col> */}
-          </Row>
-        </div>
+            </Row>
+            <Row className="gx-24 mb-24">
+              <Col lg={9}>
+                <ListFeaturedProducts viewModel={this.viewModel} />
+              </Col>
+            </Row>
+          </div>
+        </>
       );
     }
   }

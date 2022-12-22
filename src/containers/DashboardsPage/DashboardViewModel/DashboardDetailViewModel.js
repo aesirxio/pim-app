@@ -6,17 +6,24 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import {
+  PIM_DASH_BOARD_DETAIL_FIELD_KEY,
+  PIM_PRODUCT_DETAIL_FIELD_KEY,
+} from 'library/Constant/PimConstant';
+import moment from 'moment';
 class DashboardDetailViewModel {
   dashboardStore = null;
   formStatus = PAGE_STATUS.READY;
   dashboardDetailViewModel = null;
   filter = {};
   result = {};
+  filterListFeaturedProducts = {};
+  listPublishStatus = [];
   successResponse = {
     state: true,
     content_id: '',
   };
+  listFeaturedProducts = [];
 
   constructor(dashboardStore) {
     makeAutoObservable(this);
@@ -34,6 +41,19 @@ class DashboardDetailViewModel {
       this.callbackOnGetDashboardSuccessHandler,
       this.callbackOnErrorHandler
     );
+
+    await this.dashboardStore.getListFeaturedProducts(
+      this.callbackOnSuccessGetListFeaturedProductsHandler,
+      this.callbackOnErrorGetListFeaturedProductsHandler,
+      this.filterListFeaturedProducts
+    );
+
+    await this.dashboardStore.getListPublishStatus(
+      this.callbackOnSuccessGetListFeaturedProductsHandler,
+      this.callbackOnErrorGetListFeaturedProductsHandler
+    );
+
+    this.successResponse.state = true;
   };
 
   callbackOnErrorHandler = (error) => {
@@ -74,8 +94,63 @@ class DashboardDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
+  callbackOnSuccessGetListFeaturedProductsHandler = (result) => {
+    if (result?.listItems) {
+      this.listFeaturedProducts = this.transform(result.listItems);
+    }
+
+    if (result?.listPublishStatus) {
+      this.listPublishStatus = result.listPublishStatus;
+    }
+  };
+
+  callbackOnErrorGetListFeaturedProductsHandler = (result) => {
+    console.log('error', result);
+  };
+
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
+  };
+
+  transform = (data) => {
+    return data.map((o) => {
+      const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+
+      return {
+        id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+        productInfo: {
+          image: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
+          ][0]
+            ? JSON.parse(
+                o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
+                ][0]
+              )[PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL]
+            : '',
+          name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
+        },
+        type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+          PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+        ].slice(
+          2,
+          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+          ].length - 2
+        ),
+        categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
+        author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        lastModified: {
+          status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
+          dateTime: date ?? '',
+          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        },
+      };
+    });
+  };
+
+  isLoading = () => {
+    this.successResponse.state = false;
   };
 }
 

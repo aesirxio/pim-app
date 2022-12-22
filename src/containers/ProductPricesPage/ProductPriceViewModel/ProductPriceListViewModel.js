@@ -128,8 +128,9 @@ class ProductPriceListViewModel {
   transform = (data) => {
     return data.map((o) => {
       const date = moment(o[PIM_PRICES_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
-      const productTitle = o[PIM_PRICES_DETAIL_FIELD_KEY.PRODUCTS][0] ? o[PIM_PRICES_DETAIL_FIELD_KEY.PRODUCTS][0][PIM_PRICES_DETAIL_FIELD_KEY.TITLE] : ""
-      console.log(productTitle);
+      const productTitle = o[PIM_PRICES_DETAIL_FIELD_KEY.PRODUCTS][0]
+        ? o[PIM_PRICES_DETAIL_FIELD_KEY.PRODUCTS][0][PIM_PRICES_DETAIL_FIELD_KEY.TITLE]
+        : '';
       return {
         id: o[PIM_PRICES_DETAIL_FIELD_KEY.ID],
         title: productTitle,
