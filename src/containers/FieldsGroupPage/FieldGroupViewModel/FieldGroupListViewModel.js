@@ -14,9 +14,12 @@ class FieldGroupListViewModel {
   formStatus = PAGE_STATUS.READY;
   fieldGroupListViewModel = null;
   items = [];
-  filter = {};
+  filter = {
+    'list[limit]': 10,
+  };
+  pagination = {};
   successResponse = {
-    state: true,
+    state: false,
     content_id: '',
   };
 
@@ -46,6 +49,20 @@ class FieldGroupListViewModel {
   getListByFilter = async (key, value) => {
     value ? (this.filter[key] = value) : delete this.filter[key];
 
+    //pagination
+    if (key != 'limitstart' && key != 'list[limit]') {
+      delete this.filter['limitstart'];
+    } else {
+      if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
+        this.filter['limitstart'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
+      } else if (
+        key == 'list[limit]' &&
+        value * this.pagination.page < this.pagination.totalItems
+      ) {
+        this.filter['limitstart'] = (this.pagination.page - 1) * value;
+      }
+    }
+
     await this.fieldGroupStore.getList(
       this.filter,
       this.callbackOnSuccessHandler,
@@ -61,7 +78,7 @@ class FieldGroupListViewModel {
       await this.fieldGroupStore.getList(
         this.filter,
         this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
+        this.callbackOnErrorHandler
       );
     }
     this.successResponse.state = true;
@@ -82,7 +99,11 @@ class FieldGroupListViewModel {
   };
 
   callbackOnSuccessHandler = (result) => {
-    this.items = result.items;
+    if (result?.items) {
+      this.items = result.items;
+      this.pagination = result.pagination;
+    }
+
     this.formStatus = PAGE_STATUS.READY;
   };
 
