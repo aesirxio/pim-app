@@ -3,49 +3,29 @@ import { useTranslation } from 'react-i18next';
 
 import { AsyncTypeahead } from 'react-bootstrap-typeahead';
 import { useState } from 'react';
-import { useBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSearch } from '@fortawesome/free-solid-svg-icons/faSearch';
 import { observer } from 'mobx-react';
 
 const Search = observer(() => {
-  const biListViewModel = useBiViewModel();
   const { t } = useTranslation('common');
 
   const [isLoading, setIsLoading] = useState(false);
-  const [options, setOptions] = useState([]);
-
-  const handleSearch = async (query) => {
+  // const [options, setOptions] = useState([]);
+  const options = [];
+  const handleSearch = async () => {
     setIsLoading(true);
 
     try {
-      const items = await biListViewModel.biListViewModel.biStore.search(query);
-      setOptions(items);
       setIsLoading(false);
     } catch (error) {
       setIsLoading(false);
     }
   };
 
-  const handleChange = (data) => {
-    biListViewModel.biFormViewModel.biEditdata = data[0];
-    biListViewModel.biFormViewModel.openModal();
-  };
+  const handleChange = () => {};
 
-  const handleKeyDown = (e) => {
-    if (e.keyCode === 13) {
-      biListViewModel.biListViewModel.isSearch = true;
-      const assets = options.filter((asset) => asset.type);
-      const collections = options.filter((collection) => !collection.type);
-      if (assets) {
-        biListViewModel.biListViewModel.assets = assets;
-      }
-
-      if (collections) {
-        biListViewModel.biListViewModel.collections = collections;
-      }
-    }
-  };
+  const handleKeyDown = () => {};
   // Bypass client-side filtering by returning `true`. Results are already
   // filtered by the search endpoint, so no need to do it again.
   const filterBy = () => true;

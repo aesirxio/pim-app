@@ -11,24 +11,17 @@ import { observer } from 'mobx-react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import SimpleReactValidator from 'simple-react-validator';
-import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { renderingGroupFieldHandler } from 'utils/form';
-import { notify } from 'components/Toast';
 
 const SettingList = observer(
   class SettingList extends Component {
-    biListViewModel = null;
-
     formPropsData = null;
     constructor(props) {
       super(props);
-      const { viewModel } = props;
-      this.viewModel = viewModel ? viewModel : null;
       this.state = {
         loading: false,
       };
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
       this.formPropsData = {
         storage: {
           label: 'AesirX',
@@ -176,44 +169,34 @@ const SettingList = observer(
       });
       delete formpropsdata.storage;
       if (this.formPropsData.storage?.value === 'aws') {
-        const data = {
-          id: this.biListViewModel.subscription?.[0]?.id,
-          store: [
-            {
-              type: 'product-aesirx-dam',
-              options: {
-                plugin: 'aws',
-                plugin_use: 'override',
-                plugin_params: {
-                  ...formpropsdata,
-                },
-              },
-            },
-          ],
-        };
-        const response = this.biListViewModel.biStore.updateSubscription(data);
-        if (response) {
-          notify('Success', 'success');
-        }
+        // const data = {
+        //   id: "",
+        //   store: [
+        //     {
+        //       type: 'product-aesirx-dam',
+        //       options: {
+        //         plugin: 'aws',
+        //         plugin_use: 'override',
+        //         plugin_params: {
+        //           ...formpropsdata,
+        //         },
+        //       },
+        //     },
+        //   ],
+        // };
       } else {
-        const data = {
-          id: this.biListViewModel.subscription?.[0]?.id,
-          store: [
-            {
-              type: 'product-aesirx-dam',
-              options: {
-                plugin: 'inherit',
-                plugin_use: 'inherit',
-              },
-            },
-          ],
-        };
-        const response = this.biListViewModel.biStore.updateSubscription(data);
-        if (response) {
-          notify('Success', 'success');
-        } else {
-          notify('error', 'something wrong!');
-        }
+        // const data = {
+        //   id: "",
+        //   store: [
+        //     {
+        //       type: 'product-aesirx-dam',
+        //       options: {
+        //         plugin: 'inherit',
+        //         plugin_use: 'inherit',
+        //       },
+        //     },
+        //   ],
+        // };
       }
     };
 
@@ -245,4 +228,4 @@ const SettingList = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withBiViewModel(SettingList)));
+export default withTranslation('common')(withRouter(SettingList));
