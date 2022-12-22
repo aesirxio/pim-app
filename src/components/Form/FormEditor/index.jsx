@@ -8,8 +8,8 @@ const FormEditor = ({ field }) => {
   const [editorState, setEditorState] = useState();
   const [show, setShow] = useState(false);
   const onSelect = (data) => {
-    editorState.model.change(() => {
-      const imgTag = `<img  src="${data[0]?.url}" alt="${data[0]?.basename}"></img>`;
+    editorState?.model.change(() => {
+      const imgTag = `<img  src="${data[0]?.download_url}" alt="${data[0]?.basename}"></img>`;
       const viewFragment = editorState.data.processor.toView(imgTag);
       const modelFragment = editorState.data.toModel(viewFragment);
       editorState.model.insertContent(modelFragment);

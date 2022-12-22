@@ -33,6 +33,9 @@ img {
 
 textarea {
   resize: none;
+  &.form-control {
+    min-height: 100px;
+  }
 }
 
 .lcl {
