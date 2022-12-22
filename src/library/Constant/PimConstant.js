@@ -141,13 +141,13 @@ const PIM_PRICES_DETAIL_FIELD_KEY = {
 
 const PIM_DASH_BOARD_DETAIL_FIELD_KEY = {
   TOTAL_PRODUCT: 'total_product',
+  TOTAL_CATEGORIES: 'total_categories',
   PERCENT_NEW_PRODUCT: 'percent_new_product',
   PERCENT_NEW_CATEGORIES: 'percent_new_categories',
   PERCENT_PRODUCT_PUBLISH: 'percent_product_publish',
   PERCENT_PRODUCT_UNPUBLISH: 'percent_product_unPublish',
   PERCENT_PRODUCT_DRAFT: 'percent_product_draft',
   PERCENT_PRODUCT_ARCHIVED: 'percent_product_Archived',
-  PERCENT_PRODUCT_WAITTING_APPROVAL: 'percent_product_wattingApproval',
   PERCENT_PRODUCT_TRASH: 'percent_product_trash',
 };
 

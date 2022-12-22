@@ -6,12 +6,13 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 class DashboardDetailViewModel {
   dashboardStore = null;
   formStatus = PAGE_STATUS.READY;
   dashboardDetailViewModel = null;
   filter = {};
+  result = {};
   successResponse = {
     state: true,
     content_id: '',
@@ -58,13 +59,12 @@ class DashboardDetailViewModel {
 
   callbackOnGetDashboardSuccessHandler = (result) => {
     if (result) {
-      this.dashboardDetailViewModel.formPropsData = {
-        ...this.dashboardDetailViewModel.formPropsData,
-        ...Object.keys(PIM_FIELD_GROUP_DETAIL_FIELD_KEY)
+      this.result = {
+        ...Object.keys(PIM_DASH_BOARD_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]]:
-                result[PIM_FIELD_GROUP_DETAIL_FIELD_KEY[index]],
+              [PIM_DASH_BOARD_DETAIL_FIELD_KEY[index]]:
+                result[PIM_DASH_BOARD_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

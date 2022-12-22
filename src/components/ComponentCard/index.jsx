@@ -2,6 +2,7 @@ import React from 'react';
 import './index.scss';
 import PulseLoaderComponent from 'components/Spinner/pulseLoader';
 import PAGE_STATUS from 'constants/PageStatus';
+import history from 'routes/history';
 const ComponentCard = ({
   title,
   icon,
@@ -71,8 +72,10 @@ const ComponentCard = ({
       </div>
       <hr className="border mt-3" />
       <a
-        className="mb-0 fs-6 w-100 text-uppercase text-body fw-semibold d-flex align-items-center text-decoration-none"
-        href={link}
+        className="mb-0 fs-6 w-100 text-uppercase text-body fw-semibold d-flex align-items-center text-decoration-none cursor-pointer"
+        onClick={() => {
+          history.push(link);
+        }}
       >
         {titleLink}
         <span

@@ -14,7 +14,6 @@ export default class DashboardStore {
       if (results) {
         const getListInfoAPIService = new AesirxPimDashboardApiService();
         const respondedData = await getListInfoAPIService.getStatisticalData(filter);
-
         if (respondedData) {
           runInAction(() => {
             callbackOnSuccess(respondedData);
