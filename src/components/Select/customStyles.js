@@ -22,6 +22,8 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         backgroundColor: isDisabled ? 'var(--border-color)' : '#ffffff',
         cursor: 'pointer',
         width: 'auto',
+        paddingLeft: 7,
+        paddingRight: 7,
       };
     },
 

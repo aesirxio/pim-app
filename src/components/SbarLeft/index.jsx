@@ -14,7 +14,6 @@ import SwitchThemes from 'components/SwitchThemes';
 // import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 // import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 import Menu2 from 'components/Menu2';
-import { withBiViewModel } from 'store/BiStore/BiViewModelContextProvider';
 import { observer } from 'mobx-react';
 import { NavLink } from 'react-router-dom';
 const SbarLeft = observer(
@@ -22,9 +21,6 @@ const SbarLeft = observer(
     constructor(props) {
       super(props);
       this.state = {};
-      const { viewModel } = props;
-      this.viewModel = viewModel ? viewModel : null;
-      this.biListViewModel = this.viewModel ? this.viewModel.biListViewModel : null;
     }
 
     render() {
@@ -107,4 +103,4 @@ const SbarLeft = observer(
   }
 );
 
-export default withTranslation('common')(withBiViewModel(SbarLeft));
+export default withTranslation('common')(SbarLeft);
