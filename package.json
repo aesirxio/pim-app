@@ -13,6 +13,7 @@
     "@fortawesome/react-fontawesome": "^0.1.12",
     "@kakahuy113/test-dam-app": "^1.0.1-alpha.2",
     "aesirx-dma-lib": "aesirxio/dma-lib",
+    "aesirx-sso": "^1.0.0",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
     "d3-fetch": "^3.0.1",

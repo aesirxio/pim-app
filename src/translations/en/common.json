@@ -1,6 +1,7 @@
 {
   "txt_welcome_to": "Welcome to ",
   "txt_sign_in": "Sign In",
+  "txt_sign_in_with_sso": "Sign In with SSO",
   "txt_sign_up": "Sign Up",
   "txt_login_text_1": "Sign in to",
   "txt_login_text_2": "AesirX Statistics Dashboard",
