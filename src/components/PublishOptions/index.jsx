@@ -64,16 +64,17 @@ const PublishOptions = observer(
               <Form.Group className={`w-60`}>
                 <FormSelection
                   field={{
-                    getValueSelected: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED]
-                      ? {
-                          label: this.utilsListViewModel.listPublishStatus?.find(
-                            (x) =>
-                              x.value.toString() ===
-                              formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
-                          )?.label,
-                          value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
-                        }
-                      : null,
+                    getValueSelected:
+                      formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED] !== undefined
+                        ? {
+                            label: this.utilsListViewModel.listPublishStatus?.find(
+                              (x) =>
+                                x.value.toString() ===
+                                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
+                            )?.label,
+                            value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
+                          }
+                        : null,
                     getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
                       (status) => ({
                         label: status.label,

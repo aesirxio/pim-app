@@ -19,12 +19,12 @@ class AesirxPimDashboardApiService extends Component {
     this.route = new PimDashboardRoute();
   }
 
-  getStatisticalData = async () => {
+  getStatisticalData = async (filter) => {
     try {
-      const data = await this.route.getStatisticalData();
+      const data = await this.route.getStatisticalData(filter);
       let results = null;
-      if (data) {
-        results = new DashboardModel(data);
+      if (data?.result) {
+        results = new DashboardModel(data.result);
       }
       return results;
     } catch (error) {
