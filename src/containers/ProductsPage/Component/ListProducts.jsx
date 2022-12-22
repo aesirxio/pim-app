@@ -234,7 +234,7 @@ const ListProducts = observer((props) => {
         <ActionsBar
           buttons={[
             {
-              title: t('txt_add'),
+              title: t('txt_add_new'),
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
