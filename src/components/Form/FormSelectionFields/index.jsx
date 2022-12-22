@@ -165,6 +165,51 @@ class FormSelectionFields extends Component {
                 </Button>
               </>
             )}
+            {this.state.field?.value === FORM_FIELD_TYPE.EDITOR && (
+              <div className="mt-16">
+                <Label text={'Textarea'} />
+                <FormRadio
+                  field={{
+                    key: 'textarea',
+                    getValueSelected: this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                    ]?.editor
+                      ? {
+                          label:
+                            this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                              PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                            ]?.editor === 'none'
+                              ? 'Yes'
+                              : 'No',
+                          value:
+                            this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                              PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                            ]?.editor.toString(),
+                        }
+                      : {
+                          label: 'No',
+                          value: 'default',
+                        },
+                    getDataSelectOptions: [
+                      {
+                        label: 'No',
+                        value: 'default',
+                      },
+                      {
+                        label: 'Yes',
+                        value: 'none',
+                      },
+                    ],
+                    handleChange: (data) => {
+                      this.props.field.viewModel.handleFormPropsData(
+                        PIM_FIELD_DETAIL_FIELD_KEY.PARAMS,
+                        { editor: data.target.value }
+                      );
+                    },
+                  }}
+                />
+              </div>
+            )}
             {this.state.field?.value === FORM_FIELD_TYPE.IMAGE && (
               <div className="mt-16">
                 <Label text={'Multiple'} />

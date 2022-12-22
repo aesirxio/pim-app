@@ -33,6 +33,7 @@ class SelectComponent extends React.Component {
     }
     const { ValueContainer, Placeholder } = components;
     const CustomValueContainer = ({ children, ...props }) => {
+      console.log('props.hasValue', this.props);
       return (
         <ValueContainer {...props} className="valueContainerCustom px-15">
           {!props.hasValue && (

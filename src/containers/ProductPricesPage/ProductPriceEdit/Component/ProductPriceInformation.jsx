@@ -52,10 +52,10 @@ const ProductPriceInformation = observer(
                 ? {
                     label: this.debtorGroupListViewModel.items?.find(
                       (x) =>
-                        x.id ===
+                        x.id.toString() ===
                         this.viewModel.productPriceDetailViewModel.formPropsData[
                           PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                        ][PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUP]
+                        ][PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUP].toString()
                     )?.title,
                     value:
                       this.viewModel.productPriceDetailViewModel.formPropsData[
@@ -89,10 +89,10 @@ const ProductPriceInformation = observer(
                 ? {
                     label: this.productListViewModel.items?.find(
                       (x) =>
-                        x.id ===
+                        x.id.toString() ===
                         this.viewModel.productPriceDetailViewModel.formPropsData[
                           PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                        ][PIM_PRICES_DETAIL_FIELD_KEY.PIM_PRODUCT]
+                        ][PIM_PRICES_DETAIL_FIELD_KEY.PIM_PRODUCT].toString()
                     )?.title,
                     value:
                       this.viewModel.productPriceDetailViewModel.formPropsData[
