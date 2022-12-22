@@ -28,6 +28,9 @@ const PIM_PRODUCT_DETAIL_FIELD_KEY = {
   VARIANTS: 'variants',
   DESCRIPTION: 'description',
   SHORT_DESCRIPTION: 'short_description',
+  THUMB_IMAGE: 'thumb_image',
+  DOWNLOAD_URL: 'download_url',
+  MODIFIED_TIME: 'modified_time',
 };
 
 const PIM_CATEGORY_DETAIL_FIELD_KEY = {
