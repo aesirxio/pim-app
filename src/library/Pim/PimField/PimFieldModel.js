@@ -51,7 +51,7 @@ class FieldItemModel extends BaseItemModel {
       this.type = entity[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] ?? '';
       this.fieldcode = entity[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE] ?? '';
       this.params = entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS][0]
-        ? JSON.parse(JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]))
+        ? JSON.parse(entity[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS])
         : [];
       this.options = entity[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS] ?? '';
       this.relevance = entity[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] ?? '';

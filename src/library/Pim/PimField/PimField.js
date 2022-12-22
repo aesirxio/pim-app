@@ -73,12 +73,15 @@ class AesirxPimFieldApiService extends Component {
       let pagination = null;
 
       if (data?._embedded) {
+        console.log('aaaaaaaaaaaaaaaaaaa');
         listItems = await Promise.all(
-          data?._embedded?.item?.map(async (o) => {
+          data._embedded.item.map(async (o) => {
             return new FieldItemModel(o);
           })
         );
+        console.log('listItems', listItems);
       }
+
 
       pagination = {
         page: data.page,
@@ -87,7 +90,7 @@ class AesirxPimFieldApiService extends Component {
         totalItems: data.totalItems,
         limitStart: data.limitstart,
       };
-
+      
       return {
         items: listItems ?? [],
         pagination: pagination ?? {},

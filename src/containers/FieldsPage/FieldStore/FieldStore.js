@@ -88,7 +88,7 @@ export default class FieldStore {
     }
   }
 
-  async getList(filter, callbackOnSuccess, callbackOnError) {
+  async getList(callbackOnSuccess, callbackOnError, filter) {
     try {
       const getListInfoAPIService = new AesirxPimFieldApiService();
       const respondedData = await getListInfoAPIService.getList(filter);

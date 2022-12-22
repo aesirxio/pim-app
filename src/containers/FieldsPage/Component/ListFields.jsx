@@ -3,8 +3,9 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from '../FieldViewModel/FieldViewModelContextProvider';
-import Table from 'components/Table';
-import Spinner from 'components/Spinner';
+// import Table from 'components/Table';
+// import Spinner from 'components/Spinner';
+import history from 'routes/history';
 
 const ListFields = observer((props) => {
   const { t } = props;
@@ -16,76 +17,76 @@ const ListFields = observer((props) => {
     viewModel.initializeData();
   }, []);
 
-  const columnsTable = [
-    {
-      Header: 'Field name',
-      accessor: 'name',
-      width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value, row }) => {
-        return (
-          <div className="d-flex align-items-center">
-            <div>
-              <div className="mb-1">{value}</div>
-              <div className="text-green">
-                <button
-                  onClick={() => {
-                    history.push(`/fields/edit/${row.values.id}`);
-                  }}
-                  className="p-0 border-0 bg-transparent d-inline-block text-green"
-                >
-                  Edit
-                </button>{' '}
-                |{' '}
-                <button className="p-0 border-0 bg-transparent d-inline-block text-green">
-                  Duplicate
-                </button>
-              </div>
-            </div>
-          </div>
-        );
-      },
-    },
-    {
-      Header: 'Field group',
-      accessor: 'groupName',
-      width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value }) => {
-        return <>{value}</>;
-      },
-    },
-    {
-      Header: 'types',
-      accessor: 'type',
-      width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value }) => {
-        return <div className="text-capitalize">{value}</div>;
-      },
-    },
-    {
-      Header: 'Last modified',
-      accessor: 'lastModified',
-      width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value }) => {
-        return (
-          <div className="pe-2">
-            {/* <div className="mb-1">
-              {
-                viewModel?.listPublishStatus.find((o) => o.value == value.status)
-                  .label
-              }
-            </div> */}
-            <div>
-              {value.dateTime} by {value.author}
-            </div>
-          </div>
-        );
-      },
-    },
-  ];
+  // const columnsTable = [
+  //   {
+  //     Header: 'Field name',
+  //     accessor: 'name',
+  //     width: 200,
+  //     className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+  //     Cell: ({ value, row }) => {
+  //       return (
+  //         <div className="d-flex align-items-center">
+  //           <div>
+  //             <div className="mb-1">{value}</div>
+  //             <div className="text-green">
+  //               <button
+  //                 onClick={() => {
+  //                   history.push(`/fields/edit/${row.values.id}`);
+  //                 }}
+  //                 className="p-0 border-0 bg-transparent d-inline-block text-green"
+  //               >
+  //                 Edit
+  //               </button>{' '}
+  //               |{' '}
+  //               <button className="p-0 border-0 bg-transparent d-inline-block text-green">
+  //                 Duplicate
+  //               </button>
+  //             </div>
+  //           </div>
+  //         </div>
+  //       );
+  //     },
+  //   },
+  //   {
+  //     Header: 'Field group',
+  //     accessor: 'groupName',
+  //     width: 100,
+  //     className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+  //     Cell: ({ value }) => {
+  //       return <>{value}</>;
+  //     },
+  //   },
+  //   {
+  //     Header: 'types',
+  //     accessor: 'type',
+  //     width: 100,
+  //     className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+  //     Cell: ({ value }) => {
+  //       return <div className="text-capitalize">{value}</div>;
+  //     },
+  //   },
+  //   {
+  //     Header: 'Last modified',
+  //     accessor: 'lastModified',
+  //     width: 100,
+  //     className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+  //     Cell: ({ value }) => {
+  //       return (
+  //         <div className="pe-2">
+  //           {/* <div className="mb-1">
+  //             {
+  //               viewModel?.listPublishStatus.find((o) => o.value == value.status)
+  //                 .label
+  //             }
+  //           </div> */}
+  //           <div>
+  //             {value.dateTime} by {value.author}
+  //           </div>
+  //         </div>
+  //       );
+  //     },
+  //   },
+  // ];
 
   // const selectPageHandler = (value) => {
   //   if (value != viewModel.successResponse.pagination.page) {
@@ -112,14 +113,14 @@ const ListFields = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/products/add');
+                history.push('/fields/add');
               },
             },
           ]}
         />
       </div>
 
-      {viewModel?.successResponse?.state ? (
+      {/* {viewModel?.successResponse?.state ? (
         <Table
           classNameTable={`bg-white rounded`}
           columns={columnsTable}
@@ -131,7 +132,7 @@ const ListFields = observer((props) => {
         ></Table>
       ) : (
         <Spinner />
-      )}
+      )} */}
     </>
   );
 });

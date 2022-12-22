@@ -10,23 +10,31 @@ class PimFieldRoute extends BaseRoute {
   option = 'reditem-pim_field';
 
   getList = (filter = {}) => {
-    const buildFilter = this.createFilter(filter);
+    const buildFilter = this.createFilters(filter);
     return AesirxApiInstance().get(
       this.createRequestURL({
         option: this.option,
-        'list[limit]': 10,
         ...buildFilter,
       })
     );
   };
 
-  createFilter = (filter) => {
+  createFilters = (filters) => {
     let buildFilter = {};
-    for (const [key, value] of Object.entries(filter)) {
-      if (Array.isArray(value)) {
-        buildFilter['filter[' + key + '][]'] = value;
+    for (const [key, value] of Object.entries(filters)) {
+      if (typeof value === 'object') {
+        switch (value.type) {
+          case 'custom_fields':
+            buildFilter['filter[' + value.type + '][' + key + '][]'] = value.value;
+            break;
+          case 'filter':
+            buildFilter['filter[' + key + ']'] = value.value;
+            break;
+          default:
+            break;
+        }
       } else {
-        buildFilter['filter[' + key + ']'] = value;
+        buildFilter[key] = value;
       }
     }
 

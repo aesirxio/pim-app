@@ -7,7 +7,7 @@ import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from '../../../components/Toast';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
-import moment from 'moment';
+// import moment from 'moment';
 class FieldListViewModel {
   fieldStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -32,10 +32,11 @@ class FieldListViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
+
     await this.fieldStore.getList(
-      this.filter,
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+      this.callbackOnErrorHandler,
+      this.filter
     );
 
     await this.fieldStore.getListPublishStatus(
@@ -68,10 +69,10 @@ class FieldListViewModel {
       }
     }
 
-    await this.categoryStore.getList(
+    await this.fieldStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
+      this.filter
     );
 
     this.successResponse.state = true;
@@ -106,7 +107,7 @@ class FieldListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    notify('Update unsuccessfullyg', 'error');
+    notify('Update unsuccessfully', 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
@@ -121,31 +122,30 @@ class FieldListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     this.formStatus = PAGE_STATUS.READY;
-    if (result?.listItems) {
-      this.items = result.listItems;
-    }
+    
+    this.items = result.items;
 
     if (result?.listPublishStatus) {
       this.listPublishStatus = result.listPublishStatus;
     }
   };
 
-  transform = (data) => {
-    return data.map((o) => {
-      const date = moment(o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
-      return {
-        id: o[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-        name: o[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
-        groupName: o[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
-        type: o[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
-        lastModified: {
-          status: o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED],
-          dateTime: date ?? '',
-          author: o[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME],
-        },
-      };
-    });
-  };
+  // transform = (data) => {
+  //   return data?.map((o) => {
+  //     const date = moment(o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
+  //     return {
+  //       id: o[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+  //       name: o[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+  //       groupName: o[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME],
+  //       type: o[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
+  //       lastModified: {
+  //         status: o[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED],
+  //         dateTime: date ?? '',
+  //         author: o[PIM_FIELD_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+  //       },
+  //     };
+  //   });
+  // };
 
   isLoading = () => {
     this.successResponse.state = false;
