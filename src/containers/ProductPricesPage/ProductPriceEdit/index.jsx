@@ -81,9 +81,9 @@ const EditProductPrice = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.productDetailViewModel.update();
+                          await this.productPriceDetailViewModel.update();
                         } else {
-                          await this.productDetailViewModel.create();
+                          await this.productPriceDetailViewModel.create();
                         }
                         history.push(`/prices`);
                       } else {
