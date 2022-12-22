@@ -2989,10 +2989,9 @@ aesirx-dma-lib@aesirxio/dma-lib:
     qs "^6.10.1"
     query-string "^7.1.1"
 
-aesirx-sso@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.0.tgz#34e2abae7a539039cd1c70d382850d83600deed6"
-  integrity sha512-RDYhACIXAnIqaDI9sRd7HzCzLvQBzixZCJ70ic2yXd5Y6vnoKhSX6ODHigpTI/37Ro0BOS0dKAuKLJU9/00xKA==
+aesirx-sso@aesirxio/sso:
+  version "1.0.1-alpha.1"
+  resolved "https://codeload.github.com/aesirxio/sso/tar.gz/cd2054de7b6ebb2ee6c012dec6e1655781acc007"
   dependencies:
     axios "^0.21.0"
     babel-plugin-module-resolver "^4.1.0"
