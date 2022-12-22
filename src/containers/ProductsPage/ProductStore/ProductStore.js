@@ -113,8 +113,6 @@ export default class ProductStore {
   }
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
-    console.log('filters', filters);
-
     try {
       const getPimProductAPIService = new AesirxPimProductApiService();
       const respondedData = await getPimProductAPIService.getList(filters);

@@ -14,7 +14,7 @@ class ProductPriceListViewModel {
   successResponse = {
     state: false,
     filters: {
-      'list[limit]': 5,
+      'list[limit]': 10,
     },
     listPublishStatus: [],
     listProductPrice: [],
@@ -128,9 +128,13 @@ class ProductPriceListViewModel {
   transform = (data) => {
     return data.map((o) => {
       const date = moment(o[PIM_PRICES_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      const productTitle = o[PIM_PRICES_DETAIL_FIELD_KEY.PRODUCTS][0] ? o[PIM_PRICES_DETAIL_FIELD_KEY.PRODUCTS][0][PIM_PRICES_DETAIL_FIELD_KEY.TITLE] : ""
+      console.log(productTitle);
       return {
         id: o[PIM_PRICES_DETAIL_FIELD_KEY.ID],
+        title: productTitle,
         author: o[PIM_PRICES_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+        debtorGroup: o[PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUPS],
         lastModified: {
           status: o[PIM_PRICES_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',

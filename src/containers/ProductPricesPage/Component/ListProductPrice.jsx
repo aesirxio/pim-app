@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withProductPriceViewModel } from '../ProductPriceViewModel/ProductPriceViewModelContextProvider';
@@ -7,14 +7,12 @@ import SelectComponent from 'components/Select';
 import Spinner from 'components/Spinner';
 import Table from 'components/Table';
 import '../index.scss';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import ActionsBar from 'components/ActionsBar';
+import history from 'routes/history';
 
 const ListProductPrice = observer((props) => {
   const { t } = props;
   let listSelected = [];
-  let listUpdatePrices = [];
 
   const productPriceViewModel = props.viewModel;
 
@@ -58,43 +56,6 @@ const ListProductPrice = observer((props) => {
     productPriceViewModel.updateStatus(listSelected, value.value);
   };
 
-  const priceOnChangeHandler = (e, row) => {
-    const index = listUpdatePrices.findIndex((o) => o.id == row.cells[1].value);
-    let newPrice = {
-      id: row.cells[1].value,
-      custom_fields: {
-        price: e.currentTarget.value,
-      },
-    };
-    if (index === -1) {
-      listUpdatePrices.push(newPrice);
-    } else {
-      listUpdatePrices[index].custom_fields.price = e.currentTarget.value;
-    }
-  };
-
-  const retailPriceOnChangeHandler = (e, row) => {
-    const index = listUpdatePrices.findIndex((o) => o.id == row.cells[1].value);
-    let newPrice = {
-      id: row.cells[1].value,
-      custom_fields: {
-        retail_price: e.currentTarget.value,
-      },
-    };
-    if (index === -1) {
-      listUpdatePrices.push(newPrice);
-    } else {
-      listUpdatePrices[index].custom_fields.retail_price = e.currentTarget.value;
-    }
-  };
-
-  const updatePricesHandler = () => {
-    if (listUpdatePrices.length > 0) {
-      productPriceViewModel.isLoading();
-      productPriceViewModel.updatePrices(listUpdatePrices);
-    }
-  };
-
   const columnsTable = [
     {
       Header: 'Id',
@@ -107,17 +68,20 @@ const ListProductPrice = observer((props) => {
     },
     {
       Header: 'Product name',
+      accessor: 'title',
       width: 150,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: () => {
-        return (
-          <div className="d-flex align-items-center">
-            {/* <div className="me-2"><img width={64} src={value.image} alt={value.name} /></div> */}
-            <div>
-              <div className="mb-1">Dining Chair With Arm</div>
-            </div>
-          </div>
-        );
+      Cell: ({ value }) => {
+        return <>{value}</>;
+      },
+    },
+    {
+      Header: 'Debtor Group',
+      accessor: 'debtorGroup',
+      width: 200,
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      Cell: ({ value }) => {
+        return <>{value.map((o) => o.title).join(', ')}</>;
       },
     },
     {
@@ -125,56 +89,9 @@ const ListProductPrice = observer((props) => {
       accessor: 'price',
       width: 200,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ row, value }) => {
-        const [currentValue, setCurrentValue] = useState(value);
+      Cell: ({ value }) => {
         return (
-          <div className="d-flex align-items-center me-3">
-            <div className="input-group price-input me-1">
-              <input
-                onChange={(e) => {
-                  setCurrentValue(e.currentTarget.value);
-                  priceOnChangeHandler(e, row);
-                }}
-                type="text"
-                value={currentValue}
-                className="form-control fs-14"
-              />
-              <div className="input-group-append">
-                <span className="input-group-text fs-14">VND</span>
-              </div>
-            </div>
-            <button
-              className="border bg-transparent border-green plus-btn p-0 rounded-circle d-flex align-items-center justify-content-center"
-              type="button"
-            >
-              <FontAwesomeIcon className="text-green" icon={faPlus} />
-            </button>
-          </div>
-        );
-      },
-    },
-    {
-      Header: 'Retail Price',
-      accessor: 'retailPrice',
-      width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value, row }) => {
-        const [currentValue, setCurrentValue] = useState(value);
-        return (
-          <div className="input-group price-input pe-3">
-            <input
-              onChange={(e) => {
-                setCurrentValue(e.currentTarget.value);
-                retailPriceOnChangeHandler(e, row);
-              }}
-              type="text"
-              value={currentValue}
-              className="form-control fs-14"
-            />
-            <div className="input-group-append">
-              <span className="input-group-text fs-14">VND</span>
-            </div>
-          </div>
+          <>{parseInt(value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</>
         );
       },
     },
@@ -209,10 +126,12 @@ const ListProductPrice = observer((props) => {
         <ActionsBar
           buttons={[
             {
-              title: t('txt_save_update'),
-              icon: '/assets/images/save.svg',
+              title: t('txt_add_new_prices'),
+              icon: '/assets/images/plus.svg',
               variant: 'success',
-              handle: updatePricesHandler,
+              handle: async () => {
+                history.push('/prices/add');
+              },
             },
           ]}
         />
@@ -251,7 +170,7 @@ const ListProductPrice = observer((props) => {
                   label: `${productPriceViewModel?.successResponse?.filters['list[limit]']} items`,
                   value: productPriceViewModel?.successResponse?.filters['list[limit]'],
                 }}
-                options={[...Array(4)].map((o, index) => ({
+                options={[...Array(9)].map((o, index) => ({
                   label: `${(index + 1) * 10} items`,
                   value: (index + 1) * 10,
                 }))}

@@ -60,6 +60,18 @@ export default class FieldStore {
     }
   }
 
+  async updateStatus(arr, status) {
+    try {
+      const updateStatusAPIService = new AesirxPimFieldApiService();
+      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
   async getDetail(id, callbackOnSuccess, callbackOnError) {
     if (!id) return false;
 

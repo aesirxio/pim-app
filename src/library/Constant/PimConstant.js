@@ -137,6 +137,8 @@ const PIM_PRICES_DETAIL_FIELD_KEY = {
   QUANTITY_MAX: 'quantity_max',
   STARTING_DATE: 'starting_date',
   ENDING_DATE: 'ending_date',
+  TITLE: 'title',
+  DEBTOR_GROUPS: 'debtor_groups',
 };
 
 const PIM_DASH_BOARD_DETAIL_FIELD_KEY = {

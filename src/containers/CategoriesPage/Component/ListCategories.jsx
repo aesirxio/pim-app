@@ -97,7 +97,7 @@ const ListCategories = observer((props) => {
       className: 'py-2 border-bottom-1 text-center',
       Cell: ({ value }) => (
         <div className="text-center pe-5">
-          {value.state ? (
+          {value.state == 1 ? (
             <svg
               style={{ cursor: 'pointer' }}
               onClick={() => publishedBtnHandler(value)}
@@ -164,8 +164,8 @@ const ListCategories = observer((props) => {
   }, []);
 
   const selectBulkActionsHandler = (value) => {
-    // viewModel.updateStatus(listSelected, value.value);
-    console.log(listSelected, '-', value);
+    viewModel.isLoading();
+    viewModel.updateStatus(listSelected, value.value);
   };
 
   const selectShowItemsHandler = (value) => {
@@ -183,8 +183,20 @@ const ListCategories = observer((props) => {
     }
   };
 
+  const selectTabHandler = (value) => {
+    viewModel.isLoading();
+    if (value != 'default') {
+      viewModel.getListByFilter('published', {
+        value: value,
+        type: 'filter',
+      });
+    } else {
+      viewModel.getListByFilter('published', '');
+    }
+  };
+
   const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value);
+    listSelected = arr.map((o) => o.cells[1].value.id);
   };
 
   const publishedBtnHandler = (value) => {
@@ -196,7 +208,7 @@ const ListCategories = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_left_menu_price_management')}</h2>
+        <h2 className="fw-bold mb-0">{t('txt_categories')}</h2>
         <ActionsBar
           buttons={[
             {
@@ -212,13 +224,13 @@ const ListCategories = observer((props) => {
       <Tabs
         defaultActiveKey={'default'}
         id="tab-setting"
-        // onSelect={(k) => selectTabHandler(k)}
+        onSelect={(k) => selectTabHandler(k)}
         className="mb-3"
       >
         <Tab eventKey={'default'} title={t('txt_all_category')} />
-        {/* {viewModel?.successResponse?.listPublishStatus.map((o) => (
+        {viewModel?.successResponse?.listPublishStatus.map((o) => (
           <Tab key={o.value} eventKey={o.value} title={o.label} />
-        ))} */}
+        ))}
       </Tabs>
 
       <div className="d-flex align-items-center justify-content-between gap-2 mb-2">

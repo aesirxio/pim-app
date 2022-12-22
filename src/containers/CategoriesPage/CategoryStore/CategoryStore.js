@@ -132,4 +132,16 @@ export default class CategoryStore {
 
     return false;
   }
+
+  async updateStatus(arr, status) {
+    try {
+      const updateStatusAPIService = new AesirxPimCategoryApiService();
+      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }

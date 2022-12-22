@@ -100,6 +100,24 @@ class CategoryListViewModel {
       this.callbackOnErrorHandler
     );
 
+    await this.categoryStore.getList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+      this.successResponse.filters
+    );
+
+    this.successResponse.state = true;
+  };
+
+  updateStatus = async (arr, status = 0) => {
+    const res = await this.categoryStore.updateStatus(arr, status);
+    if (res) {
+      await this.categoryStore.getList(
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+        this.successResponse.filters
+      );
+    }
     this.successResponse.state = true;
   };
 

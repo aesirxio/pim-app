@@ -34,8 +34,22 @@ const ListDebtorGroup = observer((props) => {
       accessor: 'title',
       width: 250,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-      Cell: ({ value }) => {
-        return <>{value}</>;
+      Cell: ({ value, row }) => {
+        return (
+          <>
+            <div className="mb-1">{value}</div>
+            <div className="text-green">
+              <button
+                onClick={() => {
+                  history.push(`/debtor-group/edit/${row.cells[1].value}`);
+                }}
+                className="p-0 border-0 bg-transparent d-inline-block text-green"
+              >
+                {t('txt_edit')}
+              </button>
+            </div>
+          </>
+        );
       },
     },
     {

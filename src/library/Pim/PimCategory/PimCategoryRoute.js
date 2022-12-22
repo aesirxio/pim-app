@@ -59,6 +59,7 @@ class PimCategoryRoute extends BaseRoute {
       data
     );
   };
+  
   update = (data) => {
     return AesirxApiInstance().put(
       this.createRequestURL({
@@ -72,6 +73,19 @@ class PimCategoryRoute extends BaseRoute {
       }
     );
   };
+
+  updateStatus = (listSelected) => {
+    return AesirxApiInstance().post(
+      this.createRequestURL({
+        option: this.option,
+        task: 'bulkUpdate',
+      }),
+      {
+        items: listSelected,
+      }
+    );
+  };
+
   delete = (id) => {
     return AesirxApiInstance().delete(
       this.createRequestURL({
