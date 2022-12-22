@@ -37,7 +37,15 @@ const ListProducts = observer((props) => {
       Cell: ({ value, row }) => {
         return (
           <div className="d-flex align-items-center">
-            {/* <div className="me-2"><img width={64} src={value.image} alt={value.name} /></div> */}
+            <div className="me-2">
+              <img
+                style={{ objectFit: 'cover' }}
+                width={64}
+                height={64}
+                src={value.image}
+                alt={value.name}
+              />
+            </div>
             <div>
               <div className="mb-1">{value.name}</div>
               <div className="text-green">

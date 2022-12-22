@@ -143,12 +143,21 @@ class ProductListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED_UP]).format('DD MMM, YYYY');
+      const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+
       return {
         id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
         productInfo: {
+          image: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
+          ][0]
+            ? JSON.parse(
+                o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
+                ][0]
+              )[PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL]
+            : '',
           name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
-          image: '',
         },
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
         author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
