@@ -7,11 +7,11 @@ import React from 'react';
 
 const ComponentVideo = (props) => {
   return (
-    <>
+    <div className="w-100 h-100" key={props.src}>
       <video className="w-100" muted loop controls>
         <source src={props.src} type="video/webm" />
       </video>
-    </>
+    </div>
   );
 };
 
