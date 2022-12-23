@@ -2979,8 +2979,8 @@ adjust-sourcemap-loader@^4.0.0:
     regex-parser "^2.2.11"
 
 aesirx-dma-lib@aesirxio/dma-lib:
-  version "1.6.1-alpha.1"
-  resolved "https://codeload.github.com/aesirxio/dma-lib/tar.gz/65276538d16bf77e76e77e9db982333ceb7579e8"
+  version "1.7.1-alpha.1"
+  resolved "https://codeload.github.com/aesirxio/dma-lib/tar.gz/4213d74f365fa295c1fb39c3815592912041ef57"
   dependencies:
     axios "^0.21.0"
     axios-auth-refresh "^3.0.0"

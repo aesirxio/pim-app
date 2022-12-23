@@ -31,12 +31,12 @@ const dataMenuSetup = [
   //   icons: '/assets/images/taxonomies.svg',
   //   icons_color: '/assets/images/taxonomies.svg',
   // },
-  {
-    text: 'txt_menu_setting',
-    link: '/setting',
-    icons: '/assets/images/setting.svg',
-    icons_color: '/assets/images/setting.svg',
-  },
+  // {
+  //   text: 'txt_menu_setting',
+  //   link: '/setting',
+  //   icons: '/assets/images/setting.svg',
+  //   icons_color: '/assets/images/setting.svg',
+  // },
 ];
 const Menu = observer((props) => {
   const [isOpenCollapse, setIsOpenCollapse] = useState('default');
