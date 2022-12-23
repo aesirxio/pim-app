@@ -4,7 +4,7 @@ import { withTranslation } from 'react-i18next';
 import ModalComponent from 'components/Modal';
 import Label from 'components/Form/Label';
 import Input from 'components/Form/Input';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 const ModalVariantsPrice = ({
   t,
   dataTable,

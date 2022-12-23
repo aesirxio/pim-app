@@ -3,8 +3,8 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimFieldGroupApiService from 'library/Pim/PimFieldGroup/PimFieldGroup';
-import { FieldGroupItemModel } from 'library/Pim/PimFieldGroup/PimFieldGroupModel';
+import { AesirxPimFieldGroupApiService } from 'aesirx-dma-lib';
+import { FieldGroupItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class FieldGroupStore {

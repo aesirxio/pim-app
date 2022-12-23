@@ -12,7 +12,7 @@ import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight
 import './index.scss';
 import ComponentImage from '../ComponentImage';
 
-import Storage from 'aesirx-dma-lib/src/Utils/Storage';
+import { Storage } from 'aesirx-dma-lib';
 class Welcome extends Component {
   name = '';
   constructor(props) {

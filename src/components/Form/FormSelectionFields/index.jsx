@@ -5,7 +5,7 @@
 
 import ComponentSVG from 'components/ComponentSVG';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { Component } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 

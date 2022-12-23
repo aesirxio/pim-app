@@ -1,7 +1,7 @@
 // import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
+import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
