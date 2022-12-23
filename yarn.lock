@@ -1974,17 +1974,6 @@
     "@jridgewell/resolve-uri" "3.1.0"
     "@jridgewell/sourcemap-codec" "1.4.14"
 
-"@kakahuy113/test-dam-app@^1.0.1-alpha.2":
-  version "1.0.1-alpha.3"
-  resolved "https://registry.yarnpkg.com/@kakahuy113/test-dam-app/-/test-dam-app-1.0.1-alpha.3.tgz#6fadfd2c3de025d9862018429b6a2eaa7a3f03a7"
-  integrity sha512-dqs5NahWQPI+wCj7CvlyKyitMT9Xe3QkHW2LtP3f5UvSmxGweA35+EeIKh8AJ2QaZnYztc2Xgm0hvTQKWQ/+pw==
-  dependencies:
-    date-fns "^2.16.1"
-    date-fns-tz "^1.1.6"
-    file-saver "^2.0.5"
-    moment "^2.29.4"
-    react-datepicker "^3.3.0"
-
 "@leichtgewicht/ip-codec@^2.0.1":
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/@leichtgewicht/ip-codec/-/ip-codec-2.0.4.tgz#b2ac626d6cb9c8718ab459166d4bb405b8ffa78b"
@@ -2978,6 +2967,19 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
+aesirx-dam-app@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.1.0.tgz#3876c9d79aa10776f84a8f97ac190a22862b8167"
+  integrity sha512-0AzQMKZrCGAPQfjs4QPE5jztoRbq67ydOFBXDUSiXZhs6JvPc6dKgJlc9H2akQ0fsHhb2S3FQBeFJVJR/JIp7g==
+  dependencies:
+    aesirx-dma-lib "^1.7.1"
+    aesirx-sso "^1.0.0"
+    date-fns "^2.16.1"
+    date-fns-tz "^1.1.6"
+    file-saver "^2.0.5"
+    moment "^2.29.4"
+    react-datepicker "^3.3.0"
+
 aesirx-dma-lib@^1.7.1:
   version "1.7.1"
   resolved "https://registry.yarnpkg.com/aesirx-dma-lib/-/aesirx-dma-lib-1.7.1.tgz#6002603b4c239c819c40681f625ad0997bb95818"
@@ -2990,10 +2992,10 @@ aesirx-dma-lib@^1.7.1:
     qs "^6.10.1"
     query-string "^7.1.1"
 
-aesirx-sso@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.0.tgz#34e2abae7a539039cd1c70d382850d83600deed6"
-  integrity sha512-RDYhACIXAnIqaDI9sRd7HzCzLvQBzixZCJ70ic2yXd5Y6vnoKhSX6ODHigpTI/37Ro0BOS0dKAuKLJU9/00xKA==
+aesirx-sso@^1.0.0, aesirx-sso@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.1.tgz#8242d0fd2f20cf7913b4f8e0cb043b0dbf81254b"
+  integrity sha512-7/uGuOwMRPQaWsMAQnx8x4fkSgbvsYcvT7pWgQJFwy44yyl+1tIh5c04jSsKmrozyHDctZ9LeiDwVyKH/eXYkw==
   dependencies:
     axios "^0.21.0"
     babel-plugin-module-resolver "^4.1.0"
