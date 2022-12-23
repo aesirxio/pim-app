@@ -82,9 +82,9 @@ const EditDebtorGroup = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.productDetailViewModel.update();
+                          await this.debtorGroupDetailViewModel.update();
                         } else {
-                          await this.productDetailViewModel.create();
+                          await this.debtorGroupDetailViewModel.create();
                         }
                         history.push(`/debtor-group`);
                       } else {

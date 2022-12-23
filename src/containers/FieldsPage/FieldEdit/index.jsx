@@ -81,9 +81,9 @@ const EditField = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.productDetailViewModel.update();
+                          await this.fieldDetailViewModel.update();
                         } else {
-                          await this.productDetailViewModel.create();
+                          await this.fieldDetailViewModel.create();
                         }
                         history.push(`/fields`);
                       } else {
