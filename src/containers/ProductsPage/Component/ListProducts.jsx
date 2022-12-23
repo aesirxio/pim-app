@@ -35,17 +35,29 @@ const ListProducts = observer((props) => {
       width: 300,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value, row }) => {
+        console.log();
         return (
           <div className="d-flex align-items-center">
-            <div className="me-2">
-              <img
-                style={{ objectFit: 'cover' }}
-                width={64}
-                height={64}
-                src={value.image}
-                alt={value.name}
-              />
-            </div>
+            {value?.image?.download_url ? (
+              <div className="me-2">
+                <img
+                  style={{ objectFit: 'cover' }}
+                  width={64}
+                  height={64}
+                  src={value?.image?.download_url}
+                  alt={value.name}
+                />
+              </div>
+            ) : (
+              <div className="me-2">
+                <div
+                  style={{ width: '64px', height: '64px' }}
+                  className="border d-flex align-items-center justify-content-center text-center"
+                >
+                  No Image
+                </div>
+              </div>
+            )}
             <div>
               <div className="mb-1">{value.name}</div>
               <div className="text-green">

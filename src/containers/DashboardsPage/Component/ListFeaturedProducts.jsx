@@ -61,24 +61,25 @@ const ListFeaturedProducts = observer((props) => {
       width: 50,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
+        console.log(value);
         if (value) {
           return (
             <div
-              className={`text-uppercase fw-semi ${
-                value === 'indoor' ? 'text-success' : 'text-danger'
-              }`}
+              // className={`text-uppercase fw-semi ${
+              //   value === 'indoor' ? 'text-success' : 'text-danger'
+              // }`}
               role={`alert`}
             >
-              <span
+              {/* <span
                 className="d-inline-block p-1 rounded"
                 style={{
                   backgroundColor: `${
                     value === 'indoor' ? 'rgba(50, 177, 151, 0.15)' : 'rgba(239, 55, 55, 0.15)'
                   }`,
                 }}
-              >
-                {value}
-              </span>
+              > */}
+              {value}
+              {/* </span> */}
             </div>
           );
         }

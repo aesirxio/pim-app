@@ -33,14 +33,7 @@ export default class DashboardStore {
     }
   }
 
-  async getListFeaturedProducts(
-    callbackOnSuccess,
-    callbackOnError,
-    filters = {
-      'list[limit]': 5,
-      'filter[featured]': 1,
-    }
-  ) {
+  async getListFeaturedProducts(callbackOnSuccess, callbackOnError, filters) {
     try {
       const getPimProductAPIService = new AesirxPimProductApiService();
       const respondedData = await getPimProductAPIService.getList(filters);
