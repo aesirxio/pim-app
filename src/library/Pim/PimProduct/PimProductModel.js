@@ -20,7 +20,7 @@ class ProductItemModel extends BaseItemModel {
   publish_up = null;
   related_categories = null;
   thumb_image = null;
-  modified_time= null;
+  modified_time = null;
 
   constructor(entity) {
     super(entity);
@@ -45,6 +45,7 @@ class ProductItemModel extends BaseItemModel {
   toObject = () => {
     return {};
   };
+  
   isJsonString = (str) => {
     try {
       JSON.parse(str);
@@ -62,7 +63,7 @@ class ProductItemModel extends BaseItemModel {
         if (isJson) {
           value = JSON.parse(value);
         } else if (Array.isArray(value)) {
-          value = value.map((a) => JSON.parse(a));
+          value = value.map((data) => data && JSON.parse(data));
         }
         return {
           [key]: value,

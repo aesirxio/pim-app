@@ -116,6 +116,7 @@ class ProductListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result?.listItems) {
+      console.log(result);
       this.successResponse.listProducts = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
       // Need improve response
@@ -145,31 +146,33 @@ class ProductListViewModel {
     return data.map((o) => {
       const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
 
+      // let src = o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+      //   PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
+      // ][PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL]
+      //   ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE][
+      //       PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL
+      //     ]
+      //   : 'test'; 
+
       return {
         id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
         productInfo: {
-          image: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
-          ][0]
-            ? JSON.parse(
-                o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
-                ][0]
-              )[PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL]
-            : '',
+          image:
+            o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE],
           name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
         },
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
         author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
-        type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-          PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-        ].slice(
-          2,
+        type: Array.isArray(
           o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
             PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-          ].length - 2
-        ),
+          ]
+        )
+          ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+              PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+            ][0]
+          : '',
         lastModified: {
           status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATE],
           dateTime: date ?? '',

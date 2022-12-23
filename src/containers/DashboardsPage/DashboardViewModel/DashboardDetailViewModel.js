@@ -17,7 +17,10 @@ class DashboardDetailViewModel {
   dashboardDetailViewModel = null;
   filter = {};
   result = {};
-  filterListFeaturedProducts = {};
+  filterListFeaturedProducts = {
+    'list[limit]': 5,
+    'filter[featured]': 1,
+  };
   listPublishStatus = [];
   successResponse = {
     state: true,
@@ -116,34 +119,24 @@ class DashboardDetailViewModel {
     return data.map((o) => {
       const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
 
+      const image =
+        o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE];
+
       return {
         id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
         productInfo: {
-          image: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
-          ][0]
-            ? JSON.parse(
-                o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-                  PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE
-                ][0]
-              )[PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL]
-            : '',
+          image: Array.isArray(image) ? image[0][PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL] : '',
           name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
         },
-        type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+        type: [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
           PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-        ].slice(
-          2,
-          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-          ].length - 2
-        ),
+        ],
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
         author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         lastModified: {
           status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_USER_NAME],
         },
       };
     });
