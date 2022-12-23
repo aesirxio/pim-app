@@ -82,9 +82,9 @@ const EditFieldGroup = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.productDetailViewModel.update();
+                          await this.fieldGroupDetailViewModel.update();
                         } else {
-                          await this.productDetailViewModel.create();
+                          await this.fieldGroupDetailViewModel.create();
                         }
                         history.push(`/fields-group`);
                       } else {
