@@ -110,7 +110,7 @@ const Dashboard = observer(
                           : false
                       }
                       percent={`${percentProduct}%`}
-                      textPercent={`form ${moment().subtract(1, 'months').format('MMMM')}`}
+                      textPercent={`from ${moment().subtract(1, 'months').format('MMMM')}`}
                       titleLink={t('txt_manage_products')}
                       link={'/products/all'}
                     ></ComponentCard>
@@ -132,7 +132,7 @@ const Dashboard = observer(
                           : false
                       }
                       percent={`${percentCategories}%`}
-                      textPercent={`form ${moment().subtract(1, 'months').format('MMMM')}`}
+                      textPercent={`from ${moment().subtract(1, 'months').format('MMMM')}`}
                       titleLink={t('txt_manage_categories')}
                       link={'/categories'}
                     ></ComponentCard>

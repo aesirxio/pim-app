@@ -29,7 +29,7 @@ const FormImage = ({ field }) => {
       convertedData.length && setFile([...file, ...convertedData]);
       field.handleChange([...file, ...convertedData]);
     } else {
-      convertedData.length && setFile(convertedData[0]);
+      convertedData.length && setFile(convertedData);
       field.handleChange(convertedData);
     }
     setShow(false);
@@ -43,7 +43,7 @@ const FormImage = ({ field }) => {
             {file &&
               Array.isArray(file) &&
               file?.map((item, key) => {
-                return (
+                return item ? (
                   <Col lg={2} key={key}>
                     <Ratio aspectRatio="1x1">
                       <div className="d-flex align-items-center w-100 h-100 border">
@@ -51,6 +51,8 @@ const FormImage = ({ field }) => {
                       </div>
                     </Ratio>
                   </Col>
+                ) : (
+                  <></>
                 );
               })}
           </Row>
@@ -73,14 +75,16 @@ const FormImage = ({ field }) => {
               setShow(true);
             }}
           >
-            {!file && (
+            {(!file || (Array.isArray(file) && !file[0])) && (
               <div className="d-flex align-items-center p-2 w-100">
                 <div className="text-center fs-14 text-body opacity-50 w-100">
                   <p className="mb-0">Browse from computer Choose from media Drag file here</p>
                 </div>
               </div>
             )}
-            {file ? <ComponentImage src={file && file?.download_url} alt={field.value} /> : null}
+            {file?.length
+              ? file[0] && <ComponentImage src={file[0]?.download_url} alt={field.value} />
+              : null}
           </div>
           <p className="my-8px fs-14 opacity-50">
             Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)
