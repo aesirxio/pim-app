@@ -1,5 +1,5 @@
 import React from 'react';
-import { AesirXDam } from '@kakahuy113/test-dam-app';
+import { AesirXDam } from 'aesirx-dam-app';
 import { Modal } from 'react-bootstrap';
 import './index.scss';
 function ModalDAMComponent({ show, onHide, onSelect }) {
