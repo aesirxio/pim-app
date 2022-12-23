@@ -206,7 +206,7 @@ const ListProducts = observer((props) => {
 
   const featuredBtnHandler = (row) => {
     viewModel.isLoading();
-    const isFeatured = !row.values.featured;
+    const isFeatured = row.values.featured ? 0 : 1;
     viewModel.setFeatured(row.values.id, isFeatured);
   };
 
