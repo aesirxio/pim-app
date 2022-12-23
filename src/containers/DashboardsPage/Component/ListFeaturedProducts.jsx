@@ -31,7 +31,7 @@ const ListFeaturedProducts = observer((props) => {
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
-            {value?.image[0]?.download_url ? (
+            {Array.isArray(value?.image) ? (
               <div className="me-2">
                 <img
                   style={{ objectFit: 'cover' }}
@@ -69,28 +69,27 @@ const ListFeaturedProducts = observer((props) => {
     {
       Header: 'Type',
       accessor: 'type',
-      width: 50,
+      width: 100,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
-        console.log(value);
         if (value) {
           return (
             <div
-              // className={`text-uppercase fw-semi ${
-              //   value === 'indoor' ? 'text-success' : 'text-danger'
-              // }`}
+              className={`text-uppercase fw-semi ${
+                value === 'indoor' ? 'text-success' : 'text-danger'
+              }`}
               role={`alert`}
             >
-              {/* <span
+              <span
                 className="d-inline-block p-1 rounded"
                 style={{
                   backgroundColor: `${
                     value === 'indoor' ? 'rgba(50, 177, 151, 0.15)' : 'rgba(239, 55, 55, 0.15)'
                   }`,
                 }}
-              > */}
-              {value}
-              {/* </span> */}
+              >
+                {value}
+              </span>
             </div>
           );
         }
