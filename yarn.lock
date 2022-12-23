@@ -2978,9 +2978,10 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-aesirx-dma-lib@aesirxio/dma-lib:
-  version "1.6.1-alpha.1"
-  resolved "https://codeload.github.com/aesirxio/dma-lib/tar.gz/65276538d16bf77e76e77e9db982333ceb7579e8"
+aesirx-dma-lib@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/aesirx-dma-lib/-/aesirx-dma-lib-1.7.1.tgz#6002603b4c239c819c40681f625ad0997bb95818"
+  integrity sha512-3yYZtm2mdzAwbI1MQ6bYzZI/mK96RQg3aAgxoh7eAdwKnmTGUsc8LuPTglQL36p6qAr0l3yQq/v5Z4rrXe/3fw==
   dependencies:
     axios "^0.21.0"
     axios-auth-refresh "^3.0.0"
@@ -2989,9 +2990,10 @@ aesirx-dma-lib@aesirxio/dma-lib:
     qs "^6.10.1"
     query-string "^7.1.1"
 
-aesirx-sso@aesirxio/sso:
-  version "1.0.1-alpha.1"
-  resolved "https://codeload.github.com/aesirxio/sso/tar.gz/cd2054de7b6ebb2ee6c012dec6e1655781acc007"
+aesirx-sso@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.0.tgz#34e2abae7a539039cd1c70d382850d83600deed6"
+  integrity sha512-RDYhACIXAnIqaDI9sRd7HzCzLvQBzixZCJ70ic2yXd5Y6vnoKhSX6ODHigpTI/37Ro0BOS0dKAuKLJU9/00xKA==
   dependencies:
     axios "^0.21.0"
     babel-plugin-module-resolver "^4.1.0"
