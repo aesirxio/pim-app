@@ -19,7 +19,7 @@ class ProductListViewModel {
   successResponse = {
     state: false,
     filters: {
-      'list[limit]': 99,
+      'list[limit]': 10,
     },
     listPublishStatus: [],
     listProducts: [],
