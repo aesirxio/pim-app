@@ -217,7 +217,9 @@ const ListCategories = observer((props) => {
               title: t('txt_add_new'),
               icon: '/assets/images/plus.svg',
               variant: 'success',
-              // handle: updatePricesHandler,
+              handle: async () => {
+                history.push('/categories/add');
+              },
             },
           ]}
         />

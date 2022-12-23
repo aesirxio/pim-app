@@ -82,9 +82,9 @@ const EditCategory = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.productDetailViewModel.update();
+                          await this.categoryDetailViewModel.update();
                         } else {
-                          await this.productDetailViewModel.create();
+                          await this.categoryDetailViewModel.create();
                         }
                         history.push(`/categories`);
                       } else {
@@ -159,6 +159,7 @@ const EditCategory = observer(
               </Col>
               <Col lg={3}>
                 <PublishOptions
+                  detailViewModal={this.categoryDetailViewModel}
                   formPropsData={this.categoryDetailViewModel.categoryDetailViewModel.formPropsData}
                   isEdit={this.isEdit}
                 />
