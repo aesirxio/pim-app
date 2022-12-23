@@ -101,7 +101,7 @@ const PublishOptions = observer(
           {isFeatured && (
             <div className="d-flex align-items-center justify-content-between w-100 mb-24">
               <div>{t('txt_feature')}</div>
-              <Form.Group className={`w-40`}>
+              <Form.Group>
                 <FormRadio
                   field={{
                     key: PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED,

@@ -129,7 +129,7 @@ const EditProduct = observer(
           </div>
           <Form>
             <Row className="gx-24 mb-24">
-              <Col lg={9}>
+              <Col xxl={9} lg={8}>
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
@@ -207,7 +207,7 @@ const EditProduct = observer(
                   </Tab> */}
                 </Tabs>
               </Col>
-              <Col lg={3}>
+              <Col xxl={3} lg={4}>
                 <PublishOptions
                   detailViewModal={this.productDetailViewModel}
                   formPropsData={this.productDetailViewModel.productDetailViewModel.formPropsData}
