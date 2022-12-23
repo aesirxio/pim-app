@@ -2980,7 +2980,7 @@ adjust-sourcemap-loader@^4.0.0:
 
 aesirx-dma-lib@aesirxio/dma-lib:
   version "1.6.1-alpha.1"
-  resolved "https://codeload.github.com/aesirxio/dma-lib/tar.gz/912de1a1b55b42dfe8121e7412b7a04171a663b1"
+  resolved "https://codeload.github.com/aesirxio/dma-lib/tar.gz/65276538d16bf77e76e77e9db982333ceb7579e8"
   dependencies:
     axios "^0.21.0"
     axios-auth-refresh "^3.0.0"

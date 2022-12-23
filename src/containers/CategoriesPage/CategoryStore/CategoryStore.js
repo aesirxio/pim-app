@@ -3,9 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimCategoryApiService from 'library/Pim/PimCategory/PimCategory';
-import { CategoryItemModel } from 'library/Pim/PimCategory/PimCategoryModel';
-import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
+import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
+import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { CategoryItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class CategoryStore {

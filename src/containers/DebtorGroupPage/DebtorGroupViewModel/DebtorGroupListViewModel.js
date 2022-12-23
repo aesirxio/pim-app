@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 class DebtorGroupListViewModel {
   debtorGroupStore = null;
@@ -55,12 +55,8 @@ class DebtorGroupListViewModel {
     if (key != 'limitstart' && key != 'list[limit]') {
       delete this.filter['limitstart'];
     } else {
-      if (
-        key == 'list[limit]' &&
-        value * this.pagination.page >= this.pagination.totalItems
-      ) {
-        this.filter['limitstart'] =
-          Math.ceil(this.pagination.totalItems / value - 1) * value;
+      if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
+        this.filter['limitstart'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.pagination.page < this.pagination.totalItems

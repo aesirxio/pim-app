@@ -1,14 +1,13 @@
 import ComponentSVG from 'components/ComponentSVG';
 import FormSelection from 'components/Form/FormSelection';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
 import CustomizedDatePicker from 'components/DatePicker';
 import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
-import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
-import Storage from 'aesirx-dma-lib/src/Utils/Storage';
+import { AUTHORIZATION_KEY, Storage } from 'aesirx-dma-lib';
 import UtilsStore from 'store/UtilsStore/UtilsStore';
 import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
 import { observer } from 'mobx-react';

@@ -6,8 +6,7 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
-import Storage from 'aesirx-dma-lib/src/Utils/Storage';
-import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
+import { Storage, AUTHORIZATION_KEY } from 'aesirx-dma-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 
@@ -18,28 +17,28 @@ import Helper from '../../utils/helper';
 import ComponentImage from '../ComponentImage';
 
 const data = [
-{
-  key: 1,
-  text: 'txt_profile',
-  link: '/profile',
-},
-// {
-//   key: 2,
-//   text: 'Billing & Plan',
-//   link: '/billing-plan',
-// },
-// {
-//   key: 3,
-//   text: "Members",
-// },
-// {
-//   key: 4,
-//   text: "My collections",
-// },
-// {
-//   key: 5,
-//   text: "Upgrade",
-// },
+  {
+    key: 1,
+    text: 'txt_profile',
+    link: '/profile',
+  },
+  // {
+  //   key: 2,
+  //   text: 'Billing & Plan',
+  //   link: '/billing-plan',
+  // },
+  // {
+  //   key: 3,
+  //   text: "Members",
+  // },
+  // {
+  //   key: 4,
+  //   text: "My collections",
+  // },
+  // {
+  //   key: 5,
+  //   text: "Upgrade",
+  // },
 ];
 
 class DropdownAvatar extends React.Component {

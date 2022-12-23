@@ -13,8 +13,7 @@ import { login } from '../../auth';
 import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
 import { SSOButton } from 'aesirx-sso';
-import AesirxAuthenticationApiService from 'aesirx-dma-lib/src/Authentication/Authentication';
-import Storage from 'aesirx-dma-lib/src/Utils/Storage';
+import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
 
 class LoginPage extends React.Component {
   constructor(props) {
