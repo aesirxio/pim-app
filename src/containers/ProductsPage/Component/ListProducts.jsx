@@ -35,16 +35,16 @@ const ListProducts = observer((props) => {
       width: 300,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value, row }) => {
-        console.log();
+        console.log(value?.image[0]?.download_url);
         return (
           <div className="d-flex align-items-center">
-            {value?.image?.download_url ? (
+            {value?.image[0]?.download_url ? (
               <div className="me-2">
                 <img
                   style={{ objectFit: 'cover' }}
                   width={64}
                   height={64}
-                  src={value?.image?.download_url}
+                  src={value?.image[0]?.download_url}
                   alt={value.name}
                 />
               </div>

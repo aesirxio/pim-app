@@ -31,15 +31,26 @@ const ListFeaturedProducts = observer((props) => {
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
-            <div className="me-2">
-              <img
-                style={{ objectFit: 'cover' }}
-                width={64}
-                height={64}
-                src={value.image}
-                alt={value.name}
-              />
-            </div>
+            {value?.image[0]?.download_url ? (
+              <div className="me-2">
+                <img
+                  style={{ objectFit: 'cover' }}
+                  width={64}
+                  height={64}
+                  src={value?.image[0]?.download_url}
+                  alt={value.name}
+                />
+              </div>
+            ) : (
+              <div className="me-2">
+                <div
+                  style={{ width: '64px', height: '64px' }}
+                  className="border d-flex align-items-center justify-content-center text-center"
+                >
+                  No Image
+                </div>
+              </div>
+            )}
             <div>
               <div>{value.name}</div>
             </div>
