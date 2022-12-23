@@ -3,9 +3,10 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimDebtorGroupApiService from 'library/Pim/PimDebtorGroup/PimDebtorGroup';
-import { DebtorGroupItemModel } from 'library/Pim/PimDebtorGroup/PimDebtorGroupModel';
-import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
+import { AesirxPimDebtorGroupApiService } from 'aesirx-dma-lib';
+// import { DebtorGroupItemModel } from 'aesirx-dma-lib';
+import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { DebtorGroupItemModel } from 'aesirx-dma-lib/src/Pim/PimDebtorGroup/PimDebtorGroupModel';
 import { runInAction } from 'mobx';
 
 export default class DebtorGroupStore {

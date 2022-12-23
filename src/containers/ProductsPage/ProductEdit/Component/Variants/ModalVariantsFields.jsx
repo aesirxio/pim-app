@@ -3,7 +3,7 @@ import { Button, Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import ModalComponent from 'components/Modal';
 import FieldsList from 'components/Fields';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';

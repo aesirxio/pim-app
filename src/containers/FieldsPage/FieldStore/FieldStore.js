@@ -3,9 +3,10 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimFieldApiService from 'library/Pim/PimField/PimField';
-import { FieldItemModel } from 'library/Pim/PimField/PimFieldModel';
-import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
+import { AesirxPimFieldApiService } from 'aesirx-dma-lib';
+// import { FieldItemModel } from 'aesirx-dma-lib';
+import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { FieldItemModel } from 'aesirx-dma-lib/src/Pim/PimField/PimFieldModel';
 import { runInAction } from 'mobx';
 
 export default class FieldStore {

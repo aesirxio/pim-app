@@ -3,10 +3,11 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimCategoryApiService from 'library/Pim/PimCategory/PimCategory';
-import AesirxPimProductApiService from 'library/Pim/PimProduct/PimProduct';
-import { ProductItemModel } from 'library/Pim/PimProduct/PimProductModel';
-import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
+import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
+import { AesirxPimProductApiService } from 'aesirx-dma-lib';
+// import { ProductItemModel } from 'aesirx-dma-lib';
+import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { ProductItemModel } from 'aesirx-dma-lib/src/Pim/PimProduct/PimProductModel';
 import { runInAction } from 'mobx';
 
 export default class ProductStore {

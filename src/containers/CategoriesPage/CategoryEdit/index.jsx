@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import CategoryTab from './Component/CategoryTab';
 import SimpleReactValidator from 'simple-react-validator';

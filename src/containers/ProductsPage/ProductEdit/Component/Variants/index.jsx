@@ -4,7 +4,7 @@ import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
 import Table from 'components/Table';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';

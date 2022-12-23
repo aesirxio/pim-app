@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import AesirxPimUtilApiService from 'library/Pim/PimUtils/PimUtils';
+import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class UtilsStore {

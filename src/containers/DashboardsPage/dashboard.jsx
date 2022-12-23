@@ -21,7 +21,7 @@ import './index.scss';
 import { withDashboardViewModel } from './DashboardViewModel/DashboardViewModelContextProvider';
 import { AUTHORIZATION_KEY } from 'aesirx-dma-lib/src/Constant/Constant';
 import Storage from 'aesirx-dma-lib/src/Utils/Storage';
-import { PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
 import ListFeaturedProducts from './Component/ListFeaturedProducts';
 

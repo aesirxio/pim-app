@@ -6,7 +6,7 @@
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { notify } from '../../../components/Toast';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 class CategoryDetailViewModel {
   categoryStore = null;
   formStatus = PAGE_STATUS.READY;

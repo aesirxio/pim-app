@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_PRICES_DETAIL_FIELD_KEY } from 'library/Constant/PimConstant';
+import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
 
