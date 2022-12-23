@@ -116,7 +116,6 @@ class ProductListViewModel {
 
   callbackOnSuccessHandler = (result) => {
     if (result?.listItems) {
-      console.log(result);
       this.successResponse.listProducts = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
       // Need improve response
