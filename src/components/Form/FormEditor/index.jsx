@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import ModalDAMComponent from 'components/ModalDamComponent';
 import styles from './index.module.scss';
 import ComponentSVG from 'components/ComponentSVG';
-// const ClassicEditor = require('ckeditor5-build-custom/build/ckeditor');
+const ClassicEditor = require('ckeditor5-build-custom/build/ckeditor');
 const FormEditor = ({ field }) => {
   const [editorState, setEditorState] = useState();
   const [show, setShow] = useState(false);
@@ -30,7 +30,7 @@ const FormEditor = ({ field }) => {
       </p>
       <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
       <CKEditor
-        editor={window.ClassicEditor}
+        editor={window.ClassicEditor ?? ClassicEditor}
         data={field?.getValueSelected ?? ''}
         onReady={async (editor) => {
           setEditorState(editor);
