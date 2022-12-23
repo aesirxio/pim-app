@@ -119,18 +119,22 @@ class DashboardDetailViewModel {
     return data.map((o) => {
       const date = moment(o[PIM_PRODUCT_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
 
-      const image =
-        o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE];
-
       return {
         id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
         productInfo: {
-          image: Array.isArray(image) ? image[0][PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL] : '',
+          image:
+            o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE],
           name: o[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
         },
-        type: [PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-          PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-        ],
+        type: Array.isArray(
+          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+          ]
+        )
+          ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+              PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
+            ][0]
+          : '',
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
         author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         lastModified: {
