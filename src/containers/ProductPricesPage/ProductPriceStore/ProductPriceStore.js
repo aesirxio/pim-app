@@ -4,9 +4,8 @@
  */
 
 import { AesirxPimProductPriceApiService } from 'aesirx-dma-lib';
-// import { ProductPriceItemModel } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { ProductPriceItemModel } from 'aesirx-dma-lib/src/Pim/PimProductPrice/PimProductPriceModel';
+import { ProductPriceItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class ProductPriceStore {

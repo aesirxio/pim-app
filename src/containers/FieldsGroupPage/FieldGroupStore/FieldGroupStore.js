@@ -4,8 +4,7 @@
  */
 
 import { AesirxPimFieldGroupApiService } from 'aesirx-dma-lib';
-import { FieldGroupItemModel } from 'aesirx-dma-lib/src/Pim/PimFieldGroup/PimFieldGroupModel';
-// import { FieldGroupItemModel } from 'aesirx-dma-lib';
+import { FieldGroupItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class FieldGroupStore {

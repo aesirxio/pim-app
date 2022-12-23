@@ -5,7 +5,7 @@
 
 import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { CategoryItemModel } from 'aesirx-dma-lib/src/Pim/PimCategory/PimCategoryModel';
+import { CategoryItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class CategoryStore {

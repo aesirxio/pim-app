@@ -4,9 +4,8 @@
  */
 
 import { AesirxPimDebtorGroupApiService } from 'aesirx-dma-lib';
-// import { DebtorGroupItemModel } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { DebtorGroupItemModel } from 'aesirx-dma-lib/src/Pim/PimDebtorGroup/PimDebtorGroupModel';
+import { DebtorGroupItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class DebtorGroupStore {

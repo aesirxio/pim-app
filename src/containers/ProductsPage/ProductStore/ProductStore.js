@@ -5,9 +5,8 @@
 
 import { AesirxPimCategoryApiService } from 'aesirx-dma-lib';
 import { AesirxPimProductApiService } from 'aesirx-dma-lib';
-// import { ProductItemModel } from 'aesirx-dma-lib';
 import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { ProductItemModel } from 'aesirx-dma-lib/src/Pim/PimProduct/PimProductModel';
+import { ProductItemModel } from 'aesirx-dma-lib';
 import { runInAction } from 'mobx';
 
 export default class ProductStore {
