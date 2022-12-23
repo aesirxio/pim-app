@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import { AesirXDam } from '@kakahuy113/test-dam-app';
+import { AesirXDam } from 'aesirx-dam-app';
 
 function DigitalAssetsPage() {
   return (

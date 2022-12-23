@@ -2,7 +2,7 @@ import GeoChart from 'components/GeoChart';
 import SelectComponent from 'components/Select';
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
-const ComponentContinent = ({ t, data = [] }) => {
+const ComponentContinent = ({ t }) => {
   // const dataMap = [...data];
   const dataMap = [
     {
