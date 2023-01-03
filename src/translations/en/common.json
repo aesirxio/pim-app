@@ -30,7 +30,7 @@
   "txt_State": "State",
   "txt_Country": "Country",
   "txt_Zipcode": "Zipcode",
-  "txt_Fullname": "Fullname",
+  "txt_fullname": "Full Name",
   "txt_City": "City",
   "txt_current_password": "Current Password",
   "txt_confirm_password": "Confirm New Password",
@@ -301,5 +301,7 @@
   "txt_fields_group": "Field Groups",
   "txt_add_new_field_group": "Add New Field Groups",
   "txt_all_field_groups": "All Field Groups",
-  "txt_add_new_prices": "Add New Prices"
+  "txt_add_new_prices": "Add New Prices",
+  "txt_organization": "Organization",
+  "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)"
 }

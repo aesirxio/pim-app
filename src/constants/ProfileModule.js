@@ -18,6 +18,7 @@ const UPDATE_GENERAL_FIELD_KEY = {
   STATE: 'state',
   COUNTRY: 'country',
   TIMEZONE: 'timezone',
+  ORGANIZATION: 'organization',
 };
 
 const UPDATE_PASSWORD_FIELD_KEY = {
