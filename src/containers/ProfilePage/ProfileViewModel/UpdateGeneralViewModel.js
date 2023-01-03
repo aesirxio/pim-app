@@ -78,6 +78,8 @@ class UpdateGeneralViewModel {
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.COUNTRY] = result.country;
       this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.TIMEZONE] =
         result.timezone;
+      this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.ORGANIZATION] =
+        result.organization;
     } else {
       if (this.updateGeneralViewModel.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] != null) {
         Storage.setItem(
