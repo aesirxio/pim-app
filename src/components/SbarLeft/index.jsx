@@ -15,7 +15,7 @@ import SwitchThemes from 'components/SwitchThemes';
 // import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 import Menu2 from 'components/Menu2';
 import { observer } from 'mobx-react';
-import { NavLink } from 'react-router-dom';
+// import { NavLink } from 'react-router-dom';
 const SbarLeft = observer(
   class SbarLeft extends React.Component {
     constructor(props) {
@@ -24,7 +24,7 @@ const SbarLeft = observer(
     }
 
     render() {
-      let { settingPage, t } = this.props;
+      let { settingPage } = this.props;
 
       // const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
       //   return { language: key, title: i18n.options.resources[key].title };
@@ -73,7 +73,7 @@ const SbarLeft = observer(
                 })}
               </Dropdown.Menu>
             </Dropdown> */}
-            <NavLink
+            {/* <NavLink
               exact={true}
               to={'/help-center'}
               className={`d-block px-24 py-16 link_menu text-white text-decoration-none `}
@@ -87,8 +87,8 @@ const SbarLeft = observer(
                 }}
               ></span>
               <span className="ms-16 text d-inline-block">{t('txt_menu_help_center')}</span>
-            </NavLink>
-            <div className="switch-theme-button col-auto py-2">
+            </NavLink> */}
+            <div className="switch-theme-button col-auto py-2 ms-auto">
               <SwitchThemes />
             </div>
 

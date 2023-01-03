@@ -107,71 +107,79 @@ const UpdatePassword = observer(
         <>
           <form>
             <div className="row">
-              <div className="col-lg-6 mb-3">
-                <label className="form-label fw-semi" htmlFor="curr_password">
-                  <span className="text-blue-0">{t('txt_current_password')}</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="curr_password"
-                  onBlur={this.blurringFieldHandler}
-                  disabled={this.state.loading}
-                  onChange={(event) => this.handleInputChange('curr_password', event.target.value)}
-                  name="curr_password"
-                  ref={this.currentPassword}
-                />
-                {this.validator.message(
-                  'password',
-                  this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.CURR_PASSWORD],
-                  'required|min:6|max:30',
-                  { className: 'text-danger' }
-                )}
-              </div>
-              <div className="col-lg-6 mb-3">
-                <label className="form-label fw-semi" htmlFor="new_password">
-                  <span className="text-blue-0">{t('txt_new_password')}</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="new_password"
-                  onBlur={this.blurringFieldHandler}
-                  disabled={this.state.loading}
-                  onChange={(event) => this.handleInputChange('new_password', event.target.value)}
-                  name="new_password"
-                  ref={this.newPassword}
-                />
-                {this.validator.message(
-                  'password',
-                  this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_PASSWORD],
-                  'required|min:6|max:30',
-                  { className: 'text-danger mb-3' }
-                )}
-              </div>
-              <div className="col-lg-6 mb-3">
-                <label className="form-label fw-semi" htmlFor="new_password">
-                  <span className="text-blue-0 text-nowrap">{t('txt_confirm_password')}</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-control"
-                  id="new_checked_password"
-                  onBlur={this.blurringFieldHandler}
-                  disabled={this.state.loading}
-                  onChange={(event) =>
-                    this.handleInputChange('new_checked_password', event.target.value)
-                  }
-                  name="new_checked_password"
-                  ref={this.newCheckedPassword}
-                  onKeyPress={this.onKeyPress}
-                />
-                {this.validator.message(
-                  'password',
-                  this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_CHECKED_PASSWORD],
-                  'required|min:6|max:30',
-                  { className: 'text-danger' }
-                )}
+              <div className="col-lg-9">
+                <div className="row">
+                  <div className="col-lg-6 mb-3">
+                    <label className="form-label fw-semi" htmlFor="curr_password">
+                      {t('txt_current_password')}
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="curr_password"
+                      onBlur={this.blurringFieldHandler}
+                      disabled={this.state.loading}
+                      onChange={(event) =>
+                        this.handleInputChange('curr_password', event.target.value)
+                      }
+                      name="curr_password"
+                      ref={this.currentPassword}
+                    />
+                    {this.validator.message(
+                      'password',
+                      this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.CURR_PASSWORD],
+                      'required|min:6|max:30',
+                      { className: 'text-danger' }
+                    )}
+                  </div>
+                  <div className="col-lg-6 mb-3">
+                    <label className="form-label fw-semi" htmlFor="new_password">
+                      {t('txt_new_password')}
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="new_password"
+                      onBlur={this.blurringFieldHandler}
+                      disabled={this.state.loading}
+                      onChange={(event) =>
+                        this.handleInputChange('new_password', event.target.value)
+                      }
+                      name="new_password"
+                      ref={this.newPassword}
+                    />
+                    {this.validator.message(
+                      'password',
+                      this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_PASSWORD],
+                      'required|min:6|max:30',
+                      { className: 'text-danger mb-3' }
+                    )}
+                  </div>
+                  <div className="col-lg-6 mb-3">
+                    <label className="form-label fw-semi" htmlFor="new_password">
+                      {t('txt_confirm_password')}
+                    </label>
+                    <input
+                      type="password"
+                      className="form-control"
+                      id="new_checked_password"
+                      onBlur={this.blurringFieldHandler}
+                      disabled={this.state.loading}
+                      onChange={(event) =>
+                        this.handleInputChange('new_checked_password', event.target.value)
+                      }
+                      name="new_checked_password"
+                      ref={this.newCheckedPassword}
+                      onKeyPress={this.onKeyPress}
+                    />
+                    {this.validator.message(
+                      'password',
+                      this.formPropsData[UPDATE_PASSWORD_FIELD_KEY.NEW_CHECKED_PASSWORD],
+                      'required|min:6|max:30',
+                      { className: 'text-danger' }
+                    )}
+                  </div>
+                </div>
               </div>
             </div>
             {this.state.loading && successResponse.state ? (
