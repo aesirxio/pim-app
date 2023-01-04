@@ -15,7 +15,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
         {payload.map((entry, index) => (
           <li style={{ color: entry.color }} key={`item-${index}`}>
             <div
-              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm"
+              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm text-body"
               onClick={() => onPieEnter(entry, index)}
             >
               <span>{entry.value}</span>
@@ -147,7 +147,12 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                   };
 
                   return (
-                    <Text {...positioningProps} fontSize="24px" fontWeight="bold">
+                    <Text
+                      {...positioningProps}
+                      fontSize="24px"
+                      fontWeight="bold"
+                      fill="var(--body-color)"
+                    >
                       {numberWithCommas(total.value)}
                     </Text>
                   );
@@ -164,7 +169,11 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                     textAnchor: 'middle',
                     verticalAnchor: 'middle',
                   };
-                  return <Text {...positioningProps}>{'Products'}</Text>;
+                  return (
+                    <Text {...positioningProps} fill="var(--body-color)">
+                      {'Products'}
+                    </Text>
+                  );
                 }}
               />
               {data &&
