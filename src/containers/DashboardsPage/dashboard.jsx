@@ -89,7 +89,7 @@ const Dashboard = observer(
               </div>
             </div>
             <Row className="gx-24 mb-24">
-              <Col lg={5}>
+              <Col lg={6}>
                 <Row className="gx-24 h-100">
                   <Col lg={6}>
                     <ComponentCard
@@ -137,7 +137,7 @@ const Dashboard = observer(
                   </Col>
                 </Row>
               </Col>
-              <Col lg={4}>
+              <Col lg={6}>
                 <PieChartComponent
                   height={190}
                   chartTitle={t('txt_products_state')}
@@ -155,7 +155,7 @@ const Dashboard = observer(
             </Col> */}
             </Row>
             <Row className="gx-24 mb-24">
-              <Col lg={9}>
+              <Col lg={12}>
                 <ListFeaturedProducts viewModel={this.viewModel} />
               </Col>
             </Row>

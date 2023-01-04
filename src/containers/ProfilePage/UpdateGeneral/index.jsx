@@ -17,6 +17,8 @@ import { UPDATE_GENERAL_FIELD_KEY } from '../../../constants/ProfileModule';
 import '../index.scss';
 import SubmitButton from '../Layout/SubmitButton';
 import { witheProfileViewModel } from '../ProfileViewModel/ProfileViewModelContextProvider';
+import AvatarDAM from '../Layout/AvatarDAM';
+import { Col, Row } from 'react-bootstrap';
 
 const UpdateGeneral = observer(
   class UpdateGeneral extends Component {
@@ -36,6 +38,7 @@ const UpdateGeneral = observer(
       [UPDATE_GENERAL_FIELD_KEY.STATE]: '',
       [UPDATE_GENERAL_FIELD_KEY.COUNTRY]: '',
       [UPDATE_GENERAL_FIELD_KEY.TIMEZONE]: '',
+      [UPDATE_GENERAL_FIELD_KEY.ORGANIZATION]: '',
     };
 
     constructor(props) {
@@ -97,7 +100,15 @@ const UpdateGeneral = observer(
         {
           fields: [
             {
-              label: 'txt_Username',
+              label: 'txt_organization',
+              key: UPDATE_GENERAL_FIELD_KEY.ORGANIZATION,
+              type: FORM_FIELD_TYPE.INPUT,
+              value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.ORGANIZATION],
+              className: 'col-lg-6',
+              readOnly: true,
+            },
+            {
+              label: 'txt_username',
               key: UPDATE_GENERAL_FIELD_KEY.USERNAME,
               type: FORM_FIELD_TYPE.INPUT,
               value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME],
@@ -114,7 +125,7 @@ const UpdateGeneral = observer(
             },
 
             {
-              label: 'txt_Fullname',
+              label: 'txt_fullname',
               key: UPDATE_GENERAL_FIELD_KEY.FULLNAME,
               type: FORM_FIELD_TYPE.INPUT,
               value: this.formPropsData[UPDATE_GENERAL_FIELD_KEY.FULLNAME],
@@ -137,6 +148,16 @@ const UpdateGeneral = observer(
         },
       ];
     };
+    
+    avatarOnSelectHandler = (data) => {
+      if (data.split(/[#?]/)[0].split('.').pop().trim() !== 'mp4') {
+        this.setState({
+          getUrlImage: data,
+        });
+        this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] = data;
+      }
+    };
+
     render() {
       const { memberInfo } = this.updateGeneralViewModel;
       return (
@@ -145,46 +166,23 @@ const UpdateGeneral = observer(
             <Spinner />
           ) : (
             <>
-              <FormComponent
-                formClassName={'row'}
-                generateFormSetting={() => this.generateFormSetting()}
-                formPropsData={this.formPropsData}
-                viewModel={this.updateGeneralViewModel}
-                key={Math.random(40, 200)}
-              />
-
-              {/* <AvatarDAM>
-                  <div
-                    className={`position-relative  cursor-pointer wr_upload_images ${
-                      getUrlImage.length > 0 ? 'active_img' : ''
-                    }`}
-                  >
-                    {!getUrlImage ? (
-                      <div className="wr_img_thumbnail_dam position-relative m-2 ">
-                        <ComponentImage
-                          className={`rounded-circle them imgTab h-196`}
-                          src={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]}
-                          alt={this.formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME]}
-                        />
-                        <div className="position-absolute top-50 start-0 align-content-center fw-bold text-white imgcloud ">
-                          <FontAwesomeIcon icon={faCloudUploadAlt} className="d-block m-auto  " />
-                          <span className=" mx-3 my-5">Click to change image</span>
-                        </div>
-                      </div>
-                    ) : null}
-                    <div className="main_upload_images">
-                      <Button data={getUrlImage} changed={(data) => this.handleDamAssets(data)} />
-                    </div>
-                    {getUrlImage ? (
-                      <div
-                        onClick={() => this.clearImage(memberInfo.avatar_dam)}
-                        className={'clear_image_button'}
-                      >
-                        <FontAwesomeIcon icon={faTimesCircle} className="text-white" />
-                      </div>
-                    ) : null}
-                  </div>
-                </AvatarDAM> */}
+              <Row>
+                <Col lg={9}>
+                  <FormComponent
+                    formClassName={'row'}
+                    generateFormSetting={() => this.generateFormSetting()}
+                    formPropsData={this.formPropsData}
+                    viewModel={this.updateGeneralViewModel}
+                    key={Math.random(40, 200)}
+                  />
+                </Col>
+                <Col lg={3}>
+                  <AvatarDAM
+                    formPropsData={this.formPropsData}
+                    avatarOnSelectHandler={this.avatarOnSelectHandler}
+                  />
+                </Col>
+              </Row>
               <SubmitButton validateInfoBeforeSending={this.validateInfoBeforeSending} />
             </>
           )}
