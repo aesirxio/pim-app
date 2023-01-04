@@ -145,7 +145,6 @@ const EditProduct = observer(
                         ] = event.target.value;
                       },
                       required: true,
-                      validation: 'required',
                       blurred: () => {
                         this.validator.showMessageFor('Product Name');
                       },
