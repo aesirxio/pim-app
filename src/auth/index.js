@@ -5,7 +5,7 @@
 
 import history from '../routes/history';
 import { notify } from '../components/Toast';
-import { AXIOS_CONFIGS, GENERAL_CONFIG } from 'aesirx-dma-lib';
+import { AXIOS_CONFIGS } from 'aesirx-dma-lib';
 import { Storage, AesirxAuthenticationApiService } from 'aesirx-dma-lib';
 
 if (
