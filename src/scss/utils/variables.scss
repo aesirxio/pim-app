@@ -57,6 +57,19 @@ $color-blue-7: #199ce3;
 $color-blue-8: #54c7ec;
 $color-blue-9: #f0f3fb;
 
+//MAIN COLOR RED
+$color-red: #c60202;
+$color-red-2: #ef373780 !default;
+$color-red-3: #d30011 !default;
+$color-red-4: #ff2366 !default;
+
+//notify color
+$noti-bg-success: #d1fae5 !default;
+$noti-warn: #946300;
+$noti-bg-warn: #fff8e9 !default;
+$noti-error: #c8192e;
+$noti-bg-error: #fee2e2 !default;
+
 // scss-docs-start colors-map
 $colors: (
   'blue': $blue,
@@ -108,6 +121,11 @@ $theme-colors: (
   'blue-9': $color-blue-9,
   'dark-blue': $dark-blue,
   'green-light': $green-light,
+  'noti-error': $noti-error,
+  'noti-warn': $noti-warn,
+  'noti-bg-error': $noti-bg-error,
+  'noti-bg-warn': $noti-bg-warn,
+  'noti-bg-success': $noti-bg-success,
 ) !default;
 // scss-docs-end theme-colors-map
 
@@ -193,12 +211,6 @@ $nav-tabs-border-radius: 0 !default;
 
 //COLOR
 $color: #3c3c3c;
-
-//MAIN COLOR RED
-$color-red: #c60202;
-$color-red-2: #ef373780 !default;
-$color-red-3: #d30011 !default;
-$color-red-4: #ff2366 !default;
 
 $color-pink: #8d25a8 !default;
 

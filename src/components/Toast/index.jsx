@@ -17,17 +17,20 @@ const notify = (msg, type = 'success') => {
   switch (type) {
     case 'error':
       toast.error(msg, {
-        className: 'bg-danger',
+        className: 'bg-noti-bg-error fw-bold text-noti-error ps-2',
+        icon: () => <img alt="error" src="/assets/images/error.png" />,
       });
       break;
     case 'warn':
       toast.warn(msg, {
-        className: 'bg-info',
+        className: 'bg-noti-bg-warn fw-bold text-noti-warn ps-2',
+        icon: () => <img alt="warn" src="/assets/images/warn.png" />,
       });
       break;
     case 'success':
       toast.success(msg, {
-        className: 'bg-success',
+        className: 'bg-noti-bg-success text-green fw-bold ps-2',
+        icon: () => <img alt="success" src="/assets/images/success.png" />,
       });
       break;
     case 'promise':
