@@ -79,6 +79,7 @@ const ProfilePage = observer(
             <div className="px-2 py-3 bg-white rounded-3">
               <div className="fw-semi mb-2 h3">{t('txt_general_information')}</div>
               <UpdateGeneral />
+              <div className="mb-5" />
               <div className="fw-semi mb-2 h3">{t('txt_projectpage_password')}</div>
               <UpdatePassword />
             </div>

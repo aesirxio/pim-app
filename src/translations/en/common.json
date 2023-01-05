@@ -4,7 +4,7 @@
   "txt_sign_in_with_sso": "Sign In with SSO",
   "txt_sign_up": "Sign Up",
   "txt_login_text_1": "Sign in to",
-  "txt_login_text_2": "AesirX Statistics Dashboard",
+  "txt_login_text_2": "AesirX Product Information Management",
   "txt_do_not_have_an_account": "Don't have an account? Create Free Account",
   "txt_search_for_something": "Search for something ...",
   "txt_search_all_content": "Search all content",
@@ -30,7 +30,7 @@
   "txt_State": "State",
   "txt_Country": "Country",
   "txt_Zipcode": "Zipcode",
-  "txt_Fullname": "Fullname",
+  "txt_fullname": "Full Name",
   "txt_City": "City",
   "txt_current_password": "Current Password",
   "txt_confirm_password": "Confirm New Password",
@@ -301,5 +301,7 @@
   "txt_fields_group": "Field Groups",
   "txt_add_new_field_group": "Add New Field Groups",
   "txt_all_field_groups": "All Field Groups",
-  "txt_add_new_prices": "Add New Prices"
+  "txt_add_new_prices": "Add New Prices",
+  "txt_organization": "Organization",
+  "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)"
 }
