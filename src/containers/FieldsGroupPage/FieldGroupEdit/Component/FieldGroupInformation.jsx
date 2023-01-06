@@ -38,7 +38,9 @@ const FieldGroupInformation = observer(
                 this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
                   PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
                 ],
-              placeholder: t('txt_type'),
+              placeholder: this.fieldGroupDetailViewModel.aliasChange
+                ? this.fieldGroupDetailViewModel.aliasChange
+                : t('txt_type'),
               handleChange: (data) => {
                 this.fieldGroupDetailViewModel.handleFormPropsData(
                   PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS,

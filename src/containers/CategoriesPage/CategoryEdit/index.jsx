@@ -18,6 +18,7 @@ import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import CategoryTab from './Component/CategoryTab';
 import SimpleReactValidator from 'simple-react-validator';
+import _ from 'lodash';
 
 const EditCategory = observer(
   class EditCategory extends Component {
@@ -43,6 +44,21 @@ const EditCategory = observer(
         await this.categoryDetailViewModel.initializeData();
       }
     }
+
+    handleAliasFormPropsData() {
+      if (
+        !this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
+          PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
+        ]
+      ) {
+        this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
+          PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
+        ] = this.categoryDetailViewModel.aliasChange;
+      }
+    }
+    debouncedChangeHandler = _.debounce((value) => {
+      this.categoryDetailViewModel.handleAliasChange(value);
+    }, 300);
 
     render() {
       const { t } = this.props;
@@ -84,6 +100,7 @@ const EditCategory = observer(
                         if (this.isEdit) {
                           await this.categoryDetailViewModel.update();
                         } else {
+                          this.handleAliasFormPropsData();
                           await this.categoryDetailViewModel.create();
                         }
                         history.push(`/categories`);
@@ -102,6 +119,7 @@ const EditCategory = observer(
                           await this.categoryDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
+                          this.handleAliasFormPropsData();
                           let result = await this.categoryDetailViewModel.create();
                           history.push(`/categories/edit/${result}`);
                         }
@@ -133,6 +151,9 @@ const EditCategory = observer(
                           PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
                           event.target.value
                         );
+                        if (!this.isEdit) {
+                          this.debouncedChangeHandler(event.target.value);
+                        }
                       },
                       required: true,
                       validation: 'required',
