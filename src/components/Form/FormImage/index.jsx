@@ -34,7 +34,6 @@ const FormImage = ({ field }) => {
     }
     setShow(false);
   };
-  console.log('field.getValueSelected', field.getValueSelected);
   return (
     <>
       {field.isMulti ? (
@@ -51,9 +50,7 @@ const FormImage = ({ field }) => {
                       </div>
                     </Ratio>
                   </Col>
-                ) : (
-                  <></>
-                );
+                ) : null;
               })}
           </Row>
           <Button

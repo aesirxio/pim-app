@@ -40,8 +40,6 @@ const FieldsList = observer(
       }
     };
     render() {
-      console.log('rerender Fields', this.props.viewModel.fieldListViewModel.items);
-
       const generateFormSetting = [
         {
           fields: [
