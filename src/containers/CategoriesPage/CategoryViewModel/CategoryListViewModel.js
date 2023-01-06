@@ -121,6 +121,18 @@ class CategoryListViewModel {
     this.successResponse.state = true;
   };
 
+  deleteCategories = async (arr) => {
+    const res = await this.categoryStore.deleteCategories(arr);
+    if (res) {
+      await this.categoryStore.getList(
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+        this.successResponse.filters
+      );
+    }
+    this.successResponse.state = true;
+  };
+
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
   };

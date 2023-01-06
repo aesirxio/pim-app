@@ -18,11 +18,12 @@ const ActionsBar = ({ t, buttons = [] }) => {
             >
               {item.icon && (
                 <ComponentSVG
+                  color={item.iconColor}
                   url={item.icon}
                   className={`icon-${item.variant ? item.variant : 'light'} me-1`}
                 />
               )}
-              {item.title}
+              <span style={{ color: item.textColor }}>{item.title}</span>
             </Button>
           </div>
         );
