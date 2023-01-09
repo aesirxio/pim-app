@@ -573,9 +573,13 @@ form {
     }
     &[type='checkbox'] {
       border-color: $body-color;
+      width: 24px;
+      height: 24px;
+      margin-left: -32px;
+      margin-top: 0;
       &:checked {
         border-color: $success;
-        background-color: $white;
+        background-color: $success;
       }
       &:not(:checked) {
         background-color: var(--content-bg);
