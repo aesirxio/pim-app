@@ -14,6 +14,7 @@ import InputPassword from '../../components/inputPassword';
 // import ComponentImage from 'components/ComponentImage';
 import { SSOButton } from 'aesirx-sso';
 import { AesirxAuthenticationApiService, Storage } from 'aesirx-dma-lib';
+import Checkbox from 'components/Checkbox';
 
 class LoginPage extends React.Component {
   constructor(props) {
@@ -67,33 +68,33 @@ class LoginPage extends React.Component {
     };
     return (
       <div className="vh-100 bg-blue-9">
-        <div className="row justify-content-center align-items-center h-100">
-          <div className="col-lg-7 col-xxl-5">
-            <p className="fs-2 fw-bold mb-2 text-center">
-              <img
-                className="pe-2"
-                style={{ verticalAlign: 'inherit' }}
-                alt="aesirx"
-                src="/assets/images/logo/welcome-logo.png"
-              />
-            </p>
-            <div className="d-block bg-white p-2 p-lg-5">
-              <h1 className="fs-2 text-primary fw-normal text-center mb-16 lh-base">
-                {t('txt_login_text_1')} <br /> {t('txt_login_text_2')}
+        <div className="row justify-content-center align-items-center h-100 bg-white">
+          <div className="col-md-6 col-xxl-4">
+            <div className="d-block p-2 p-lg-5">
+              <h1 className="fs-2 text-blue fw-semibold text-center mb-16 lh-base">
+                {t('txt_login_text_1')}
+                <img
+                  className="px-1"
+                  style={{ verticalAlign: 'inherit' }}
+                  alt="aesirx"
+                  src="/assets/images/logo/welcome-logo.png"
+                />
+                {t('txt_pim')}.
+                <br /> {t('txt_login_text_2')}
               </h1>
               <form>
                 <SSOButton
-                  className="btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center mb-3 px-6"
+                  className="btn w-100 fw-bold btn-blue-3 position-relative d-flex align-item-center justify-content-center mb-2 px-6"
                   text={t('txt_sign_in_with_sso')}
                   onGetData={onGetData}
                 />
-                <div className="d-flex align-items-center flex-nowrap">
+                <div className="d-flex align-items-center flex-nowrap mb-1">
                   <div className="border-bottom w-50"></div>
-                  <span className="px-2">or</span>
+                  <span className="px-2 opacity-50">OR</span>
                   <div className="border-bottom w-50"></div>
                 </div>
-                <label className="form-label mb-16">
-                  Username <span>*</span>
+                <label className="form-label fw-semibold mb-16">
+                  Email <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -109,8 +110,8 @@ class LoginPage extends React.Component {
                 {this.validator.message('Email or username', this.state.username, 'required', {
                   className: 'text-danger',
                 })}
-                <label className="form-label mt-2 mb-16" htmlFor="password">
-                  Password <span>*</span>
+                <label className="form-label fw-semibold mt-2 mb-16" htmlFor="password">
+                  Password <span className="text-danger">*</span>
                 </label>
                 <InputPassword
                   type="password"
@@ -126,9 +127,20 @@ class LoginPage extends React.Component {
                 {this.validator.message('password', this.state.password, 'required', {
                   className: 'text-danger',
                 })}
+                <div className="d-flex justify-content-between pt-16">
+                  <Checkbox text="Remember me" />
+                  <a
+                    href="https://pim.aesirx.io/auth/forgotpassword"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="d-flex fw-semibold fs-6"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
                 <button
                   type="button"
-                  className={`btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-3`}
+                  className={`btn w-100 fw-medium btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-3 text-uppercase`}
                   onClick={this.handleSubmit}
                 >
                   {t('txt_sign_in')}
