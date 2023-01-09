@@ -11,6 +11,7 @@ class FieldGroupDetailViewModel {
   fieldGroupStore = null;
   formStatus = PAGE_STATUS.READY;
   fieldGroupDetailViewModel = null;
+  aliasChange = '';
   successResponse = {
     state: true,
     content_id: '',
@@ -99,6 +100,10 @@ class FieldGroupDetailViewModel {
         this.fieldGroupDetailViewModel.formPropsData[key] = value;
       }
     }
+  };
+
+  handleAliasChange = (value) => {
+    this.aliasChange = value;
   };
 }
 

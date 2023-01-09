@@ -44,7 +44,7 @@ const CategoryInformation = observer(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
                 ],
               className: 'col-lg-12',
-              placeholder: t('txt_type'),
+              placeholder: this.viewModel.aliasChange ? this.viewModel.aliasChange : t('txt_type'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS,

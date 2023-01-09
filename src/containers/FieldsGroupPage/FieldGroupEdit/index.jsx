@@ -18,6 +18,7 @@ import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
+import _ from 'lodash';
 
 const EditFieldGroup = observer(
   class EditFieldGroup extends Component {
@@ -43,6 +44,22 @@ const EditFieldGroup = observer(
         await this.fieldGroupDetailViewModel.initializeData();
       }
     }
+
+    handleAliasFormPropsData() {
+      if (
+        !this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
+          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
+        ]
+      ) {
+        this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
+          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
+        ] = this.fieldGroupDetailViewModel.aliasChange;
+      }
+    }
+
+    debouncedChangeHandler = _.debounce((value) => {
+      this.fieldGroupDetailViewModel.handleAliasChange(value);
+    }, 300);
 
     render() {
       const { t } = this.props;
@@ -84,6 +101,7 @@ const EditFieldGroup = observer(
                         if (this.isEdit) {
                           await this.fieldGroupDetailViewModel.update();
                         } else {
+                          this.handleAliasFormPropsData();
                           await this.fieldGroupDetailViewModel.create();
                         }
                         history.push(`/fields-group`);
@@ -102,6 +120,7 @@ const EditFieldGroup = observer(
                           await this.fieldGroupDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
+                          this.handleAliasFormPropsData();
                           let result = await this.fieldGroupDetailViewModel.create();
                           history.push(`/fields-group/edit/${result}`);
                         }
@@ -133,6 +152,9 @@ const EditFieldGroup = observer(
                           PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME,
                           event.target.value
                         );
+                        if (!this.isEdit) {
+                          this.debouncedChangeHandler(event.target.value);
+                        }
                       },
                       required: true,
                       validation: 'required',

@@ -11,6 +11,7 @@ class CategoryDetailViewModel {
   categoryStore = null;
   formStatus = PAGE_STATUS.READY;
   categoryDetailViewModel = null;
+  aliasChange = '';
   successResponse = {
     state: true,
     content_id: '',
@@ -98,6 +99,9 @@ class CategoryDetailViewModel {
         this.categoryDetailViewModel.formPropsData[key] = value;
       }
     }
+  };
+  handleAliasChange = (value) => {
+    this.aliasChange = value;
   };
 }
 

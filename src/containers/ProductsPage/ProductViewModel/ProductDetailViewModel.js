@@ -11,6 +11,7 @@ class ProductDetailViewModel {
   productStore = null;
   formStatus = PAGE_STATUS.READY;
   productDetailViewModel = null;
+  aliasChange = '';
   successResponse = {
     state: true,
     content_id: '',
@@ -98,6 +99,10 @@ class ProductDetailViewModel {
         this.productDetailViewModel.formPropsData[key] = value;
       }
     }
+  };
+
+  handleAliasChange = (value) => {
+    this.aliasChange = value;
   };
 }
 
