@@ -118,6 +118,11 @@ const ListFields = observer((props) => {
       viewModel.getListByFilter('limitstart', (value - 1) * viewModel.pagination.pageLimit);
     }
   };
+  
+  const deleteFields = () => {
+    viewModel.isLoading();
+    viewModel.deleteFields(listSelected);
+  };
 
   return (
     <>
@@ -125,6 +130,15 @@ const ListFields = observer((props) => {
         <h2 className="fw-bold mb-0">{t('txt_fields')}</h2>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteFields();
+              },
+            },
             {
               title: t('txt_add_new_fields'),
               icon: '/assets/images/plus.svg',

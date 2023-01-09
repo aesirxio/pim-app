@@ -141,4 +141,16 @@ export default class FieldStore {
 
     return false;
   }
+
+  async deleteFields(arr) {
+    try {
+      const aesirxPimFieldApiService = new AesirxPimFieldApiService();
+      const respondedData = await aesirxPimFieldApiService.deleteFields(arr);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }

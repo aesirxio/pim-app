@@ -17,9 +17,9 @@ export default class ProductStore {
 
       let resultOnSave;
 
-      const createProductApiService = new AesirxPimProductApiService();
+      const aesirxPimProductApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await createProductApiService.create(convertedUpdateGeneralData);
+      resultOnSave = await aesirxPimProductApiService.create(convertedUpdateGeneralData);
 
       if (resultOnSave) {
         runInAction(() => {
@@ -43,9 +43,9 @@ export default class ProductStore {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfUpdation(updateProductData);
       let resultOnSave;
-      const updateProductApiService = new AesirxPimProductApiService();
+      const aesirxPimProductApiService = new AesirxPimProductApiService();
 
-      resultOnSave = await updateProductApiService.update(convertedUpdateGeneralData);
+      resultOnSave = await aesirxPimProductApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
           callbackOnSuccess(resultOnSave);
@@ -69,9 +69,9 @@ export default class ProductStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new AesirxPimProductApiService();
+        const aesirxPimProductApiService = new AesirxPimProductApiService();
 
-        const respondedData = await getDetailInfoAPIService.getDetail(id);
+        const respondedData = await aesirxPimProductApiService.getDetail(id);
 
         if (respondedData) {
           runInAction(() => {
@@ -92,8 +92,8 @@ export default class ProductStore {
 
   async getListCategories(callbackOnSuccess, callbackOnError) {
     try {
-      const getPimCategoyAPIService = new AesirxPimCategoryApiService();
-      const respondedData = await getPimCategoyAPIService.getList({ 'list[limit]': 9999 });
+      const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
+      const respondedData = await aesirxPimCategoryApiService.getList({ 'list[limit]': 9999 });
 
       if (respondedData) {
         runInAction(() => {
@@ -114,8 +114,8 @@ export default class ProductStore {
 
   async getList(callbackOnSuccess, callbackOnError, filters) {
     try {
-      const getPimProductAPIService = new AesirxPimProductApiService();
-      const respondedData = await getPimProductAPIService.getList(filters);
+      const aesirxPimProductApiService = new AesirxPimProductApiService();
+      const respondedData = await aesirxPimProductApiService.getList(filters);
       if (respondedData) {
         runInAction(() => {
           callbackOnSuccess(respondedData);
@@ -135,8 +135,8 @@ export default class ProductStore {
 
   async getListPublishStatus(callbackOnSuccess, callbackOnError) {
     try {
-      const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
-      const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
+      const aesirxPimUtilApiService = new AesirxPimUtilApiService();
+      const respondedData = await aesirxPimUtilApiService.getListPublishStatus();
       if (respondedData) {
         runInAction(() => {
           callbackOnSuccess(respondedData);
@@ -158,8 +158,8 @@ export default class ProductStore {
     if (!id) return false;
 
     try {
-      const getDetailInfoAPIService = new AesirxPimProductApiService();
-      const respondedData = await getDetailInfoAPIService.getDetailInfo(id);
+      const aesirxPimProductApiService = new AesirxPimProductApiService();
+      const respondedData = await aesirxPimProductApiService.getDetailInfo(id);
       return respondedData;
     } catch (error) {
       // no error throw
@@ -170,8 +170,20 @@ export default class ProductStore {
 
   async updateStatus(arr, status) {
     try {
-      const updateStatusAPIService = new AesirxPimProductApiService();
-      const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      const aesirxPimProductApiService = new AesirxPimProductApiService();
+      const respondedData = await aesirxPimProductApiService.updateStatus(arr, status);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
+  async deleteProducts(arr) {
+    try {
+      const aesirxPimProductApiService = new AesirxPimProductApiService();
+      const respondedData = await aesirxPimProductApiService.deleteProducts(arr);
       return respondedData;
     } catch (error) {
       // no error throw

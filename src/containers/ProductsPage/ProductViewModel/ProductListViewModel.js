@@ -105,6 +105,18 @@ class ProductListViewModel {
     this.successResponse.state = true;
   };
 
+  deleteProducts = async (arr) => {
+    const res = await this.productStore.deleteProducts(arr);
+    if (res) {
+      await this.productStore.getList(
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+        this.successResponse.filters
+      );
+    }
+    this.successResponse.state = true;
+  };
+
   callbackOnSuccessSetFeatured = async (result) => {
     this.successResponse.listProducts = this.successResponse.listProducts.map((o) => {
       if (o.id == result) {

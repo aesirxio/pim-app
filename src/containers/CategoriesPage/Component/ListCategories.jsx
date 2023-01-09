@@ -207,12 +207,26 @@ const ListCategories = observer((props) => {
     viewModel.setPublished(value.id, isPublished);
   };
 
+  const deleteCategories = () => {
+    viewModel.isLoading();
+    viewModel.deleteCategories(listSelected);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="fw-bold mb-0">{t('txt_categories')}</h2>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteCategories();
+              },
+            },
             {
               title: t('txt_add_new'),
               icon: '/assets/images/plus.svg',

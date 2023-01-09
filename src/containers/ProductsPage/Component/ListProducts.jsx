@@ -70,9 +70,13 @@ const ListProducts = observer((props) => {
   };
 
   const selectCategoryHandler = (value) => {
-    console.log(value.value);
     viewModel.isLoading();
     viewModel.getListByFilter('filter[category]', value.value);
+  };
+
+  const deleteProducts = () => {
+    viewModel.isLoading();
+    viewModel.deleteProducts(listSelected);
   };
 
   return (
@@ -81,6 +85,15 @@ const ListProducts = observer((props) => {
         <h2 className="fw-bold mb-0">{t('txt_title_product_management')}</h2>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteProducts();
+              },
+            },
             {
               title: t('txt_add_new'),
               icon: '/assets/images/plus.svg',

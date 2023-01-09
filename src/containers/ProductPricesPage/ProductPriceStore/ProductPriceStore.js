@@ -153,4 +153,16 @@ export default class ProductPriceStore {
       });
     }
   }
+
+  async deleteProductPrices(arr) {
+    try {
+      const aesirxPimProductPriceApiService = new AesirxPimProductPriceApiService();
+      const respondedData = await aesirxPimProductPriceApiService.deleteProductPrices(arr);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }
