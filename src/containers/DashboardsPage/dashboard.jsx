@@ -66,14 +66,16 @@ const Dashboard = observer(
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
-      let percentProduct =
+      let percentProduct = (
         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 100 > 1
           ? this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 100
-          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 1000;
-      let percentCategories =
+          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 1000
+      ).toFixed(2);
+      let percentCategories = (
         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 100 > 1
           ? this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 100
-          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 1000;
+          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 1000
+      ).toFixed(2);
       return (
         <>
           <div className="py-4 px-3 d-flex flex-column">

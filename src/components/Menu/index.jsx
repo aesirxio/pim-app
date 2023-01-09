@@ -8,8 +8,6 @@ import { NavLink, withRouter } from 'react-router-dom';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
 import { Collapse, Button } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircle } from '@fortawesome/free-solid-svg-icons';
 import { observer } from 'mobx-react-lite';
 
 const dataMenuSetup = [
@@ -166,6 +164,7 @@ const Menu = observer((props) => {
                           style={{
                             WebkitMaskImage: `url(${menuList.icons_color})`,
                             WebkitMaskRepeat: 'no-repeat',
+                            backgroundColor: '#fff',
                           }}
                         ></span>
                         <span className="ms-16 text d-inline-block">{t(menuList.text)}</span>
@@ -177,7 +176,7 @@ const Menu = observer((props) => {
                     <Button
                       variant=""
                       onClick={() => handleOpen(menuListkey)}
-                      className={`d-flex align-items-center justify-content-start rounded-2 link_menu text-decoration-none text-break w-100 px-24 py-16 shadow-none ${
+                      className={`d-flex align-items-center justify-content-center rounded-0 link_menu text-decoration-none text-break w-100 px-24 py-16 shadow-none text-white ${
                         isOpenCollapse === menuListkey.toString() ||
                         isOpenCollapse?.includes(menuListkey + '-')
                           ? 'active'
@@ -194,6 +193,7 @@ const Menu = observer((props) => {
                         style={{
                           WebkitMaskImage: `url(${menuList.icons_color})`,
                           WebkitMaskRepeat: 'no-repeat',
+                          backgroundColor: '#fff',
                         }}
                       ></span>
                       <span className="ms-16 text d-inline-block">{t(menuList.text)}</span>
@@ -202,6 +202,7 @@ const Menu = observer((props) => {
                         style={{
                           WebkitMaskImage: `url(/assets/images/arrow-right.svg)`,
                           WebkitMaskRepeat: 'no-repeat',
+                          backgroundColor: '#fff',
                         }}
                       ></span>
                     </Button>
@@ -226,9 +227,6 @@ const Menu = observer((props) => {
                                   className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
                                   activeClassName={`active`}
                                 >
-                                  <i className="icon-submenu text-white">
-                                    <FontAwesomeIcon icon={faCircle} />
-                                  </i>
                                   <span className="text d-inline-block">{t(value.text)}</span>
                                 </NavLink>
                               )}
@@ -261,6 +259,7 @@ const Menu = observer((props) => {
                     style={{
                       WebkitMaskImage: `url(${value.icons_color})`,
                       WebkitMaskRepeat: 'no-repeat',
+                      backgroundColor: '#fff',
                     }}
                   ></span>
                   <span className="ms-16 text d-inline-block">{t(value.text)}</span>

@@ -20,11 +20,11 @@
     &.active,
     &:hover {
       background-color: $blue;
-      color: $white !important;
+      color: $white;
 
       i,
       span {
-        color: $white !important;
+        color: $white;
       }
     }
     &.active {
@@ -59,6 +59,17 @@
     &:last-child {
       padding-bottom: 8px;
       margin-bottom: 0;
+    }
+    .link_menu {
+      &:hover,
+      &.active {
+        background-color: transparent;
+        color: $color-blue-1;
+        i,
+        span {
+          color: $color-blue-1;
+        }
+      }
     }
   }
 }
@@ -104,12 +115,10 @@ body.mini_left {
         font-size: $font-size-sm;
       }
     }
-    .icon-submenu {
-      display: block;
-    }
   }
 }
 .sidebar {
+  overflow-y: auto;
   .menu_title {
     padding: 0 24px;
   }
@@ -133,9 +142,6 @@ body.mini_left {
         }
       }
     }
-  }
-  .icon-submenu {
-    display: none;
   }
   .button-language {
     padding-right: 24px;
