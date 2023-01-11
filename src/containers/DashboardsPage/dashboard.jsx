@@ -89,8 +89,8 @@ const Dashboard = observer(
               </div>
             </div>
             <Row className="gx-24 mb-24">
-              <Col lg={6}>
-                <Row className="gx-24 h-100">
+              <Col lg={6} className={`mb-5 mb-lg-0`}>
+                <Row className="gx-24 h-100 gap-5 gap-lg-0">
                   <Col lg={6}>
                     <ComponentCard
                       title={t('txt_products')}

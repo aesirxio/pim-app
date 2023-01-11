@@ -29,6 +29,9 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
+  const onPieLeave = () => {
+    setActiveIndex(-1);
+  };
   const renderActiveShape = ({
     cx,
     cy,
@@ -131,6 +134,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
               fill="#8884D8"
               dataKey="value"
               onMouseEnter={onPieEnter}
+              onMouseLeave={onPieLeave}
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
             >
