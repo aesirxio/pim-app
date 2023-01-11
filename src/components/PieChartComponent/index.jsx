@@ -77,7 +77,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
-          fill="var(--body-color)"
+          fill="var(--bs-body-color)"
           className="fs-sm fw-semibold"
         >{`${t('txt_value')}: ${value}`}</text>
         <text
@@ -151,7 +151,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                       {...positioningProps}
                       fontSize="24px"
                       fontWeight="bold"
-                      fill="var(--body-color)"
+                      fill="var(--bs-body-color)"
                     >
                       {numberWithCommas(total.value)}
                     </Text>
@@ -170,7 +170,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                     verticalAnchor: 'middle',
                   };
                   return (
-                    <Text {...positioningProps} fill="var(--body-color)">
+                    <Text {...positioningProps} fill="var(--bs-body-color)">
                       {'Products'}
                     </Text>
                   );

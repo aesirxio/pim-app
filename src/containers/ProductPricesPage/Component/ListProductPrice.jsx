@@ -124,9 +124,8 @@ const ListProductPrice = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {
-                viewModel?.successResponse?.listPublishStatus.find(
-                  (o) => o.value == value.status
-                ).label
+                viewModel?.successResponse?.listPublishStatus.find((o) => o.value == value.status)
+                  .label
               }
             </div>
             <div>
@@ -188,7 +187,7 @@ const ListProductPrice = observer((props) => {
                 placeholder={t('txt_bulk_actions')}
                 plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
@@ -206,7 +205,7 @@ const ListProductPrice = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={`Select`}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
           </div>

@@ -50,7 +50,7 @@
     'teal': $teal,
     'cyan': $cyan,
     'white': #fff,
-    'gray': $gray-600,
+    'gray': $white,
     'gray-dark': $gray-800,
     'gray-900': #f6f8fa,
     'danger': $red,
@@ -82,10 +82,11 @@
     'theme': #0c1215,
     'gray-200': $gray-200,
     'gray-400': $gray-400,
-    'white': #000,
+    'white': $dark,
+    'black': $white,
   );
 
-  $body-color: #eeeeee;
+  $body-color: #fff;
   $body-bg: #0f1314;
   color: $body-color;
   background-color: $body-bg;
@@ -259,12 +260,59 @@
   @import '../../node_modules/bootstrap/scss/utilities/api';
 
   // for react-select
-  :root {
-    --dropdown-item-hover-color: #1ab394;
-    --dropdown-item-hover-bg: #e8e9ec;
-    --view-active-bg: #e8e9ec;
-    --text-title-color: #fff;
-    --dropdown-bg: #e8e9ec;
-    --dropdown-item-color: #fff;
+  --dropdown-item-hover-color: #1ab394 !important;
+  --dropdown-item-hover-bg: #e8e9ec !important;
+  --view-active-bg: #e8e9ec !important;
+  --text-title-color: #fff !important;
+  --dropdown-bg: #1a2226 !important;
+  --dropdown-item-color: #e8e9ec !important;
+  --input-border-color: #e3e3e3 !important;
+  --input-placeholder-color: #c0c0c0 !important;
+  --dropdown-multi-bg: #0f1314;
+  --dropdown-indicator-color: '#fff';
+
+  .nav-tabs {
+    .nav-link.active,
+    .nav-item.show .nav-link {
+      color: $white;
+    }
   }
+  .dropdown-menu {
+    --bs-dropdown-bg: #1a2226;
+  }
+  .list_menu_avatar {
+    a:hover {
+      color: $success !important;
+    }
+  }
+  .btn-light {
+    --bs-btn-bg: #1a2226;
+    --bs-btn-color: $body-color;
+    --bs-btn-hover-color: #1a2226;
+    &:hover .icon {
+      background-color: #1a2226 !important;
+    }
+  }
+  .form-control {
+    color: $body-color;
+    &:focus {
+      background-color: #0f1314;
+      color: $body-color;
+    }
+  }
+  .form-check {
+    .form-check-input {
+      &[type='radio'] {
+        border-color: $white;
+      }
+      &[type='checkbox'] {
+        border-color: $white;
+      }
+    }
+  }
+  --ck-color-base-background: #1a2226 !important;
+  --ck-color-base-text: #fff !important;
+  --ck-color-button-default-hover-background: #0f1314 !important;
+  --ck-color-split-button-hover-background: #0f1314 !important;
+  --ck-color-split-button-hover-border: #0f1314 !important;
 }

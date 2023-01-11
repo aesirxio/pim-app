@@ -52,11 +52,7 @@ const PublishOptions = observer(
           {isPublished && (
             <div className="d-flex align-items-center justify-content-between w-100 mb-24">
               <div>
-                <ComponentSVG
-                  url="/assets/images/post-status.svg"
-                  color="#222328"
-                  className="pe-1"
-                />
+                <ComponentSVG url="/assets/images/post-status.svg" className="pe-1 bg-black" />
                 {t('txt_status')}:
               </div>
 
@@ -80,7 +76,7 @@ const PublishOptions = observer(
                         value: status.value.toString(),
                       })
                     ),
-                    arrowColor: '#222328',
+                    arrowColor: 'var(--dropdown-indicator-color)',
                     handleChange: (data) => {
                       detailViewModal.handleFormPropsData(
                         PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED,
