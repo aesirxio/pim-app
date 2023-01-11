@@ -24,7 +24,7 @@ const ListFields = observer((props) => {
       Header: 'Field name',
       accessor: 'field',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
@@ -49,7 +49,7 @@ const ListFields = observer((props) => {
       Header: 'Field group',
       accessor: 'groupName',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -58,7 +58,7 @@ const ListFields = observer((props) => {
       Header: 'types',
       accessor: 'type',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="text-capitalize">{value}</div>;
       },
@@ -199,7 +199,7 @@ const ListFields = observer((props) => {
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}

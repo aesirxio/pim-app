@@ -20,7 +20,7 @@ const ListCategories = observer((props) => {
       Header: 'Category name',
       accessor: 'category',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>
@@ -62,7 +62,7 @@ const ListCategories = observer((props) => {
     {
       Header: 'Parent Cate',
       accessor: 'parentName',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -96,7 +96,7 @@ const ListCategories = observer((props) => {
       },
       width: 50,
       accessor: 'published',
-      className: 'py-2 border-bottom-1 text-center',
+      className: 'py-2 border-bottom-1 text-center align-middle',
       Cell: ({ value }) => (
         <div className="text-center pe-5">
           {value.state == 1 ? (
@@ -142,7 +142,7 @@ const ListCategories = observer((props) => {
     {
       Header: 'Last modified',
       accessor: 'lastModified',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -286,7 +286,7 @@ const ListCategories = observer((props) => {
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.successResponse?.listCategories}
           selection={false}

@@ -24,7 +24,7 @@ const ListFieldsGroup = observer((props) => {
       Header: 'Field group name',
       accessor: 'fieldGroups',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
@@ -49,7 +49,7 @@ const ListFieldsGroup = observer((props) => {
       Header: 'Author',
       accessor: 'createdUserName',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -58,7 +58,7 @@ const ListFieldsGroup = observer((props) => {
       Header: 'Last modified',
       accessor: 'lastModified',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -171,7 +171,7 @@ const ListFieldsGroup = observer((props) => {
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}

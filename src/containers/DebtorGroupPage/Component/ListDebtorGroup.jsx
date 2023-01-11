@@ -24,7 +24,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="opacity-80">{value}</div>;
       },
@@ -33,7 +33,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Debtor group name',
       accessor: 'title',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
           <>
@@ -56,7 +56,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Debtor group code',
       accessor: 'code',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -65,7 +65,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Owner Company',
       accessor: 'organisationName',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -74,7 +74,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Last modified',
       accessor: 'lastModified',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -192,7 +192,7 @@ const ListDebtorGroup = observer((props) => {
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}
