@@ -37,8 +37,11 @@ const FormImage = ({ field }) => {
   const deleteImage = (e, index) => {
     e.stopPropagation();
     if (field.isMulti) {
-      setFile(file.splice(index, 1));
-      field.handleChange([...file.splice(index, 1)]);
+      let dataRemoved = file.filter(function (value, _index) {
+        return _index !== index;
+      });
+      setFile(dataRemoved);
+      field.handleChange([...dataRemoved]);
     } else {
       setFile(null);
       field.handleChange(null);
