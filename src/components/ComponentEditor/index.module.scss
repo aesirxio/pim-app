@@ -1,7 +1,3 @@
-.image-upload-button {
-  width: 30px;
-  height: 30px;
-}
 .custom-editor {
   --ck-custom-background: transparent;
   --ck-custom-border: var(--bs-border-color);
@@ -25,21 +21,21 @@
   --ck-color-toolbar-border: var(--bs-border-color);
   --ck-color-base-border: var(--bs-border-color);
 
-  --ck-color-list-background: var(--bs-white);
-  --ck-color-list-button-on-background: var(--bs-white);
+  --ck-color-list-background: var(--bs-info);
+  --ck-color-list-button-on-background: var(--bs-info);
   --ck-color-list-button-on-text: var(--bs-success);
   --ck-color-list-button-hover-text: var(--bs-success);
   --ck-color-list-button-hover-background: var(--bs-green-light);
   --ck-color-list-button-on-background-focus: var(--bs-green-light);
 
-  --ck-color-dropdown-panel-background: var(--bs-white);
+  --ck-color-dropdown-panel-background: var(--bs-info);
   --ck-color-dropdown-panel-border: var(--bs-border-color);
 
   --ck-color-image-caption-background: transparent;
   --ck-color-image-caption-text: var(--body-color);
   --ck-color-widget-editable-focus-background: transparent;
 
-  --ck-color-input-background: var(--bs-white);
+  --ck-color-input-background: var(--bs-info);
   --ck-color-input-border: var(--bs-border-color);
   --ck-color-input-text: var(--body-color);
 

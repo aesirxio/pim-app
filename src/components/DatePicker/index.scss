@@ -10,6 +10,7 @@
   .react-datepicker__input-container {
     input {
       height: 40px;
+      background-color: $white;
       &:read-only {
         background-color: $gray-300;
       }

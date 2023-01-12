@@ -36,6 +36,10 @@ export class ThemesContextProvider extends React.Component {
       this.setState({ theme: themeCheck });
       localStorage.setItem('theme', JSON.stringify(themeCheck));
       document.documentElement.setAttribute('class', themeCheck?.theme);
+    } else {
+      this.setState({ theme: listThemes[0] });
+      localStorage.setItem('theme', JSON.stringify(listThemes[0]));
+      document.documentElement.setAttribute('class', listThemes[0]?.theme);
     }
   };
 

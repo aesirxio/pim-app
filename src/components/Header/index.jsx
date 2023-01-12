@@ -73,7 +73,7 @@ class Header extends React.Component {
             />
           </a>
         </div>
-        <div className="content_header h-80 border-start-1 flex-1 d-flex align-items-center ps-2 ps-lg-4 position-relative w-50 w-lg-100">
+        <div className="content_header h-80 border-start-1 border-gray-300 flex-1 d-flex align-items-center ps-2 ps-lg-4 position-relative w-50 w-lg-100">
           <span
             className="
               item_collap
