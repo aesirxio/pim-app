@@ -310,9 +310,22 @@
       }
     }
   }
-  --ck-color-base-background: #1a2226 !important;
-  --ck-color-base-text: #fff !important;
-  --ck-color-button-default-hover-background: #0f1314 !important;
-  --ck-color-split-button-hover-background: #0f1314 !important;
-  --ck-color-split-button-hover-border: #0f1314 !important;
+  // React datepicker
+  .react-datepicker {
+    background-color: $dark;
+    color: $body-color;
+  }
+  .date-picker {
+    .react-datepicker__current-month {
+      color: $color-blue;
+    }
+    .react-datepicker__day-name,
+    .react-datepicker__day,
+    .react-datepicker__time-name {
+      color: rgba($color: $color-blue, $alpha: 0.8);
+    }
+  }
+  .spinner-overlay {
+    background-color: rgba($body-bg, 0.5);
+  }
 }

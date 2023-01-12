@@ -19,7 +19,7 @@ export default class FieldGroupStore {
       resultOnSave = await createFieldGroupApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Created successfully');
         });
       } else {
         runInAction(() => {
@@ -45,7 +45,7 @@ export default class FieldGroupStore {
       resultOnSave = await updateFieldGroupApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -59,13 +59,18 @@ export default class FieldGroupStore {
     }
   }
 
-  async updateStatus(arr, status) {
+  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
       const updateStatusAPIService = new AesirxPimFieldGroupApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;
