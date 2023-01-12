@@ -39,7 +39,7 @@ class CategoryDetailViewModel {
     this.formStatus = PAGE_STATUS.LOADING;
     return this.categoryStore.createCategory(
       this.categoryDetailViewModel.formPropsData,
-      this.callbackOnCreateSuccessHandler,
+      this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
   };
@@ -54,22 +54,17 @@ class CategoryDetailViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    notify('Update unsuccessfully', 'error');
+    error.response?.data?._messages[0]?.message
+      ? notify(error.response?.data?._messages[0]?.message, 'error')
+      : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnCreateSuccessHandler = (result) => {
-    if (result) {
-      notify('Create successfully', 'success');
-    }
-    this.formStatus = PAGE_STATUS.READY;
-  };
-
-  callbackOnSuccessHandler = (result) => {
-    if (result) {
-      notify('Update successfully', 'success');
+  callbackOnSuccessHandler = (result, message) => {
+    if (result && message) {
+      notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
   };

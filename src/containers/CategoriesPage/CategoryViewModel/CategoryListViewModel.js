@@ -110,7 +110,12 @@ class CategoryListViewModel {
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.categoryStore.updateStatus(arr, status);
+    const res = await this.categoryStore.updateStatus(
+      arr,
+      status,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.categoryStore.getList(
         this.callbackOnSuccessHandler,
@@ -122,7 +127,11 @@ class CategoryListViewModel {
   };
 
   deleteCategories = async (arr) => {
-    const res = await this.categoryStore.deleteCategories(arr);
+    const res = await this.categoryStore.deleteCategories(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.categoryStore.getList(
         this.callbackOnSuccessHandler,
@@ -138,20 +147,15 @@ class CategoryListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    notify('Update unsuccessfully', 'error');
+    error.response?.data?._messages[0]?.message
+      ? notify(error.response?.data?._messages[0]?.message, 'error')
+      : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnCreateSuccessHandler = (result) => {
-    if (result) {
-      notify('Create successfully', 'success');
-    }
-    this.formStatus = PAGE_STATUS.READY;
-  };
-
-  callbackOnSuccessHandler = (result) => {
+  callbackOnSuccessHandler = (result, message) => {
     if (result?.listItems) {
       this.successResponse.listCategories = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
@@ -162,16 +166,22 @@ class CategoryListViewModel {
     if (result?.listPublishStatus) {
       this.successResponse.listPublishStatus = result.listPublishStatus;
     }
+    if (result && message) {
+      notify(message, 'success');
+    }
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessSetPublished = async (result) => {
+  callbackOnSuccessSetPublished = async (result, message) => {
     this.successResponse.listCategories = this.successResponse.listCategories.map((o) => {
       if (o.category.id == result) {
         return { ...o, published: { ...o.published, state: !o.published.state } };
       }
       return o;
     });
+    if (result && message) {
+      notify(message, 'success');
+    }
   };
 
   transform = (data) => {
