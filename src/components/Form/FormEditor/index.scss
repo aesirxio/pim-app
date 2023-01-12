@@ -1,0 +1,13 @@
+.ck {
+  .ck-content pre {
+    color: var(--body-color);
+  }
+  .ck.ck-list__item .ck-button:hover:not(.ck-disabled) {
+    color: var(--bs-success);
+  }
+  .ck-source-editing-area {
+    > textarea {
+      background: transparent;
+    }
+  }
+}

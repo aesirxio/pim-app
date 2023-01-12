@@ -2,6 +2,7 @@ import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { useState } from 'react';
 import ModalDAMComponent from 'components/ModalDamComponent';
 import styles from './index.module.scss';
+import './index.scss';
 import ComponentSVG from 'components/ComponentSVG';
 const ClassicEditor = require('ckeditor5-build-custom/build/ckeditor');
 const FormEditor = ({ field }) => {
@@ -29,23 +30,25 @@ const FormEditor = ({ field }) => {
         <ComponentSVG url="/assets/images/data-stream.svg" className={'bg-black'} />
       </p>
       <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
-      <CKEditor
-        editor={window.ClassicEditor ?? ClassicEditor}
-        data={field?.getValueSelected ?? ''}
-        onReady={async (editor) => {
-          setEditorState(editor);
-          editor.editing.view.change((writer) => {
-            writer.setStyle(
-              { 'max-height': '400px', 'min-height': '200px' },
-              editor.editing.view.document.getRoot()
-            );
-          });
-        }}
-        onChange={(event, editor) => {
-          const data = editor.getData();
-          field.handleChange(data);
-        }}
-      />
+      <div className={styles['custom-editor']}>
+        <CKEditor
+          editor={window.ClassicEditor ?? ClassicEditor}
+          data={field?.getValueSelected ?? ''}
+          onReady={async (editor) => {
+            setEditorState(editor);
+            editor.editing.view.change((writer) => {
+              writer.setStyle(
+                { 'max-height': '400px', 'min-height': '200px' },
+                editor.editing.view.document.getRoot()
+              );
+            });
+          }}
+          onChange={(event, editor) => {
+            const data = editor.getData();
+            field.handleChange(data);
+          }}
+        />
+      </div>
     </div>
   );
 };

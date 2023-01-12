@@ -44,7 +44,9 @@ const CustomizedDatePicker = ({
         showTimeSelect={showTimeSelect}
         adjustDateOnChange
         fixedHeight={40}
-        className="ps-4 m-0 border-0 outline-none position-relative border-1 rounded-1"
+        className={`ps-4 m-0 border-0 outline-none position-relative border-1 rounded-1 ${
+          isDisabled ? 'bg-gray-300 text-body' : 'bg-white text-body'
+        }`}
         readOnly={isDisabled}
         placeholderText={placeholderText ?? dateFormat ?? null}
       />
