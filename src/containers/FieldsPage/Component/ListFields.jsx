@@ -181,14 +181,14 @@ const ListFields = observer((props) => {
           />
         </div>
         <div className="d-flex align-items-center">
-          <div className="opacity-50 me-2">Showing</div>
+          <div className="opacity-50 me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
-              label: `${viewModel?.filterList['limit']} items`,
+              label: `${viewModel?.filterList['limit']} ${t('txt_items')}`,
               value: viewModel?.filterList['limit'],
             }}
             options={[...Array(9)].map((o, index) => ({
-              label: `${(index + 1) * 10} items`,
+              label: `${(index + 1) * 10} ${t('txt_items')}`,
               value: (index + 1) * 10,
             }))}
             onChange={(o) => selectShowItemsHandler(o)}

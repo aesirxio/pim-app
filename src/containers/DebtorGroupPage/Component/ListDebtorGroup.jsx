@@ -30,7 +30,7 @@ const ListDebtorGroup = observer((props) => {
       },
     },
     {
-      Header: 'Debtor group name',
+      Header: t('txt_debtor_group_name'),
       accessor: 'title',
       width: 250,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
@@ -53,7 +53,7 @@ const ListDebtorGroup = observer((props) => {
       },
     },
     {
-      Header: 'Debtor group code',
+      Header: t('txt_debtor_group_code'),
       accessor: 'code',
       width: 250,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
@@ -151,7 +151,11 @@ const ListDebtorGroup = observer((props) => {
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
             {viewModel?.listPublishStatus.map((o) => (
-              <Tab key={o.value} eventKey={o.value} title={o.label} />
+              <Tab
+                key={o.value}
+                eventKey={o.value}
+                title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+              />
             ))}
           </Tabs>
 
@@ -169,14 +173,14 @@ const ListDebtorGroup = observer((props) => {
               />
             </div>
             <div className="d-flex align-items-center">
-              <div className="opacity-50 me-2">Showing</div>
+              <div className="opacity-50 me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
-                  label: `${viewModel?.filter['list[limit]']} items`,
+                  label: `${viewModel?.filter['list[limit]']} ${t('txt_items')}`,
                   value: viewModel?.filter['list[limit]'],
                 }}
                 options={[...Array(9)].map((o, index) => ({
-                  label: `${(index + 1) * 10} items`,
+                  label: `${(index + 1) * 10} ${t('txt_items')}`,
                   value: (index + 1) * 10,
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}

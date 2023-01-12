@@ -99,7 +99,7 @@ const ListFeaturedProducts = observer((props) => {
                             }`,
                           }}
                         >
-                          {value}
+                          {t('txt_' + value?.toString().toLowerCase())}
                         </span>
                       </div>
                     );

@@ -278,7 +278,7 @@
   "txt_all_products": "All Products",
   "txt_published": "Published",
   "txt_unpublished": "Unpublished",
-  "txt_trash": "Trash",
+  "txt_trashed": "Trashed",
   "txt_draft": "Draft",
   "txt_archived": "Archived",
   "txt_bulk_actions": "Bulk Actions",
@@ -311,5 +311,17 @@
   "txt_field_groups_description": "Create, edit, and manage the field groups on your site",
   "txt_from": "from",
   "txt_featured_product": "Featured Products",
-  "txt_row_select_error": "Please first make a selection from the list."
+  "txt_row_select_error": "Please first make a selection from the list.",
+  "txt_product_type": "Product Type",
+  "txt_indoor": "Indoor",
+  "txt_outdoor": "Outdoor",
+  "txt_yes": "Yes",
+  "txt_no": "No",
+  "txt_click_to_change_image": "Click to change image",
+  "txt_debtor_group_name": "Debtor Group Name",
+  "txt_debtor_group_code": "Debtor group code",
+  "txt_owner_company": "Owner Company",
+  "txt_showing": "Showing",
+  "txt_totals": "Totals",
+  "txt_items": "items"
 }

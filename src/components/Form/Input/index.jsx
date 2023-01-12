@@ -6,8 +6,9 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 import './index.scss';
-
-const Input = ({ field }) => {
+import { withTranslation } from 'react-i18next';
+const Input = ({ field, ...props }) => {
+  const { t } = props;
   const handleChange = (e) => {
     if (Object.prototype.hasOwnProperty.call(field, 'handleChange')) {
       e.target.value = e.target.value.normalize('NFKC');
@@ -28,7 +29,7 @@ const Input = ({ field }) => {
         onPaste={field.pasted ?? undefined}
         className={`${field.classNameInput}`}
         onBlur={field.blurred ?? undefined}
-        placeholder={field.placeholder ?? 'Type'}
+        placeholder={field.placeholder ?? t('txt_type')}
         readOnly={field.readOnly}
         disabled={field.disabled}
       />
@@ -43,4 +44,4 @@ const Input = ({ field }) => {
   );
 };
 
-export default Input;
+export default withTranslation('common')(Input);
