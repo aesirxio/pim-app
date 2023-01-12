@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
 import _ from 'lodash';
+import EditHeader from 'components/EditHeader';
 
 const EditFieldGroup = observer(
   class EditFieldGroup extends Component {
@@ -74,11 +75,12 @@ const EditFieldGroup = observer(
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_field_group')}
-              </h2>
-            </div>
+            <EditHeader
+              props={this.props}
+              title={t('txt_field_group')}
+              isEdit={this.isEdit}
+              redirectUrl={'/fields-group'}
+            />
             <div className="position-relative">
               <ActionsBar
                 buttons={[
