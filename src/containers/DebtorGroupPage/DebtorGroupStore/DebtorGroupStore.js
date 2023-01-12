@@ -19,7 +19,7 @@ export default class DebtorGroupStore {
       resultOnSave = await createDebtorGroupApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Created successfully');
         });
       } else {
         runInAction(() => {
@@ -46,7 +46,7 @@ export default class DebtorGroupStore {
       resultOnSave = await updateDebtorGroupApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -129,13 +129,18 @@ export default class DebtorGroupStore {
     return false;
   }
 
-  async updateStatus(arr, status) {
+  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
       const updateStatusAPIService = new AesirxPimDebtorGroupApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;

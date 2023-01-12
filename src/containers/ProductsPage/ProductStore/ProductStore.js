@@ -23,7 +23,7 @@ export default class ProductStore {
 
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Created successfully');
         });
       } else {
         runInAction(() => {
@@ -48,7 +48,7 @@ export default class ProductStore {
       resultOnSave = await aesirxPimProductApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -168,25 +168,35 @@ export default class ProductStore {
     return false;
   }
 
-  async updateStatus(arr, status) {
+  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
       const respondedData = await aesirxPimProductApiService.updateStatus(arr, status);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;
   }
 
-  async deleteProducts(arr) {
+  async deleteProducts(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
       const respondedData = await aesirxPimProductApiService.deleteProducts(arr);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Deleted successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;

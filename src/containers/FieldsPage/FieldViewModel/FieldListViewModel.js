@@ -124,7 +124,12 @@ class FieldListViewModel {
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.fieldStore.updateStatus(arr, status);
+    const res = await this.fieldStore.updateStatus(
+      arr,
+      status,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.fieldStore.getList(
         this.filter,
@@ -137,7 +142,11 @@ class FieldListViewModel {
   };
 
   deleteFields = async (arr) => {
-    const res = await this.fieldStore.deleteFields(arr);
+    const res = await this.fieldStore.deleteFields(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.fieldStore.getList(
         this.filter,
@@ -150,20 +159,15 @@ class FieldListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    notify('Update unsuccessfully', 'error');
+    error.response?.data?._messages[0]?.message
+      ? notify(error.response?.data?._messages[0]?.message, 'error')
+      : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnCreateSuccessHandler = (result) => {
-    if (result) {
-      notify('Create successfully', 'success');
-    }
-    this.formStatus = PAGE_STATUS.READY;
-  };
-
-  callbackOnSuccessHandler = (result) => {
+  callbackOnSuccessHandler = (result, message) => {
     this.formStatus = PAGE_STATUS.READY;
 
     if (result?.items) {
@@ -173,6 +177,9 @@ class FieldListViewModel {
 
     if (result?.listPublishStatus) {
       this.listPublishStatus = result.listPublishStatus;
+    }
+    if (result && message) {
+      notify(message, 'success');
     }
   };
 

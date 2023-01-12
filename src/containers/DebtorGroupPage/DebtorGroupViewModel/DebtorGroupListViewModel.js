@@ -75,7 +75,12 @@ class DebtorGroupListViewModel {
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.debtorGroupStore.updateStatus(arr, status);
+    const res = await this.debtorGroupStore.updateStatus(
+      arr,
+      status,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.debtorGroupStore.getList(
         this.filter,
@@ -91,26 +96,24 @@ class DebtorGroupListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    notify('Update unsuccessfully', 'error');
+    error.response?.data?._messages[0]?.message
+      ? notify(error.response?.data?._messages[0]?.message, 'error')
+      : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnCreateSuccessHandler = (result) => {
-    if (result) {
-      notify('Create successfully', 'success');
-    }
-    this.formStatus = PAGE_STATUS.READY;
-  };
-
-  callbackOnSuccessHandler = (result) => {
+  callbackOnSuccessHandler = (result, message) => {
     if (result?.items) {
       this.items = result.items;
       this.pagination = result.pagination;
     }
     if (result?.listPublishStatus) {
       this.listPublishStatus = result.listPublishStatus;
+    }
+    if (result && message) {
+      notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
   };
