@@ -118,7 +118,7 @@ const ListFields = observer((props) => {
       viewModel.getListByFilter('limitstart', (value - 1) * viewModel.pagination.pageLimit);
     }
   };
-  
+
   const deleteFields = () => {
     viewModel.isLoading();
     viewModel.deleteFields(listSelected);
@@ -174,7 +174,7 @@ const ListFields = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
@@ -192,7 +192,7 @@ const ListFields = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={`Select`}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
       </div>

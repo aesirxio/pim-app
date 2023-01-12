@@ -128,7 +128,7 @@ const ListProducts = observer((props) => {
                 placeholder={t('txt_bulk_actions')}
                 plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
               <SelectComponent
                 options={[
@@ -140,7 +140,7 @@ const ListProducts = observer((props) => {
                 placeholder={`Product Type`}
                 plColor={`text-color`}
                 onChange={(o) => selectTypeHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
               <SelectComponent
                 options={viewModel?.successResponse?.listCategories}
@@ -149,7 +149,7 @@ const ListProducts = observer((props) => {
                 placeholder={t('txt_all_categories')}
                 plColor={`text-color`}
                 onChange={(o) => selectCategoryHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
@@ -167,7 +167,7 @@ const ListProducts = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={`Select`}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
           </div>

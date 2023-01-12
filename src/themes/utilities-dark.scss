@@ -34,7 +34,7 @@ $utilities: (
         $theme-colors,
         (
           'body': $body-bg,
-          'white': #000,
+          'white': $dark,
           'orange': $orange,
           'green': $green,
           'yellow': $yellow,

@@ -11,7 +11,7 @@ function ComponentSVG({ url, width, height, color, className }) {
         width: width ?? '24px',
         height: height ?? '24px',
         ...(color && {
-          backgroundColor: color ? `${color}` : 'var(--body-color)',
+          backgroundColor: color ? `${color}` : 'var(--bs-body-color)',
         }),
       }}
     ></span>
