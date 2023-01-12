@@ -29,6 +29,9 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
   };
+  const onPieLeave = () => {
+    setActiveIndex(-1);
+  };
   const renderActiveShape = ({
     cx,
     cy,
@@ -77,7 +80,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
-          fill="var(--body-color)"
+          fill="var(--bs-body-color)"
           className="fs-sm fw-semibold"
         >{`${t('txt_value')}: ${value}`}</text>
         <text
@@ -131,6 +134,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
               fill="#8884D8"
               dataKey="value"
               onMouseEnter={onPieEnter}
+              onMouseLeave={onPieLeave}
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
             >
@@ -151,7 +155,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
                       {...positioningProps}
                       fontSize="24px"
                       fontWeight="bold"
-                      fill="var(--body-color)"
+                      fill="var(--bs-body-color)"
                     >
                       {numberWithCommas(total.value)}
                     </Text>
@@ -170,7 +174,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
                     verticalAnchor: 'middle',
                   };
                   return (
-                    <Text {...positioningProps} fill="var(--body-color)">
+                    <Text {...positioningProps} fill="var(--bs-body-color)">
                       {pieTitle}
                     </Text>
                   );

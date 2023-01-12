@@ -20,7 +20,7 @@ const ListCategories = observer((props) => {
       Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>
@@ -62,7 +62,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_parent_cate'),
       accessor: 'parentName',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -96,7 +96,7 @@ const ListCategories = observer((props) => {
       },
       width: 50,
       accessor: 'published',
-      className: 'py-2 border-bottom-1 text-center',
+      className: 'py-2 border-bottom-1 text-center align-middle',
       Cell: ({ value }) => (
         <div className="text-center pe-5">
           {value.state == 1 ? (
@@ -142,7 +142,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -261,7 +261,7 @@ const ListCategories = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
@@ -279,14 +279,14 @@ const ListCategories = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={`Select`}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
       </div>
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.successResponse?.listCategories}
           selection={false}

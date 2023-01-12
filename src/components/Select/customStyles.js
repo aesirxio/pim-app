@@ -41,6 +41,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         borderTop: '1px solid var(input-border-color)',
         borderBottom: '1px solid var(input-border-color)',
         zIndex: 10,
+        backgroundColor: 'var(--dropdown-bg)',
       };
     },
     option: (provided, state) => {
@@ -49,7 +50,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         color: state.isSelected ? 'var(--dropdown-item-hover-color)' : 'var(--dropdown-item-color)',
         backgroundColor: state.isSelected ? 'var(--dropdown-item-hover-bg)' : 'var(--dropdown-bg)',
         '&:hover': {
-          color: 'var(--dropdown-item-color)',
+          color: 'var(--dropdown-item-hover-color)',
           backgroundColor: 'var(--dropdown-item-hover-bg)',
         },
       };
@@ -65,7 +66,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: 'var(--body-color)',
+      color: 'var(--bs-body-color)',
     }),
     placeholder: (defaultStyles) => {
       return {
@@ -76,7 +77,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     multiValue: (styles) => {
       return {
         ...styles,
-        backgroundColor: '#EBEBEB',
+        backgroundColor: 'var(--dropdown-multi-bg)',
         margin: '8px 8px 8px 2px',
         borderRadius: '5px',
       };
@@ -88,8 +89,8 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     multiValueLabel: (styles) => ({
       ...styles,
-      color: 'var(--body-color)',
-      backgroundColor: '#EBEBEB',
+      color: 'var(--bs-body-color)',
+      backgroundColor: 'var(--dropdown-multi-bg)',
       order: 2,
       padding: '10px 16px 10px 0',
       fontSize: '14px',

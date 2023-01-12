@@ -20,20 +20,23 @@ const FormRadio = ({ field }) => {
   };
   return (
     <div className="d-flex align-items-center w-100">
-      {field.getDataSelectOptions?.map((option, key) => (
-        <Form.Check
-          key={field.key + key}
-          className={`mb-0 ${option.className}`}
-          inline
-          label={option.label}
-          value={option.value}
-          name={field.key}
-          type={field.checkbox ? 'checkbox' : 'radio'}
-          id={`inline-radio-${option.value}`}
-          onChange={handleChange}
-          checked={selectedValue === option.value}
-        />
-      ))}
+      {field.getDataSelectOptions?.map(
+        (option, key) =>
+          option.label && (
+            <Form.Check
+              key={field.key + key}
+              className={`mb-0 ${option.className}`}
+              inline
+              label={option.label}
+              value={option.value}
+              name={field.key}
+              type={field.checkbox ? 'checkbox' : 'radio'}
+              id={`inline-radio-${option.value}`}
+              onChange={handleChange}
+              checked={selectedValue === option.value}
+            />
+          )
+      )}
     </div>
   );
 };

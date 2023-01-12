@@ -1,7 +1,7 @@
 {
   "txt_welcome_to": "Welcome to ",
   "txt_sign_in": "Sign In",
-  "txt_sign_in_with_sso": "Sign In with SSO",
+  "txt_sign_in_with_sso": "Sign in with SSO",
   "txt_sign_up": "Sign Up",
   "txt_login_text_1": "Welcome to",
   "txt_pim": "PIM",
@@ -306,5 +306,6 @@
   "txt_add_new_prices": "Add New Prices",
   "txt_organization": "Organization",
   "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)",
-  "txt_from": "from"
+  "txt_from": "from",
+  "txt_row_select_error": "Please first make a selection from the list."
 }

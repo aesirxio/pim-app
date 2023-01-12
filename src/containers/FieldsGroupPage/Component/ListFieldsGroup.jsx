@@ -24,7 +24,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_field_group_name'),
       accessor: 'fieldGroups',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
@@ -49,7 +49,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_author'),
       accessor: 'createdUserName',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -58,7 +58,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -146,7 +146,7 @@ const ListFieldsGroup = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
@@ -164,14 +164,14 @@ const ListFieldsGroup = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={`Select`}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
       </div>
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}
