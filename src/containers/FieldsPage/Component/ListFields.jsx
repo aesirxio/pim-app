@@ -21,7 +21,7 @@ const ListFields = observer((props) => {
 
   const columnsTable = [
     {
-      Header: 'Field name',
+      Header: t('txt_field_name'),
       accessor: 'field',
       width: 200,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -46,7 +46,7 @@ const ListFields = observer((props) => {
       },
     },
     {
-      Header: 'Field group',
+      Header: t('txt_field_group'),
       accessor: 'groupName',
       width: 100,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -55,7 +55,7 @@ const ListFields = observer((props) => {
       },
     },
     {
-      Header: 'types',
+      Header: t('txt_type'),
       accessor: 'type',
       width: 100,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -118,7 +118,7 @@ const ListFields = observer((props) => {
       viewModel.getListByFilter('limitstart', (value - 1) * viewModel.pagination.pageLimit);
     }
   };
-  
+
   const deleteFields = () => {
     viewModel.isLoading();
     viewModel.deleteFields(listSelected);

@@ -5,7 +5,7 @@ import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer, Sector, Text }
 import './index.scss';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
-const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
+const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, ...props }) => {
   const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
   const total = data.reduce((a, b) => ({ value: a.value + b.value }));
@@ -171,7 +171,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                   };
                   return (
                     <Text {...positioningProps} fill="var(--body-color)">
-                      {'Products'}
+                      {pieTitle}
                     </Text>
                   );
                 }}

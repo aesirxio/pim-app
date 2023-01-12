@@ -6,6 +6,7 @@ import Spinner from 'components/Spinner';
 // import history from 'routes/history';
 
 const ListFeaturedProducts = observer((props) => {
+  const { t } = props;
   const viewModel = props.viewModel;
 
   useEffect(async () => {
@@ -30,7 +31,7 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Product name',
+                Header: t('txt_product_name'),
                 accessor: 'productInfo',
                 width: 200,
                 className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -65,7 +66,7 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Categories',
+                Header: t('txt_categories'),
                 accessor: 'categories',
                 className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
                 Cell: ({ value }) => {
@@ -73,7 +74,7 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Type',
+                Header: t('txt_type'),
                 accessor: 'type',
                 width: 100,
                 className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -105,7 +106,7 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Author',
+                Header: t('txt_author'),
                 accessor: 'author',
                 width: 100,
                 className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -114,7 +115,7 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Last modified',
+                Header: t('txt_last_modified'),
                 accessor: 'lastModified',
                 width: 100,
                 className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi pe-2',

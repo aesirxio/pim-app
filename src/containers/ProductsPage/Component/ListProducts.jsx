@@ -187,7 +187,7 @@ const ListProducts = observer((props) => {
               },
             },
             {
-              Header: 'Product name',
+              Header: t('txt_product_name'),
               accessor: 'productInfo',
               width: 300,
               className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -236,7 +236,7 @@ const ListProducts = observer((props) => {
               },
             },
             {
-              Header: 'Categories',
+              Header: t('txt_categories'),
               accessor: 'categories',
               className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
               Cell: ({ value }) => {
@@ -244,7 +244,7 @@ const ListProducts = observer((props) => {
               },
             },
             {
-              Header: 'Type',
+              Header: t('txt_type'),
               accessor: 'type',
               width: 100,
               className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -276,7 +276,7 @@ const ListProducts = observer((props) => {
               },
             },
             {
-              Header: 'Author',
+              Header: t('txt_author'),
               accessor: 'author',
               width: 100,
               className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -327,7 +327,7 @@ const ListProducts = observer((props) => {
               ),
             },
             {
-              Header: 'Last modified',
+              Header: t('txt_last_modified'),
               accessor: 'lastModified',
               width: 150,
               className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',

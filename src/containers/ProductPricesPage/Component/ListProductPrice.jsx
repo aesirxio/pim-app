@@ -72,7 +72,7 @@ const ListProductPrice = observer((props) => {
       },
     },
     {
-      Header: 'Product name',
+      Header: t('txt_product_name'),
       accessor: 'title',
       width: 150,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -95,7 +95,7 @@ const ListProductPrice = observer((props) => {
       },
     },
     {
-      Header: 'Debtor Group',
+      Header: t('txt_debtor_group'),
       accessor: 'debtorGroup',
       width: 200,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -104,7 +104,7 @@ const ListProductPrice = observer((props) => {
       },
     },
     {
-      Header: 'Price',
+      Header: t('txt_price'),
       accessor: 'price',
       width: 200,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -115,7 +115,7 @@ const ListProductPrice = observer((props) => {
       },
     },
     {
-      Header: 'Last modified',
+      Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 150,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
@@ -124,9 +124,8 @@ const ListProductPrice = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {
-                viewModel?.successResponse?.listPublishStatus.find(
-                  (o) => o.value == value.status
-                ).label
+                viewModel?.successResponse?.listPublishStatus.find((o) => o.value == value.status)
+                  .label
               }
             </div>
             <div>

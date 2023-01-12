@@ -43,23 +43,23 @@ const Dashboard = observer(
       const { t } = this.props;
       const dataPieChart = [
         {
-          name: 'Published',
+          name: t('txt_published'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_PUBLISH],
         },
         {
-          name: 'Unpublished',
+          name: t('txt_unpublished'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_UNPUBLISH],
         },
         {
-          name: 'Draft',
+          name: t('txt_draft'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_DRAFT],
         },
         {
-          name: 'Archived',
+          name: t('txt_archived'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_ARCHIVED],
         },
         {
-          name: 'Trash',
+          name: t('txt_trash'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_TRASH],
         },
       ];
@@ -110,7 +110,9 @@ const Dashboard = observer(
                           : false
                       }
                       percent={`${percentProduct}%`}
-                      textPercent={`from ${moment().subtract(1, 'months').format('MMMM')}`}
+                      textPercent={`${t('txt_from')} ${moment()
+                        .subtract(1, 'months')
+                        .format('MMMM')}`}
                       titleLink={t('txt_manage_products')}
                       link={'/products/all'}
                     ></ComponentCard>
@@ -132,7 +134,9 @@ const Dashboard = observer(
                           : false
                       }
                       percent={`${percentCategories}%`}
-                      textPercent={`from ${moment().subtract(1, 'months').format('MMMM')}`}
+                      textPercent={`${t('txt_from')} ${moment()
+                        .subtract(1, 'months')
+                        .format('MMMM')}`}
                       titleLink={t('txt_manage_categories')}
                       link={'/categories'}
                     ></ComponentCard>
@@ -143,6 +147,7 @@ const Dashboard = observer(
                 <PieChartComponent
                   height={190}
                   chartTitle={t('txt_products_state')}
+                  pieTitle={t('txt_left_menu_products')}
                   data={dataPieChart}
                   colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
                   legendPosition="bottom"
