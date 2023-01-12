@@ -303,5 +303,8 @@
   "txt_all_field_groups": "All Field Groups",
   "txt_add_new_prices": "Add New Prices",
   "txt_organization": "Organization",
-  "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)"
+  "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)",
+  "txt_categories_description": "Create, edit, and manage the categories on your site",
+  "txt_fields_description": "Create, edit, and manage the fields on your site",
+  "txt_field_groups_description": "Create, edit, and manage the field groups on your site"
 }
