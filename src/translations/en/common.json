@@ -304,5 +304,6 @@
   "txt_all_field_groups": "All Field Groups",
   "txt_add_new_prices": "Add New Prices",
   "txt_organization": "Organization",
-  "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)"
+  "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)",
+  "txt_row_select_error": "Please first make a selection from the list."
 }

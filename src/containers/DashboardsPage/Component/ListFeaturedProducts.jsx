@@ -19,12 +19,14 @@ const ListFeaturedProducts = observer((props) => {
         <div className={`bg-white rounded-3 shadow-sm`}>
           <div className="px-2 pt-3 fw-bold text-uppercase">featured products</div>
           <Table
+            classNameTable={`table-striped table`}
             columns={[
               {
                 Header: 'Id',
                 accessor: 'id',
                 width: 60,
-                className: 'ps-2 py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className:
+                  'ps-2 py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return <div className="ps-2 opacity-80">{value}</div>;
                 },
@@ -33,7 +35,7 @@ const ListFeaturedProducts = observer((props) => {
                 Header: 'Product name',
                 accessor: 'productInfo',
                 width: 200,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return (
                     <div className="d-flex align-items-center">
@@ -67,7 +69,7 @@ const ListFeaturedProducts = observer((props) => {
               {
                 Header: 'Categories',
                 accessor: 'categories',
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return <>{value}</>;
                 },
@@ -76,7 +78,7 @@ const ListFeaturedProducts = observer((props) => {
                 Header: 'Type',
                 accessor: 'type',
                 width: 100,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   if (value) {
                     return (
@@ -108,7 +110,7 @@ const ListFeaturedProducts = observer((props) => {
                 Header: 'Author',
                 accessor: 'author',
                 width: 100,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return <>{value}</>;
                 },
@@ -117,7 +119,8 @@ const ListFeaturedProducts = observer((props) => {
                 Header: 'Last modified',
                 accessor: 'lastModified',
                 width: 100,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi pe-2',
+                className:
+                  'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi pe-2 align-middle',
                 Cell: ({ value }) => {
                   return (
                     <div className="pe-2">
