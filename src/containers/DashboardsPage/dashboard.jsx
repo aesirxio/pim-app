@@ -151,7 +151,6 @@ const Dashboard = observer(
               {/* <Col lg={3}>
               <DataCompleteness />
             </Col> */}
-              <Col lg={9} className="mt-24"></Col>
               {/* <Col lg={3} className="mt-24">
               <RecentsActivities />
             </Col> */}
