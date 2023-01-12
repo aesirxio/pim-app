@@ -54,6 +54,7 @@ const Table = ({
   pagination,
   selectPage,
   currentSelect,
+  ...props
 }) => {
   const IndeterminateCheckbox = React.forwardRef(({ indeterminate, ...rest }, ref) => {
     const defaultRef = React.useRef();
@@ -127,7 +128,7 @@ const Table = ({
   // };
 
   currentSelect && currentSelect(selectedFlatRows);
-
+  const { t } = props;
   return (
     <>
       <div className="fs-14 text-color position-relative h-100">
@@ -372,7 +373,7 @@ const Table = ({
       {pagination && pagination.totalPages > 1 && (
         <div className="d-flex justify-content-between mt-3">
           <div>
-            Totals{' '}
+            {t('txt_totals')}{' '}
             {pagination.totalPages > pagination.page
               ? pagination.pageLimit * pagination.page
               : pagination.totalItems}{' '}

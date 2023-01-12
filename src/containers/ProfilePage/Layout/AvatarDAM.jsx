@@ -43,7 +43,7 @@ const AvatarDAM = ({ formPropsData, avatarOnSelectHandler }) => {
           <div className="position-absolute w-100 h-100 d-flex align-items-center top-0 start-0 align-content-center text-white text-center">
             <div className="w-100 px-1">
               <FontAwesomeIcon icon={faCloudUploadAlt} className={`fs-3 mb-1`} />
-              <div>Click to change image</div>
+              <div>{t('txt_click_to_change_image')}</div>
             </div>
           </div>
           <div className="my-8px fs-14 opacity-50">{t('txt_max_file_size')}</div>

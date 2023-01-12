@@ -250,7 +250,11 @@ const ListCategories = observer((props) => {
       >
         <Tab eventKey={'default'} title={t('txt_all_category')} />
         {viewModel?.successResponse?.listPublishStatus.map((o) => (
-          <Tab key={o.value} eventKey={o.value} title={o.label} />
+          <Tab
+            key={o.value}
+            eventKey={o.value}
+            title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+          />
         ))}
       </Tabs>
 
@@ -268,7 +272,7 @@ const ListCategories = observer((props) => {
           />
         </div>
         <div className="d-flex align-items-center">
-          <div className="opacity-50 me-2">Showing</div>
+          <div className="opacity-50 me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
               label: `${viewModel?.successResponse?.filters['list[limit]']} items`,

@@ -120,7 +120,11 @@ const ListProducts = observer((props) => {
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
             {viewModel?.successResponse?.listPublishStatus.map((o) => (
-              <Tab key={o.value} eventKey={o.value} title={o.label} />
+              <Tab
+                key={o.value}
+                eventKey={o.value}
+                title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+              />
             ))}
           </Tabs>
 
@@ -137,12 +141,12 @@ const ListProducts = observer((props) => {
               />
               <SelectComponent
                 options={[
-                  { label: 'indoor', value: 'indoor' },
-                  { label: 'outdoor', value: 'outdoor' },
+                  { label: t('txt_indoor'), value: 'indoor' },
+                  { label: t('txt_outdoor'), value: 'outdoor' },
                 ]}
                 className={`fs-sm`}
                 isBorder={true}
-                placeholder={`Product Type`}
+                placeholder={t('txt_product_type')}
                 plColor={`text-color`}
                 onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
@@ -158,14 +162,14 @@ const ListProducts = observer((props) => {
               />
             </div>
             <div className="d-flex align-items-center">
-              <div className="opacity-50 me-2">Showing</div>
+              <div className="opacity-50 me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
-                  label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
+                  label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
                   value: viewModel?.successResponse?.filters['list[limit]'],
                 }}
                 options={[...Array(9)].map((o, index) => ({
-                  label: `${(index + 1) * 10} items`,
+                  label: `${(index + 1) * 10} ${t('txt_items')}`,
                   value: (index + 1) * 10,
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}
@@ -272,7 +276,7 @@ const ListProducts = observer((props) => {
                           }`,
                         }}
                       >
-                        {value}
+                        {t('txt_' + value?.toString().toLowerCase())}
                       </span>
                     </div>
                   );

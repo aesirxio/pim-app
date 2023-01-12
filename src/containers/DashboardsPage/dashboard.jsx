@@ -59,7 +59,7 @@ const Dashboard = observer(
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_ARCHIVED],
         },
         {
-          name: t('txt_trash'),
+          name: t('txt_trashed'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_TRASH],
         },
       ];
