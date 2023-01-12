@@ -108,7 +108,10 @@ const ListFieldsGroup = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_fields_group')}</h2>
+        <div>
+          <h2 className="fw-bold mb-1">{t('txt_fields_group')}</h2>
+          <div>{t('txt_field_groups_description')}</div>
+        </div>
         <ActionsBar
           buttons={[
             {
