@@ -25,6 +25,11 @@ const FormVideo = ({ field }) => {
     field.handleChange(convertedData);
     setShow(false);
   };
+  const deleteImage = (e) => {
+    e.stopPropagation();
+    setFile(null);
+    field.handleChange(null);
+  };
   return (
     <>
       <div className="position-relative">
@@ -32,7 +37,15 @@ const FormVideo = ({ field }) => {
           <Row className="gx-24 mb-16">
             <Col lg={7}>
               <Ratio aspectRatio="16x9">
-                <div className="d-flex align-items-center w-100 h-100 border">
+                <div className="d-flex align-items-center w-100 h-100 border video-wrapper">
+                  <div
+                    className="delete-icon p-sm rounded-2"
+                    onClick={(e) => {
+                      deleteImage(e, 0);
+                    }}
+                  >
+                    <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
+                  </div>
                   <ComponentVideo src={file[0] && file[0]?.download_url} />
                 </div>
               </Ratio>

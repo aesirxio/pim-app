@@ -13,13 +13,13 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         alignItems: creatable ? 'start' : 'center',
         boxShadow: 'none',
         borderRadius: '5px',
-        borderColor: isBorder ? 'var(--border-color)' : 'transparent',
+        borderColor: isBorder ? 'var(--input-border-color)' : 'transparent',
         '&:hover': {
           // borderColor: isBorder ? '#8bdcbc' : 'transparent',
-          // borderRight: '1px solid var(--border-color)',
+          // borderRight: '1px solid var(input-border-color)',
         },
-        // borderRight: '1px solid var(--border-color)',
-        backgroundColor: isDisabled ? 'var(--border-color)' : '#ffffff',
+        // borderRight: '1px solid var(input-border-color)',
+        backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--bs-white)',
         cursor: 'pointer',
         width: 'auto',
         paddingLeft: 7,
@@ -35,12 +35,13 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         border: 0,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
-        borderLeft: '1px solid var(--border-color)',
-        borderRight: '1px solid var(--border-color)',
+        borderLeft: '1px solid var(input-border-color)',
+        borderRight: '1px solid var(input-border-color)',
         boxShadow: '0 3px 5px rgb(0 0 0 / 5%)',
-        borderTop: '1px solid var(--border-color)',
-        borderBottom: '1px solid var(--border-color)',
+        borderTop: '1px solid var(input-border-color)',
+        borderBottom: '1px solid var(input-border-color)',
         zIndex: 10,
+        backgroundColor: 'var(--dropdown-bg)',
       };
     },
     option: (provided, state) => {
@@ -49,7 +50,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         color: state.isSelected ? 'var(--dropdown-item-hover-color)' : 'var(--dropdown-item-color)',
         backgroundColor: state.isSelected ? 'var(--dropdown-item-hover-bg)' : 'var(--dropdown-bg)',
         '&:hover': {
-          color: 'var(--dropdown-item-color)',
+          color: 'var(--dropdown-item-hover-color)',
           backgroundColor: 'var(--dropdown-item-hover-bg)',
         },
       };
@@ -65,7 +66,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: 'var(--body-color)',
+      color: 'var(--bs-body-color)',
     }),
     placeholder: (defaultStyles) => {
       return {
@@ -76,7 +77,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     multiValue: (styles) => {
       return {
         ...styles,
-        backgroundColor: '#EBEBEB',
+        backgroundColor: 'var(--dropdown-multi-bg)',
         margin: '8px 8px 8px 2px',
         borderRadius: '5px',
       };
@@ -88,8 +89,8 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     multiValueLabel: (styles) => ({
       ...styles,
-      color: 'var(--body-color)',
-      backgroundColor: '#EBEBEB',
+      color: 'var(--bs-body-color)',
+      backgroundColor: 'var(--dropdown-multi-bg)',
       order: 2,
       padding: '10px 16px 10px 0',
       fontSize: '14px',

@@ -14,35 +14,35 @@ const ListProductPrice = observer((props) => {
   const { t } = props;
   let listSelected = [];
 
-  const productPriceViewModel = props.viewModel;
+  const viewModel = props.viewModel;
 
   useEffect(() => {
-    productPriceViewModel.initializeData();
+    viewModel.initializeData();
   }, []);
 
   const selectTabHandler = (value) => {
-    productPriceViewModel.isLoading();
+    viewModel.isLoading();
     if (value != 'default') {
-      productPriceViewModel.getListByFilter('state', {
+      viewModel.getListByFilter('state', {
         value: value,
         type: 'filter',
       });
     } else {
-      productPriceViewModel.getListByFilter('state', '');
+      viewModel.getListByFilter('state', '');
     }
   };
 
   const selectShowItemsHandler = (value) => {
-    productPriceViewModel.isLoading();
-    productPriceViewModel.getListByFilter('list[limit]', value.value);
+    viewModel.isLoading();
+    viewModel.getListByFilter('list[limit]', value.value);
   };
 
   const selectPageHandler = (value) => {
-    if (value != productPriceViewModel.successResponse.pagination.page) {
-      productPriceViewModel.isLoading();
-      productPriceViewModel.getListByFilter(
+    if (value != viewModel.successResponse.pagination.page) {
+      viewModel.isLoading();
+      viewModel.getListByFilter(
         'limitstart',
-        (value - 1) * productPriceViewModel.successResponse.pagination.pageLimit
+        (value - 1) * viewModel.successResponse.pagination.pageLimit
       );
     }
   };
@@ -52,8 +52,13 @@ const ListProductPrice = observer((props) => {
   };
 
   const selectBulkActionsHandler = (value) => {
-    productPriceViewModel.isLoading();
-    productPriceViewModel.updateStatus(listSelected, value.value);
+    viewModel.isLoading();
+    viewModel.updateStatus(listSelected, value.value);
+  };
+
+  const deleteProductPrices = () => {
+    viewModel.isLoading();
+    viewModel.deleteProductPrices(listSelected);
   };
 
   const columnsTable = [
@@ -61,16 +66,16 @@ const ListProductPrice = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="opacity-80">{value}</div>;
       },
     },
     {
-      Header: 'Product name',
+      Header: t('txt_product_name'),
       accessor: 'title',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
           <>
@@ -90,19 +95,19 @@ const ListProductPrice = observer((props) => {
       },
     },
     {
-      Header: 'Debtor Group',
+      Header: t('txt_debtor_group'),
       accessor: 'debtorGroup',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value.map((o) => o.title).join(', ')}</>;
       },
     },
     {
-      Header: 'Price',
+      Header: t('txt_price'),
       accessor: 'price',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>{parseInt(value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</>
@@ -110,18 +115,17 @@ const ListProductPrice = observer((props) => {
       },
     },
     {
-      Header: 'Last modified',
+      Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
             <div className="mb-1">
               {
-                productPriceViewModel?.successResponse?.listPublishStatus.find(
-                  (o) => o.value == value.status
-                ).label
+                viewModel?.successResponse?.listPublishStatus.find((o) => o.value == value.status)
+                  .label
               }
             </div>
             <div>
@@ -140,6 +144,15 @@ const ListProductPrice = observer((props) => {
         <ActionsBar
           buttons={[
             {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteProductPrices();
+              },
+            },
+            {
               title: t('txt_add_new_prices'),
               icon: '/assets/images/plus.svg',
               variant: 'success',
@@ -151,7 +164,7 @@ const ListProductPrice = observer((props) => {
         />
       </div>
 
-      {productPriceViewModel?.successResponse?.listPublishStatus.length > 0 && (
+      {viewModel?.successResponse?.listPublishStatus.length > 0 && (
         <>
           <Tabs
             defaultActiveKey={'default'}
@@ -160,7 +173,7 @@ const ListProductPrice = observer((props) => {
             className="mb-3"
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
-            {productPriceViewModel?.successResponse?.listPublishStatus.map((o) => (
+            {viewModel?.successResponse?.listPublishStatus.map((o) => (
               <Tab key={o.value} eventKey={o.value} title={o.label} />
             ))}
           </Tabs>
@@ -168,21 +181,21 @@ const ListProductPrice = observer((props) => {
           <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
             <div className="d-flex gap-2">
               <SelectComponent
-                options={productPriceViewModel?.successResponse?.listPublishStatus}
+                options={viewModel?.successResponse?.listPublishStatus}
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_bulk_actions')}
                 plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
               <div className="opacity-50 me-2">Showing</div>
               <SelectComponent
                 defaultValue={{
-                  label: `${productPriceViewModel?.successResponse?.filters['list[limit]']} items`,
-                  value: productPriceViewModel?.successResponse?.filters['list[limit]'],
+                  label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
+                  value: viewModel?.successResponse?.filters['list[limit]'],
                 }}
                 options={[...Array(9)].map((o, index) => ({
                   label: `${(index + 1) * 10} items`,
@@ -192,20 +205,20 @@ const ListProductPrice = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={`Select`}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
           </div>
         </>
       )}
 
-      {productPriceViewModel?.successResponse?.state ? (
+      {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
-          data={productPriceViewModel?.successResponse?.listProductPrice}
+          data={viewModel?.successResponse?.listProductPrice}
           selection={false}
-          pagination={productPriceViewModel?.successResponse?.pagination}
+          pagination={viewModel?.successResponse?.pagination}
           selectPage={selectPageHandler}
           currentSelect={currentSelectHandler}
         ></Table>

@@ -136,6 +136,19 @@ class FieldListViewModel {
     this.successResponse.state = true;
   };
 
+  deleteFields = async (arr) => {
+    const res = await this.fieldStore.deleteFields(arr);
+    if (res) {
+      await this.fieldStore.getList(
+        this.filter,
+        this.filterList,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler
+      );
+    }
+    this.successResponse.state = true;
+  };
+
   callbackOnErrorHandler = (error) => {
     notify('Update unsuccessfully', 'error');
     this.successResponse.state = false;

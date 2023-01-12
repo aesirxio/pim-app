@@ -37,8 +37,7 @@ const ProductPriceInformation = observer(
     }
 
     render() {
-      const { t, isShowValidator } = this.props;
-      console.log('isShowValidator', isShowValidator);
+      const { t } = this.props;
       const generateFormSetting = [
         {
           fields: [

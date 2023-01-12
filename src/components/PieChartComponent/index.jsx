@@ -5,7 +5,7 @@ import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer, Sector, Text }
 import './index.scss';
 import { withTranslation } from 'react-i18next';
 import numberWithCommas from 'utils/formatNumber';
-const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props }) => {
+const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, ...props }) => {
   const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
   const total = data.reduce((a, b) => ({ value: a.value + b.value }));
@@ -15,7 +15,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
         {payload.map((entry, index) => (
           <li style={{ color: entry.color }} key={`item-${index}`}>
             <div
-              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm"
+              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm text-body"
               onClick={() => onPieEnter(entry, index)}
             >
               <span>{entry.value}</span>
@@ -28,6 +28,9 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
   };
   const onPieEnter = (_, index) => {
     setActiveIndex(index);
+  };
+  const onPieLeave = () => {
+    setActiveIndex(-1);
   };
   const renderActiveShape = ({
     cx,
@@ -77,7 +80,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
-          fill="var(--body-color)"
+          fill="var(--bs-body-color)"
           className="fs-sm fw-semibold"
         >{`${t('txt_value')}: ${value}`}</text>
         <text
@@ -131,6 +134,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
               fill="#8884D8"
               dataKey="value"
               onMouseEnter={onPieEnter}
+              onMouseLeave={onPieLeave}
               activeIndex={activeIndex}
               activeShape={renderActiveShape}
             >
@@ -147,7 +151,12 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                   };
 
                   return (
-                    <Text {...positioningProps} fontSize="24px" fontWeight="bold">
+                    <Text
+                      {...positioningProps}
+                      fontSize="24px"
+                      fontWeight="bold"
+                      fill="var(--bs-body-color)"
+                    >
                       {numberWithCommas(total.value)}
                     </Text>
                   );
@@ -164,7 +173,11 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, ...props })
                     textAnchor: 'middle',
                     verticalAnchor: 'middle',
                   };
-                  return <Text {...positioningProps}>{'Products'}</Text>;
+                  return (
+                    <Text {...positioningProps} fill="var(--bs-body-color)">
+                      {pieTitle}
+                    </Text>
+                  );
                 }}
               />
               {data &&

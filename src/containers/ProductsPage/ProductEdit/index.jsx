@@ -24,6 +24,7 @@ import FieldsTab from './Component/Fields';
 import SimpleReactValidator from 'simple-react-validator';
 import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
 import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
+import _ from 'lodash';
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
 const EditProduct = observer(
@@ -56,6 +57,21 @@ const EditProduct = observer(
         await this.categoryListViewModel.initializeDataCustom();
       }
     }
+
+    handleAliasFormPropsData() {
+      if (
+        !this.productDetailViewModel.productDetailViewModel.formPropsData[
+          PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
+        ]
+      ) {
+        this.productDetailViewModel.productDetailViewModel.formPropsData[
+          PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
+        ] = this.productDetailViewModel.aliasChange;
+      }
+    }
+    debouncedChangeHandler = _.debounce((value) => {
+      this.productDetailViewModel.handleAliasChange(value);
+    }, 300);
 
     render() {
       const { t, history } = this.props;
@@ -95,6 +111,7 @@ const EditProduct = observer(
                         if (this.isEdit) {
                           await this.productDetailViewModel.update();
                         } else {
+                          this.handleAliasFormPropsData();
                           await this.productDetailViewModel.create();
                         }
                         history.push(`/products/all`);
@@ -113,6 +130,7 @@ const EditProduct = observer(
                           await this.productDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
+                          this.handleAliasFormPropsData();
                           let result = await this.productDetailViewModel.create();
                           result && history.push(`/products/edit/${result}`);
                         }
@@ -143,9 +161,11 @@ const EditProduct = observer(
                         this.productDetailViewModel.productDetailViewModel.formPropsData[
                           PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
                         ] = event.target.value;
+                        if (!this.isEdit) {
+                          this.debouncedChangeHandler(event.target.value);
+                        }
                       },
                       required: true,
-                      validation: 'required',
                       blurred: () => {
                         this.validator.showMessageFor('Product Name');
                       },

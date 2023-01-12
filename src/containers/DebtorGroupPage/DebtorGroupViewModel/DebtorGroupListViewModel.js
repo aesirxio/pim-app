@@ -105,7 +105,6 @@ class DebtorGroupListViewModel {
   };
 
   callbackOnSuccessHandler = (result) => {
-    console.log('result.pagination', result.pagination);
     if (result?.items) {
       this.items = result.items;
       this.pagination = result.pagination;

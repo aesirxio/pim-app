@@ -34,11 +34,23 @@ const FormImage = ({ field }) => {
     }
     setShow(false);
   };
-  console.log('field.getValueSelected', field.getValueSelected);
+  const deleteImage = (e, index) => {
+    e.stopPropagation();
+    if (field.isMulti) {
+      let dataRemoved = file.filter(function (value, _index) {
+        return _index !== index;
+      });
+      setFile(dataRemoved);
+      field.handleChange([...dataRemoved]);
+    } else {
+      setFile(null);
+      field.handleChange(null);
+    }
+  };
   return (
     <>
       {field.isMulti ? (
-        <div className="position-relative">
+        <div className="position-relative field-multi-image">
           <Row className="gx-24 mb-16">
             {file &&
               Array.isArray(file) &&
@@ -46,14 +58,20 @@ const FormImage = ({ field }) => {
                 return item ? (
                   <Col lg={2} key={key}>
                     <Ratio aspectRatio="1x1">
-                      <div className="d-flex align-items-center w-100 h-100 border">
+                      <div className="d-flex align-items-center w-100 h-100 border image-wrapper">
+                        <div
+                          className="delete-icon p-sm rounded-2"
+                          onClick={(e) => {
+                            deleteImage(e, key);
+                          }}
+                        >
+                          <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
+                        </div>
                         <ComponentImage src={item?.download_url} alt={field.value} />
                       </div>
                     </Ratio>
                   </Col>
-                ) : (
-                  <></>
-                );
+                ) : null;
               })}
           </Row>
           <Button
@@ -68,9 +86,9 @@ const FormImage = ({ field }) => {
           </Button>
         </div>
       ) : (
-        <div className="position-relative cursor-pointer">
+        <div className="position-relative">
           <div
-            className="d-flex align-items-center justify-content-center p-24 field-single-image border border-da-1 rounded-3 cursor-pointer"
+            className="d-flex align-items-center justify-content-center p-24 field-single-image border border-da-1 rounded-3 cursor-pointer position-relative  image-wrapper"
             onClick={() => {
               setShow(true);
             }}
@@ -83,7 +101,19 @@ const FormImage = ({ field }) => {
               </div>
             )}
             {file?.length
-              ? file[0] && <ComponentImage src={file[0]?.download_url} alt={field.value} />
+              ? file[0] && (
+                  <>
+                    <div
+                      className="delete-icon p-sm rounded-2"
+                      onClick={(e) => {
+                        deleteImage(e, 0);
+                      }}
+                    >
+                      <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
+                    </div>
+                    <ComponentImage src={file[0]?.download_url} alt={field.value} />
+                  </>
+                )
               : null}
           </div>
           <p className="my-8px fs-14 opacity-50">

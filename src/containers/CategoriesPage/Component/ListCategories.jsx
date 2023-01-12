@@ -17,10 +17,10 @@ const ListCategories = observer((props) => {
 
   const columnsTable = [
     {
-      Header: 'Category name',
+      Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>
@@ -60,9 +60,9 @@ const ListCategories = observer((props) => {
       },
     },
     {
-      Header: 'Parent Cate',
+      Header: t('txt_parent_cate'),
       accessor: 'parentName',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -96,7 +96,7 @@ const ListCategories = observer((props) => {
       },
       width: 50,
       accessor: 'published',
-      className: 'py-2 border-bottom-1 text-center',
+      className: 'py-2 border-bottom-1 text-center align-middle',
       Cell: ({ value }) => (
         <div className="text-center pe-5">
           {value.state == 1 ? (
@@ -140,9 +140,9 @@ const ListCategories = observer((props) => {
       ),
     },
     {
-      Header: 'Last modified',
+      Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -207,6 +207,11 @@ const ListCategories = observer((props) => {
     viewModel.setPublished(value.id, isPublished);
   };
 
+  const deleteCategories = () => {
+    viewModel.isLoading();
+    viewModel.deleteCategories(listSelected);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -216,6 +221,15 @@ const ListCategories = observer((props) => {
         </div>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteCategories();
+              },
+            },
             {
               title: t('txt_add_new'),
               icon: '/assets/images/plus.svg',
@@ -250,7 +264,7 @@ const ListCategories = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
@@ -268,14 +282,14 @@ const ListCategories = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={`Select`}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
       </div>
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.successResponse?.listCategories}
           selection={false}

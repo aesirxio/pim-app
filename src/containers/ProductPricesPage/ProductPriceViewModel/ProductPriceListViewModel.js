@@ -97,6 +97,18 @@ class ProductPriceListViewModel {
     this.successResponse.state = true;
   };
 
+  deleteProductPrices = async (arr) => {
+    const res = await this.productPricesStore.deleteProductPrices(arr);
+    if (res) {
+      await this.productPricesStore.getList(
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler,
+        this.successResponse.filters
+      );
+    }
+    this.successResponse.state = true;
+  };
+
   callbackOnSuccessSetFeatured = async (result) => {
     this.successResponse.listProducts = this.successResponse.listProducts.map((o) => {
       if (o.id == result) {

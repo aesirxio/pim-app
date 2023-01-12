@@ -144,4 +144,16 @@ export default class CategoryStore {
 
     return false;
   }
+
+  async deleteCategories(arr) {
+    try {
+      const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
+      const respondedData = await aesirxPimCategoryApiService.deleteCategories(arr);
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
 }

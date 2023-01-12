@@ -38,7 +38,7 @@ class MembersListPage extends Component {
         Header: t('txt_username'),
         accessor: 'username',
         className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-        width: "40%",
+        width: '40%',
         Cell: ({ value }) => {
           return <>{value}</>;
         },
@@ -113,7 +113,7 @@ class MembersListPage extends Component {
             className={`fs-sm`}
             isBorder={true}
             placeholder={`Bulk Actions`}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
           <div className="d-flex align-items-center">
             <div className="opacity-50 me-2">Showing</div>
@@ -123,7 +123,7 @@ class MembersListPage extends Component {
               className={`fs-sm`}
               isBorder={true}
               placeholder={`Bulk Actions`}
-              arrowColor={'#222328'}
+              arrowColor={'var(--dropdown-indicator-color)'}
             />
           </div>
         </div>

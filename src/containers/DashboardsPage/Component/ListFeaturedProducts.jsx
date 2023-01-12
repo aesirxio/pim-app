@@ -6,6 +6,7 @@ import Spinner from 'components/Spinner';
 // import history from 'routes/history';
 
 const ListFeaturedProducts = observer((props) => {
+  const { t } = props;
   const viewModel = props.viewModel;
 
   useEffect(async () => {
@@ -17,23 +18,25 @@ const ListFeaturedProducts = observer((props) => {
     <div className={`position-relative  ${!viewModel?.successResponse?.state ? 'mt-5' : ''} `}>
       {viewModel?.successResponse?.state ? (
         <div className={`bg-white rounded-3 shadow-sm`}>
-          <div className="px-2 pt-3 fw-bold text-uppercase">featured products</div>
+          <div className="px-2 pt-3 fw-bold text-uppercase">{t('txt_featured_product')}</div>
           <Table
+            classNameTable={`table-striped table`}
             columns={[
               {
                 Header: 'Id',
                 accessor: 'id',
                 width: 60,
-                className: 'ps-2 py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className:
+                  'ps-2 py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return <div className="ps-2 opacity-80">{value}</div>;
                 },
               },
               {
-                Header: 'Product name',
+                Header: t('txt_product_name'),
                 accessor: 'productInfo',
                 width: 200,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return (
                     <div className="d-flex align-items-center">
@@ -65,18 +68,18 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Categories',
+                Header: t('txt_categories'),
                 accessor: 'categories',
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return <>{value}</>;
                 },
               },
               {
-                Header: 'Type',
+                Header: t('txt_type'),
                 accessor: 'type',
                 width: 100,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   if (value) {
                     return (
@@ -105,19 +108,20 @@ const ListFeaturedProducts = observer((props) => {
                 },
               },
               {
-                Header: 'Author',
+                Header: t('txt_author'),
                 accessor: 'author',
                 width: 100,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
                   return <>{value}</>;
                 },
               },
               {
-                Header: 'Last modified',
+                Header: t('txt_last_modified'),
                 accessor: 'lastModified',
                 width: 100,
-                className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi pe-2',
+                className:
+                  'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi pe-2 align-middle',
                 Cell: ({ value }) => {
                   return (
                     <div className="pe-2">

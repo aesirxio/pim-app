@@ -8,6 +8,7 @@ import { observer } from 'mobx-react-lite';
 import Spinner from 'components/Spinner';
 import history from 'routes/history';
 import ActionsBar from 'components/ActionsBar';
+import { notify } from 'components/Toast';
 
 const ListProducts = observer((props) => {
   const { t } = props;
@@ -65,14 +66,22 @@ const ListProducts = observer((props) => {
   };
 
   const selectBulkActionsHandler = (value) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value.value);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.updateStatus(listSelected, value.value);
+    }
   };
 
   const selectCategoryHandler = (value) => {
-    console.log(value.value);
     viewModel.isLoading();
     viewModel.getListByFilter('filter[category]', value.value);
+  };
+
+  const deleteProducts = () => {
+    viewModel.isLoading();
+    viewModel.deleteProducts(listSelected);
   };
 
   return (
@@ -81,6 +90,15 @@ const ListProducts = observer((props) => {
         <h2 className="fw-bold mb-0">{t('txt_title_product_management')}</h2>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteProducts();
+              },
+            },
             {
               title: t('txt_add_new'),
               icon: '/assets/images/plus.svg',
@@ -115,7 +133,7 @@ const ListProducts = observer((props) => {
                 placeholder={t('txt_bulk_actions')}
                 plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
               <SelectComponent
                 options={[
@@ -127,7 +145,7 @@ const ListProducts = observer((props) => {
                 placeholder={`Product Type`}
                 plColor={`text-color`}
                 onChange={(o) => selectTypeHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
               <SelectComponent
                 options={viewModel?.successResponse?.listCategories}
@@ -136,7 +154,7 @@ const ListProducts = observer((props) => {
                 placeholder={t('txt_all_categories')}
                 plColor={`text-color`}
                 onChange={(o) => selectCategoryHandler(o)}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
@@ -154,7 +172,7 @@ const ListProducts = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={`Select`}
-                arrowColor={'#222328'}
+                arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
           </div>
@@ -162,22 +180,22 @@ const ListProducts = observer((props) => {
       )}
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={[
             {
               Header: 'Id',
               accessor: 'id',
               width: 60,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return <div className="opacity-80">{value}</div>;
               },
             },
             {
-              Header: 'Product name',
+              Header: t('txt_product_name'),
               accessor: 'productInfo',
               width: 300,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value, row }) => {
                 return (
                   <div className="d-flex align-items-center">
@@ -223,18 +241,18 @@ const ListProducts = observer((props) => {
               },
             },
             {
-              Header: 'Categories',
+              Header: t('txt_categories'),
               accessor: 'categories',
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return <>{value}</>;
               },
             },
             {
-              Header: 'Type',
+              Header: t('txt_type'),
               accessor: 'type',
               width: 100,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 if (value) {
                   return (
@@ -263,10 +281,10 @@ const ListProducts = observer((props) => {
               },
             },
             {
-              Header: 'Author',
+              Header: t('txt_author'),
               accessor: 'author',
               width: 100,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return <>{value}</>;
               },
@@ -292,7 +310,7 @@ const ListProducts = observer((props) => {
               },
               width: 50,
               accessor: 'featured',
-              className: 'py-2 border-bottom-1 text-center',
+              className: 'py-2 border-bottom-1 text-center align-middle',
               Cell: ({ row }) => (
                 <div className="text-center pe-5">
                   <svg
@@ -314,10 +332,10 @@ const ListProducts = observer((props) => {
               ),
             },
             {
-              Header: 'Last modified',
+              Header: t('txt_last_modified'),
               accessor: 'lastModified',
               width: 150,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return (
                   <div className="pe-2">

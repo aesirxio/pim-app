@@ -43,37 +43,39 @@ const Dashboard = observer(
       const { t } = this.props;
       const dataPieChart = [
         {
-          name: 'Published',
+          name: t('txt_published'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_PUBLISH],
         },
         {
-          name: 'Unpublished',
+          name: t('txt_unpublished'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_UNPUBLISH],
         },
         {
-          name: 'Draft',
+          name: t('txt_draft'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_DRAFT],
         },
         {
-          name: 'Archived',
+          name: t('txt_archived'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_ARCHIVED],
         },
         {
-          name: 'Trash',
+          name: t('txt_trash'),
           value: this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_PRODUCT_TRASH],
         },
       ];
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
-      let percentProduct =
+      let percentProduct = (
         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 100 > 1
           ? this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 100
-          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 1000;
-      let percentCategories =
+          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_PRODUCT] * 1000
+      ).toFixed(2);
+      let percentCategories = (
         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 100 > 1
           ? this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 100
-          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 1000;
+          : this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.PERCENT_NEW_CATEGORIES] * 1000
+      ).toFixed(2);
       return (
         <>
           <div className="py-4 px-3 d-flex flex-column">
@@ -89,8 +91,8 @@ const Dashboard = observer(
               </div>
             </div>
             <Row className="gx-24 mb-24">
-              <Col lg={6}>
-                <Row className="gx-24 h-100">
+              <Col lg={6} className={`mb-5 mb-lg-0`}>
+                <Row className="gx-24 h-100 gap-5 gap-lg-0">
                   <Col lg={6}>
                     <ComponentCard
                       title={t('txt_products')}
@@ -108,7 +110,9 @@ const Dashboard = observer(
                           : false
                       }
                       percent={`${percentProduct}%`}
-                      textPercent={`from ${moment().subtract(1, 'months').format('MMMM')}`}
+                      textPercent={`${t('txt_from')} ${moment()
+                        .subtract(1, 'months')
+                        .format('MMMM')}`}
                       titleLink={t('txt_manage_products')}
                       link={'/products/all'}
                     ></ComponentCard>
@@ -130,7 +134,9 @@ const Dashboard = observer(
                           : false
                       }
                       percent={`${percentCategories}%`}
-                      textPercent={`from ${moment().subtract(1, 'months').format('MMMM')}`}
+                      textPercent={`${t('txt_from')} ${moment()
+                        .subtract(1, 'months')
+                        .format('MMMM')}`}
                       titleLink={t('txt_manage_categories')}
                       link={'/categories'}
                     ></ComponentCard>
@@ -141,6 +147,7 @@ const Dashboard = observer(
                 <PieChartComponent
                   height={190}
                   chartTitle={t('txt_products_state')}
+                  pieTitle={t('txt_left_menu_products')}
                   data={dataPieChart}
                   colors={['#1DA1F2', '#0FC6C2', '#F97066', '#FFC700', '#7289DA', '#EBEBEB']}
                   legendPosition="bottom"
@@ -149,7 +156,6 @@ const Dashboard = observer(
               {/* <Col lg={3}>
               <DataCompleteness />
             </Col> */}
-              <Col lg={9} className="mt-24"></Col>
               {/* <Col lg={3} className="mt-24">
               <RecentsActivities />
             </Col> */}

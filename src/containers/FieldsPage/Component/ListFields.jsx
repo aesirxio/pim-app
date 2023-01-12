@@ -21,10 +21,10 @@ const ListFields = observer((props) => {
 
   const columnsTable = [
     {
-      Header: 'Field name',
+      Header: t('txt_field_name'),
       accessor: 'field',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
@@ -46,19 +46,19 @@ const ListFields = observer((props) => {
       },
     },
     {
-      Header: 'Field group',
+      Header: t('txt_field_group'),
       accessor: 'groupName',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
     },
     {
-      Header: 'types',
+      Header: t('txt_type'),
       accessor: 'type',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="text-capitalize">{value}</div>;
       },
@@ -119,6 +119,11 @@ const ListFields = observer((props) => {
     }
   };
 
+  const deleteFields = () => {
+    viewModel.isLoading();
+    viewModel.deleteFields(listSelected);
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -128,6 +133,15 @@ const ListFields = observer((props) => {
         </div>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteFields();
+              },
+            },
             {
               title: t('txt_add_new_fields'),
               icon: '/assets/images/plus.svg',
@@ -163,7 +177,7 @@ const ListFields = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
@@ -181,14 +195,14 @@ const ListFields = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={`Select`}
-            arrowColor={'#222328'}
+            arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
       </div>
 
       {viewModel?.successResponse?.state ? (
         <Table
-          classNameTable={`bg-white rounded`}
+          classNameTable={`bg-white rounded table-striped table`}
           columns={columnsTable}
           data={viewModel?.transform(viewModel?.items)}
           selection={false}

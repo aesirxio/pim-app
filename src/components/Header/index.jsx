@@ -9,6 +9,7 @@ import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faQuestionCircle } from '@fortawesome/free-solid-svg-icons/faQuestionCircle';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
+import { faGlobe } from '@fortawesome/free-solid-svg-icons/faGlobe';
 
 import './index.scss';
 
@@ -17,6 +18,9 @@ import DropdownAvatar from '../DropdownAvatar';
 import ComponentHambuger from '../ComponentHambuger';
 import ComponentImage from '../ComponentImage';
 // import Search from 'components/Search';
+import SwitchThemes from 'components/SwitchThemes/index';
+import Select from 'components/Select/index';
+import i18n from 'translations/i18n';
 
 class Header extends React.Component {
   constructor(props) {
@@ -41,6 +45,15 @@ class Header extends React.Component {
   render() {
     const { t } = this.props;
     let { isMini } = this.state;
+
+    const listLanguages = Object.keys(i18n.options.resources).map(function (key) {
+      return { value: key, label: i18n.options.resources[key].title };
+    });
+    const currentLanguage = listLanguages.filter((lang) => {
+      if (lang.value == i18n.language) {
+        return lang;
+      }
+    });
     return (
       <div
         id="all_header"
@@ -48,10 +61,14 @@ class Header extends React.Component {
       >
         <ComponentHambuger handleAction={this.handleMenuLeft} />
         <div className="wrapper_header_logo bg-dark w-248 h-80 d-flex align-items-center">
-          <a href="/" className={`header_logo d-block ${isMini ? '' : 'mx-3'}`}>
+          <a href="/" className={`header_logo d-block ${isMini ? 'mx-auto' : 'mx-3'}`}>
             <ComponentImage
               className={`logo_white ${isMini ? 'pe-0' : 'pe-3 pe-lg-6'}`}
-              src="/assets/images/logo/logo-white.svg"
+              src={`${
+                isMini
+                  ? '/assets/images/logo/logo-white-mini.svg'
+                  : '/assets/images/logo/logo-white.svg'
+              }`}
               alt="R Digital"
             />
           </a>
@@ -76,6 +93,24 @@ class Header extends React.Component {
           </span>
           <div className="d-flex justify-content-end flex-1 align-items-center">
             {/* <Search /> */}
+            <div className="ms-auto d-flex align-items-center">
+              <FontAwesomeIcon icon={faGlobe} className="text-body fs-4" />
+              <Select
+                isClearable={false}
+                isSearchable={false}
+                isBorder={false}
+                isShadow={false}
+                options={listLanguages}
+                className="shadow-none"
+                onChange={(data) => {
+                  i18n.changeLanguage(data.value);
+                }}
+                defaultValue={currentLanguage}
+              />
+            </div>
+            <div className="switch-theme-button col-auto py-2 px-3">
+              <SwitchThemes />
+            </div>
             <div className="d-flex align-items-center">
               <div className="wr_help_center ps-3 pe-3 d-none">
                 <span className="item_help d-flex align-items-center text-blue-0 cursor-pointer">
