@@ -21,7 +21,7 @@ const ListFieldsGroup = observer((props) => {
 
   const columnsTable = [
     {
-      Header: 'Field group name',
+      Header: t('txt_field_group_name'),
       accessor: 'fieldGroups',
       width: 200,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
@@ -46,7 +46,7 @@ const ListFieldsGroup = observer((props) => {
       },
     },
     {
-      Header: 'Author',
+      Header: t('txt_author'),
       accessor: 'createdUserName',
       width: 100,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
@@ -55,7 +55,7 @@ const ListFieldsGroup = observer((props) => {
       },
     },
     {
-      Header: 'Last modified',
+      Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 100,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',

@@ -17,7 +17,7 @@ const ListCategories = observer((props) => {
 
   const columnsTable = [
     {
-      Header: 'Category name',
+      Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
@@ -60,7 +60,7 @@ const ListCategories = observer((props) => {
       },
     },
     {
-      Header: 'Parent Cate',
+      Header: t('txt_parent_cate'),
       accessor: 'parentName',
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
@@ -140,7 +140,7 @@ const ListCategories = observer((props) => {
       ),
     },
     {
-      Header: 'Last modified',
+      Header: t('txt_last_modified'),
       accessor: 'lastModified',
       className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {

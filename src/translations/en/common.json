@@ -130,7 +130,6 @@
   "txt_download_folder": "Download Folder",
   "txt_delete_folder": "Delete Folder",
   "txt_are_you_sure": "Are you sure?",
-  "txt_delete_popup_desc": "Lorem ipsum dolor sit amet, consectetur adipiscing",
   "txt_cancle": "Cancle",
   "txt_yes_delete": "Yes, Delete",
   "txt_file": "FILES",
@@ -178,6 +177,7 @@
   "txt_fields": "Fields",
   "txt_field": "Field",
   "txt_add_field_name": "Add field name",
+  "txt_field_name": "Field name",
   "txt_section": "Section",
   "txt_unique": "Unique",
   "txt_group": "Group",
@@ -208,6 +208,7 @@
   "txt_product_asset": "Product Asset",
   "txt_field_group": "Field Group",
   "txt_add_field_group_name": "Add field group name",
+  "txt_field_group_name": "Field group name",
   "txt_collection": "Collection",
   "txt_brand_type": "Brand Type",
   "txt_material": "Material",
@@ -305,5 +306,7 @@
   "txt_add_new_prices": "Add New Prices",
   "txt_organization": "Organization",
   "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)",
+  "txt_from": "from",
+  "txt_featured_product": "Featured Products",
   "txt_row_select_error": "Please first make a selection from the list."
 }
