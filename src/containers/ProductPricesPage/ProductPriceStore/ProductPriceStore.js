@@ -51,25 +51,35 @@ export default class ProductPriceStore {
     return false;
   }
 
-  async updateStatus(arr, status) {
+  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
       const getUpdateStatusApiService = new AesirxPimProductPriceApiService();
       const respondedData = await getUpdateStatusApiService.updateStatus(arr, status);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;
   }
 
-  async updatePrices(listPrices) {
+  async updatePrices(listPrices, callbackOnSuccess, callbackOnError) {
     try {
       const getUpdatePricesApiService = new AesirxPimProductPriceApiService();
       const respondedData = await getUpdatePricesApiService.updatePrices(listPrices);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;
@@ -85,7 +95,7 @@ export default class ProductPriceStore {
       resultOnSave = await createProductPriceApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Created successfully');
         });
       } else {
         runInAction(() => {
@@ -112,7 +122,7 @@ export default class ProductPriceStore {
       resultOnSave = await updateProductPriceApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -154,13 +164,18 @@ export default class ProductPriceStore {
     }
   }
 
-  async deleteProductPrices(arr) {
+  async deleteProductPrices(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimProductPriceApiService = new AesirxPimProductPriceApiService();
       const respondedData = await aesirxPimProductPriceApiService.deleteProductPrices(arr);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Deleted successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;

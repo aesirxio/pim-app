@@ -174,7 +174,11 @@ const ListProductPrice = observer((props) => {
           >
             <Tab eventKey={'default'} title={t('txt_all_products')} />
             {viewModel?.successResponse?.listPublishStatus.map((o) => (
-              <Tab key={o.value} eventKey={o.value} title={o.label} />
+              <Tab
+                key={o.value}
+                eventKey={o.value}
+                title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+              />
             ))}
           </Tabs>
 
@@ -193,11 +197,11 @@ const ListProductPrice = observer((props) => {
               <div className="text-gray me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
-                  label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
+                  label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
                   value: viewModel?.successResponse?.filters['list[limit]'],
                 }}
                 options={[...Array(9)].map((o, index) => ({
-                  label: `${(index + 1) * 10} items`,
+                  label: `${(index + 1) * 10} ${t('txt_items')}`,
                   value: (index + 1) * 10,
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}

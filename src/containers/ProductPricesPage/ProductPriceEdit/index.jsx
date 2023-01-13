@@ -17,6 +17,7 @@ import PublishOptions from 'components/PublishOptions';
 import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
+import EditHeader from 'components/EditHeader';
 
 const EditProductPrice = observer(
   class EditProductPrice extends Component {
@@ -56,11 +57,12 @@ const EditProductPrice = observer(
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_price')}
-              </h2>
-            </div>
+            <EditHeader
+              props={this.props}
+              title={t('txt_price')}
+              isEdit={this.isEdit}
+              redirectUrl={'/prices'}
+            />
             <div className="position-relative">
               <ActionsBar
                 buttons={[

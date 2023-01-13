@@ -18,6 +18,7 @@ import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldInformation from './Component/FieldInformation';
+import EditHeader from 'components/EditHeader';
 
 const EditField = observer(
   class EditField extends Component {
@@ -56,11 +57,12 @@ const EditField = observer(
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_field')}
-              </h2>
-            </div>
+            <EditHeader
+              props={this.props}
+              title={t('txt_field')}
+              isEdit={this.isEdit}
+              redirectUrl={'/fields'}
+            />
             <div className="position-relative">
               <ActionsBar
                 buttons={[

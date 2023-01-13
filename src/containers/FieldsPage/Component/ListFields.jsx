@@ -37,7 +37,7 @@ const ListFields = observer((props) => {
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
-                  Edit
+                  {t('txt_edit')}
                 </button>
               </div>
             </div>
@@ -106,7 +106,10 @@ const ListFields = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_fields')}</h2>
+        <div>
+          <h2 className="fw-bold mb-1">{t('txt_fields')}</h2>
+          <div>{t('txt_fields_description')}</div>
+        </div>
         <ActionsBar
           buttons={[
             {
@@ -159,11 +162,11 @@ const ListFields = observer((props) => {
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
-              label: `${viewModel?.filterList['limit']} items`,
+              label: `${viewModel?.filterList['limit']} ${t('txt_items')}`,
               value: viewModel?.filterList['limit'],
             }}
             options={[...Array(9)].map((o, index) => ({
-              label: `${(index + 1) * 10} items`,
+              label: `${(index + 1) * 10} ${t('txt_items')}`,
               value: (index + 1) * 10,
             }))}
             onChange={(o) => selectShowItemsHandler(o)}

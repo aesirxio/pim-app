@@ -5,11 +5,13 @@
 
 import React from 'react';
 import { AesirXDam } from 'aesirx-dam-app';
+import { useThemeContext } from 'themes/ThemeContextProvider';
 
 function DigitalAssetsPage() {
+  const { theme } = useThemeContext();
   return (
     <div className="py-4 px-3 h-100 ">
-      <AesirXDam />
+      <AesirXDam theme={theme?.theme} />
     </div>
   );
 }

@@ -62,17 +62,22 @@ const PublishOptions = observer(
                     getValueSelected:
                       formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED] !== undefined
                         ? {
-                            label: this.utilsListViewModel.listPublishStatus?.find(
-                              (x) =>
-                                x.value.toString() ===
-                                formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
-                            )?.label,
+                            label: t(
+                              `txt_${this.utilsListViewModel.listPublishStatus
+                                ?.find(
+                                  (x) =>
+                                    x.value.toString() ===
+                                    formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString()
+                                )
+                                ?.label?.toString()
+                                .toLowerCase()}`
+                            ),
                             value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PUBLISHED].toString(),
                           }
                         : null,
                     getDataSelectOptions: this.utilsListViewModel.listPublishStatus?.map(
                       (status) => ({
-                        label: status.label,
+                        label: t(`txt_${status?.label && status.label?.toString().toLowerCase()}`),
                         value: status.value.toString(),
                       })
                     ),
@@ -105,7 +110,7 @@ const PublishOptions = observer(
                       ? {
                           label:
                             formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED] === '1'
-                              ? 'Yes'
+                              ? t('txt_yes')
                               : 'No',
                           value: formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED].toString(),
                         }
@@ -115,11 +120,11 @@ const PublishOptions = observer(
                         },
                     getDataSelectOptions: [
                       {
-                        label: 'Yes',
+                        label: t('txt_yes'),
                         value: '1',
                       },
                       {
-                        label: 'No',
+                        label: t('txt_no'),
                         value: '0',
                         className: 'me-0',
                       },

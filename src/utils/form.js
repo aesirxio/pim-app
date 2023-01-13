@@ -223,7 +223,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       id={field.key}
                       onChange={field.handleChange ?? undefined}
                       onBlur={field.blurred ?? undefined}
-                      placeholder={'Type'}
+                      placeholder={field.placeholder}
                     />
                   ) : (
                     <FormEditor field={field} />

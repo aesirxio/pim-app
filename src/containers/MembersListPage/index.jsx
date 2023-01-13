@@ -112,17 +112,17 @@ class MembersListPage extends Component {
             options={[{ label: 'Test', value: 'test' }]}
             className={`fs-sm`}
             isBorder={true}
-            placeholder={`Bulk Actions`}
+            placeholder={t('txt_bulk_actions')}
             arrowColor={'var(--dropdown-indicator-color)'}
           />
           <div className="d-flex align-items-center">
-            <div className="opacity-50 me-2">Showing</div>
+            <div className="opacity-50 me-2">{t('txt_showing')}</div>
             <SelectComponent
               defaultValue={`test`}
               options={[{ label: 'Test', value: 'test' }]}
               className={`fs-sm`}
               isBorder={true}
-              placeholder={`Bulk Actions`}
+              placeholder={t('txt_bulk_actions')}
               arrowColor={'var(--dropdown-indicator-color)'}
             />
           </div>

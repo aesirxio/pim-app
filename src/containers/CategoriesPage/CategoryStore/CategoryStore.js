@@ -19,7 +19,7 @@ export default class CategoryStore {
       resultOnSave = await createCategoryApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Created successfully');
         });
       } else {
         runInAction(() => {
@@ -47,7 +47,7 @@ export default class CategoryStore {
 
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -133,25 +133,35 @@ export default class CategoryStore {
     return false;
   }
 
-  async updateStatus(arr, status) {
+  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
       const updateStatusAPIService = new AesirxPimCategoryApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;
   }
 
-  async deleteCategories(arr) {
+  async deleteCategories(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
       const respondedData = await aesirxPimCategoryApiService.deleteCategories(arr);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Deleted successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;

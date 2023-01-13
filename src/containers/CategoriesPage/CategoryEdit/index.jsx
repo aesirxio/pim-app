@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import CategoryTab from './Component/CategoryTab';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
+import EditHeader from 'components/EditHeader';
 
 const EditCategory = observer(
   class EditCategory extends Component {
@@ -73,11 +74,12 @@ const EditCategory = observer(
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
-            <div className="position-relative">
-              <h2 className="text-blue-0 fw-bold mb-8px">
-                {this.isEdit ? t('txt_edit') : t('txt_add_new')} {t('txt_category')}
-              </h2>
-            </div>
+            <EditHeader
+              props={this.props}
+              title={t('txt_category')}
+              isEdit={this.isEdit}
+              redirectUrl={'/categories'}
+            />
             <div className="position-relative">
               <ActionsBar
                 buttons={[

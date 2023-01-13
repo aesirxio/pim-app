@@ -6,9 +6,15 @@
 import React from 'react';
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import styles from './index.module.scss';
+import './index.scss';
 
 export default class ComponentEditor extends React.Component {
   render() {
-    return <CKEditor editor={ClassicEditor} {...this.props} />;
+    return (
+      <div className={styles['custom-editor']}>
+        <CKEditor editor={ClassicEditor} {...this.props} />
+      </div>
+    );
   }
 }

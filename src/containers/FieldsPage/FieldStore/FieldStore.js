@@ -19,7 +19,7 @@ export default class FieldStore {
       resultOnSave = await createFieldApiService.create(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Created successfully');
         });
       } else {
         runInAction(() => {
@@ -45,7 +45,7 @@ export default class FieldStore {
       resultOnSave = await updateFieldApiService.update(convertedUpdateGeneralData);
       if (resultOnSave) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave);
+          callbackOnSuccess(resultOnSave, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -60,13 +60,18 @@ export default class FieldStore {
     }
   }
 
-  async updateStatus(arr, status) {
+  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
     try {
       const updateStatusAPIService = new AesirxPimFieldApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Updated successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;
@@ -142,13 +147,18 @@ export default class FieldStore {
     return false;
   }
 
-  async deleteFields(arr) {
+  async deleteFields(arr, callbackOnSuccess, callbackOnError) {
     try {
       const aesirxPimFieldApiService = new AesirxPimFieldApiService();
       const respondedData = await aesirxPimFieldApiService.deleteFields(arr);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Deleted successfully');
+      });
       return respondedData;
     } catch (error) {
-      // no error throw
+      runInAction(() => {
+        callbackOnError(error);
+      });
     }
 
     return false;

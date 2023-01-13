@@ -12,6 +12,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import moment from 'moment';
+import { notify } from 'components/Toast';
 class ProductListViewModel {
   productStore = null;
   formStatus = PAGE_STATUS.READY;
@@ -94,7 +95,12 @@ class ProductListViewModel {
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.productStore.updateStatus(arr, status);
+    const res = await this.productStore.updateStatus(
+      arr,
+      status,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.productStore.getList(
         this.callbackOnSuccessHandler,
@@ -106,7 +112,11 @@ class ProductListViewModel {
   };
 
   deleteProducts = async (arr) => {
-    const res = await this.productStore.deleteProducts(arr);
+    const res = await this.productStore.deleteProducts(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.productStore.getList(
         this.callbackOnSuccessHandler,
@@ -117,16 +127,19 @@ class ProductListViewModel {
     this.successResponse.state = true;
   };
 
-  callbackOnSuccessSetFeatured = async (result) => {
+  callbackOnSuccessSetFeatured = async (result, message) => {
     this.successResponse.listProducts = this.successResponse.listProducts.map((o) => {
       if (o.id == result) {
         return { ...o, featured: !o.featured };
       }
       return o;
     });
+    if (result && message) {
+      notify(message, 'success');
+    }
   };
 
-  callbackOnSuccessHandler = (result) => {
+  callbackOnSuccessHandler = (result, message) => {
     if (result?.listItems) {
       this.successResponse.listProducts = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
@@ -135,6 +148,9 @@ class ProductListViewModel {
     }
     if (result?.listPublishStatus) {
       this.successResponse.listPublishStatus = result.listPublishStatus;
+    }
+    if (result && message) {
+      notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
   };
@@ -149,8 +165,10 @@ class ProductListViewModel {
     });
   };
 
-  callbackOnErrorHandler = (result) => {
-    console.log('error', result);
+  callbackOnErrorHandler = (error) => {
+    error.response?.data?._messages[0]?.message
+      ? notify(error.response?.data?._messages[0]?.message, 'error')
+      : error.message && notify(error.message, 'error');
   };
 
   transform = (data) => {
@@ -163,7 +181,7 @@ class ProductListViewModel {
       //   ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][PIM_PRODUCT_DETAIL_FIELD_KEY.THUMB_IMAGE][
       //       PIM_PRODUCT_DETAIL_FIELD_KEY.DOWNLOAD_URL
       //     ]
-      //   : 'test'; 
+      //   : 'test';
 
       return {
         id: o[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],

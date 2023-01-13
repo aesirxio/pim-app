@@ -82,18 +82,18 @@ class LoginPage extends React.Component {
                 {t('txt_pim')}.
                 <br /> {t('txt_login_text_2')}
               </h1>
-              <form>
+              <form className="login-form">
                 <SSOButton
-                  className="btn w-100 fw-bold btn-blue-3 position-relative d-flex align-item-center justify-content-center mb-2 px-6"
+                  className="btn w-100 fw-bold btn-blue-3 position-relative d-flex align-item-center justify-content-center mb-24 px-6"
                   text={t('txt_sign_in_with_sso')}
                   onGetData={onGetData}
                 />
-                <div className="d-flex align-items-center flex-nowrap mb-1">
+                <div className="d-flex align-items-center flex-nowrap mb-15">
                   <div className="border-bottom w-50"></div>
                   <span className="px-2 text-uppercase fw-medium text-gray">{t('txt_or')}</span>
                   <div className="border-bottom w-50"></div>
                 </div>
-                <label className="form-label fw-semibold mb-16">
+                <label className="form-label fw-semibold mb-16 text-black">
                   Email <span className="text-danger">*</span>
                 </label>
                 <input
@@ -110,7 +110,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('Email or username', this.state.username, 'required', {
                   className: 'text-danger',
                 })}
-                <label className="form-label fw-semibold mt-2 mb-16" htmlFor="password">
+                <label className="form-label fw-semibold mt-2 mb-16 text-black" htmlFor="password">
                   Password <span className="text-danger">*</span>
                 </label>
                 <InputPassword
@@ -140,7 +140,7 @@ class LoginPage extends React.Component {
                 </div>
                 <button
                   type="button"
-                  className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-3 text-uppercase`}
+                  className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-24 text-uppercase`}
                   onClick={this.handleSubmit}
                 >
                   {t('txt_sign_in')}

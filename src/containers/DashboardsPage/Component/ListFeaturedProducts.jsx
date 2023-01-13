@@ -18,7 +18,7 @@ const ListFeaturedProducts = observer((props) => {
     <div className={`position-relative  ${!viewModel?.successResponse?.state ? 'mt-5' : ''} `}>
       {viewModel?.successResponse?.state ? (
         <div className={`bg-white rounded-3 shadow-sm`}>
-          <div className="px-2 pt-3 fw-bold text-uppercase">{t('txt_featured_product')}</div>
+          <div className="px-2 pt-24 fw-bold text-uppercase">{t('txt_featured_product')}</div>
           <Table
             classNameTable={`table-striped table`}
             columns={[
@@ -99,7 +99,7 @@ const ListFeaturedProducts = observer((props) => {
                             }`,
                           }}
                         >
-                          {value}
+                          {t('txt_' + value?.toString().toLowerCase())}
                         </span>
                       </div>
                     );
@@ -126,7 +126,13 @@ const ListFeaturedProducts = observer((props) => {
                   return (
                     <div className="pe-2">
                       <div className="mb-1">
-                        {viewModel?.listPublishStatus?.find((o) => o.value == value.status)?.label}
+                        {t(
+                          'txt_' +
+                            viewModel?.listPublishStatus
+                              ?.find((o) => o.value == value.status)
+                              ?.label?.toString()
+                              .toLowerCase()
+                        )}
                       </div>
                       <div>
                         {value.dateTime} by {value.author}

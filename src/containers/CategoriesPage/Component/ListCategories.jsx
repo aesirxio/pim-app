@@ -215,7 +215,10 @@ const ListCategories = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_categories')}</h2>
+        <div>
+          <h2 className="fw-bold mb-1">{t('txt_categories')}</h2>
+          <div>{t('txt_categories_description')} </div>
+        </div>
         <ActionsBar
           buttons={[
             {
@@ -247,7 +250,11 @@ const ListCategories = observer((props) => {
       >
         <Tab eventKey={'default'} title={t('txt_all_category')} />
         {viewModel?.successResponse?.listPublishStatus.map((o) => (
-          <Tab key={o.value} eventKey={o.value} title={o.label} />
+          <Tab
+            key={o.value}
+            eventKey={o.value}
+            title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+          />
         ))}
       </Tabs>
 

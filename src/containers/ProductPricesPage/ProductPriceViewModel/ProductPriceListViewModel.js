@@ -7,6 +7,7 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import { makeAutoObservable } from 'mobx';
 import moment from 'moment';
+import { notify } from 'components/Toast';
 
 class ProductPriceListViewModel {
   productPricesStore = null;
@@ -74,7 +75,12 @@ class ProductPriceListViewModel {
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.productPricesStore.updateStatus(arr, status);
+    const res = await this.productPricesStore.updateStatus(
+      arr,
+      status,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.productPricesStore.getList(
         this.callbackOnSuccessHandler,
@@ -86,7 +92,11 @@ class ProductPriceListViewModel {
   };
 
   updatePrices = async (listPrices) => {
-    const res = await this.productPricesStore.updatePrices(listPrices);
+    const res = await this.productPricesStore.updatePrices(
+      listPrices,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.productPricesStore.getList(
         this.callbackOnSuccessHandler,
@@ -98,7 +108,11 @@ class ProductPriceListViewModel {
   };
 
   deleteProductPrices = async (arr) => {
-    const res = await this.productPricesStore.deleteProductPrices(arr);
+    const res = await this.productPricesStore.deleteProductPrices(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     if (res) {
       await this.productPricesStore.getList(
         this.callbackOnSuccessHandler,
@@ -109,16 +123,7 @@ class ProductPriceListViewModel {
     this.successResponse.state = true;
   };
 
-  callbackOnSuccessSetFeatured = async (result) => {
-    this.successResponse.listProducts = this.successResponse.listProducts.map((o) => {
-      if (o.id == result) {
-        return { ...o, featured: !o.featured };
-      }
-      return o;
-    });
-  };
-
-  callbackOnSuccessHandler = (result) => {
+  callbackOnSuccessHandler = (result, message) => {
     if (result?.listItems) {
       this.successResponse.listProductPrice = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
@@ -126,11 +131,16 @@ class ProductPriceListViewModel {
     if (result?.listPublishStatus) {
       this.successResponse.listPublishStatus = result.listPublishStatus;
     }
+    if (result && message) {
+      notify(message, 'success');
+    }
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnErrorHandler = (result) => {
-    console.log('error', result);
+  callbackOnErrorHandler = (error) => {
+    error.response?.data?._messages[0]?.message
+      ? notify(error.response?.data?._messages[0]?.message, 'error')
+      : error.message && notify(error.message, 'error');
   };
 
   isLoading = () => {
