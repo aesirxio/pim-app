@@ -17,21 +17,6 @@ const utilsViewModel = new UtilsViewModel(utilsStore);
 const fieldGroupStore = new FieldGroupStore();
 const fieldGroupViewModel = new FieldGroupViewModel(fieldGroupStore);
 
-const relevanceArray = [
-  {
-    label: 'Optional',
-    value: '0',
-  },
-  {
-    label: 'Recommend',
-    value: '1',
-  },
-  {
-    label: 'Required',
-    value: '2',
-  },
-];
-
 const FieldInformation = observer(
   class FieldInformation extends Component {
     constructor(props) {
@@ -51,7 +36,21 @@ const FieldInformation = observer(
     }
 
     render() {
-      const { validator } = this.props;
+      const { validator, t } = this.props;
+      const relevanceArray = [
+        {
+          label: t('txt_optional'),
+          value: '0',
+        },
+        {
+          label: t('txt_recommend'),
+          value: '1',
+        },
+        {
+          label: t('txt_required'),
+          value: '2',
+        },
+      ];
       const generateFormSetting = [
         {
           fields: [
@@ -145,17 +144,17 @@ const FieldInformation = observer(
                       this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE
                       ].toString() === '0'
-                        ? 'No'
-                        : 'Yes',
+                        ? t('txt_no')
+                        : t('txt_yes'),
                     value:
                       this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE
                       ].toString(),
                   }
-                : { label: 'No', value: '0' },
+                : { label: t('txt_no'), value: '0' },
               getDataSelectOptions: [
-                { label: 'No', value: '0' },
-                { label: 'Yes', value: '1' },
+                { label: t('txt_no'), value: '0' },
+                { label: t('txt_yes'), value: '1' },
               ],
               handleChange: (data) => {
                 this.fieldDetailViewModel.handleFormPropsData(
@@ -247,6 +246,7 @@ const FieldInformation = observer(
                   note: data.target.value,
                 });
               },
+              placeholder: t('txt_type'),
               className: 'col-lg-12',
             },
           ],

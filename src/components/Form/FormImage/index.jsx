@@ -7,10 +7,12 @@ import ComponentSVG from 'components/ComponentSVG';
 import ModalDAMComponent from 'components/ModalDamComponent';
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
+import { withTranslation } from 'react-i18next';
 
 import ComponentImage from '../../ComponentImage';
 import './index.scss';
-const FormImage = ({ field }) => {
+const FormImage = ({ field, ...props }) => {
+  const { t } = props;
   const [file, setFile] = useState(
     field.isMulti ? field.getValueSelected ?? [] : field.getValueSelected ?? null
   );
@@ -82,7 +84,7 @@ const FormImage = ({ field }) => {
             }}
           >
             <ComponentSVG url="/assets/images/add-media-image.svg" className="bg-black me-1" />
-            Add More Photo
+            {t('txt_add_more_photo')}
           </Button>
         </div>
       ) : (
@@ -96,7 +98,9 @@ const FormImage = ({ field }) => {
             {(!file || (Array.isArray(file) && !file[0])) && (
               <div className="d-flex align-items-center p-2 w-100">
                 <div className="text-center fs-14 text-body opacity-50 w-100">
-                  <p className="mb-0">Browse from computer Choose from media Drag file here</p>
+                  <p className="mb-0">
+                    {t('txt_browse_from_computer_choose_from_media_drag_file_here')}
+                  </p>
                 </div>
               </div>
             )}
@@ -116,9 +120,7 @@ const FormImage = ({ field }) => {
                 )
               : null}
           </div>
-          <p className="my-8px fs-14 opacity-50">
-            Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)
-          </p>
+          <p className="my-8px fs-14 opacity-50">{t('txt_max_file_size')}</p>
         </div>
       )}
       <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
@@ -126,4 +128,4 @@ const FormImage = ({ field }) => {
   );
 };
 
-export default FormImage;
+export default withTranslation('common')(FormImage);

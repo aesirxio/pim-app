@@ -40,6 +40,7 @@ const FieldsList = observer(
       }
     };
     render() {
+      const { t } = this.props;
       const generateFormSetting = [
         {
           fields: [
@@ -118,6 +119,9 @@ const FieldsList = observer(
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.editor === 'none'
                     ? false
                     : true,
+                ...(field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR && {
+                  placeholder: t('txt_type'),
+                }),
                 creatable:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.filter_type === 'creatable'
                     ? true

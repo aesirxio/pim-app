@@ -323,5 +323,10 @@
   "txt_owner_company": "Ejerselskab",
   "txt_showing": "Viser",
   "txt_totals": "Totaler",
-  "txt_items": "genstande"
+  "txt_items": "genstande",
+  "txt_browse_from_computer_choose_from_media_drag_file_here":"Gennemse fra computer Vælg mellem medie Træk fil her",
+  "txt_add_more_option":"Tilføj flere muligheder",
+  "txt_optional":"Valgfri",
+  "txt_recommend":"Anbefale",
+  "txt_required":"Påkrævet"
 }
