@@ -22,6 +22,7 @@ class CategoryListViewModel {
     filters: {
       'list[limit]': 10,
     },
+    listCategoriesWithoutPagination: [],
   };
 
   constructor(categoryStore) {
@@ -40,6 +41,11 @@ class CategoryListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
       this.successResponse.filters
+    );
+
+    await this.categoryStore.getListWithoutPagination(
+      this.callbackOnSuccessGetCategoriesHandler,
+      this.callbackOnErrorHandler
     );
 
     await this.categoryStore.getListPublishStatus(
@@ -171,6 +177,16 @@ class CategoryListViewModel {
         return { ...o, published: { ...o.published, state: !o.published.state } };
       }
       return o;
+    });
+  };
+
+  callbackOnSuccessGetCategoriesHandler = (result) => {
+    this.successResponse.listCategoriesWithoutPagination = result.listItems.map((o) => {
+      let dash = '';
+      for (let index = 1; index < o.level; index++) {
+        dash += '- ';
+      }
+      return { value: o.id, label: `${dash}${o.title}` };
     });
   };
 

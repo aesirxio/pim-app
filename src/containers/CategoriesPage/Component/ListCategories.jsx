@@ -212,6 +212,14 @@ const ListCategories = observer((props) => {
     viewModel.deleteCategories(listSelected);
   };
 
+  const selectCategoryHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('id', {
+      value: value.value,
+      type: 'filter',
+    });
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
@@ -261,6 +269,15 @@ const ListCategories = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
+            arrowColor={'var(--dropdown-indicator-color)'}
+          />
+          <SelectComponent
+            options={viewModel?.successResponse?.listCategoriesWithoutPagination}
+            className={`fs-sm`}
+            isBorder={true}
+            placeholder={t('txt_all_categories')}
+            plColor={`text-color`}
+            onChange={(o) => selectCategoryHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
