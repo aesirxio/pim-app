@@ -264,7 +264,7 @@
   "txt_left_menu_taxonomies": "Taxonomies",
   "txt_category_name": "ชื่อหมวดหมู่",
   "txt_parent_cate": "หมวดหมู่หลัก",
-  "txt_number": "Number",
+  "txt_number": "ตัวเลข",
   "txt_all_members": "สมาชิกทั้งหมด",
   "txt_super_admin": "Super Admin",
   "txt_supplier": "ผู้ผลิต",
@@ -328,5 +328,7 @@
   "txt_add_more_option":"เพิ่มตัวเลือกเพิ่มเติม",
   "txt_optional":"ไม่จำเป็น",
   "txt_recommend":"แนะนำ",
-  "txt_required":"ที่จำเป็น"
+  "txt_required":"ที่จำเป็น",
+  "txt_remember_me":"จดจำฉัน",
+  "txt_by": "โดย"
 }

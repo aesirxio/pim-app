@@ -72,13 +72,17 @@ const ListFields = observer((props) => {
     //     return (
     //       <div className="pe-2">
     //         {/* <div className="mb-1">
-    //           {
-    //             viewModel?.listPublishStatus.find((o) => o.value == value.status)
-    //               .label
-    //           }
+    //        {viewModel?.listPublishStatus?.find((o) => o.value == value.status).label &&
+    //          t(
+    //          'txt_' +
+    //            viewModel?.listPublishStatus
+    //            .find((o) => o.value == value.status)
+    //            .label?.toString()
+    //            .toLowerCase()
+    //          )}
     //         </div> */}
     //         <div>
-    //           {value.dateTime} by {value.author}
+    //           {value.dateTime} {t('txt_by')} {value.author}
     //         </div>
     //       </div>
     //     );
