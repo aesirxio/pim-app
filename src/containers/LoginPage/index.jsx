@@ -94,7 +94,7 @@ class LoginPage extends React.Component {
                   <div className="border-bottom w-50"></div>
                 </div>
                 <label className="form-label fw-semibold mb-16 text-black">
-                  Email <span className="text-danger">*</span>
+                  {t('txt_Email')} <span className="text-danger">*</span>
                 </label>
                 <input
                   type="text"
@@ -111,7 +111,7 @@ class LoginPage extends React.Component {
                   className: 'text-danger',
                 })}
                 <label className="form-label fw-semibold mt-2 mb-16 text-black" htmlFor="password">
-                  Password <span className="text-danger">*</span>
+                  {t('txt_projectpage_password')} <span className="text-danger">*</span>
                 </label>
                 <InputPassword
                   type="password"
@@ -128,14 +128,14 @@ class LoginPage extends React.Component {
                   className: 'text-danger',
                 })}
                 <div className="d-flex justify-content-between pt-16 text-black">
-                  <Checkbox text="Remember me" />
+                  <Checkbox text={t('txt_remember_me')} />
                   <a
                     href="https://pim.aesirx.io/auth/forgotpassword"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="d-flex fw-semibold fs-6"
                   >
-                    Forgot password?
+                    {t('tx_forgot_password')}
                   </a>
                 </div>
                 <button

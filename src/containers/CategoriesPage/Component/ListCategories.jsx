@@ -147,13 +147,18 @@ const ListCategories = observer((props) => {
         return (
           <div className="pe-2">
             <div className="mb-1">
-              {
-                viewModel?.successResponse?.listPublishStatus.find((o) => o.value == value.status)
-                  ?.label
-              }
+              {viewModel?.successResponse?.listPublishStatus?.find((o) => o.value == value.status)
+                ?.label &&
+                t(
+                  'txt_' +
+                    viewModel?.successResponse?.listPublishStatus
+                      .find((o) => o.value == value.status)
+                      ?.label?.toString()
+                      .toLowerCase()
+                )}
             </div>
             <div>
-              {value.dateTime} by {value.author}
+              {value.dateTime} {t('txt_by')} {value.author}
             </div>
           </div>
         );
@@ -274,11 +279,11 @@ const ListCategories = observer((props) => {
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
-              label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
+              label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
               value: viewModel?.successResponse?.filters['list[limit]'],
             }}
             options={[...Array(9)].map((o, index) => ({
-              label: `${(index + 1) * 10} items`,
+              label: `${(index + 1) * 10} ${t('txt_items')}`,
               value: (index + 1) * 10,
             }))}
             onChange={(o) => selectShowItemsHandler(o)}

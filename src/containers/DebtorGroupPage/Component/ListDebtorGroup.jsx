@@ -62,7 +62,7 @@ const ListDebtorGroup = observer((props) => {
       },
     },
     {
-      Header: 'Owner Company',
+      Header: t('txt_owner_company'),
       accessor: 'organisationName',
       width: 250,
       className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
@@ -71,7 +71,7 @@ const ListDebtorGroup = observer((props) => {
       },
     },
     {
-      Header: 'Last modified',
+      Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 250,
       className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
@@ -79,10 +79,17 @@ const ListDebtorGroup = observer((props) => {
         return (
           <div className="pe-2">
             <div className="mb-1">
-              {viewModel?.listPublishStatus.find((o) => o.value == value.status).label}
+              {viewModel?.listPublishStatus?.find((o) => o.value == value.status).label &&
+                t(
+                  'txt_' +
+                    viewModel?.listPublishStatus
+                      .find((o) => o.value == value.status)
+                      .label?.toString()
+                      .toLowerCase()
+                )}
             </div>
             <div>
-              {value.lastModifiedDate} by {value.modifiedUserName}
+              {value.lastModifiedDate} {t('txt_by')} {value.modifiedUserName}
             </div>
           </div>
         );
