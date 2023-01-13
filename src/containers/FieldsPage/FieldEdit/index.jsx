@@ -42,8 +42,6 @@ const EditField = observer(
       if (this.isEdit) {
         this.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.fieldDetailViewModel.initializeData();
-      } else {
-        this.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED] = 1;
       }
     }
 
