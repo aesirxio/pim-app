@@ -99,11 +99,11 @@ const EditFieldGroup = observer(
                   {
                     title: t('txt_save_close'),
                     handle: async () => {
+                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.fieldGroupDetailViewModel.update();
                         } else {
-                          this.handleAliasFormPropsData();
                           await this.fieldGroupDetailViewModel.create();
                         }
                         history.push(`/fields-group`);
@@ -116,13 +116,13 @@ const EditFieldGroup = observer(
                     title: t('txt_save'),
                     validator: this.validator,
                     handle: async () => {
+                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.fieldGroupDetailViewModel.update();
                           await this.fieldGroupDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          this.handleAliasFormPropsData();
                           let result = await this.fieldGroupDetailViewModel.create();
                           history.push(`/fields-group/edit/${result}`);
                         }
@@ -154,7 +154,11 @@ const EditFieldGroup = observer(
                           PIM_FIELD_GROUP_DETAIL_FIELD_KEY.NAME,
                           event.target.value
                         );
-                        if (!this.isEdit) {
+                        if (
+                          !this.fieldGroupDetailViewModel.productDetailViewModel.formPropsData[
+                            PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
+                          ]
+                        ) {
                           this.debouncedChangeHandler(event.target.value);
                         }
                       },

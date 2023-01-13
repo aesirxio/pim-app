@@ -98,11 +98,11 @@ const EditCategory = observer(
                   {
                     title: t('txt_save_close'),
                     handle: async () => {
+                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.categoryDetailViewModel.update();
                         } else {
-                          this.handleAliasFormPropsData();
                           await this.categoryDetailViewModel.create();
                         }
                         history.push(`/categories`);
@@ -115,13 +115,13 @@ const EditCategory = observer(
                     title: t('txt_save'),
                     validator: this.validator,
                     handle: async () => {
+                      this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
                           await this.categoryDetailViewModel.update();
                           await this.categoryDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          this.handleAliasFormPropsData();
                           let result = await this.categoryDetailViewModel.create();
                           history.push(`/categories/edit/${result}`);
                         }
@@ -153,7 +153,12 @@ const EditCategory = observer(
                           PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE,
                           event.target.value
                         );
-                        if (!this.isEdit) {
+
+                        if (
+                          !this.categoryDetailViewModel.productDetailViewModel.formPropsData[
+                            PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
+                          ]
+                        ) {
                           this.debouncedChangeHandler(event.target.value);
                         }
                       },

@@ -17,19 +17,19 @@ export default class CategoryStore {
       const createCategoryApiService = new AesirxPimCategoryApiService();
 
       resultOnSave = await createCategoryApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
       return false;
     }
@@ -45,9 +45,9 @@ export default class CategoryStore {
       const updateCategoryApiService = new AesirxPimCategoryApiService();
       resultOnSave = await updateCategoryApiService.update(convertedUpdateGeneralData);
 
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Updated successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -56,7 +56,7 @@ export default class CategoryStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -84,7 +84,7 @@ export default class CategoryStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -105,7 +105,7 @@ export default class CategoryStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -143,7 +143,7 @@ export default class CategoryStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -160,7 +160,7 @@ export default class CategoryStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 

@@ -138,8 +138,8 @@ class ProductPriceListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    error.response?.data?._messages[0]?.message
-      ? notify(error.response?.data?._messages[0]?.message, 'error')
+    error._messages[0]?.message
+      ? notify(error._messages[0]?.message, 'error')
       : error.message && notify(error.message, 'error');
   };
 
