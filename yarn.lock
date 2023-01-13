@@ -2960,23 +2960,35 @@ adjust-sourcemap-loader@^4.0.0:
     loader-utils "^2.0.0"
     regex-parser "^2.2.11"
 
-aesirx-dam-app@^1.1.0:
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.1.0.tgz#3876c9d79aa10776f84a8f97ac190a22862b8167"
-  integrity sha512-0AzQMKZrCGAPQfjs4QPE5jztoRbq67ydOFBXDUSiXZhs6JvPc6dKgJlc9H2akQ0fsHhb2S3FQBeFJVJR/JIp7g==
+aesirx-dam-app@^1.2.0:
+  version "1.2.0"
+  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.2.0.tgz#5fb7e2f9f1b75b6e165ebb7ef232385d9640f8d9"
+  integrity sha512-iBE349NKAeZx77kbuJ2vg+c1yQCgrZ6lvYP8RsXLX++nOkzsHgVcJSGHH4lOqhSHc/z/OStY/PQ6RF26MxAUWg==
   dependencies:
-    aesirx-dma-lib "^1.7.1"
-    aesirx-sso "^1.0.0"
+    aesirx-dma-lib "^1.7.5"
+    aesirx-sso "^1.0.3"
     date-fns "^2.16.1"
     date-fns-tz "^1.1.6"
     file-saver "^2.0.5"
     moment "^2.29.4"
     react-datepicker "^3.3.0"
 
-aesirx-dma-lib@^1.7.1, aesirx-dma-lib@^1.7.3:
-  version "1.7.4"
-  resolved "https://registry.yarnpkg.com/aesirx-dma-lib/-/aesirx-dma-lib-1.7.4.tgz#d0787a6f2fa09890b2042c8be04b3eb47a9d3d9f"
-  integrity sha512-GWS/7rkyYBCPCZo7+M8Ov6m0zmleHV3AIDzxkoDihja9sz33wPKcFLbeGyXGoTYSmRJIqk0GJQklz5fD9U3w8Q==
+aesirx-dma-app@^1.6.2:
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/aesirx-dma-app/-/aesirx-dma-app-1.6.2.tgz#38cef86419fedd77b96e95b64289358cca70f537"
+  integrity sha512-Csf1ICO+IIM6a6H73QuNNz45eZfOayspgammjSksuOKqm/ZXPWlDWA9hluQrVgkI2GZg0HG4eyE3Axckjv/OaA==
+  dependencies:
+    aesirx-dam-app "^1.2.0"
+    aesirx-dma-lib "^1.7.5"
+    aesirx-sso "^1.0.3"
+    date-fns "^2.16.1"
+    date-fns-tz "^1.1.6"
+    react-datepicker "^3.3.0"
+
+aesirx-dma-lib@^1.7.5:
+  version "1.7.5"
+  resolved "https://registry.yarnpkg.com/aesirx-dma-lib/-/aesirx-dma-lib-1.7.5.tgz#1a8ff94dd3fece33d456a50ccf22ec60d3a0f397"
+  integrity sha512-jCj1yToTPghAcwO7p6FIyZKVJsS0D2IYwSTmAXFKIGxa0YlV6Z8702COBiJ47FpTj6Xg1wkp5wk4M/7/MUbhqA==
   dependencies:
     axios "^0.21.0"
     axios-auth-refresh "^3.0.0"
@@ -2985,7 +2997,7 @@ aesirx-dma-lib@^1.7.1, aesirx-dma-lib@^1.7.3:
     qs "^6.10.1"
     query-string "^7.1.1"
 
-aesirx-sso@^1.0.0, aesirx-sso@^1.0.3:
+aesirx-sso@^1.0.3:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/aesirx-sso/-/aesirx-sso-1.0.3.tgz#060f99d242b222ea18f9f6e8429f29d88d0ed173"
   integrity sha512-18Aq3aUMZDpge4oQ0APKkWs36BRUkjx79/zEUxf31kI2neSk6MYTkK5hDcaP/t9RVxFEYHRjkJpszDh/D9RGYQ==
