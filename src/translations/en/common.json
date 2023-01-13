@@ -323,5 +323,10 @@
   "txt_owner_company": "Owner Company",
   "txt_showing": "Showing",
   "txt_totals": "Totals",
-  "txt_items": "items"
+  "txt_items": "items",
+  "txt_browse_from_computer_choose_from_media_drag_file_here":"Browse from computer Choose from media Drag file here",
+  "txt_add_more_option":"Add More Option",
+  "txt_optional":"Optional",
+  "txt_recommend":"Recommend",
+  "txt_required":"Required"
 }

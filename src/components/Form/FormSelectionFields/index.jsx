@@ -15,6 +15,7 @@ import FormRadio from '../FormRadio';
 import Input from '../Input';
 import Label from '../Label';
 import './index.scss';
+import { withTranslation } from 'react-i18next';
 
 class FormSelectionFields extends Component {
   constructor(props) {
@@ -46,6 +47,7 @@ class FormSelectionFields extends Component {
       );
   };
   render() {
+    const { t } = this.props;
     return (
       <>
         {this.props.field.creatable ? (
@@ -161,7 +163,7 @@ class FormSelectionFields extends Component {
                   }}
                 >
                   <ComponentSVG url="/assets/images/plus.svg" className={`me-15`} />
-                  Add More Option
+                  {t('txt_add_more_option')}
                 </Button>
               </>
             )}
@@ -262,4 +264,4 @@ class FormSelectionFields extends Component {
   }
 }
 
-export default FormSelectionFields;
+export default withTranslation('common')(FormSelectionFields);

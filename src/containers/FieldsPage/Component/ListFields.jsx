@@ -37,7 +37,7 @@ const ListFields = observer((props) => {
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
-                  Edit
+                  {t('txt_edit')}
                 </button>
               </div>
             </div>
