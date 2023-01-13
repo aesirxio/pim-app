@@ -557,6 +557,15 @@ form {
     &::placeholder {
       color: var(--input-placeholder-color);
     }
+    &:focus {
+      box-shadow: none;
+      border: 1px solid $color-blue;
+      background-color: var(--bs-white);
+    }
+    &:-webkit-autofill:focus {
+      background-color: var(--bs-white) !important;
+      -webkit-box-shadow: 0 0 0px 1000px var(--bs-white) inset;
+    }
   }
 }
 .form-check {
