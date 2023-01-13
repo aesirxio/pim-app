@@ -64,7 +64,7 @@ const ListFieldsGroup = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">{value.status ? t('txt_published') : t('txt_unpublished')}</div>
             <div>
-              {value.lastModifiedDate} by {value.modifiedUserName}
+              {value.lastModifiedDate} {t('txt_by')} {value.modifiedUserName}
             </div>
           </div>
         );

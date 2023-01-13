@@ -328,5 +328,7 @@
   "txt_add_more_option":"Add More Option",
   "txt_optional":"Optional",
   "txt_recommend":"Recommend",
-  "txt_required":"Required"
+  "txt_required":"Required",
+  "txt_remember_me":"Remember me",
+  "txt_by": "by"
 }
