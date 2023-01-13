@@ -328,12 +328,7 @@
   "txt_add_more_option":"เพิ่มตัวเลือกเพิ่มเติม",
   "txt_optional":"ไม่จำเป็น",
   "txt_recommend":"แนะนำ",
-<<<<<<< HEAD
-  "txt_required":"ที่จำเป็น"
-}
-=======
   "txt_required":"ที่จำเป็น",
   "txt_remember_me":"จดจำฉัน",
   "txt_by": "โดย"
 }
->>>>>>> origin/develop
