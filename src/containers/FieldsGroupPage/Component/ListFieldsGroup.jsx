@@ -24,7 +24,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_field_group_name'),
       accessor: 'fieldGroups',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
@@ -49,7 +49,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_author'),
       accessor: 'createdUserName',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -58,7 +58,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -144,13 +144,12 @@ const ListFieldsGroup = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={t('txt_bulk_actions')}
-            plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
-          <div className="opacity-50 me-2">Showing</div>
+          <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
               label: `${viewModel?.filter['list[limit]']} items`,

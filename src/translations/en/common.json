@@ -308,5 +308,6 @@
   "txt_max_file_size": "Max filesize is: 2 MB (Allowed file extension: jpg, jpeg, gif, png)",
   "txt_from": "from",
   "txt_featured_product": "Featured Products",
-  "txt_row_select_error": "Please first make a selection from the list."
+  "txt_row_select_error": "Please first make a selection from the list.",
+  "txt_showing": "Showing"
 }

@@ -71,7 +71,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     placeholder: (defaultStyles) => {
       return {
         ...defaultStyles,
-        color: plColor ? plColor : 'var(--input-placeholder-color)',
+        color: plColor ? plColor : 'var(--bs-body-color)',
       };
     },
     multiValue: (styles) => {

@@ -131,7 +131,6 @@ const ListProducts = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_bulk_actions')}
-                plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
@@ -143,7 +142,6 @@ const ListProducts = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={`Product Type`}
-                plColor={`text-color`}
                 onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
@@ -152,13 +150,12 @@ const ListProducts = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_all_categories')}
-                plColor={`text-color`}
                 onChange={(o) => selectCategoryHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
-              <div className="opacity-50 me-2">Showing</div>
+              <div className="text-gray me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
                   label: `${viewModel?.successResponse?.filters['list[limit]']} items`,
@@ -186,16 +183,16 @@ const ListProducts = observer((props) => {
               Header: 'Id',
               accessor: 'id',
               width: 60,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
-                return <div className="opacity-80">{value}</div>;
+                return <div>{value}</div>;
               },
             },
             {
               Header: t('txt_product_name'),
               accessor: 'productInfo',
               width: 300,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value, row }) => {
                 return (
                   <div className="d-flex align-items-center">
@@ -243,7 +240,7 @@ const ListProducts = observer((props) => {
             {
               Header: t('txt_categories'),
               accessor: 'categories',
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return <>{value}</>;
               },
@@ -252,7 +249,7 @@ const ListProducts = observer((props) => {
               Header: t('txt_type'),
               accessor: 'type',
               width: 100,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 if (value) {
                   return (
@@ -284,7 +281,7 @@ const ListProducts = observer((props) => {
               Header: t('txt_author'),
               accessor: 'author',
               width: 100,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return <>{value}</>;
               },
@@ -335,7 +332,7 @@ const ListProducts = observer((props) => {
               Header: t('txt_last_modified'),
               accessor: 'lastModified',
               width: 150,
-              className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
               Cell: ({ value }) => {
                 return (
                   <div className="pe-2">
