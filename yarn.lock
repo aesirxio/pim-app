@@ -2973,6 +2973,19 @@ aesirx-dam-app@^1.2.0:
     moment "^2.29.4"
     react-datepicker "^3.3.0"
 
+aesirx-dam-app@^1.2.1:
+  version "1.2.1"
+  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.2.1.tgz#0acbfdd862c89abd2c466bc8e2c5c7a26be3ead2"
+  integrity sha512-nbJbovFYkm6IQ99izvhw6UPernOKSOP1/ZFVXtaUUArD97qimwC9VY8Hfi7MbccED5JWOW1FrsBJ9toEe641hQ==
+  dependencies:
+    aesirx-dma-lib "^1.7.5"
+    aesirx-sso "^1.0.3"
+    date-fns "^2.16.1"
+    date-fns-tz "^1.1.6"
+    file-saver "^2.0.5"
+    moment "^2.29.4"
+    react-datepicker "^3.3.0"
+
 aesirx-dma-app@^1.6.2:
   version "1.6.2"
   resolved "https://registry.yarnpkg.com/aesirx-dma-app/-/aesirx-dma-app-1.6.2.tgz#38cef86419fedd77b96e95b64289358cca70f537"
