@@ -344,7 +344,7 @@ const ListProducts = observer((props) => {
                 return (
                   <div className="pe-2">
                     <div className="mb-1">
-                      {viewModel?.listPublishStatus?.find((o) => o.value == value.status).label &&
+                      {viewModel?.listPublishStatus?.find((o) => o.value == value.status)?.label &&
                         t(
                           'txt_' +
                             viewModel?.listPublishStatus

@@ -124,7 +124,7 @@ const ListProductPrice = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {viewModel?.successResponse?.listPublishStatus?.find((o) => o.value == value.status)
-                .label &&
+                ?.label &&
                 t(
                   'txt_' +
                     viewModel?.successResponse?.listPublishStatus
