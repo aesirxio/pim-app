@@ -155,7 +155,7 @@ const EditCategory = observer(
                         );
 
                         if (
-                          !this.categoryDetailViewModel.productDetailViewModel.formPropsData[
+                          !this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
                             PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
                           ]
                         ) {

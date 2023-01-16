@@ -155,7 +155,7 @@ const EditFieldGroup = observer(
                           event.target.value
                         );
                         if (
-                          !this.fieldGroupDetailViewModel.productDetailViewModel.formPropsData[
+                          !this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
                             PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
                           ]
                         ) {
