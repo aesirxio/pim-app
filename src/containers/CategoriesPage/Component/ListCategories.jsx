@@ -8,6 +8,7 @@ import Table from 'components/Table';
 import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
 import history from 'routes/history';
+import { notify } from 'components/Toast';
 
 const ListCategories = observer((props) => {
   const { t } = props;
@@ -213,8 +214,20 @@ const ListCategories = observer((props) => {
   };
 
   const deleteCategories = () => {
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteCategories(listSelected);
+    }
+  };
+
+  const selectCategoryHandler = (value) => {
     viewModel.isLoading();
-    viewModel.deleteCategories(listSelected);
+    viewModel.getListByFilter('id', {
+      value: value.value,
+      type: 'filter',
+    });
   };
 
   return (
@@ -272,6 +285,15 @@ const ListCategories = observer((props) => {
             pagination={viewModel?.successResponse?.pagination}
             placeholder={t('txt_bulk_actions')}
             onChange={(o) => selectBulkActionsHandler(o)}
+            arrowColor={'var(--dropdown-indicator-color)'}
+          />
+          <SelectComponent
+            options={viewModel?.successResponse?.listCategoriesWithoutPagination}
+            className={`fs-sm`}
+            isBorder={true}
+            placeholder={t('txt_all_categories')}
+            plColor={`text-color`}
+            onChange={(o) => selectCategoryHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>

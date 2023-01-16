@@ -9,6 +9,7 @@ import Table from 'components/Table';
 import '../index.scss';
 import ActionsBar from 'components/ActionsBar';
 import history from 'routes/history';
+import { notify } from 'components/Toast';
 
 const ListProductPrice = observer((props) => {
   const { t } = props;
@@ -57,8 +58,12 @@ const ListProductPrice = observer((props) => {
   };
 
   const deleteProductPrices = () => {
-    viewModel.isLoading();
-    viewModel.deleteProductPrices(listSelected);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteProductPrices(listSelected);
+    }
   };
 
   const columnsTable = [
@@ -124,7 +129,7 @@ const ListProductPrice = observer((props) => {
           <div className="pe-2">
             <div className="mb-1">
               {viewModel?.successResponse?.listPublishStatus?.find((o) => o.value == value.status)
-                .label &&
+                ?.label &&
                 t(
                   'txt_' +
                     viewModel?.successResponse?.listPublishStatus

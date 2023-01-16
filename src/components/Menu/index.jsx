@@ -158,6 +158,9 @@ const Menu = observer((props) => {
                         to={menuList.link}
                         className={`d-block px-24 py-16 link_menu text-white text-decoration-none`}
                         activeClassName={`active`}
+                        onClick={() => {
+                          setIsOpenCollapse(null);
+                        }}
                       >
                         <span
                           className="icon d-inline-block align-text-bottom"
