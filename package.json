@@ -1,6 +1,6 @@
 {
   "name": "aesirx-pim",
-  "version": "1.0.0-alpha",
+  "version": "1.0.1",
   "license": "GPL-3.0-only",
   "author": "AesirX",
   "repository": "https://github.com/aesirxio/pim-app",
@@ -12,7 +12,8 @@
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
-    "aesirx-dam-app": "^1.1.0",
+    "aesirx-dam-app": "^1.2.1",
+    "aesirx-dma-app": "^1.6.2",
     "aesirx-dma-lib": "^1.7.5",
     "aesirx-sso": "^1.0.3",
     "axios": "^0.21.0",
