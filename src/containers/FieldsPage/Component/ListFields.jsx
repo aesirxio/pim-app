@@ -8,6 +8,7 @@ import Spinner from 'components/Spinner';
 import history from 'routes/history';
 import { Tab, Tabs } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
+import { notify } from 'components/Toast';
 
 const ListFields = observer((props) => {
   const { t } = props;
@@ -124,8 +125,12 @@ const ListFields = observer((props) => {
   };
 
   const deleteFields = () => {
-    viewModel.isLoading();
-    viewModel.deleteFields(listSelected);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteFields(listSelected);
+    }
   };
 
   return (

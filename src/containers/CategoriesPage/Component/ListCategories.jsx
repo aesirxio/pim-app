@@ -8,6 +8,7 @@ import Table from 'components/Table';
 import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
 import history from 'routes/history';
+import { notify } from 'components/Toast';
 
 const ListCategories = observer((props) => {
   const { t } = props;
@@ -213,8 +214,12 @@ const ListCategories = observer((props) => {
   };
 
   const deleteCategories = () => {
-    viewModel.isLoading();
-    viewModel.deleteCategories(listSelected);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteCategories(listSelected);
+    }
   };
 
   const selectCategoryHandler = (value) => {

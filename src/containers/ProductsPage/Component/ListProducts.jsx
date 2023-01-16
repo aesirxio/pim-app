@@ -80,8 +80,12 @@ const ListProducts = observer((props) => {
   };
 
   const deleteProducts = () => {
-    viewModel.isLoading();
-    viewModel.deleteProducts(listSelected);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteProducts(listSelected);
+    }
   };
 
   return (
