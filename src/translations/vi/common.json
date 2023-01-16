@@ -330,5 +330,8 @@
   "txt_recommend":"Đề xuất",
   "txt_required":"Bắt buộc",
   "txt_remember_me":"Ghi nhớ",
-  "txt_by": "bởi"
+  "txt_by": "bởi",
+  "txt_warning": "Cảnh báo",
+  "txt_successful": "Thành công",
+  "txt_error": "Lỗi"
 }

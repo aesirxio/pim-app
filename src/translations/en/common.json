@@ -330,5 +330,8 @@
   "txt_recommend":"Recommend",
   "txt_required":"Required",
   "txt_remember_me":"Remember me",
-  "txt_by": "by"
+  "txt_by": "by",
+  "txt_warning": "Warning",
+  "txt_successful": "Successful",
+  "txt_error": "Error"
 }

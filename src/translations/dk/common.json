@@ -330,5 +330,8 @@
   "txt_recommend":"Anbefale",
   "txt_required":"Påkrævet",
   "txt_remember_me":"Husk mig",
-  "txt_by": "ved"
+  "txt_by": "ved",
+  "txt_warning": "Advarsel",
+  "txt_successful": "Vellykket",
+  "txt_error": "Fejl"
 }
