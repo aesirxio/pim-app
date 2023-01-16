@@ -71,16 +71,16 @@ const ListProductPrice = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
-        return <div className="opacity-80">{value}</div>;
+        return <>{value}</>;
       },
     },
     {
       Header: t('txt_product_name'),
       accessor: 'title',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
           <>
@@ -103,7 +103,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_debtor_group'),
       accessor: 'debtorGroup',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value.map((o) => o.title).join(', ')}</>;
       },
@@ -112,7 +112,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_price'),
       accessor: 'price',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>{parseInt(value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</>
@@ -123,7 +123,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -199,13 +199,12 @@ const ListProductPrice = observer((props) => {
                 className={`fs-sm`}
                 isBorder={true}
                 placeholder={t('txt_bulk_actions')}
-                plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
-              <div className="opacity-50 me-2">{t('txt_showing')}</div>
+              <div className="text-gray me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
                   label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,

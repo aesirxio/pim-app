@@ -24,7 +24,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="opacity-80">{value}</div>;
       },
@@ -33,7 +33,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_name'),
       accessor: 'title',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
           <>
@@ -56,7 +56,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_code'),
       accessor: 'code',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -65,7 +65,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_owner_company'),
       accessor: 'organisationName',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -74,7 +74,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -174,13 +174,12 @@ const ListDebtorGroup = observer((props) => {
                 isBorder={true}
                 pagination={viewModel?.pagination}
                 placeholder={t('txt_bulk_actions')}
-                plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
-              <div className="opacity-50 me-2">{t('txt_showing')}</div>
+              <div className="text-gray me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
                   label: `${viewModel?.filter['list[limit]']} ${t('txt_items')}`,
