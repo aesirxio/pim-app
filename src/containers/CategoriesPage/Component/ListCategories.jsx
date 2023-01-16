@@ -172,8 +172,12 @@ const ListCategories = observer((props) => {
   }, []);
 
   const selectBulkActionsHandler = (value) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value.value);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.updateStatus(listSelected, value.value);
+    }
   };
 
   const selectShowItemsHandler = (value) => {

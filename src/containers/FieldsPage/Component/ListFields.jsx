@@ -79,8 +79,12 @@ const ListFields = observer((props) => {
   };
 
   const selectBulkActionsHandler = ({ value }) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.updateStatus(listSelected, value);
+    }
   };
 
   const currentSelectHandler = (arr) => {
