@@ -112,6 +112,28 @@ export default class CategoryStore {
     return false;
   }
 
+  async getListWithoutPagination(callbackOnSuccess, callbackOnError) {
+    try {
+      const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
+      const respondedData = await aesirxPimCategoryApiService.getList({ 'list[limit]': 9999 });
+
+      if (respondedData) {
+        runInAction(() => {
+          callbackOnSuccess(respondedData);
+        });
+      } else {
+        callbackOnError({
+          message: 'Something went wrong from Server response',
+        });
+      }
+      return respondedData;
+    } catch (error) {
+      // no error throw
+    }
+
+    return false;
+  }
+
   async getListPublishStatus(callbackOnSuccess, callbackOnError) {
     try {
       const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
