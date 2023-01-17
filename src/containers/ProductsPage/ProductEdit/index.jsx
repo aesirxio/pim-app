@@ -127,12 +127,12 @@ const EditProduct = observer(
                     validator: this.validator,
                     handle: async () => {
                       if (this.validator.allValid()) {
+                        this.handleAliasFormPropsData();
                         if (this.isEdit) {
                           await this.productDetailViewModel.update();
                           await this.productDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          this.handleAliasFormPropsData();
                           let result = await this.productDetailViewModel.create();
                           result && history.push(`/products/edit/${result}`);
                         }
@@ -163,7 +163,11 @@ const EditProduct = observer(
                         this.productDetailViewModel.productDetailViewModel.formPropsData[
                           PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
                         ] = event.target.value;
-                        if (!this.isEdit) {
+                        if (
+                          !this.productDetailViewModel.productDetailViewModel.formPropsData[
+                            PIM_PRODUCT_DETAIL_FIELD_KEY.ALIAS
+                          ]
+                        ) {
                           this.debouncedChangeHandler(event.target.value);
                         }
                       },

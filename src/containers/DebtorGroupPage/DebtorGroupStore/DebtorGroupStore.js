@@ -17,19 +17,19 @@ export default class DebtorGroupStore {
       const createDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
 
       resultOnSave = await createDebtorGroupApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
       return false;
     }
@@ -44,9 +44,9 @@ export default class DebtorGroupStore {
       const updateDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
 
       resultOnSave = await updateDebtorGroupApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Updated successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -55,7 +55,7 @@ export default class DebtorGroupStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -83,7 +83,7 @@ export default class DebtorGroupStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -103,7 +103,7 @@ export default class DebtorGroupStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -139,7 +139,7 @@ export default class DebtorGroupStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
