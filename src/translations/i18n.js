@@ -11,8 +11,9 @@ import common_en from './en/common.json';
 import common_th from './th/common.json';
 import common_de from './dk/common.json';
 import common_vn from './vi/common.json';
-// import common_uk from './ua/common.json';
-// import common_es from './es/common.json';
+import common_uk from './ua/common.json';
+import common_es from './es/common.json';
+import common_hr from './hr/common.json';
 
 i18n
   .use(LanguageDetector)
@@ -32,17 +33,21 @@ i18n
         title: 'Tiếng Việt',
         common: common_vn,
       },
-      // uk: {
-      //   title: 'Ukraine',
-      //   common: common_uk,
-      // },
-      // es: {
-      //   title: 'Spain',
-      //   common: common_es,
-      // },
+      uk: {
+        title: 'Ukraine',
+        common: common_uk,
+      },
+      es: {
+        title: 'Spain',
+        common: common_es,
+      },
       th: {
         title: 'Thai',
         common: common_th,
+      },
+      hr: {
+        title: 'Croatia',
+        common: common_hr,
       },
     },
     lng: localStorage.getItem('i18nextLng') || 'en',
