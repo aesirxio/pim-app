@@ -35,11 +35,19 @@ const AvatarDAM = ({ formPropsData, avatarOnSelectHandler }) => {
           className="position-relative d-inline-block cursor-pointer rounded-circle h-196 w-196 bg-black"
           onClick={() => setShow(true)}
         >
-          <ComponentImage
-            className={`rounded-circle h-196 w-196 object-fit-cover opacity-50 mb-1`}
-            src={formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]}
-            alt={formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME]}
-          />
+          {formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM] != '' ? (
+            <ComponentImage
+              className={`rounded-circle h-196 w-196 object-fit-cover opacity-50 mb-1`}
+              src={formPropsData[UPDATE_GENERAL_FIELD_KEY.AVATAR_DAM]}
+              alt={formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME]}
+            />
+          ) : (
+            <div className="position-relative d-inline-flex align-items-center justify-content-center text-uppercase cursor-pointer rounded-circle h-196 w-196 bg-black opacity-50">
+              <span className='text-white' style={{ fontSize: '9rem' }}>
+                {formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME].slice(0, 1)}
+              </span>
+            </div>
+          )}
           <div className="position-absolute w-100 h-100 d-flex align-items-center top-0 start-0 align-content-center text-white text-center">
             <div className="w-100 px-1">
               <FontAwesomeIcon icon={faCloudUploadAlt} className={`fs-3 mb-1`} />
