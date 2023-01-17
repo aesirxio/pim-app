@@ -17,19 +17,19 @@ export default class FieldGroupStore {
       const createFieldGroupApiService = new AesirxPimFieldGroupApiService();
 
       resultOnSave = await createFieldGroupApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -43,9 +43,9 @@ export default class FieldGroupStore {
       const updateFieldGroupApiService = new AesirxPimFieldGroupApiService();
 
       resultOnSave = await updateFieldGroupApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Updated successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -54,7 +54,7 @@ export default class FieldGroupStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -69,7 +69,7 @@ export default class FieldGroupStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -99,7 +99,7 @@ export default class FieldGroupStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -120,7 +120,7 @@ export default class FieldGroupStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }

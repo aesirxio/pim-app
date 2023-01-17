@@ -8,6 +8,7 @@ import Table from 'components/Table';
 import Spinner from 'components/Spinner';
 import SelectComponent from 'components/Select';
 import history from 'routes/history';
+import { notify } from 'components/Toast';
 
 const ListCategories = observer((props) => {
   const { t } = props;
@@ -20,7 +21,7 @@ const ListCategories = observer((props) => {
       Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>
@@ -62,7 +63,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_parent_cate'),
       accessor: 'parentName',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -70,7 +71,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_number'),
       accessor: 'productQuantity',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
         return <div className="d-inline-block border px-1 rounded-pill">{value}</div>;
       },
@@ -142,7 +143,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -171,8 +172,12 @@ const ListCategories = observer((props) => {
   }, []);
 
   const selectBulkActionsHandler = (value) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value.value);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.updateStatus(listSelected, value.value);
+    }
   };
 
   const selectShowItemsHandler = (value) => {
@@ -213,8 +218,20 @@ const ListCategories = observer((props) => {
   };
 
   const deleteCategories = () => {
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteCategories(listSelected);
+    }
+  };
+
+  const selectCategoryHandler = (value) => {
     viewModel.isLoading();
-    viewModel.deleteCategories(listSelected);
+    viewModel.getListByFilter('id', {
+      value: value.value,
+      type: 'filter',
+    });
   };
 
   return (
@@ -271,13 +288,21 @@ const ListCategories = observer((props) => {
             isBorder={true}
             pagination={viewModel?.successResponse?.pagination}
             placeholder={t('txt_bulk_actions')}
-            plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
+            arrowColor={'var(--dropdown-indicator-color)'}
+          />
+          <SelectComponent
+            options={viewModel?.successResponse?.listCategoriesWithoutPagination}
+            className={`fs-sm`}
+            isBorder={true}
+            placeholder={t('txt_all_categories')}
+            plColor={`text-color`}
+            onChange={(o) => selectCategoryHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
-          <div className="opacity-50 me-2">{t('txt_showing')}</div>
+          <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
               label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,

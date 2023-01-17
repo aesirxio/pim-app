@@ -8,6 +8,7 @@ import ActionsBar from 'components/ActionsBar';
 import history from 'routes/history';
 import { Tab, Tabs } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
+import { notify } from 'components/Toast';
 
 const ListDebtorGroup = observer((props) => {
   const { t } = props;
@@ -24,7 +25,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="opacity-80">{value}</div>;
       },
@@ -33,7 +34,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_name'),
       accessor: 'title',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
           <>
@@ -56,7 +57,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_code'),
       accessor: 'code',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -65,7 +66,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_owner_company'),
       accessor: 'organisationName',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -74,12 +75,12 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 250,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
             <div className="mb-1">
-              {viewModel?.listPublishStatus?.find((o) => o.value == value.status).label &&
+              {viewModel?.listPublishStatus?.find((o) => o.value == value.status)?.label &&
                 t(
                   'txt_' +
                     viewModel?.listPublishStatus
@@ -98,8 +99,12 @@ const ListDebtorGroup = observer((props) => {
   ];
 
   const selectBulkActionsHandler = (value) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value.value);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.updateStatus(listSelected, value.value);
+    }
   };
 
   const currentSelectHandler = (arr) => {
@@ -174,13 +179,12 @@ const ListDebtorGroup = observer((props) => {
                 isBorder={true}
                 pagination={viewModel?.pagination}
                 placeholder={t('txt_bulk_actions')}
-                plColor={`text-color`}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
             </div>
             <div className="d-flex align-items-center">
-              <div className="opacity-50 me-2">{t('txt_showing')}</div>
+              <div className="text-gray me-2">{t('txt_showing')}</div>
               <SelectComponent
                 defaultValue={{
                   label: `${viewModel?.filter['list[limit]']} ${t('txt_items')}`,

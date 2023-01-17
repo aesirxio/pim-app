@@ -8,6 +8,7 @@ import Spinner from 'components/Spinner';
 import history from 'routes/history';
 import { Tab, Tabs } from 'react-bootstrap';
 import SelectComponent from 'components/Select';
+import { notify } from 'components/Toast';
 
 const ListFields = observer((props) => {
   const { t } = props;
@@ -24,7 +25,7 @@ const ListFields = observer((props) => {
       Header: t('txt_field_name'),
       accessor: 'field',
       width: 200,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center">
@@ -49,7 +50,7 @@ const ListFields = observer((props) => {
       Header: t('txt_field_group'),
       accessor: 'groupName',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -58,36 +59,11 @@ const ListFields = observer((props) => {
       Header: t('txt_type'),
       accessor: 'type',
       width: 100,
-      className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="text-capitalize">{value}</div>;
       },
     },
-    // {
-    //   Header: 'Last modified',
-    //   accessor: 'lastModified',
-    //   width: 100,
-    //   className: 'py-2 opacity-50 border-bottom-1 text-uppercase fw-semi',
-    //   Cell: ({ value }) => {
-    //     return (
-    //       <div className="pe-2">
-    //         {/* <div className="mb-1">
-    //        {viewModel?.listPublishStatus?.find((o) => o.value == value.status).label &&
-    //          t(
-    //          'txt_' +
-    //            viewModel?.listPublishStatus
-    //            .find((o) => o.value == value.status)
-    //            .label?.toString()
-    //            .toLowerCase()
-    //          )}
-    //         </div> */}
-    //         <div>
-    //           {value.dateTime} {t('txt_by')} {value.author}
-    //         </div>
-    //       </div>
-    //     );
-    //   },
-    // },
   ];
 
   const selectTabHandler = (value) => {
@@ -103,8 +79,12 @@ const ListFields = observer((props) => {
   };
 
   const selectBulkActionsHandler = ({ value }) => {
-    viewModel.isLoading();
-    viewModel.updateStatus(listSelected, value);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.updateStatus(listSelected, value);
+    }
   };
 
   const currentSelectHandler = (arr) => {
@@ -124,8 +104,12 @@ const ListFields = observer((props) => {
   };
 
   const deleteFields = () => {
-    viewModel.isLoading();
-    viewModel.deleteFields(listSelected);
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteFields(listSelected);
+    }
   };
 
   return (
@@ -179,13 +163,12 @@ const ListFields = observer((props) => {
             className={`fs-sm`}
             isBorder={true}
             placeholder={t('txt_bulk_actions')}
-            plColor={`text-color`}
             onChange={(o) => selectBulkActionsHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
           />
         </div>
         <div className="d-flex align-items-center">
-          <div className="opacity-50 me-2">{t('txt_showing')}</div>
+          <div className="text-gray me-2">{t('txt_showing')}</div>
           <SelectComponent
             defaultValue={{
               label: `${viewModel?.filterList['limit']} ${t('txt_items')}`,

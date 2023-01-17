@@ -17,19 +17,19 @@ export default class FieldStore {
       const createFieldApiService = new AesirxPimFieldApiService();
 
       resultOnSave = await createFieldApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -43,19 +43,19 @@ export default class FieldStore {
       const updateFieldApiService = new AesirxPimFieldApiService();
 
       resultOnSave = await updateFieldApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Updated successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -70,7 +70,7 @@ export default class FieldStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -100,7 +100,7 @@ export default class FieldStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -121,7 +121,7 @@ export default class FieldStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -157,7 +157,7 @@ export default class FieldStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 

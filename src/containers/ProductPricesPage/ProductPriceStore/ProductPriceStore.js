@@ -61,7 +61,7 @@ export default class ProductPriceStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -78,7 +78,7 @@ export default class ProductPriceStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -93,19 +93,19 @@ export default class ProductPriceStore {
       const createProductPriceApiService = new AesirxPimProductPriceApiService();
 
       resultOnSave = await createProductPriceApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
       return false;
     }
@@ -120,9 +120,9 @@ export default class ProductPriceStore {
       const updateProductPriceApiService = new AesirxPimProductPriceApiService();
 
       resultOnSave = await updateProductPriceApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Updated successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -131,7 +131,7 @@ export default class ProductPriceStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -159,7 +159,7 @@ export default class ProductPriceStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -174,7 +174,7 @@ export default class ProductPriceStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 

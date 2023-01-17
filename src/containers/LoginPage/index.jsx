@@ -71,7 +71,7 @@ class LoginPage extends React.Component {
         <div className="row justify-content-center align-items-center h-100 bg-white">
           <div className="col-md-6 col-xxl-4">
             <div className="d-block p-2 p-lg-5">
-              <h1 className="fs-2 text-blue-0 fw-semibold text-center mb-16 lh-base">
+              <h1 className="fs-2 text-blue-0 fw-semibold text-center mb-24 lh-base">
                 {t('txt_login_text_1')}
                 <img
                   className="px-1"
@@ -84,16 +84,16 @@ class LoginPage extends React.Component {
               </h1>
               <form className="login-form">
                 <SSOButton
-                  className="btn w-100 fw-bold btn-blue-3 position-relative d-flex align-item-center justify-content-center mb-24 px-6"
+                  className="btn w-100 fw-bold btn-blue-3 position-relative d-flex align-item-center justify-content-center mb-24 px-6 btn-small"
                   text={t('txt_sign_in_with_sso')}
                   onGetData={onGetData}
                 />
-                <div className="d-flex align-items-center flex-nowrap mb-15">
+                <div className="d-flex align-items-center flex-nowrap mb-24">
                   <div className="border-bottom w-50"></div>
                   <span className="px-2 text-uppercase fw-medium text-gray">{t('txt_or')}</span>
                   <div className="border-bottom w-50"></div>
                 </div>
-                <label className="form-label fw-semibold mb-16 text-black">
+                <label className="form-label fw-semibold mb-1 text-black">
                   {t('txt_Email')} <span className="text-danger">*</span>
                 </label>
                 <input
@@ -110,7 +110,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('Email or username', this.state.username, 'required', {
                   className: 'text-danger',
                 })}
-                <label className="form-label fw-semibold mt-2 mb-16 text-black" htmlFor="password">
+                <label className="form-label fw-semibold mt-24 mb-1 text-black" htmlFor="password">
                   {t('txt_projectpage_password')} <span className="text-danger">*</span>
                 </label>
                 <InputPassword
@@ -127,7 +127,7 @@ class LoginPage extends React.Component {
                 {this.validator.message('password', this.state.password, 'required', {
                   className: 'text-danger',
                 })}
-                <div className="d-flex justify-content-between pt-16 text-black">
+                <div className="d-flex justify-content-between pt-24 text-black">
                   <Checkbox text={t('txt_remember_me')} />
                   <a
                     href="https://pim.aesirx.io/auth/forgotpassword"
@@ -140,7 +140,7 @@ class LoginPage extends React.Component {
                 </div>
                 <button
                   type="button"
-                  className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-24 text-uppercase`}
+                  className={`btn w-100 fw-bold btn-success position-relative d-flex align-item-center justify-content-center wr_btn_login mt-24 text-uppercase py-14`}
                   onClick={this.handleSubmit}
                 >
                   {t('txt_sign_in')}
