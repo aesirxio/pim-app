@@ -20,20 +20,19 @@ export default class ProductStore {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
 
       resultOnSave = await aesirxPimProductApiService.create(convertedUpdateGeneralData);
-
-      if (resultOnSave) {
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Created successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
         });
       } else {
         runInAction(() => {
           callbackOnError(resultOnSave);
         });
       }
-      return resultOnSave;
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -46,9 +45,10 @@ export default class ProductStore {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
 
       resultOnSave = await aesirxPimProductApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave) {
+
+      if (resultOnSave?.result) {
         runInAction(() => {
-          callbackOnSuccess(resultOnSave, 'Updated successfully');
+          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
         });
       } else {
         runInAction(() => {
@@ -57,7 +57,7 @@ export default class ProductStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -85,7 +85,7 @@ export default class ProductStore {
       }
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
   }
@@ -178,7 +178,7 @@ export default class ProductStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
@@ -195,7 +195,7 @@ export default class ProductStore {
       return respondedData;
     } catch (error) {
       runInAction(() => {
-        callbackOnError(error);
+        callbackOnError(error?.response?.data);
       });
     }
 
