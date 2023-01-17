@@ -8,7 +8,7 @@ import React from 'react';
 import { ToastContainer, toast } from 'react-toastify';
 
 import './index.scss';
-
+import { Translation } from 'react-i18next';
 const Toast = () => {
   return <ToastContainer hideProgressBar={true} />;
 };
@@ -16,22 +16,40 @@ const Toast = () => {
 const notify = (msg, type = 'success') => {
   switch (type) {
     case 'error':
-      toast.error(msg, {
-        className: 'bg-noti-bg-error fw-bold text-noti-error ps-2',
-        icon: () => <img alt="error" src="/assets/images/error.png" />,
-      });
+      toast.error(
+        <div>
+          <Translation ns="common">{(t) => <div>{t('txt_error')}</div>}</Translation>
+          <div className="fw-normal">{msg}</div>
+        </div>,
+        {
+          className: 'bg-noti-bg-error fw-bold text-noti-error px-2 py-1',
+          icon: () => <img alt="error" src="/assets/images/error.png" />,
+        }
+      );
       break;
     case 'warn':
-      toast.warn(msg, {
-        className: 'bg-noti-bg-warn fw-bold text-noti-warn ps-2',
-        icon: () => <img alt="warn" src="/assets/images/warn.png" />,
-      });
+      toast.warn(
+        <div>
+          <Translation ns="common">{(t) => <div>{t('txt_warning')}</div>}</Translation>
+          <div className="fw-normal">{msg}</div>
+        </div>,
+        {
+          className: 'bg-noti-bg-warn fw-bold text-noti-warn px-2 py-1',
+          icon: () => <img alt="warn" src="/assets/images/warn.png" />,
+        }
+      );
       break;
     case 'success':
-      toast.success(msg, {
-        className: 'bg-noti-bg-success text-green fw-bold ps-2',
-        icon: () => <img alt="success" src="/assets/images/success.png" />,
-      });
+      toast.success(
+        <div>
+          <Translation ns="common">{(t) => <div>{t('txt_successful')}</div>}</Translation>
+          <div className="fw-normal">{msg}</div>
+        </div>,
+        {
+          className: 'bg-noti-bg-success text-green fw-bold px-2 py-1',
+          icon: () => <img alt="success" src="/assets/images/success.png" />,
+        }
+      );
       break;
     case 'promise':
       toast.promise(
@@ -48,7 +66,7 @@ const notify = (msg, type = 'success') => {
                   >
                     <span className="visually-hidden">Loading...</span>
                   </div>
-                  <span className="ps-2">Loading</span>
+                  <span className="p-15 pe-2">Loading</span>
                 </div>
               );
             },

@@ -330,5 +330,9 @@
   "txt_recommend":"แนะนำ",
   "txt_required":"ที่จำเป็น",
   "txt_remember_me":"จดจำฉัน",
-  "txt_by": "โดย"
+  "txt_by": "โดย",
+  "txt_warning": "คำเตือน",
+  "txt_successful": "ประสบความสำเร็จ",
+  "txt_error": "ข้อผิดพลาด"
 }
+
