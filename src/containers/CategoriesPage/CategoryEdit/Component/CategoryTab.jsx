@@ -10,7 +10,6 @@ import { observer } from 'mobx-react';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import FieldsList from 'components/Fields';
 import CategoryInformation from './CategoryInformation';
-import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
 const CategoryTab = observer(
@@ -19,7 +18,7 @@ const CategoryTab = observer(
     constructor(props) {
       super(props);
       this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
-      this.detailViewModal = this.props.viewModel.categoryDetailViewModel;
+      this.detailViewModal = this.props.detailViewModal;
       this.state = {
         defaultActive: 'categoryInformation',
       };
@@ -27,12 +26,31 @@ const CategoryTab = observer(
 
     async componentDidMount() {
       if (!this.fieldListViewModel.items.length) {
-        this.fieldListViewModel.handleFilter({ 'filter[type_id]': 61, 'filter[published]': 1 });
+        this.fieldListViewModel.handleFilter({
+          'filter[type_id]': 65,
+          'filter[published]': 1,
+        });
         this.fieldListViewModel.handleFilterList({ limit: 0 });
         await this.fieldListViewModel.initializeDataCustom();
         this.forceUpdate();
       }
     }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.requiredField !== prevProps.requiredField) {
+        console.log('testneeeeeee');
+        this.handleActiveTabRequiredField();
+      }
+    }
+
+    handleActiveTabRequiredField() {
+      if (this.props.requiredField) {
+        this.setState({
+          defaultActive: 'customFields',
+        });
+      }
+    }
+
     render() {
       const { t, validator } = this.props;
       return (
@@ -66,27 +84,24 @@ const CategoryTab = observer(
                 </Nav>
               </Col>
               <Col lg={9}>
-                <Tab.Content>
-                  <Tab.Pane eventKey="categoryInformation">
-                    <CategoryInformation validator={validator} />
-                  </Tab.Pane>
-                  <Tab.Pane eventKey="customFields">
-                    <div className="">
-                      <div className="row">
-                        <FieldViewModelContextProvider viewModel={fieldViewModel}>
-                          <FieldsList
-                            detailViewModal={this.detailViewModal}
-                            formPropsData={
-                              this.detailViewModal.categoryDetailViewModel.formPropsData
-                            }
-                            validator={validator}
-                            fieldClass={'col-lg-12'}
-                          />
-                        </FieldViewModelContextProvider>
+                <FieldViewModelContextProvider viewModel={fieldViewModel}>
+                  <Tab.Content>
+                    <Tab.Pane eventKey="categoryInformation">
+                      <CategoryInformation validator={validator} />
+                    </Tab.Pane>
+                    <Tab.Pane eventKey="customFields">
+                      <div className="row" key={this.fieldListViewModel?.items.length}>
+                        <FieldsList
+                          detailViewModal={this.detailViewModal}
+                          formPropsData={this.detailViewModal.categoryDetailViewModel.formPropsData}
+                          validator={validator}
+                          fieldClass={'col-lg-12'}
+                          requiredField={this.props.requiredField}
+                        />
                       </div>
-                    </div>
-                  </Tab.Pane>
-                </Tab.Content>
+                    </Tab.Pane>
+                  </Tab.Content>
+                </FieldViewModelContextProvider>
               </Col>
             </Row>
           </Tab.Container>
@@ -95,4 +110,4 @@ const CategoryTab = observer(
     }
   }
 );
-export default withTranslation('common')(withCategoryViewModel(CategoryTab));
+export default withTranslation('common')(CategoryTab);

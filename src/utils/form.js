@@ -34,7 +34,7 @@ const renderingGroupFieldHandler = (group, validator) => {
           switch (field.type) {
             case FORM_FIELD_TYPE.INPUT:
               return (
-                <Form.Group key={field.key} className={`mb-24 ${className}`}>
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
                   <Input field={field} />
                   {field.validation &&
@@ -45,7 +45,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.NUMBER:
               return (
-                <Form.Group key={field.key} className={`mb-24 ${className}`}>
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
                   <Input field={field} />
                   {field.validation &&
@@ -84,19 +84,27 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.IMAGE:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
+                <Form.Group
+                  key={Math.random(40, 200)}
+                  ref={field.ref}
+                  className={`mb-24 ${className}`}
+                >
                   <Label text={field.label} required={field.required ?? false} />
                   {field.isVideo ? (
                     <FormVideo key={Math.random(40, 200)} field={field} />
                   ) : (
                     <FormImage key={Math.random(40, 200)} field={field} />
                   )}
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
                 </Form.Group>
               );
 
             case FORM_FIELD_TYPE.SELECTION:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   {field.label && <Label text={field.label} required={field.required ?? false} />}
 
                   <FormSelection key={Math.random(40, 200)} field={field} />
@@ -146,9 +154,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
             case FORM_FIELD_TYPE.RADIO:
               return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
                   <FormRadio field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
                 </Form.Group>
               );
 

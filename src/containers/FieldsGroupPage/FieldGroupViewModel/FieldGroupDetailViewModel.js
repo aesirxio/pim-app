@@ -88,7 +88,7 @@ class FieldGroupDetailViewModel {
   };
 
   handleFormPropsData = (key, value) => {
-    if (key && value) {
+    if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         Object.assign(this.fieldGroupDetailViewModel.formPropsData[key], value);
       } else {

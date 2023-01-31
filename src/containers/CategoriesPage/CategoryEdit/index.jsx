@@ -57,6 +57,19 @@ const EditCategory = observer(
         ] = this.categoryDetailViewModel.aliasChange;
       }
     }
+
+    handleValidateForm() {
+      if (this.validator.fields['Category Name'] === true) {
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            requiredField: Math.random(1, 200),
+          };
+        });
+      }
+      this.validator.showMessages();
+    }
+
     debouncedChangeHandler = _.debounce((value) => {
       this.categoryDetailViewModel.handleAliasChange(value);
     }, 300);
@@ -107,7 +120,7 @@ const EditCategory = observer(
                         }
                         history.push(`/categories`);
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                   },
@@ -126,7 +139,7 @@ const EditCategory = observer(
                           history.push(`/categories/edit/${result}`);
                         }
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                     icon: '/assets/images/save.svg',
@@ -183,6 +196,7 @@ const EditCategory = observer(
                 <CategoryTab
                   detailViewModal={this.categoryDetailViewModel}
                   validator={this.validator}
+                  requiredField={this.state.requiredField}
                 />
               </Col>
               <Col lg={3}>
