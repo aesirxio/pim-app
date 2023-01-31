@@ -4,7 +4,7 @@ import ModalDAMComponent from 'components/ModalDamComponent';
 import styles from './index.module.scss';
 import './index.scss';
 import ComponentSVG from 'components/ComponentSVG';
-const ClassicEditor = require('ckeditor5-build-custom/build/ckeditor');
+const ClassicEditor = require('aesirx-ckeditor');
 const FormEditor = ({ field }) => {
   const [editorState, setEditorState] = useState();
   const [show, setShow] = useState(false);

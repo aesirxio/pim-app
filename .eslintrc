@@ -49,6 +49,5 @@
         "*.eot",
         "*.png",
         "*.dist",
-        "*/ckeditor5-build-custom/*"
     ]
 }

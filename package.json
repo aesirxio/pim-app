@@ -16,6 +16,7 @@
     "aesirx-dma-app": "^1.6.2",
     "aesirx-dma-lib": "^1.7.5",
     "aesirx-sso": "^1.0.3",
+    "aesirx-ckeditor": "aesirxio/aesirx-ckeditor",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
     "d3-fetch": "^3.0.1",
@@ -59,7 +60,7 @@
   "scripts": {
     "start": "yarn run build && serve -s build",
     "build": "yarn run build:ckeditor && react-scripts build",
-    "build:ckeditor": "cd src/ckeditor5-build-custom && npm run build && cd ../../",
+    "build:ckeditor": "cd node_modules/aesirx-ckeditor && npm install && npm run build && cd ../../",
     "test": "react-scripts test",
     "dev": "react-scripts start",
     "lint": "eslint --fix \"src/**/\"",
