@@ -95,6 +95,22 @@ class DebtorGroupListViewModel {
     this.filter = { ...this.filter, ...filter };
   };
 
+  deleteDebtorGroups = async (arr) => {
+    const res = await this.debtorGroupStore.deleteDebtorGroups(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    if (res) {
+      await this.debtorGroupStore.getList(
+        this.filter,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler
+      );
+    }
+    this.successResponse.state = true;
+  };
+
   callbackOnErrorHandler = (error) => {
     error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
