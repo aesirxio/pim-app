@@ -21,11 +21,11 @@ const ListCategories = observer((props) => {
       Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center py-8px">
               {value.level > 1 && (
                 <div className="me-1 d-flex align-items-center">
                   {[...Array(value.level - 1)].map((o, index) => (
@@ -63,7 +63,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_parent_cate'),
       accessor: 'parentName',
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -71,7 +71,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_number'),
       accessor: 'productQuantity',
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
       Cell: ({ value }) => {
         return <div className="d-inline-block border px-1 rounded-pill">{value}</div>;
       },
@@ -97,7 +97,7 @@ const ListCategories = observer((props) => {
       },
       width: 50,
       accessor: 'published',
-      className: 'py-2 border-bottom-1 text-center align-middle',
+      className: 'py-18 border-bottom-1 text-center align-middle',
       Cell: ({ value }) => (
         <div className="text-center pe-5">
           {value.state == 1 ? (
@@ -143,7 +143,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -236,7 +236,7 @@ const ListCategories = observer((props) => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="d-flex justify-content-between align-items-start mb-3">
         <div>
           <h2 className="fw-bold mb-1">{t('txt_categories')}</h2>
           <div>{t('txt_categories_description')} </div>

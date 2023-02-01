@@ -95,6 +95,11 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
       padding: '10px 16px 10px 0',
       fontSize: '14px',
     }),
+    valueContainer: (provided) => ({
+      ...provided,
+      paddingTop: '4.5px',
+      paddingBottom: '4.5px',
+    }),
   };
 };
 
