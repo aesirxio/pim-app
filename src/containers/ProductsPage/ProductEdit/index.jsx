@@ -53,10 +53,8 @@ const EditProduct = observer(
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
       }
-      if (!this.categoryListViewModel.items.length) {
-        await this.categoryListViewModel.handleFilter({ limit: 0 });
-        await this.categoryListViewModel.initializeDataCustom();
-      }
+      await this.categoryListViewModel.handleFilter({ limit: 0 });
+      await this.categoryListViewModel.initializeDataCustom();
     }
 
     handleAliasFormPropsData() {
