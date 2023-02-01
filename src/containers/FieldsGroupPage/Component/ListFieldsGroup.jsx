@@ -25,10 +25,10 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_field_group_name'),
       accessor: 'fieldGroups',
       width: 200,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
-          <div className="d-flex align-items-center">
+          <div className="d-flex align-items-center py-8px">
             <div>
               <div className="mb-1">{value.name}</div>
               <div className="text-green">
@@ -50,7 +50,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_author'),
       accessor: 'createdUserName',
       width: 100,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -59,7 +59,7 @@ const ListFieldsGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 100,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -112,7 +112,7 @@ const ListFieldsGroup = observer((props) => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="d-flex justify-content-between align-items-start mb-3">
         <div>
           <h2 className="fw-bold mb-1">{t('txt_fields_group')}</h2>
           <div>{t('txt_field_groups_description')}</div>

@@ -25,7 +25,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <div className="opacity-80">{value}</div>;
       },
@@ -34,10 +34,10 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_name'),
       accessor: 'title',
       width: 250,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
-          <>
+          <div className="py-8px">
             <div className="mb-1">{value}</div>
             <div className="text-green">
               <button
@@ -49,7 +49,7 @@ const ListDebtorGroup = observer((props) => {
                 {t('txt_edit')}
               </button>
             </div>
-          </>
+          </div>
         );
       },
     },
@@ -57,7 +57,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_code'),
       accessor: 'code',
       width: 250,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -66,7 +66,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_owner_company'),
       accessor: 'organisationName',
       width: 250,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -75,7 +75,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 250,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -146,7 +146,7 @@ const ListDebtorGroup = observer((props) => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="d-flex justify-content-between align-items-start mb-3">
         <h2 className="fw-bold mb-0">{t('txt_debtor_group')}</h2>
         <ActionsBar
           buttons={[
