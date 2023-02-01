@@ -120,7 +120,7 @@ class DebtorGroupListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
+      const date = moment(o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
         id: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
         title: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE],
