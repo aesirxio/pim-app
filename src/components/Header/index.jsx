@@ -73,7 +73,7 @@ class Header extends React.Component {
             />
           </a>
         </div>
-        <div className="content_header h-80 border-start-1 border-gray-300 flex-1 d-flex align-items-center ps-2 ps-lg-4 position-relative w-50 w-lg-100">
+        <div className="content_header h-80 border-start-1 border-gray-300 flex-1 d-flex align-items-center px-32 py-16 position-relative w-50 w-lg-100">
           <span
             className="
               item_collap
@@ -108,18 +108,18 @@ class Header extends React.Component {
                 defaultValue={currentLanguage}
               />
             </div>
-            <div className="switch-theme-button col-auto py-2 px-3">
+            <div className="switch-theme-button col-auto py-2 ps-8px">
               <SwitchThemes />
             </div>
             <div className="d-flex align-items-center">
-              <div className="wr_help_center ps-3 pe-3 d-none">
+              <div className="wr_help_center ps-24 pe-3 d-none">
                 <span className="item_help d-flex align-items-center text-blue-0 cursor-pointer">
                   <FontAwesomeIcon icon={faQuestionCircle} />
                   <span className="text white-spacing-nowrap ps-2">{t('txt_help_center')}</span>
                 </span>
               </div>
 
-              <div className="ps-3 pe-3">
+              <div className="ps-24">
                 <DropdownAvatar />
               </div>
             </div>
