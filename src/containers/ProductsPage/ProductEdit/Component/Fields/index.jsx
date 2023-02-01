@@ -9,6 +9,7 @@ import { observer } from 'mobx-react';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 
 import FieldsList from 'components/Fields';
+import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
@@ -28,8 +29,33 @@ const FieldsTab = observer(
       this.fieldListViewModel.handleFilterList({ limit: 0 });
       await this.fieldListViewModel.initializeDataCustom();
       await this.fieldListViewModel.getGroupList();
-      this.setState({ defaultActive: 'group-' + this.fieldListViewModel.groupList[0]?.id });
+      this.setState({
+        defaultActive: 'group-' + this.fieldListViewModel.groupList[0]?.id,
+      });
     }
+
+    componentDidUpdate(prevProps) {
+      if (this.props.requiredField !== prevProps.requiredField) {
+        this.handleActiveTabRequiredField();
+      }
+    }
+
+    handleActiveTabRequiredField() {
+      if (this.props.requiredField) {
+        let requiredFields = Object.keys(this.props.validator.fields).find(
+          (key) => this.props.validator.fields[key] === false
+        );
+        let groupRequired = this.fieldListViewModel.items.find(
+          (o) => o[PIM_FIELD_DETAIL_FIELD_KEY.NAME] === requiredFields
+        )?.field_group_id;
+        if (this.state.defaultActive !== 'group-' + groupRequired) {
+          this.setState({
+            defaultActive: 'group-' + groupRequired,
+          });
+        }
+      }
+    }
+
     render() {
       const { t, detailViewModal, formPropsData, validator } = this.props;
       return (
@@ -75,6 +101,7 @@ const FieldsTab = observer(
                               validator={validator}
                               groupID={group.id}
                               fieldClass={'col-lg-6'}
+                              requiredField={this.props.requiredField}
                             />
                           </div>
                         </Tab.Pane>

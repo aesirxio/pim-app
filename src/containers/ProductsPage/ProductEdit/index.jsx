@@ -35,7 +35,7 @@ const EditProduct = observer(
     isEdit = false;
     constructor(props) {
       super(props);
-      this.state = { key: 'commonInformation' };
+      this.state = { key: 'commonInformation', requiredField: '' };
       this.viewModel = props.viewModel ? props.viewModel : null;
       this.productDetailViewModel = this.viewModel
         ? this.viewModel.getProductDetailViewModel()
@@ -71,6 +71,19 @@ const EditProduct = observer(
     debouncedChangeHandler = _.debounce((value) => {
       this.productDetailViewModel.handleAliasChange(value);
     }, 300);
+
+    handleValidateForm() {
+      if (this.validator.fields['Product Name'] === true) {
+        this.setState((prevState) => {
+          return {
+            ...prevState,
+            key: 'fields',
+            requiredField: Math.random(1, 200),
+          };
+        });
+      }
+      this.validator.showMessages();
+    }
 
     render() {
       const { t, history } = this.props;
@@ -116,7 +129,7 @@ const EditProduct = observer(
                         }
                         history.push(`/products/all`);
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                   },
@@ -135,7 +148,7 @@ const EditProduct = observer(
                           result && history.push(`/products/edit/${result}`);
                         }
                       } else {
-                        this.validator.showMessages();
+                        this.handleValidateForm();
                       }
                     },
                     icon: '/assets/images/save.svg',
@@ -187,15 +200,18 @@ const EditProduct = observer(
                   )}
                 </Form.Group>
                 <Tabs
-                  defaultActiveKey={'commonInformation'}
+                  activeKey={this.state.key}
                   id="tab-setting"
-                  onSelect={(k) => this.setState({ key: k })}
+                  onSelect={(k) =>
+                    this.setState((prevState) => {
+                      return {
+                        ...prevState,
+                        key: k,
+                      };
+                    })
+                  }
                 >
-                  <Tab
-                    key="commonInformation"
-                    eventKey="commonInformation"
-                    title={t('txt_common_information')}
-                  >
+                  <Tab eventKey="commonInformation" title={t('txt_common_information')}>
                     {this.state.key === 'commonInformation' && (
                       <CommonInformation
                         formPropsData={this.formPropsData}
@@ -204,24 +220,21 @@ const EditProduct = observer(
                       />
                     )}
                   </Tab>
-                  <Tab
-                    key="productInformation"
-                    eventKey="productInformation"
-                    title={t('txt_product_information')}
-                  >
+                  <Tab eventKey="productInformation" title={t('txt_product_information')}>
                     <ProductInformation
                       formPropsData={this.formPropsData}
                       validator={this.validator}
                       categoryListViewModel={this.categoryListViewModel}
                     />
                   </Tab>
-                  <Tab key="fields" eventKey="fields" title={t('txt_fields')}>
+                  <Tab eventKey="fields" title={t('txt_fields')}>
                     <FieldsTab
                       detailViewModal={this.productDetailViewModel}
                       formPropsData={
                         this.productDetailViewModel.productDetailViewModel.formPropsData
                       }
                       validator={this.validator}
+                      requiredField={this.state.requiredField}
                     />
                   </Tab>
                   {/* <Tab key="variants" eventKey="variants" title={t('txt_variants')}>

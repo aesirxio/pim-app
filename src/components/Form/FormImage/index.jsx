@@ -35,6 +35,7 @@ const FormImage = ({ field, ...props }) => {
       field.handleChange(convertedData);
     }
     setShow(false);
+    field?.blurred();
   };
   const deleteImage = (e, index) => {
     e.stopPropagation();
