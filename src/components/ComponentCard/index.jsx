@@ -17,7 +17,7 @@ const ComponentCard = ({
 }) => {
   return (
     <div className="bg-white p-24 shadow-sm rounded-3 h-100">
-      <div className="d-flex justify-content-between align-items-center mb-16">
+      <div className="d-flex justify-content-between align-items-center mb-8px">
         <div className="d-flex align-items-center flex-wrap">
           {icon && (
             <div
@@ -70,7 +70,7 @@ const ComponentCard = ({
           <div className="w-100 text-gray fs-sm text-end">{textPercent}</div>
         </div>
       </div>
-      <hr className="border mt-3" />
+      <hr className="border my-24" />
       <a
         className="mb-0 fs-6 w-100 text-uppercase text-body fw-semibold d-flex align-items-center text-decoration-none cursor-pointer"
         onClick={() => {
