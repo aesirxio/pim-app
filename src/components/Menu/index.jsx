@@ -143,7 +143,7 @@ const Menu = observer((props) => {
     <>
       <nav className="main-menu py-24 mt-0">
         <p className="menu_title text-dark-blue fs-14 mb-0 text-uppercase">{t('txt_main_menu')}</p>
-        <ul id="wr_list_menu" className="list-unstyled mb-0 pt-md-1">
+        <ul id="wr_list_menu" className="list-unstyled mb-0 pt-16">
           {dataMenu.map((menuList, menuListkey) => {
             return (
               <li
