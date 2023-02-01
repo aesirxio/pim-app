@@ -82,24 +82,46 @@ const ListProductPrice = observer((props) => {
     },
     {
       Header: t('txt_product_name'),
-      accessor: 'title',
+      accessor: 'productInfo',
       width: 150,
       className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
-          <>
-            <div className="mb-1">{value}</div>
-            <div className="text-green">
-              <button
-                onClick={() => {
-                  history.push(`/prices/edit/${row.cells[1].value}`);
-                }}
-                className="p-0 border-0 bg-transparent d-inline-block text-green"
-              >
-                {t('txt_edit')}
-              </button>
+          <div className="d-flex align-items-center">
+            {value.thumbImageUrl != '' ? (
+              <div className="me-2">
+                <img
+                  style={{ objectFit: 'cover' }}
+                  width={64}
+                  height={64}
+                  src={value.thumbImageUrl}
+                  alt={value.title}
+                />
+              </div>
+            ) : (
+              <div className="me-2">
+                <div
+                  style={{ width: '64px', height: '64px' }}
+                  className="border d-flex align-items-center justify-content-center text-center text-uppercase fw-bold opacity-50"
+                >
+                  No Image
+                </div>
+              </div>
+            )}
+            <div>
+              <div className="mb-1">{value.title}</div>
+              <div className="text-green">
+                <button
+                  onClick={() => {
+                    history.push(`/prices/edit/${row.cells[1].value}`);
+                  }}
+                  className="p-0 border-0 bg-transparent d-inline-block text-green"
+                >
+                  {t('txt_edit')}
+                </button>
+              </div>
             </div>
-          </>
+          </div>
         );
       },
     },
