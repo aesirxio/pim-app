@@ -53,10 +53,8 @@ const EditProduct = observer(
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
       }
-      if (!this.categoryListViewModel.items.length) {
-        await this.categoryListViewModel.handleFilter({ limit: 0 });
-        await this.categoryListViewModel.initializeDataCustom();
-      }
+      await this.categoryListViewModel.handleFilter({ limit: 0 });
+      await this.categoryListViewModel.initializeDataCustom();
     }
 
     handleAliasFormPropsData() {
@@ -123,10 +121,10 @@ const EditProduct = observer(
                     title: t('txt_save_close'),
                     handle: async () => {
                       if (this.validator.allValid()) {
+                        this.handleAliasFormPropsData();
                         if (this.isEdit) {
                           await this.productDetailViewModel.update();
                         } else {
-                          this.handleAliasFormPropsData();
                           await this.productDetailViewModel.create();
                         }
                         history.push(`/products/all`);

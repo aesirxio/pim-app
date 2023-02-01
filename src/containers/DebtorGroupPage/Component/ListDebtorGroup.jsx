@@ -135,12 +135,30 @@ const ListDebtorGroup = observer((props) => {
     }
   };
 
+  const deleteDebtorGroups = () => {
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteDebtorGroups(listSelected);
+    }
+  };
+
   return (
     <>
       <div className="d-flex justify-content-between align-items-center mb-3">
         <h2 className="fw-bold mb-0">{t('txt_debtor_group')}</h2>
         <ActionsBar
           buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteDebtorGroups();
+              },
+            },
             {
               title: t('txt_add_new_debtor_group'),
               icon: '/assets/images/plus.svg',

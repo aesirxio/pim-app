@@ -25,12 +25,10 @@ const FieldsTab = observer(
     }
 
     async componentDidMount() {
-      if (!this.fieldListViewModel.items.length) {
-        this.fieldListViewModel.handleFilter({ 'filter[type_id]': 59, 'filter[published]': 1 });
-        this.fieldListViewModel.handleFilterList({ limit: 0 });
-        await this.fieldListViewModel.initializeDataCustom();
-        await this.fieldListViewModel.getGroupList();
-      }
+      this.fieldListViewModel.handleFilter({ 'filter[type_id]': 59, 'filter[published]': 1 });
+      this.fieldListViewModel.handleFilterList({ limit: 0 });
+      await this.fieldListViewModel.initializeDataCustom();
+      await this.fieldListViewModel.getGroupList();
       this.setState({
         defaultActive: 'group-' + this.fieldListViewModel.groupList[0]?.id,
       });

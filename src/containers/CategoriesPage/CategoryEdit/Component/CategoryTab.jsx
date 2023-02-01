@@ -25,15 +25,13 @@ const CategoryTab = observer(
     }
 
     async componentDidMount() {
-      if (!this.fieldListViewModel.items.length) {
-        this.fieldListViewModel.handleFilter({
-          'filter[type_id]': 65,
-          'filter[published]': 1,
-        });
-        this.fieldListViewModel.handleFilterList({ limit: 0 });
-        await this.fieldListViewModel.initializeDataCustom();
-        this.forceUpdate();
-      }
+      this.fieldListViewModel.handleFilter({
+        'filter[type_id]': 65,
+        'filter[published]': 1,
+      });
+      this.fieldListViewModel.handleFilterList({ limit: 0 });
+      await this.fieldListViewModel.initializeDataCustom();
+      this.forceUpdate();
     }
 
     componentDidUpdate(prevProps) {
