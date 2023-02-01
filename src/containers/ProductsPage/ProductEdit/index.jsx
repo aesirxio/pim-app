@@ -110,10 +110,10 @@ const EditProduct = observer(
                     title: t('txt_save_close'),
                     handle: async () => {
                       if (this.validator.allValid()) {
+                        this.handleAliasFormPropsData();
                         if (this.isEdit) {
                           await this.productDetailViewModel.update();
                         } else {
-                          this.handleAliasFormPropsData();
                           await this.productDetailViewModel.create();
                         }
                         history.push(`/products/all`);
