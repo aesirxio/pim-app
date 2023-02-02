@@ -9,17 +9,25 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
   const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
   const total = data.reduce((a, b) => ({ value: a.value + b.value }));
+  console.log('data', data);
   const customizedLegend = ({ payload }) => {
     return (
       <ul className="piechart-legend mb-0 mt-1">
         {payload.map((entry, index) => (
-          <li style={{ color: entry.color }} key={`item-${index}`}>
+          <li
+            style={{ color: entry.color }}
+            key={`item-${index}`}
+            className={entry.value == 'No data' ? 'd-none' : ""}
+          >
             <div
               className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm text-body"
               onClick={() => onPieEnter(entry, index)}
             >
               <span>{entry.value}</span>
-              <span>{(entry.payload.percent * 100).toFixed(2)} %</span>
+              <span>
+                {!isNaN(entry.payload.percent) ? (entry.payload.percent * 100).toFixed(2) : '0.00'}{' '}
+                %
+              </span>
             </div>
           </li>
         ))}
@@ -27,7 +35,9 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
     );
   };
   const onPieEnter = (_, index) => {
-    setActiveIndex(index);
+    if (total.value > 0) {
+      setActiveIndex(index);
+    }
   };
   const onPieLeave = () => {
     setActiveIndex(-1);
@@ -76,6 +86,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
         />
         <path d={`M${sx},${sy}L${mx},${my}L${ex},${ey}`} stroke={fill} fill="none" />
         <circle cx={ex} cy={ey} r={2} fill={fill} stroke="none" />
+        <rect width="90" height="52" x={ex + (cos >= 0 ? -0.5 : -7) * 12} y={ey - 21} rx="3" />
         <text
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
@@ -125,7 +136,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
         <ResponsiveContainer width="100%" height={height ?? 500} className="bg-white">
           <PieChart>
             <Pie
-              data={data}
+              data={total.value > 0 ? data : [...data, { name: 'No data', value: 100 }]}
               cx="40%"
               cy="50%"
               outerRadius={90}
