@@ -17,7 +17,7 @@ const CategoryInformation = observer(
 
     async componentDidMount() {
       await this.props.viewModel.categoryListViewModel.handleFilter({ limit: 0 });
-      await this.props.viewModel.categoryListViewModel.initializeData();
+      await this.props.viewModel.categoryListViewModel.initializeDataCustom();
     }
 
     render() {
