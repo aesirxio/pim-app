@@ -99,15 +99,15 @@ const Table = ({
         hooks.visibleColumns.push((columns) => [
           {
             id: 'selection',
-            className: 'border-bottom-1 text-uppercase py-2 align-middle',
+            className: 'border-bottom-1 text-uppercase py-2 ps-16 align-middle',
             width: 10,
             Header: ({ getToggleAllPageRowsSelectedProps }) => (
-              <div className="ms-2">
+              <div>
                 <IndeterminateCheckbox {...getToggleAllPageRowsSelectedProps()} />
               </div>
             ),
             Cell: ({ row }) => (
-              <div className="wrapper_checkbox ms-2">
+              <div className="wrapper_checkbox ms-8px">
                 <IndeterminateCheckbox {...row.getToggleRowSelectedProps()} />
               </div>
             ),
@@ -293,7 +293,7 @@ const Table = ({
                               key={index}
                               rowSpan={cell.rowSpan}
                               {...cell.getCellProps({ style: { width: cell.column.width } })}
-                              className="py-2 fs-14 align-middle border-bottom-0"
+                              className="py-16 fs-14 align-middle border-bottom-0"
                             >
                               {cell.render('Cell')}
                             </td>

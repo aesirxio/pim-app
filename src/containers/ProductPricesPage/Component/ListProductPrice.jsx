@@ -75,31 +75,53 @@ const ListProductPrice = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
     },
     {
       Header: t('txt_product_name'),
-      accessor: 'title',
+      accessor: 'productInfo',
       width: 150,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value, row }) => {
         return (
-          <>
-            <div className="mb-1">{value}</div>
-            <div className="text-green">
-              <button
-                onClick={() => {
-                  history.push(`/prices/edit/${row.cells[1].value}`);
-                }}
-                className="p-0 border-0 bg-transparent d-inline-block text-green"
-              >
-                {t('txt_edit')}
-              </button>
+          <div className="d-flex align-items-center">
+            {value.thumbImageUrl != '' ? (
+              <div className="me-2">
+                <img
+                  style={{ objectFit: 'cover' }}
+                  width={64}
+                  height={64}
+                  src={value.thumbImageUrl}
+                  alt={value.title}
+                />
+              </div>
+            ) : (
+              <div className="me-2">
+                <div
+                  style={{ width: '64px', height: '64px' }}
+                  className="border d-flex align-items-center justify-content-center text-center text-uppercase fw-bold opacity-50"
+                >
+                  No Image
+                </div>
+              </div>
+            )}
+            <div>
+              <div className="mb-1">{value.title}</div>
+              <div className="text-green">
+                <button
+                  onClick={() => {
+                    history.push(`/prices/edit/${row.cells[1].value}`);
+                  }}
+                  className="p-0 border-0 bg-transparent d-inline-block text-green"
+                >
+                  {t('txt_edit')}
+                </button>
+              </div>
             </div>
-          </>
+          </div>
         );
       },
     },
@@ -107,7 +129,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_debtor_group'),
       accessor: 'debtorGroup',
       width: 200,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return <>{value.map((o) => o.title).join(', ')}</>;
       },
@@ -116,7 +138,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_price'),
       accessor: 'price',
       width: 200,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <>{parseInt(value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</>
@@ -127,7 +149,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 150,
-      className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -153,7 +175,7 @@ const ListProductPrice = observer((props) => {
 
   return (
     <>
-      <div className="d-flex justify-content-between align-items-center mb-3">
+      <div className="d-flex justify-content-between align-items-start mb-3">
         <h2 className="fw-bold mb-0">{t('txt_left_menu_price_management')}</h2>
         <ActionsBar
           buttons={[

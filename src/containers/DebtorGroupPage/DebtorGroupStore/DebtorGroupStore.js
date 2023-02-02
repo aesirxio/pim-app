@@ -145,4 +145,21 @@ export default class DebtorGroupStore {
 
     return false;
   }
+
+  async deleteDebtorGroups(arr, callbackOnSuccess, callbackOnError) {
+    try {
+      const getAesirxPimDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
+      const respondedData = await getAesirxPimDebtorGroupApiService.deleteDebtorGroups(arr);
+      runInAction(() => {
+        callbackOnSuccess(respondedData, 'Deleted successfully');
+      });
+      return respondedData;
+    } catch (error) {
+      runInAction(() => {
+        callbackOnError(error?.response?.data);
+      });
+    }
+
+    return false;
+  }
 }

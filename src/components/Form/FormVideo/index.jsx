@@ -24,6 +24,7 @@ const FormVideo = ({ field }) => {
     convertedData.length && setFile(convertedData);
     field.handleChange(convertedData);
     setShow(false);
+    field?.blurred();
   };
   const deleteImage = (e) => {
     e.stopPropagation();

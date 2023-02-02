@@ -95,6 +95,22 @@ class DebtorGroupListViewModel {
     this.filter = { ...this.filter, ...filter };
   };
 
+  deleteDebtorGroups = async (arr) => {
+    const res = await this.debtorGroupStore.deleteDebtorGroups(
+      arr,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    if (res) {
+      await this.debtorGroupStore.getList(
+        this.filter,
+        this.callbackOnSuccessHandler,
+        this.callbackOnErrorHandler
+      );
+    }
+    this.successResponse.state = true;
+  };
+
   callbackOnErrorHandler = (error) => {
     error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
@@ -120,7 +136,7 @@ class DebtorGroupListViewModel {
 
   transform = (data) => {
     return data.map((o) => {
-      const date = moment(o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.PUBLISHED]).format('DD MMM, YYYY');
+      const date = moment(o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
         id: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
         title: o[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE],

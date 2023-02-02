@@ -16,10 +16,8 @@ const CategoryInformation = observer(
     }
 
     async componentDidMount() {
-      if (!this.props.viewModel.categoryListViewModel.items.length) {
-        await this.props.viewModel.categoryListViewModel.handleFilter({ limit: 0 });
-        await this.props.viewModel.categoryListViewModel.initializeData();
-      }
+      await this.props.viewModel.categoryListViewModel.handleFilter({ limit: 0 });
+      await this.props.viewModel.categoryListViewModel.initializeDataCustom();
     }
 
     render() {

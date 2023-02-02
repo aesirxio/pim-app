@@ -99,10 +99,14 @@ class FormSelectionFields extends Component {
               <>
                 {this.state.listOptions.length
                   ? this.state.listOptions.map((option, index) => (
-                      <Row key={index} className="mt-16 gx-24">
-                        <Col lg={4}>
+                      <Row
+                        key={option.label + '-' + option.value + '-' + index}
+                        className="mt-16 gx-24"
+                      >
+                        <Col xs={4}>
                           <Input
                             field={{
+                              key: index + option.label,
                               getValueSelected: option.label,
                               classNameInput: 'fs-14',
                               placeholder: 'Label',
@@ -116,21 +120,44 @@ class FormSelectionFields extends Component {
                             }}
                           />
                         </Col>
-                        <Col lg={8}>
-                          <Input
-                            field={{
-                              getValueSelected: option.value,
-                              classNameInput: 'fs-14',
-                              placeholder: 'Value',
-                              handleChange: (data) => {
-                                this.props.field.viewModel.handleFormPropsData(
-                                  PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS,
-                                  { value: data.target.value },
-                                  index
-                                );
-                              },
-                            }}
-                          />
+                        <Col xs={8}>
+                          <div className="d-flex">
+                            <div className="w-100">
+                              <Input
+                                field={{
+                                  key: index + option.value,
+                                  getValueSelected: option.value,
+                                  classNameInput: 'fs-14',
+                                  placeholder: 'Value',
+                                  handleChange: (data) => {
+                                    this.props.field.viewModel.handleFormPropsData(
+                                      PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS,
+                                      { value: data.target.value },
+                                      index
+                                    );
+                                  },
+                                }}
+                              />
+                            </div>
+                            <div
+                              className="border-1 rounded-1 d-flex align-items-center justify-content-center ms-24 px-8px cursor-pointer"
+                              onClick={() => {
+                                let array = [...this.state.listOptions];
+                                array.splice(index, 1);
+                                this.setState((prevState) => {
+                                  return {
+                                    ...prevState,
+                                    listOptions: array,
+                                  };
+                                });
+                              }}
+                            >
+                              <ComponentSVG
+                                url="/assets/images/cancel.svg"
+                                className={'bg-danger'}
+                              />
+                            </div>
+                          </div>
                         </Col>
                       </Row>
                     ))

@@ -11,13 +11,17 @@ const FieldsList = observer(
     constructor(props) {
       super(props);
       this.state = { itemsByGroup: this.props.viewModel.fieldListViewModel.items };
+      this.fieldRef = [];
     }
 
     componentDidMount = () => {
-      this.props.groupID &&
-        this.setState({
-          itemsByGroup: this.props.viewModel.fieldListViewModel.filterByGroup(this.props.groupID),
-        });
+      this.props.groupID
+        ? this.setState({
+            itemsByGroup: this.props.viewModel.fieldListViewModel.filterByGroup(this.props.groupID),
+          })
+        : this.setState({
+            itemsByGroup: this.props.viewModel.fieldListViewModel.items,
+          });
       if (
         Object.prototype.hasOwnProperty.call(
           this.props.formPropsData,
@@ -29,16 +33,27 @@ const FieldsList = observer(
         });
       }
     };
-    componentDidUpdate = () => {
-      if (
-        !this.props.groupID &&
-        this.state.itemsByGroup.length !== this.props.viewModel.fieldListViewModel.items.length
-      ) {
-        this.setState({
-          itemsByGroup: this.props.viewModel.fieldListViewModel.items,
-        });
+    componentDidUpdate = (prevProps) => {
+      if (this.props.requiredField !== prevProps.requiredField) {
+        this.handleScrollToRequiredField();
       }
     };
+    handleScrollToRequiredField() {
+      if (this.props.requiredField) {
+        let requiredFields = Object.keys(this.props.validator.fields).find(
+          (key) => this.props.validator.fields[key] === false
+        );
+        let fieldRequired = this.props.viewModel.fieldListViewModel.items.find(
+          (o) => o[PIM_FIELD_DETAIL_FIELD_KEY.NAME] === requiredFields
+        );
+        if (this.fieldRef[fieldRequired?.fieldcode]) {
+          setTimeout(() => {
+            this.fieldRef[fieldRequired?.fieldcode] &&
+              this.fieldRef[fieldRequired?.fieldcode].scrollIntoView();
+          }, 500);
+        }
+      }
+    }
     render() {
       const { t } = this.props;
       const generateFormSetting = [
@@ -106,8 +121,11 @@ const FieldsList = observer(
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR
                     ? 'col-lg-12'
                     : this.props.fieldClass,
-                // required: field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2,
-                // validation: 'required',
+
+                ...(field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2 && {
+                  required: true,
+                  validation: 'required',
+                }),
                 isMulti:
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
                   field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',
@@ -129,6 +147,13 @@ const FieldsList = observer(
                 value:
                   this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS].product_width,
                 format: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.number_units,
+                blurred: () => {
+                  this.props.validator.showMessageFor(field[PIM_FIELD_DETAIL_FIELD_KEY.NAME]);
+                  this.forceUpdate();
+                },
+                ref: (ref) => {
+                  this.fieldRef[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] = ref;
+                },
               };
             }),
           ],

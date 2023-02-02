@@ -155,7 +155,10 @@ class ProductPriceListViewModel {
         : '';
       return {
         id: o[PIM_PRICES_DETAIL_FIELD_KEY.ID],
-        title: productTitle,
+        productInfo: {
+          thumbImageUrl: o[PIM_PRICES_DETAIL_FIELD_KEY.THUMB_IMAGE_URL],
+          title: productTitle,
+        },
         author: o[PIM_PRICES_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         debtorGroup: o[PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUPS],
         lastModified: {

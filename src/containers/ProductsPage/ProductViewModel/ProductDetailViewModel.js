@@ -87,7 +87,7 @@ class ProductDetailViewModel {
   };
 
   handleFormPropsData = (key, value) => {
-    if (key && value) {
+    if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
         Object.assign(this.productDetailViewModel.formPropsData[key], value);
       } else {

@@ -73,7 +73,7 @@ const Dashboard = observer(
       return (
         <>
           <div className="py-4 px-3 d-flex flex-column">
-            <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
+            <div className="d-flex align-items-center justify-content-between mb-26 flex-wrap">
               <div className="position-relative">
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
                 <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>

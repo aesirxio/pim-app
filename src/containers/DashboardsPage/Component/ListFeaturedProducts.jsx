@@ -18,7 +18,9 @@ const ListFeaturedProducts = observer((props) => {
     <div className={`position-relative  ${!viewModel?.successResponse?.state ? 'mt-5' : ''} `}>
       {viewModel?.successResponse?.state ? (
         <div className={`bg-white rounded-3 shadow-sm`}>
-          <div className="px-2 pt-24 fw-bold text-uppercase">{t('txt_featured_product')}</div>
+          <div className="px-24 pt-24 pb-8px fw-bold text-uppercase">
+            {t('txt_featured_product')}
+          </div>
           <Table
             classNameTable={`table-striped table`}
             columns={[
@@ -27,9 +29,9 @@ const ListFeaturedProducts = observer((props) => {
                 accessor: 'id',
                 width: 60,
                 className:
-                  'ps-2 py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+                  'ps-24 py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
                 Cell: ({ value }) => {
-                  return <div className="ps-2 opacity-80">{value}</div>;
+                  return <div className="ps-24 opacity-80">{value}</div>;
                 },
               },
               {
