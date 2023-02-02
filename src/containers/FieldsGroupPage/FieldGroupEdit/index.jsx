@@ -180,7 +180,13 @@ const EditFieldGroup = observer(
                     }
                   )}
                 </Form.Group>
-                <FieldGroupInformation validator={this.validator} />
+
+                <FieldGroupInformation
+                  validator={this.validator}
+                  formPropsData={
+                    this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData
+                  }
+                />
               </Col>
               <Col lg={3}>
                 <PublishOptions

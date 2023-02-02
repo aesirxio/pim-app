@@ -3,26 +3,14 @@ import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
-import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withFieldGroupViewModel } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
-import UtilsStore from 'store/UtilsStore/UtilsStore';
-import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
-
-const utilsStore = new UtilsStore();
-const utilsViewModel = new UtilsViewModel(utilsStore);
 
 const FieldGroupInformation = observer(
   class FieldGroupInformation extends Component {
     constructor(props) {
       super(props);
-      this.utilsListViewModel = utilsViewModel.utilsListViewModel;
       this.fieldGroupDetailViewModel = this.props.viewModel.fieldGroupDetailViewModel;
-    }
-
-    componentDidMount() {
-      this.utilsListViewModel.getListContentType();
     }
 
     render() {
@@ -70,9 +58,6 @@ const FieldGroupInformation = observer(
       ];
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {this.utilsListViewModel.formStatus === PAGE_STATUS.LOADING && (
-            <Spinner className="spinner-overlay" />
-          )}
           {Object.keys(generateFormSetting)
             .map((groupIndex) => {
               return [...Array(generateFormSetting[groupIndex])].map((group) => {

@@ -82,6 +82,10 @@ class FieldGroupDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      console.log(
+        'this.fieldGroupDetailViewModel.formPropsData',
+        this.fieldGroupDetailViewModel.formPropsData
+      );
     }
 
     this.formStatus = PAGE_STATUS.READY;
