@@ -50,42 +50,6 @@ const FieldGroupInformation = observer(
               className: 'col-lg-12',
             },
             {
-              label: 'txt_section',
-              key: PIM_FIELD_GROUP_DETAIL_FIELD_KEY.SECTION,
-              type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.fieldGroupDetailViewModel.fieldGroupDetailViewModel
-                .formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.SECTION]?.length
-                ? {
-                    label: this.utilsListViewModel.listContentType?.find(
-                      (x) =>
-                        x.value ===
-                        this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
-                          PIM_FIELD_GROUP_DETAIL_FIELD_KEY.SECTION
-                        ][0]
-                    )?.label,
-                    value:
-                      this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
-                        PIM_FIELD_GROUP_DETAIL_FIELD_KEY.SECTION
-                      ][0],
-                  }
-                : null,
-              getDataSelectOptions: this.utilsListViewModel.listContentType.length
-                ? this.utilsListViewModel.listContentType.map((item) => {
-                    return {
-                      label: item.label,
-                      value: item.value,
-                    };
-                  })
-                : null,
-              handleChange: (data) => {
-                this.fieldGroupDetailViewModel.handleFormPropsData(
-                  PIM_FIELD_GROUP_DETAIL_FIELD_KEY.SECTION,
-                  [data.value]
-                );
-              },
-              className: 'col-lg-12',
-            },
-            {
               label: 'txt_description',
               key: PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION,
               type: FORM_FIELD_TYPE.EDITOR,
