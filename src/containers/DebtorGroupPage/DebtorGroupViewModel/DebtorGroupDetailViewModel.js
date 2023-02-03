@@ -45,7 +45,7 @@ class DebtorGroupDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.debtorGroupStore.update(
+    return await this.debtorGroupStore.update(
       this.debtorGroupDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

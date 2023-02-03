@@ -84,12 +84,12 @@ const EditField = observer(
                     title: t('txt_save_close'),
                     handle: async () => {
                       if (this.validator.allValid()) {
-                        if (this.isEdit) {
-                          await this.fieldDetailViewModel.update();
-                        } else {
-                          await this.fieldDetailViewModel.create();
+                        const result = this.isEdit
+                          ? await this.fieldDetailViewModel.update()
+                          : await this.fieldDetailViewModel.create();
+                        if (result !== 0) {
+                          history.push(`/fields`);
                         }
-                        history.push(`/fields`);
                       } else {
                         this.validator.showMessages();
                       }

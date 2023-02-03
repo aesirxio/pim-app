@@ -129,10 +129,12 @@ export default class ProductPriceStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 

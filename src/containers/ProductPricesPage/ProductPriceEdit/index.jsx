@@ -82,12 +82,12 @@ const EditProductPrice = observer(
                     title: t('txt_save_close'),
                     handle: async () => {
                       if (this.validator.allValid()) {
-                        if (this.isEdit) {
-                          await this.productPriceDetailViewModel.update();
-                        } else {
-                          await this.productPriceDetailViewModel.create();
+                        const result = this.isEdit
+                          ? await this.productPriceDetailViewModel.update()
+                          : await this.productPriceDetailViewModel.create();
+                        if (result !== 0) {
+                          history.push(`/prices`);
                         }
-                        history.push(`/prices`);
                       } else {
                         this.validator.showMessages();
                       }

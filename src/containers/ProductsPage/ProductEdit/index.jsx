@@ -122,12 +122,12 @@ const EditProduct = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         this.handleAliasFormPropsData();
-                        if (this.isEdit) {
-                          await this.productDetailViewModel.update();
-                        } else {
-                          await this.productDetailViewModel.create();
+                        const result = this.isEdit
+                          ? await this.productDetailViewModel.update()
+                          : await this.productDetailViewModel.create();
+                        if (result !== 0) {
+                          history.push(`/products/all`);
                         }
-                        history.push(`/products/all`);
                       } else {
                         this.handleValidateForm();
                       }

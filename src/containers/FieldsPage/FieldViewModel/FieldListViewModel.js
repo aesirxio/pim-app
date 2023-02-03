@@ -48,8 +48,9 @@ class FieldListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   initializeDataCustom = async () => {
