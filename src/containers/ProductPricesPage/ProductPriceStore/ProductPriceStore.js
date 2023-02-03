@@ -107,7 +107,7 @@ export default class ProductPriceStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
-      return false;
+      return 0;
     }
   }
 

@@ -31,7 +31,7 @@ export default class DebtorGroupStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
-      return false;
+      return 0;
     }
   }
 
