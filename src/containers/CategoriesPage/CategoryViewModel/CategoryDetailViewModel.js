@@ -46,7 +46,7 @@ class CategoryDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.categoryStore.updateCategory(
+    return await this.categoryStore.updateCategory(
       this.categoryDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

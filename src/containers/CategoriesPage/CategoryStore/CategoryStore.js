@@ -54,10 +54,12 @@ export default class CategoryStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 

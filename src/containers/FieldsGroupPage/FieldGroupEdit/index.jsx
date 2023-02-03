@@ -101,12 +101,12 @@ const EditFieldGroup = observer(
                     handle: async () => {
                       this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
-                        if (this.isEdit) {
-                          await this.fieldGroupDetailViewModel.update();
-                        } else {
-                          await this.fieldGroupDetailViewModel.create();
+                        const result = this.isEdit
+                          ? await this.fieldGroupDetailViewModel.update()
+                          : await this.fieldGroupDetailViewModel.create();
+                        if (result !== 0) {
+                          history.push(`/fields-group`);
                         }
-                        history.push(`/fields-group`);
                       } else {
                         this.validator.showMessages();
                       }

@@ -149,7 +149,6 @@ const FieldsList = observer(
                 format: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.number_units,
                 blurred: () => {
                   this.props.validator.showMessageFor(field[PIM_FIELD_DETAIL_FIELD_KEY.NAME]);
-                  this.forceUpdate();
                 },
                 ref: (ref) => {
                   this.fieldRef[field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]] = ref;

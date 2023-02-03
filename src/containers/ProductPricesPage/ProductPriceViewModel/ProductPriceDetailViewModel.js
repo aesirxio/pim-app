@@ -45,7 +45,7 @@ class ProductPriceDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productPriceStore.update(
+    return await this.productPriceStore.update(
       this.productPriceDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

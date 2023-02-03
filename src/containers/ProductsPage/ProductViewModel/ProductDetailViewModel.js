@@ -46,7 +46,7 @@ class ProductDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.update(
+    return await this.productStore.update(
       this.productDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

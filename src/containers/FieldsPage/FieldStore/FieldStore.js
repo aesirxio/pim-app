@@ -57,6 +57,7 @@ export default class FieldStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 
