@@ -31,7 +31,7 @@ export default class CategoryStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
-      return false;
+      return 0;
     }
   }
 

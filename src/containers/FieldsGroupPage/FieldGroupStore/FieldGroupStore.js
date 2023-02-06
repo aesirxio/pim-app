@@ -31,6 +31,7 @@ export default class FieldGroupStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 

@@ -34,6 +34,7 @@ export default class ProductStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 
