@@ -31,7 +31,7 @@ export default class DebtorGroupStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
-      return false;
+      return 0;
     }
   }
 
@@ -53,10 +53,12 @@ export default class DebtorGroupStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 

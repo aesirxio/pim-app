@@ -31,7 +31,7 @@ export default class CategoryStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
-      return false;
+      return 0;
     }
   }
 
@@ -54,10 +54,12 @@ export default class CategoryStore {
           callbackOnError(resultOnSave);
         });
       }
+      return resultOnSave?.result;
     } catch (error) {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 

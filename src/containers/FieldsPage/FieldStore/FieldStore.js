@@ -31,6 +31,7 @@ export default class FieldStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 
@@ -57,6 +58,7 @@ export default class FieldStore {
       runInAction(() => {
         callbackOnError(error?.response?.data);
       });
+      return 0;
     }
   }
 

@@ -113,12 +113,12 @@ const EditCategory = observer(
                     handle: async () => {
                       this.handleAliasFormPropsData();
                       if (this.validator.allValid()) {
-                        if (this.isEdit) {
-                          await this.categoryDetailViewModel.update();
-                        } else {
-                          await this.categoryDetailViewModel.create();
+                        const result = this.isEdit
+                          ? await this.categoryDetailViewModel.update()
+                          : await this.categoryDetailViewModel.create();
+                        if (result !== 0) {
+                          history.push(`/categories`);
                         }
-                        history.push(`/categories`);
                       } else {
                         this.handleValidateForm();
                       }

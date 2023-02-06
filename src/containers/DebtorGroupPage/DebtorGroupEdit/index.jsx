@@ -83,12 +83,12 @@ const EditDebtorGroup = observer(
                     title: t('txt_save_close'),
                     handle: async () => {
                       if (this.validator.allValid()) {
-                        if (this.isEdit) {
-                          await this.debtorGroupDetailViewModel.update();
-                        } else {
-                          await this.debtorGroupDetailViewModel.create();
+                        const result = this.isEdit
+                          ? await this.debtorGroupDetailViewModel.update()
+                          : await this.debtorGroupDetailViewModel.create();
+                        if (result !== 0) {
+                          history.push(`/debtor-group`);
                         }
-                        history.push(`/debtor-group`);
                       } else {
                         this.validator.showMessages();
                       }

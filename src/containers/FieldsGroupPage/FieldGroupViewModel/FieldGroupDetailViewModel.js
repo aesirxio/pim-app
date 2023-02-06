@@ -46,7 +46,7 @@ class FieldGroupDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.fieldGroupStore.update(
+    return await this.fieldGroupStore.update(
       this.fieldGroupDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

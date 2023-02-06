@@ -45,7 +45,7 @@ class FieldDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.fieldStore.update(
+    return await this.fieldStore.update(
       this.fieldDetailViewModel.formPropsData,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler

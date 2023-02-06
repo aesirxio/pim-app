@@ -1,11 +1,8 @@
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-// import ProductAsset from './ProductAsset';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
-import Spinner from 'components/Spinner';
-import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import FieldsList from 'components/Fields';
@@ -24,19 +21,8 @@ const CategoryTab = observer(
       };
     }
 
-    async componentDidMount() {
-      this.fieldListViewModel.handleFilter({
-        'filter[type_id]': 65,
-        'filter[published]': 1,
-      });
-      this.fieldListViewModel.handleFilterList({ limit: 0 });
-      await this.fieldListViewModel.initializeDataCustom();
-      this.forceUpdate();
-    }
-
     componentDidUpdate(prevProps) {
       if (this.props.requiredField !== prevProps.requiredField) {
-        console.log('testneeeeeee');
         this.handleActiveTabRequiredField();
       }
     }
@@ -53,9 +39,6 @@ const CategoryTab = observer(
       const { t, validator } = this.props;
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {this.fieldListViewModel.formStatus === PAGE_STATUS.LOADING && (
-            <Spinner className="spinner-overlay" />
-          )}
           <Tab.Container
             id="left-tabs-fields"
             activeKey={`${this.state.defaultActive}`}
@@ -88,13 +71,14 @@ const CategoryTab = observer(
                       <CategoryInformation validator={validator} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="customFields">
-                      <div className="row" key={this.fieldListViewModel?.items.length}>
+                      <div className="row">
                         <FieldsList
                           detailViewModal={this.detailViewModal}
                           formPropsData={this.detailViewModal.categoryDetailViewModel.formPropsData}
                           validator={validator}
                           fieldClass={'col-lg-12'}
                           requiredField={this.props.requiredField}
+                          typeId={65}
                         />
                       </div>
                     </Tab.Pane>
