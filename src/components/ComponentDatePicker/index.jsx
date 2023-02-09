@@ -18,10 +18,10 @@ registerLocale('es', es);
 registerLocale('en-US', enUS);
 
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
-  const { t, i18n, viewModelArr } = props;
+  const { t, i18n, viewModel } = props;
   const [dateRange, setDateRange] = useState([
-    viewModelArr ? moment(viewModelArr[0]?.dateFilter['date_start'], 'YYYY-MM-DD').toDate() : null,
-    viewModelArr ? moment(viewModelArr[0]?.dateFilter['date_end'], 'YYYY-MM-DD').toDate() : null,
+    moment(viewModel.filter['filter[start_date]']).toDate(),
+    moment(viewModel.filter['filter[end_date]']).toDate(),
   ]);
 
   const [startDate, endDate] = dateRange;
@@ -30,13 +30,14 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   useEffect(() => {
     window.addEventListener('mousedown', handleClickOutSide);
     return () => window.removeEventListener('mousedown', handleClickOutSide);
-  });
+  }, []);
 
   const handleApply = async (e, startDate, endDate) => {
     e.stopPropagation();
-    viewModelArr.map(async (viewModel) => {
-      await viewModel?.handleFilterDateRange(startDate ?? endDate, endDate ?? startDate);
-    });
+    viewModel.getStatisticalDataByDate(
+      moment(startDate).format('YYYY-MM-DD'),
+      moment(endDate).format('YYYY-MM-DD')
+    );
     setIsOpen(false);
   };
   const handleClickOutSide = (event) => {
