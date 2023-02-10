@@ -117,6 +117,16 @@ body.mini_left {
       }
     }
   }
+
+  .dam-integrate-layout {
+    text-align: center;
+    .mb-0.d-flex.flex-wrap {
+      display: none !important;
+    }
+    .text-white.ps-3 {
+      display: none;
+    }
+  }
 }
 .sidebar {
   overflow-y: auto;
