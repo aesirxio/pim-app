@@ -67,20 +67,20 @@ class ProductListViewModel {
     value ? (this.successResponse.filters[key] = value) : delete this.successResponse.filters[key];
 
     //pagination
-    if (key != 'limitstart' && key != 'list[limit]') {
-      delete this.successResponse.filters['limitstart'];
+    if (key != 'list[limitstart]' && key != 'list[limit]') {
+      delete this.successResponse.filters['list[limitstart]'];
     } else {
       if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['limitstart'] =
+        this.successResponse.filters['list[limitstart]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
       ) {
-        this.successResponse.filters['limitstart'] =
+        this.successResponse.filters['list[limitstart]'] =
           (this.successResponse.pagination.page - 1) * value;
       }
     }
