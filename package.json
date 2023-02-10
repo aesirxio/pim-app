@@ -15,7 +15,7 @@
     "aesirx-ckeditor": "^1.0.0",
     "aesirx-dam-app": "^1.2.5",
     "aesirx-dma-app": "^1.6.2",
-    "aesirx-dma-lib": "^1.7.8",
+    "aesirx-dma-lib": "^1.7.9",
     "aesirx-sso": "^1.0.3",
     "axios": "^0.21.0",
     "bootstrap": "5.2.2",
