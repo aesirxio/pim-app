@@ -24,7 +24,7 @@ const ListProducts = observer((props) => {
     if (value != viewModel.successResponse.pagination.page) {
       viewModel.isLoading();
       viewModel.getListByFilter(
-        'limitstart',
+        'list[limitstart]',
         (value - 1) * viewModel.successResponse.pagination.pageLimit
       );
     }

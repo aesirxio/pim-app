@@ -67,18 +67,18 @@ class FieldListViewModel {
     value ? (this.filter[key] = value) : delete this.filter[key];
 
     //pagination
-    if (key != 'limitstart' && key != 'list[limit]') {
-      delete this.filter['limitstart'];
+    if (key != 'list[limitstart]' && key != 'list[limit]') {
+      delete this.filter['list[limitstart]'];
     } else {
       if (key == 'list[limit]' && value * this.pagination.page >= this.pagination.totalItems) {
         this.filterList = {};
-        this.filter['limitstart'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
+        this.filter['list[limitstart]'] = Math.ceil(this.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
         value * this.pagination.page < this.pagination.totalItems
       ) {
         this.filterList = {};
-        this.filter['limitstart'] = (this.pagination.page - 1) * value;
+        this.filter['list[limitstart]'] = (this.pagination.page - 1) * value;
       }
     }
 
