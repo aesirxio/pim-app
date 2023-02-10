@@ -13,7 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.12",
     "aesirx-ckeditor": "^1.0.0",
-    "aesirx-dam-app": "^1.2.5",
+    "aesirx-dam-app": "^1.2.6",
     "aesirx-dma-app": "^1.6.2",
     "aesirx-dma-lib": "^1.7.9",
     "aesirx-sso": "^1.0.3",
