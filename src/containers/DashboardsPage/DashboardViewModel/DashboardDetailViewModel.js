@@ -12,7 +12,10 @@ class DashboardDetailViewModel {
   dashboardStore = null;
   formStatus = PAGE_STATUS.READY;
   dashboardDetailViewModel = null;
-  filter = {};
+  filter = {
+    "filter[start_date]": moment(Date.now()).subtract(30,"days").format('YYYY-MM-DD'),
+    "filter[end_date]": moment(Date.now()).format('YYYY-MM-DD')
+  };
   result = {};
   filterListFeaturedProducts = {
     'list[limit]': 5,
@@ -53,6 +56,16 @@ class DashboardDetailViewModel {
       this.callbackOnErrorGetListFeaturedProductsHandler
     );
 
+    this.successResponse.state = true;
+  };
+
+  getStatisticalDataByDate = async (a, b) => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.dashboardStore.getStatisticalData(
+      {...this.filter, "filter[start_date]": a,"filter[end_date]": b},
+      this.callbackOnGetDashboardSuccessHandler,
+      this.callbackOnErrorHandler
+    );
     this.successResponse.state = true;
   };
 

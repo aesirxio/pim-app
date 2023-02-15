@@ -9,7 +9,6 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
   const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
   const total = data.reduce((a, b) => ({ value: a.value + b.value }));
-  console.log('data', data);
   const customizedLegend = ({ payload }) => {
     return (
       <ul className="piechart-legend mb-0 mt-1">
