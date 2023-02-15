@@ -131,7 +131,7 @@ const ListDebtorGroup = observer((props) => {
   const selectPageHandler = (value) => {
     if (value != viewModel.pagination.page) {
       viewModel.isLoading();
-      viewModel.getListByFilter('limitstart', (value - 1) * viewModel.pagination.pageLimit);
+      viewModel.getListByFilter('list[limitstart]', (value - 1) * viewModel.pagination.pageLimit);
     }
   };
 
