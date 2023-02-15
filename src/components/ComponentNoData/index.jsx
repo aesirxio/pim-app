@@ -26,14 +26,8 @@ class ComponentNoData extends Component {
             : 'text-center h-100 d-flex flex-column justify-content-center align-items-center'
         }
       >
-        <div
-          className={`mb-2 d-inline-block position-relative rounded-circle ${iconBg}`}
-        >
-          <ComponentImage
-            className={`${iconColor}`}
-            src={icons}
-            alt={icons}
-          />
+        <div className={`mb-2 d-inline-block position-relative rounded-circle ${iconBg}`}>
+          <ComponentImage className={`${iconColor}`} src={icons} alt={icons} />
         </div>
         <h5>{title}</h5>
         {text && <p className={`my-2 fs-14 text-black-50 w-100 mx-auto ${width}`}>{text}</p>}

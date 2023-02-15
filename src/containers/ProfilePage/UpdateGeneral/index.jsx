@@ -148,7 +148,7 @@ const UpdateGeneral = observer(
         },
       ];
     };
-    
+
     avatarOnSelectHandler = (data) => {
       if (data.split(/[#?]/)[0].split('.').pop().trim() !== 'mp4') {
         this.setState({
