@@ -26,6 +26,8 @@ const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
 const EditDebtorGroupProvider = lazy(() => import('containers/DebtorGroupPage/edit'));
 const EditProductPriceProvider = lazy(() => import('containers/ProductPricesPage/edit'));
 
+const EditVariantProvider = lazy(() => import('containers/VariantsPage/edit'));
+
 const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 const ProductPrice = lazy(() => import('../containers/ProductPricesPage'));
@@ -53,6 +55,17 @@ const mainRoutes = [
     exact: true,
     main: () => <ProductsPage />,
   },
+  {
+    path: '/variants/add',
+    exact: true,
+    main: () => <EditVariantProvider />,
+  },
+  {
+    path: '/variants/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditVariantProvider match={match} />,
+  },
+
   {
     path: ['/categories', '/categories'],
     exact: true,

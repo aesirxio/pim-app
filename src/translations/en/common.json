@@ -324,14 +324,15 @@
   "txt_showing": "Showing",
   "txt_totals": "Totals",
   "txt_items": "items",
-  "txt_browse_from_computer_choose_from_media_drag_file_here":"Browse from computer Choose from media Drag file here",
-  "txt_add_more_option":"Add More Option",
-  "txt_optional":"Optional",
-  "txt_recommend":"Recommend",
-  "txt_required":"Required",
-  "txt_remember_me":"Remember me",
+  "txt_browse_from_computer_choose_from_media_drag_file_here": "Browse from computer Choose from media Drag file here",
+  "txt_add_more_option": "Add More Option",
+  "txt_optional": "Optional",
+  "txt_recommend": "Recommend",
+  "txt_required": "Required",
+  "txt_remember_me": "Remember me",
   "txt_by": "by",
   "txt_warning": "Warning",
   "txt_successful": "Successful",
-  "txt_error": "Error"
+  "txt_error": "Error",
+  "txt_add_more_value": "Add More Value"
 }
