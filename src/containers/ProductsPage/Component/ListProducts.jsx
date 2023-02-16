@@ -9,6 +9,7 @@ import Spinner from 'components/Spinner';
 import history from 'routes/history';
 import ActionsBar from 'components/ActionsBar';
 import { notify } from 'components/Toast';
+import DateRangePicker from 'components/DateRangePicker';
 
 const ListProducts = observer((props) => {
   const { t } = props;
@@ -137,7 +138,7 @@ const ListProducts = observer((props) => {
               <SelectComponent
                 options={viewModel?.successResponse?.listPublishStatus}
                 className={`fs-sm`}
-                isBorder={true}
+                isBorder={false}
                 placeholder={t('txt_bulk_actions')}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
@@ -148,7 +149,7 @@ const ListProducts = observer((props) => {
                   { label: t('txt_outdoor'), value: 'outdoor' },
                 ]}
                 className={`fs-sm`}
-                isBorder={true}
+                isBorder={false}
                 placeholder={`Product Type`}
                 onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
@@ -156,11 +157,14 @@ const ListProducts = observer((props) => {
               <SelectComponent
                 options={viewModel?.successResponse?.listCategories}
                 className={`fs-sm`}
-                isBorder={true}
+                isBorder={false}
                 placeholder={t('txt_all_categories')}
                 onChange={(o) => selectCategoryHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
+              <div className="position-relative z-index-10">
+                <DateRangePicker viewModel={viewModel} />
+              </div>
             </div>
             <div className="d-flex align-items-center">
               <div className="text-gray me-2">{t('txt_showing')}</div>
@@ -175,7 +179,7 @@ const ListProducts = observer((props) => {
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}
                 className={`fs-sm`}
-                isBorder={true}
+                isBorder={false}
                 placeholder={`Select`}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />

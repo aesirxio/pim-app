@@ -11,6 +11,7 @@ import uk from 'date-fns/locale/uk';
 import es from 'date-fns/locale/es';
 import { enUS } from 'date-fns/locale';
 import { FORMAT_DATE } from 'constants/FormFieldType';
+import { useThemeContext } from 'themes/ThemeContextProvider';
 registerLocale('vi', vi);
 registerLocale('de', de);
 registerLocale('uk', uk);
@@ -20,9 +21,11 @@ registerLocale('en-US', enUS);
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
   const { t, i18n, viewModel } = props;
   const [dateRange, setDateRange] = useState([
-    moment(viewModel.filter['filter[start_date]']).toDate(),
-    moment(viewModel.filter['filter[end_date]']).toDate(),
+    moment(viewModel.filterDate['filter[start_date]']).toDate(),
+    moment(viewModel.filterDate['filter[end_date]']).toDate(),
   ]);
+
+  const { theme } = useThemeContext();
 
   const [startDate, endDate] = dateRange;
   const pickerRef = useRef(null);
@@ -110,9 +113,9 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
             : placeholder
         }
         isClearable={false}
-        className={`${
-          isDays ? 'fs-14 fw-semibold mw-120' : 'ps-5 pe-5'
-        } form-control border-0 rounded-1 text-color opacity-100 h-100`}
+        className={`${isDays ? 'fs-14 fw-semibold mw-120' : 'ps-5 pe-5'} ${
+          theme.theme === 'light' ? 'shadow-sm' : ''
+        } form-control border-0 rounded-1 text-color opacity-100 h-100 bg-white`}
         showPopperArrow={false}
         monthsShown={2}
         open={isOpen}

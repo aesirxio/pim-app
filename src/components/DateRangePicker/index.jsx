@@ -2,6 +2,8 @@ import ComponentDatePicker from 'components/ComponentDatePicker';
 import ComponentSVG from 'components/ComponentSVG';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import './index.scss';
 
 const DateRangePicker = (props) => {
@@ -12,9 +14,9 @@ const DateRangePicker = (props) => {
 
   return (
     <div
-      style={{ minHeight: '50px' }}
+      style={{ minHeight: '40px' }}
       ref={datePickerRef}
-      className="d-flex align-items-center bg-white rounded-1 shadow-sm daterange-picker-wrapper"
+      className="d-flex align-items-center bg-white rounded-1 daterange-picker-wrapper"
     >
       <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
         <ComponentSVG url="/assets/images/clock.svg" color="#C0C0C0" />
@@ -27,7 +29,9 @@ const DateRangePicker = (props) => {
         viewModel={viewModel}
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
-        <ComponentSVG url="/assets/images/arrow-down.svg" color="#C0C0C0" />
+        <i className="icons text-green">
+          <FontAwesomeIcon icon={faChevronDown} style={{ width: '12px' }} />
+        </i>
       </div>
     </div>
   );
