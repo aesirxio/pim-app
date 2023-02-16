@@ -9,7 +9,6 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
   const [activeIndex, setActiveIndex] = useState();
   const RADIAN = Math.PI / 180;
   const total = data.reduce((a, b) => ({ value: a.value + b.value }));
-  console.log('data', data);
   const customizedLegend = ({ payload }) => {
     return (
       <ul className="piechart-legend mb-0 mt-1">
@@ -17,7 +16,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
           <li
             style={{ color: entry.color }}
             key={`item-${index}`}
-            className={entry.value == 'No data' ? 'd-none' : ""}
+            className={entry.value == 'No data' ? 'd-none' : ''}
           >
             <div
               className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm text-body"

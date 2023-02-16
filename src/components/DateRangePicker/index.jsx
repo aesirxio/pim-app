@@ -8,7 +8,7 @@ const DateRangePicker = (props) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
   const datePickerRef = useRef(null);
 
-  const { t, viewModelArr } = props;
+  const { t, viewModel } = props;
 
   return (
     <div
@@ -24,7 +24,7 @@ const DateRangePicker = (props) => {
         setIsOpen={setOpenDatePicker}
         datePickerRef={datePickerRef}
         placeholder={t('txt_select_date')}
-        viewModelArr={viewModelArr}
+        viewModel={viewModel}
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
         <ComponentSVG url="/assets/images/arrow-down.svg" color="#C0C0C0" />

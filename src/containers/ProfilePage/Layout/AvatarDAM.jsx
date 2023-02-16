@@ -43,7 +43,7 @@ const AvatarDAM = ({ formPropsData, avatarOnSelectHandler }) => {
             />
           ) : (
             <div className="position-relative d-inline-flex align-items-center justify-content-center text-uppercase cursor-pointer rounded-circle h-196 w-196 bg-black opacity-50">
-              <span className='text-white' style={{ fontSize: '9rem' }}>
+              <span className="text-white" style={{ fontSize: '9rem' }}>
                 {formPropsData[UPDATE_GENERAL_FIELD_KEY.USERNAME].slice(0, 1)}
               </span>
             </div>

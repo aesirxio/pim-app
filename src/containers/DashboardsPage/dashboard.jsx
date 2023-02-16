@@ -9,7 +9,7 @@ import Spinner from '../../components/Spinner';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-// import DateRangePicker from 'components/DateRangePicker';
+import DateRangePicker from 'components/DateRangePicker';
 import { withRouter } from 'react-router-dom';
 import PieChartComponent from 'components/PieChartComponent';
 import { Col, Row } from 'react-bootstrap';
@@ -78,10 +78,8 @@ const Dashboard = observer(
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
                 <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
               </div>
-              <div className="position-relative">
-                {/* <DateRangePicker
-                viewModelArr={[summaryViewModel.summaryListViewModel]}
-              ></DateRangePicker> */}
+              <div className="position-relative z-index-10">
+                <DateRangePicker viewModel={this.viewModel}></DateRangePicker>
               </div>
             </div>
             <Row className="gx-24 mb-24">

@@ -127,7 +127,12 @@ const RevenueList = ({ ...props }) => {
   return (
     <>
       <ComponentFilter isSearch isAction isDate />
-      <Table classNameTable={`test`} columns={columnsTable} data={dataTable} selection={false}></Table>
+      <Table
+        classNameTable={`test`}
+        columns={columnsTable}
+        data={dataTable}
+        selection={false}
+      ></Table>
     </>
   );
 };

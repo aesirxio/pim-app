@@ -11,7 +11,6 @@ const fieldListViewModel = new FieldListViewModel(fieldStore);
 
 const FieldsPage = observer(
   class FieldPage extends React.Component {
-    
     constructor(props) {
       super(props);
     }
