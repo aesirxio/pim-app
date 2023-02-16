@@ -38,7 +38,7 @@ export default class VariantStore {
     try {
       const convertedUpdateGeneralData = VariantItemModel.__transformItemToApiOfUpdation(data);
 
-      let resultOnSave
+      let resultOnSave;
 
       resultOnSave = await this.aesirxPimVariantApiService.update(convertedUpdateGeneralData);
 
