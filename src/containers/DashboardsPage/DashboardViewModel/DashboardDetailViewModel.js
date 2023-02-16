@@ -13,8 +13,8 @@ class DashboardDetailViewModel {
   formStatus = PAGE_STATUS.READY;
   dashboardDetailViewModel = null;
   filterDate = {
-    "filter[start_date]": moment(Date.now()).subtract(30,"days").format('YYYY-MM-DD'),
-    "filter[end_date]": moment(Date.now()).format('YYYY-MM-DD')
+    'filter[start_date]': moment(Date.now()).subtract(30, 'days').format('YYYY-MM-DD'),
+    'filter[end_date]': moment(Date.now()).format('YYYY-MM-DD')
   };
   result = {};
   filterListFeaturedProducts = {
@@ -62,7 +62,7 @@ class DashboardDetailViewModel {
   getStatisticalDataByDate = async (a, b) => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.dashboardStore.getStatisticalData(
-      {...this.filter, "filter[start_date]": a,"filter[end_date]": b},
+      { ...this.filter, 'filter[start_date]': a, 'filter[end_date]': b },
       this.callbackOnGetDashboardSuccessHandler,
       this.callbackOnErrorHandler
     );
