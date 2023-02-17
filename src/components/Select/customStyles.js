@@ -24,6 +24,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         width: 'auto',
         paddingLeft: 7,
         paddingRight: 7,
+        color: '#1ab394',
       };
     },
 

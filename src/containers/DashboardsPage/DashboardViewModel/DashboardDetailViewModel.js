@@ -12,7 +12,7 @@ class DashboardDetailViewModel {
   dashboardStore = null;
   formStatus = PAGE_STATUS.READY;
   dashboardDetailViewModel = null;
-  filter = {
+  filterDate = {
     'filter[start_date]': moment(Date.now()).subtract(30, 'days').format('YYYY-MM-DD'),
     'filter[end_date]': moment(Date.now()).format('YYYY-MM-DD'),
   };
