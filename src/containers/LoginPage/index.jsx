@@ -72,7 +72,7 @@ class LoginPage extends React.Component {
           <div className="col-md-6 col-xxl-4">
             <div className="d-block p-2 p-lg-5">
               <h1 className="fs-2 text-blue-0 fw-semibold text-center mb-24 lh-base">
-                {t('txt_login_text_1')}
+                {t('txt_login_text_1')}dasdasds
                 <img
                   className="px-1"
                   style={{ verticalAlign: 'inherit' }}
