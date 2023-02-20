@@ -57,6 +57,7 @@ class SelectComponent extends React.Component {
         // }}
         placeholder={placeholder ?? t('txt_select')}
         styles={styles}
+        className={`bg-white shadow-sm rounded-2`}
       />
     );
   }

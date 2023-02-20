@@ -27,7 +27,10 @@ class ProductListViewModel {
     listCategories: [],
     pagination: {},
   };
-
+  filterDate = {
+    'filter[start_date]': moment(Date.now()).subtract(30, 'days').format('YYYY-MM-DD'),
+    'filter[end_date]': moment(Date.now()).format('YYYY-MM-DD'),
+  };
   constructor(productStore) {
     makeAutoObservable(this);
     this.productStore = productStore;
@@ -124,6 +127,16 @@ class ProductListViewModel {
         this.successResponse.filters
       );
     }
+    this.successResponse.state = true;
+  };
+
+  getStatisticalDataByDate = async (startDate, endDate) => {
+    this.isLoading();
+    await this.productStore.getList(this.callbackOnSuccessHandler, this.callbackOnErrorHandler, {
+      ...this.successResponse.filters,
+      'filter[modified_date][start]': startDate,
+      'filter[modified_date][end]': endDate,
+    });
     this.successResponse.state = true;
   };
 
