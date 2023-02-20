@@ -100,7 +100,7 @@
     "react-inject-env": "^2.1.0",
     "react-scripts": "^5.0.1",
     "sass": "^1.52",
-    "serve": "^13.0.2"
+    "serve": "^14.2.0"
   },
   "overrides": {
     "autoprefixer": "10.4.5"
