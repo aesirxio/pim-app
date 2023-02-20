@@ -6,6 +6,7 @@
 import i18n from 'i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
 import { initReactI18next } from 'react-i18next';
+import { env } from 'env';
 
 import common_en from './en/common.json';
 import common_th from './th/common.json';
@@ -52,7 +53,7 @@ i18n
     },
     lng: localStorage.getItem('i18nextLng') || 'en',
     fallbackLng: 'en',
-    debug: !process.env.NODE_ENV || process.env.NODE_ENV === 'development',
+    debug: !env.NODE_ENV || env.NODE_ENV === 'development',
 
     // have a common namespace used around the full app
     ns: ['translations'],
