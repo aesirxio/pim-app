@@ -19,8 +19,5 @@ jobs:
       - name: Run build
         run: CI=false yarn build
 
-      - name: Run publish
-        run: CI=false yarn prepublishOnly
-
       - name: Run Prettier
         run: yarn run format:check
