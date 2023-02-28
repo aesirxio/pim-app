@@ -311,20 +311,9 @@
     }
   }
   // React datepicker
-  .react-datepicker {
-    background-color: $dark;
-    color: $body-color;
-  }
-  .date-picker {
-    .react-datepicker__current-month {
-      color: $color-blue;
-    }
-    .react-datepicker__day-name,
-    .react-datepicker__day,
-    .react-datepicker__time-name {
-      color: rgba($color: $color-blue, $alpha: 0.8);
-    }
-  }
+  // .react-datepicker {
+  //   background-color: red;
+  // }
   .spinner-overlay {
     background-color: rgba($body-bg, 0.5);
   }

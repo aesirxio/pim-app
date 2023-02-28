@@ -16,7 +16,7 @@ const DateRangePicker = (props) => {
     <div
       style={{ minHeight: '40px' }}
       ref={datePickerRef}
-      className="d-flex align-items-center bg-white rounded-1 daterange-picker-wrapper"
+      className="d-flex align-items-center bg-white rounded-1 daterange-picker-wrapper position-relative"
     >
       <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
         <ComponentSVG url="/assets/images/clock.svg" color="#C0C0C0" />

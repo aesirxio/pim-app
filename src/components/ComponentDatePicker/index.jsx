@@ -56,10 +56,10 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   };
   const MyContainer = ({ className, children }) => {
     return (
-      <div ref={pickerRef} className="rounded-3 shadow overflow-hidden py-2 px-1 bg-white">
+      <div ref={pickerRef} className="rounded-3 shadow overflow-hidden pb-2 bg-white">
         <div className={`${className}`}>{children}</div>
         {startDate && (
-          <div className="d-flex align-items-center justify-content-end border-top-1 pt-2 px-2 text-color">
+          <div className="d-flex align-items-center justify-content-end pt-2 px-2 text-color">
             <p className="fs-14 color-bule-0 opacity-75 mb-0">
               {startDate ? moment(startDate).format('LL') : ''} -{' '}
               {endDate ? moment(endDate).format('LL') : ''}
@@ -115,7 +115,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
         isClearable={false}
         className={`${isDays ? 'fs-14 fw-semibold mw-120' : 'ps-5 pe-5'} ${
           theme.theme === 'light' ? 'shadow-sm' : ''
-        } form-control border-0 rounded-1 text-color opacity-100 h-100 bg-white`}
+        } form-control border-0 rounded-1 text-color opacity-100 bg-white`}
         showPopperArrow={false}
         monthsShown={2}
         open={isOpen}

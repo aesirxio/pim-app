@@ -29,3 +29,112 @@
 .calendar-icon-end {
   right: 15px;
 }
+
+.react-datepicker {
+  font-size: 0.9rem;
+}
+
+.daterange-picker {
+  .react-datepicker__month {
+    margin: 0;
+  }
+
+  .react-datepicker__header {
+    border-bottom: 0;
+    padding-bottom: 0;
+  }
+  .react-datepicker__day-names {
+    margin: 15px 0 5px;
+  }
+
+  .react-datepicker__day,
+  .react-datepicker__day:hover {
+    margin: 0.166rem 0;
+    border-radius: 50%;
+  }
+
+  .react-datepicker__day:hover {
+    background-color: $green;
+    color: $white;
+  }
+
+  .react-datepicker__day.react-datepicker__day--in-range,
+  .react-datepicker__day.react-datepicker__day--in-selecting-range {
+    border-radius: 0;
+
+    &:last-child {
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+    }
+
+    &:first-child {
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+    }
+
+    &:hover {
+      background-color: rgba($color: $color-blue-3, $alpha: 0.2);
+    }
+    .dark &:hover {
+      background-color: rgba($color: $color-blue-8, $alpha: 0.3);
+    }
+  }
+
+  .react-datepicker__day {
+    width: 2.032rem;
+    line-height: 2.032rem;
+    &.react-datepicker__day--selecting-range-start.react-datepicker__day--selecting-range-end {
+      border-radius: 50%;
+      background-color: $green;
+      color: $white;
+    }
+
+    &.react-datepicker__day--selecting-range-start,
+    &.react-datepicker__day--range-start {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0%;
+      border-top-left-radius: 50%;
+      border-bottom-left-radius: 50%;
+      position: relative;
+      z-index: 99;
+      color: $white;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: -9;
+        border-radius: 50%;
+        height: 100%;
+        background-color: $green;
+      }
+    }
+
+    &.react-datepicker__day--selecting-range-end,
+    &.react-datepicker__day--range-end {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0%;
+      border-top-right-radius: 50%;
+      border-bottom-right-radius: 50%;
+      position: relative;
+      z-index: 99;
+      color: $white;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: -9;
+        border-radius: 50%;
+        height: 100%;
+        background-color: $green;
+      }
+    }
+  }
+}
