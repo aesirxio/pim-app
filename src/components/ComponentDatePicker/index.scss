@@ -39,13 +39,14 @@
   }
 
   .react-datepicker__current-month {
+    color: $body-color;
     font-family: $font-family-sans-serif;
   }
 
   .react-datepicker__day-name,
   .react-datepicker__day,
   .react-datepicker__time-name {
-    color: $black;
+    color: $body-color;
     font-family: $font-family-sans-serif;
   }
 

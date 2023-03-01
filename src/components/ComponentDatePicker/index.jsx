@@ -60,10 +60,10 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
         <div className={`${className}`}>{children}</div>
         {startDate && (
           <div className="d-flex align-items-center justify-content-end pt-2 px-2 text-color">
-            <p className="fs-14 color-bule-0 opacity-75 mb-0">
+            {/* <p className="fs-14 color-bule-0 opacity-75 mb-0">
               {startDate ? moment(startDate).format('LL') : ''} -{' '}
               {endDate ? moment(endDate).format('LL') : ''}
-            </p>
+            </p> */}
             <span
               style={{ cursor: 'pointer' }}
               className="btn btn-success ms-3 fw-bold text-uppercase fs-14 lh-sm rounded-1 py-1"

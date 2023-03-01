@@ -74,7 +74,24 @@
 
     &:hover {
       background-color: rgba($color: $color-blue-3, $alpha: 0.2);
+      position: relative;
+      z-index: 99;
+      color: $white;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: -9;
+        border-radius: 50%;
+        height: 100%;
+        background-color: $green;
+      }
     }
+
     .dark &:hover {
       background-color: rgba($color: $color-blue-8, $alpha: 0.3);
     }
@@ -87,6 +104,25 @@
       border-radius: 50%;
       background-color: $green;
       color: $white;
+    }
+
+    &.react-datepicker__day--keyboard-selected {
+      position: relative;
+      z-index: 99;
+      color: $white;
+
+      &:after {
+        content: '';
+        display: block;
+        position: absolute;
+        width: 100%;
+        top: 0;
+        left: 0;
+        z-index: -9;
+        border-radius: 50%;
+        height: 100%;
+        background-color: $green;
+      }
     }
 
     &.react-datepicker__day--selecting-range-start,
