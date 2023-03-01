@@ -15,6 +15,7 @@ import Menu from '../Menu';
 import Menu2 from 'components/Menu2';
 import { observer } from 'mobx-react';
 import { AesirXDamStorage } from 'aesirx-dam-app';
+import { ThemesContext } from 'themes/ThemeContextProvider';
 // import { NavLink } from 'react-router-dom';
 const SbarLeft = observer(
   class SbarLeft extends React.Component {
@@ -95,12 +96,17 @@ const SbarLeft = observer(
             </a> */}
           </div>
           <div className="px-1">
-            <AesirXDamStorage />
+            <AesirXDamStorage
+              lang={this.props?.i18n?.language}
+              theme={this.context?.theme?.theme}
+            />
           </div>
         </aside>
       );
     }
   }
 );
+
+SbarLeft.contextType = ThemesContext;
 
 export default withTranslation('common')(SbarLeft);
