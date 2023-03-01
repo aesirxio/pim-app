@@ -3,7 +3,7 @@ import ComponentSVG from 'components/ComponentSVG';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
+import { faCalendarAlt } from '@fortawesome/free-solid-svg-icons/faCalendarAlt';
 import './index.scss';
 
 const DateRangePicker = (props) => {
@@ -30,7 +30,7 @@ const DateRangePicker = (props) => {
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
         <i className="icons text-green">
-          <FontAwesomeIcon icon={faChevronDown} style={{ width: '12px' }} />
+          <FontAwesomeIcon icon={faCalendarAlt} style={{ width: '12px' }} />
         </i>
       </div>
     </div>
