@@ -307,7 +307,7 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <div style={{height: "50vh"}}>
+          <div style={{ height: '50vh' }}>
             <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
           </div>
         ) : null}
