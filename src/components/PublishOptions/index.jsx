@@ -11,6 +11,8 @@ import { AUTHORIZATION_KEY, Storage } from 'aesirx-dma-lib';
 import UtilsStore from 'store/UtilsStore/UtilsStore';
 import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
 import { observer } from 'mobx-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
 
 const utilsStore = new UtilsStore();
 const utilsViewModel = new UtilsViewModel(utilsStore);
@@ -52,11 +54,14 @@ const PublishOptions = observer(
           {isPublished && (
             <div className="d-flex align-items-center justify-content-between w-100 mb-24">
               <div>
-                <ComponentSVG url="/assets/images/post-status.svg" className="pe-1 bg-black" />
-                {t('txt_status')}:
+                <div style={{ marginLeft: '-5px' }}>
+                  <ComponentSVG url="/assets/images/post-status.svg" className="bg-black" />
+                  &nbsp;
+                  {t('txt_status')}:
+                </div>
               </div>
 
-              <Form.Group className={`w-60`}>
+              <Form.Group style={{ maxWidth: '200px', width: '65%' }}>
                 <FormSelection
                   field={{
                     getValueSelected:
@@ -95,7 +100,12 @@ const PublishOptions = observer(
           )}
           {isLastModified && (
             <div className="d-flex align-items-center justify-content-between w-100 mb-24 border-bottom pb-24">
-              <div>{t('txt_last_modified')}:</div>
+              <div>
+                <i className="me-1">
+                  <FontAwesomeIcon icon={faUser} />
+                </i>
+                {t('txt_last_modified')}:
+              </div>
               <div className="text-gray">{modifiedBy}</div>
             </div>
           )}
@@ -142,7 +152,7 @@ const PublishOptions = observer(
           )}
           <div className="d-flex align-items-center justify-content-between w-100 mb-24">
             <div>{t('txt_create_date')}:</div>
-            <Form.Group className={``}>
+            <Form.Group style={{ maxWidth: '200px', width: '65%' }}>
               <div className="fs-14">
                 <CustomizedDatePicker
                   dateFormat={FORMAT_DATE + ' ' + FORMAT_TIME}
