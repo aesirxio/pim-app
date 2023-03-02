@@ -308,7 +308,11 @@ const Table = ({
 
         {rows.length === 0 ? (
           <div className="py-5">
-            <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
+            <ComponentNoData
+              icons="/assets/images/ic_project.svg"
+              title={t('txt_nodata')}
+              width="w-50"
+            />
           </div>
         ) : null}
       </div>
