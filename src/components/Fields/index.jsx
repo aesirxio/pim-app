@@ -238,7 +238,9 @@ const FieldsList = observer(
                     {this.viewModel.fieldListViewModel.groupList?.map((group, key) => {
                       return (
                         <Nav.Item key={key}>
-                          <Nav.Link eventKey={`group-${group.id}`}>{t(`txt_${group.label.toString().replace(/ /g, '_').toLowerCase()}`)}{' '}</Nav.Link>
+                          <Nav.Link eventKey={`group-${group.id}`}>
+                            {t(`txt_${group.label.toString().replace(/ /g, '_').toLowerCase()}`)}
+                          </Nav.Link>
                         </Nav.Item>
                       );
                     })}
@@ -250,7 +252,7 @@ const FieldsList = observer(
                       return (
                         <Tab.Pane eventKey={`group-${group.id}`} key={key}>
                           <h3 className="mb-24 fw-bold">
-                            {t(`txt_${group.label.toString().replace(/ /g, '_').toLowerCase()}`)}{' '}
+                            {t(`txt_${group.label.toString().replace(/ /g, '_').toLowerCase()}`)}
                           </h3>
                           <div className="row">
                             {Object.keys(generateFormSetting)
