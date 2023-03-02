@@ -131,7 +131,7 @@ const Table = ({
   const { t } = props;
   return (
     <>
-      <div className="fs-14 text-color position-relative h-100">
+      <div className="fs-14 text-color position-relative">
         {rows.length ? (
           <table {...getTableProps()} className={`w-100 ${classNameTable}`}>
             <thead className="fs-6">
@@ -307,12 +307,8 @@ const Table = ({
         ) : null}
 
         {rows.length === 0 ? (
-          <div className="py-5">
-            <ComponentNoData
-              icons="/assets/images/ic_project.svg"
-              title={t('txt_nodata')}
-              width="w-50"
-            />
+          <div style={{ height: '50vh' }}>
+            <ComponentNoData icons="/assets/images/ic_project.svg" title="No Data" width="w-50" />
           </div>
         ) : null}
       </div>
