@@ -1,4 +1,5 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
+import ComponentSVG from 'components/ComponentSVG';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
