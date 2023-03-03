@@ -78,8 +78,8 @@ const Dashboard = observer(
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
                 <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
               </div>
-              <div className="position-relative z-index-10">
-                <DateRangePicker viewModel={this.viewModel}></DateRangePicker>
+              <div style={{ height: '50px' }}>
+                <DateRangePicker viewModel={this.viewModel} />
               </div>
             </div>
             <Row className="gx-24 mb-24">

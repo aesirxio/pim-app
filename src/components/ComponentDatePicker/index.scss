@@ -13,6 +13,15 @@
     }
   }
 
+  .react-datepicker__input-container input {
+    opacity: 0;
+  }
+
+  .react-datepicker-wrapper {
+    display: block;
+    height: 0;
+  }
+
   .react-datepicker-popper[data-placement^='bottom'] {
     margin-top: 5px;
   }

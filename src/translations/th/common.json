@@ -324,15 +324,15 @@
   "txt_showing": "กำลังแสดง",
   "txt_totals": "ผลรวม",
   "txt_items": "รายการ",
-  "txt_browse_from_computer_choose_from_media_drag_file_here":"เรียกดูจากคอมพิวเตอร์ เลือกจากสื่อ ลากไฟล์มาที่นี่",
-  "txt_add_more_option":"เพิ่มตัวเลือกเพิ่มเติม",
-  "txt_optional":"ไม่จำเป็น",
-  "txt_recommend":"แนะนำ",
-  "txt_required":"ที่จำเป็น",
-  "txt_remember_me":"จดจำฉัน",
+  "txt_browse_from_computer_choose_from_media_drag_file_here": "เรียกดูจากคอมพิวเตอร์ เลือกจากสื่อ ลากไฟล์มาที่นี่",
+  "txt_add_more_option": "เพิ่มตัวเลือกเพิ่มเติม",
+  "txt_optional": "ไม่จำเป็น",
+  "txt_recommend": "แนะนำ",
+  "txt_required": "ที่จำเป็น",
+  "txt_remember_me": "จดจำฉัน",
   "txt_by": "โดย",
   "txt_warning": "คำเตือน",
   "txt_successful": "ประสบความสำเร็จ",
-  "txt_error": "ข้อผิดพลาด"
+  "txt_error": "ข้อผิดพลาด",
+  "txt_all_dates": "วันที่ทั้งหมด"
 }
-

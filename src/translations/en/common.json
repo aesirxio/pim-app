@@ -334,5 +334,6 @@
   "txt_warning": "Warning",
   "txt_successful": "Successful",
   "txt_error": "Error",
-  "txt_add_more_value": "Add More Value"
+  "txt_add_more_value": "Add More Value",
+  "txt_all_dates": "All Dates"
 }

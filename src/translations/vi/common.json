@@ -324,14 +324,15 @@
   "txt_showing": "Đang hiển thị",
   "txt_totals": "Tổng số",
   "txt_items": "mục",
-  "txt_browse_from_computer_choose_from_media_drag_file_here":"Chọn từ máy tính Kéo tập tin vào đây",
-  "txt_add_more_option":"Thêm lựa chọn",
-  "txt_optional":"Không bắt buộc",
-  "txt_recommend":"Đề xuất",
-  "txt_required":"Bắt buộc",
-  "txt_remember_me":"Ghi nhớ",
+  "txt_browse_from_computer_choose_from_media_drag_file_here": "Chọn từ máy tính Kéo tập tin vào đây",
+  "txt_add_more_option": "Thêm lựa chọn",
+  "txt_optional": "Không bắt buộc",
+  "txt_recommend": "Đề xuất",
+  "txt_required": "Bắt buộc",
+  "txt_remember_me": "Ghi nhớ",
   "txt_by": "bởi",
   "txt_warning": "Cảnh báo",
   "txt_successful": "Thành công",
-  "txt_error": "Lỗi"
+  "txt_error": "Lỗi",
+  "txt_all_dates": "Tất cả các ngày"
 }
