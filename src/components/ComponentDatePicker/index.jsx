@@ -106,7 +106,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
       className={`daterange-picker position-relative`}
       style={{ transform: 'translateY(-50%)', top: '50%' }}
     >
-      <div className="ps-2 pe-4 d-flex w-100 align-items-center">
+      <div className="ps-2 pe-5 d-flex w-100 align-items-center">
         {!isDays
           ? getDateDiffString(startDate, endDate)
           : getDateDiff(startDate, endDate)
