@@ -1,8 +1,6 @@
 import ComponentDatePicker from 'components/ComponentDatePicker';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 import './index.scss';
 
 const DateRangePicker = (props) => {
@@ -25,7 +23,7 @@ const DateRangePicker = (props) => {
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
         <i className="icons text-green">
-          <FontAwesomeIcon icon={faChevronDown} style={{ width: '12px' }} />
+          <ComponentSVG url="/assets/images/calendar.svg" className={'bg-green'} />
         </i>
       </div>
     </div>
