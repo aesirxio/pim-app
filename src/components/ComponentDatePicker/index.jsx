@@ -58,7 +58,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
   };
   const MyContainer = ({ className, children }) => {
     return (
-      <div ref={pickerRef} className="rounded-3 shadow overflow-hidden pb-2 bg-white">
+      <div ref={pickerRef} className="rounded-2 shadow overflow-hidden pb-2 bg-white">
         <div className={`${className}`}>{children}</div>
         {startDate && (
           <div className="d-flex align-items-center justify-content-end pt-2 px-2 text-color">
