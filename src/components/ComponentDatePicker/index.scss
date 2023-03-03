@@ -39,8 +39,8 @@
   }
 
   .react-datepicker__month-container {
-    border-right: 1px solid $gray-500;
-    border-bottom: 1px solid $gray-500;
+    border-right: 1px solid transparent;
+    border-bottom: 1px solid transparent;
     padding: 15px;
     &:last-child {
       border-right: 0;
@@ -52,7 +52,10 @@
     font-family: $font-family-sans-serif;
   }
 
-  .react-datepicker__day-name,
+  .react-datepicker__day-name {
+    color: $gray-600;
+  }
+
   .react-datepicker__day,
   .react-datepicker__time-name {
     color: $body-color;
@@ -71,14 +74,14 @@
   .react-datepicker__year-text--selected,
   .react-datepicker__year-text--in-selecting-range,
   .react-datepicker__year-text--in-range {
-    background-color: rgba($color: $color-blue-3, $alpha: 0.2);
+    background-color: $color-blue-9;
   }
 
   .react-datepicker__day--keyboard-selected,
   .react-datepicker__month-text--keyboard-selected,
   .react-datepicker__quarter-text--keyboard-selected,
   .react-datepicker__year-text--keyboard-selected {
-    background-color: rgba($color: $color-blue-3, $alpha: 0.2);
+    background-color: $color-blue-9;
     outline: none;
   }
 
@@ -87,7 +90,7 @@
   .react-datepicker__quarter-text,
   .react-datepicker__year-text {
     &:hover {
-      background-color: rgba($color: $color-blue-3, $alpha: 0.2);
+      background-color: $color-blue-9;
     }
   }
   .react-datepicker__year-read-view--down-arrow,
@@ -114,8 +117,7 @@
 
 .dark {
   .react-datepicker {
-    background-color: $dark;
-    color: $white;
+    background-color: transparent;
 
     .react-datepicker__year-read-view--down-arrow,
     .react-datepicker__month-read-view--down-arrow,
@@ -132,7 +134,7 @@
     }
 
     .react-datepicker__month-container {
-      border-color: transparentize($color: $color-blue-1, $amount: 0.7);
+      border-color: $dark-blue;
     }
   }
 
@@ -148,6 +150,6 @@
   .react-datepicker__year-text--selected,
   .react-datepicker__year-text--in-selecting-range,
   .react-datepicker__year-text--in-range {
-    background-color: rgba($color: $color-blue-8, $alpha: 0.3);
+    background-color: $color-blue-10;
   }
 }

@@ -73,7 +73,7 @@
     }
 
     &:hover {
-      background-color: rgba($color: $color-blue-3, $alpha: 0.2);
+      background-color: $color-blue-9;
       position: relative;
       z-index: 99;
       color: $white;
@@ -93,7 +93,7 @@
     }
 
     .dark &:hover {
-      background-color: rgba($color: $color-blue-8, $alpha: 0.3);
+      background-color: $color-blue-10;
     }
   }
 
