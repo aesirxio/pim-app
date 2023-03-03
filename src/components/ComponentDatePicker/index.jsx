@@ -25,7 +25,7 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     moment(viewModel.filterDate['filter[start_date]']).toDate(),
     moment(viewModel.filterDate['filter[end_date]']).toDate(),
   ]);
-  const [flag, setFlag] = useState(typeof placeholder === "undefined");
+  const [flag, setFlag] = useState(typeof placeholder === 'undefined');
   const { theme } = useThemeContext();
 
   const [startDate, endDate] = dateRange;
