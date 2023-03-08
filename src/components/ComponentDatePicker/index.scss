@@ -35,12 +35,13 @@
 
   .react-datepicker__header {
     background-color: transparent;
-    border-bottom-color: #e8e9ec;
+    border-bottom-color: #e9e9e9;
+    margin-bottom: .5rem;
   }
 
   .react-datepicker__month-container {
-    border-right: 1px solid #eeeeee;
-    border-bottom: 1px solid #eeeeee;
+    border-right: 1px solid #e9e9e9;
+    border-bottom: 1px solid #e9e9e9;
     padding: 15px;
     &:last-child {
       border-right: 0;
