@@ -334,6 +334,7 @@
   "txt_warning": "Advarsel",
   "txt_successful": "Vellykket",
   "txt_error": "Fejl",
+  "txt_all_dates": "Alle datoer",
   "txt_nodata": "Ingen Data",
   "txt_noopions": "Ingen muligheder",
   "txt_field_required_error_message": "Feltet :attribute er påkrævet.",

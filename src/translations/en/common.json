@@ -335,6 +335,7 @@
   "txt_successful": "Successful",
   "txt_error": "Error",
   "txt_add_more_value": "Add More Value",
+  "txt_all_dates": "All Dates",
   "txt_nodata": "No Data",
   "txt_noopions": "No options",
   "txt_field_required_error_message": "The :attribute field is required.",

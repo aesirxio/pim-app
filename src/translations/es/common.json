@@ -331,6 +331,7 @@
   "txt_required": "Requerido",
   "txt_remember_me": "Recuérdame",
   "txt_by": "por",
+  "txt_all_dates": "Todas las fechas",
   "txt_nodata": "Sin Datos",
   "txt_noopions": "Sin opciones",
   "txt_field_required_error_message": "El campo :attribute es obligatorio.",

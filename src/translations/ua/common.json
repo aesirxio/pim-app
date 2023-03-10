@@ -331,6 +331,7 @@
   "txt_required": "вимагається",
   "txt_remember_me": "Пам'ятай мене",
   "txt_by": "за",
+  "txt_all_dates": "Усі дати",
   "txt_nodata": "Немає даних",
   "txt_noopions": "Без варіантів",
   "txt_field_required_error_message": "Поле :attribute є обов’язковим.",

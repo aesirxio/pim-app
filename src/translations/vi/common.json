@@ -334,6 +334,7 @@
   "txt_warning": "Cảnh báo",
   "txt_successful": "Thành công",
   "txt_error": "Lỗi",
+  "txt_all_dates": "Tất cả các ngày",
   "txt_nodata": "Không có dữ liệu",
   "txt_noopions": "Không có lựa chọn",
   "txt_field_required_error_message": "Vui lòng nhập :attribute"

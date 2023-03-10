@@ -334,6 +334,7 @@
   "txt_warning": "คำเตือน",
   "txt_successful": "ประสบความสำเร็จ",
   "txt_error": "ข้อผิดพลาด",
+  "txt_all_dates": "วันที่ทั้งหมด",
   "txt_nodata": "ไม่มีข้อมูล",
   "txt_noopions": "ไม่มีตัวเลือก",
   "txt_field_required_error_message": "ฟิลด์ :attribute เป็นสิ่งจำเป็น",

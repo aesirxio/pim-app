@@ -20,11 +20,12 @@ registerLocale('en-US', enUS);
 
 function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, isDays, ...props }) {
   const { t, i18n, viewModel } = props;
+
   const [dateRange, setDateRange] = useState([
     moment(viewModel.filterDate['filter[start_date]']).toDate(),
     moment(viewModel.filterDate['filter[end_date]']).toDate(),
   ]);
-
+  const [flag, setFlag] = useState(typeof placeholder === 'undefined');
   const { theme } = useThemeContext();
 
   const [startDate, endDate] = dateRange;
@@ -50,20 +51,21 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     }
   };
   const handleOpenDatePicker = (event) => {
+    setFlag(true);
     if (isOpen && pickerRef.current && !pickerRef.current.contains(event.target)) {
       setIsOpen(false);
     } else setIsOpen(true);
   };
   const MyContainer = ({ className, children }) => {
     return (
-      <div ref={pickerRef} className="rounded-3 shadow overflow-hidden py-2 px-1 bg-white">
+      <div ref={pickerRef} className="rounded-2 shadow overflow-hidden pb-2 bg-white">
         <div className={`${className}`}>{children}</div>
         {startDate && (
-          <div className="d-flex align-items-center justify-content-end border-top-1 pt-2 px-2 text-color">
-            <p className="fs-14 color-bule-0 opacity-75 mb-0">
+          <div className="d-flex align-items-center justify-content-end pt-2 px-2 text-color">
+            {/* <p className="fs-14 color-bule-0 opacity-75 mb-0">
               {startDate ? moment(startDate).format('LL') : ''} -{' '}
               {endDate ? moment(endDate).format('LL') : ''}
-            </p>
+            </p> */}
             <span
               style={{ cursor: 'pointer' }}
               className="btn btn-success ms-3 fw-bold text-uppercase fs-14 lh-sm rounded-1 py-1"
@@ -84,20 +86,34 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
     let startDate = start ? moment(start).format('DD MMM, YYYY') : '';
     let endDate = end ? moment(end).format('DD MMM, YYYY') : '';
     let result = placeholder;
-    if (start || end) {
-      result =
-        getDateDiff(start, end) == 1
-          ? startDate !== moment().format('DD MMM, YYYY')
-            ? startDate
-            : t('txt_today')
-          : startDate + ` ${endDate ? '-' : ''} ` + endDate;
+
+    if (flag) {
+      if (start || end) {
+        result =
+          getDateDiff(start, end) == 1
+            ? startDate !== moment().format('DD MMM, YYYY')
+              ? startDate
+              : t('txt_today')
+            : startDate + ` ${endDate ? '-' : ''} ` + endDate;
+      }
     }
+
     return result;
   };
   return (
-    <div onClick={handleOpenDatePicker} className="position-relative daterange-picker w-100">
+    <div
+      onClick={handleOpenDatePicker}
+      className={`daterange-picker position-relative`}
+      style={{ transform: 'translateY(-50%)', top: '50%' }}
+    >
+      <div className="ps-2 pe-5 d-flex w-100 align-items-center">
+        {!isDays
+          ? getDateDiffString(startDate, endDate)
+          : getDateDiff(startDate, endDate)
+          ? `${getDateDiff(startDate, endDate)} ${t('txt_days')}`
+          : placeholder}
+      </div>
       <DatePicker
-        style={{ margin: 0 }}
         dateFormat={FORMAT_DATE}
         selectsRange={true}
         startDate={startDate}
@@ -113,9 +129,9 @@ function ComponentDatepicker({ isOpen, setIsOpen, datePickerRef, placeholder, is
             : placeholder
         }
         isClearable={false}
-        className={`${isDays ? 'fs-14 fw-semibold mw-120' : 'ps-5 pe-5'} ${
+        className={`${isDays ? 'fs-14 fw-semibold mw-120' : 'ps-2 pe-4'} ${
           theme.theme === 'light' ? 'shadow-sm' : ''
-        } form-control border-0 rounded-1 text-color opacity-100 h-100 bg-white`}
+        } form-control border-0 rounded-1 text-color d-none bg-white`}
         showPopperArrow={false}
         monthsShown={2}
         open={isOpen}

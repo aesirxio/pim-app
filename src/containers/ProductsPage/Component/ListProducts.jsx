@@ -167,8 +167,8 @@ const ListProducts = observer((props) => {
                 onChange={(o) => selectCategoryHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
               />
-              <div className="position-relative z-index-10">
-                <DateRangePicker viewModel={viewModel} />
+              <div className="h-auto shadow-sm">
+                <DateRangePicker placeholder={t('txt_all_dates')} viewModel={viewModel} />
               </div>
             </div>
             <div className="d-flex align-items-center">
