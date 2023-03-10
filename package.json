@@ -11,7 +11,7 @@
     "@fortawesome/free-brands-svg-icons": "^5.15.1",
     "@fortawesome/free-regular-svg-icons": "^5.15.1",
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
-    "@fortawesome/react-fontawesome": "^0.1.12",
+    "@fortawesome/react-fontawesome": "^0.2.0",
     "aesirx-ckeditor": "^1.0.0",
     "aesirx-dam-app": "^1.2.9",
     "aesirx-dma-app": "^1.6.7",
