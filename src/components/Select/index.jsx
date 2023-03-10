@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-import Select from 'react-select';
+import Select, { components } from 'react-select';
 import AsyncSelect from 'react-select/async';
 import customStyles from './customStyles';
 import { ThemesContext } from 'themes/ThemeContextProvider';
@@ -21,6 +21,13 @@ class SelectComponent extends React.Component {
     const { t } = this.props;
     const { theme } = this.context;
     let { isBorder, plColor, async, placeholder, arrowColor, creatable, isDisabled } = this.props;
+
+    const NoOptionsMessage = (props) => {
+      return (
+        <components.NoOptionsMessage {...props}>{t('txt_noopions')}</components.NoOptionsMessage>
+      );
+    };
+
     if (theme == 'dark') {
       plColor = '#bfc9f7';
     }
@@ -55,6 +62,7 @@ class SelectComponent extends React.Component {
         // components={{
         //   ValueContainer: CustomValueContainer,
         // }}
+        components={{ NoOptionsMessage }}
         placeholder={placeholder ?? t('txt_select')}
         styles={styles}
         className={`bg-white shadow-sm rounded-2`}

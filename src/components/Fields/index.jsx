@@ -143,7 +143,12 @@ const FieldsList = observer(
                     ] ?? null;
                 }
                 return {
-                  label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+                  label: t(
+                    `txt_${field[PIM_FIELD_DETAIL_FIELD_KEY.NAME]
+                      .toString()
+                      .replace(/ /g, '_')
+                      .toLowerCase()}`
+                  ),
                   key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
                   type: field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
                   getValueSelected: selectedValue,
@@ -233,7 +238,9 @@ const FieldsList = observer(
                     {this.viewModel.fieldListViewModel.groupList?.map((group, key) => {
                       return (
                         <Nav.Item key={key}>
-                          <Nav.Link eventKey={`group-${group.id}`}>{group.label}</Nav.Link>
+                          <Nav.Link eventKey={`group-${group.id}`}>
+                            {t(`txt_${group.label.toString().replace(/ /g, '_').toLowerCase()}`)}
+                          </Nav.Link>
                         </Nav.Item>
                       );
                     })}
@@ -244,7 +251,9 @@ const FieldsList = observer(
                     {this.viewModel.fieldListViewModel.groupList?.map((group, key) => {
                       return (
                         <Tab.Pane eventKey={`group-${group.id}`} key={key}>
-                          <h3 className="mb-24 fw-bold">{group.label}</h3>
+                          <h3 className="mb-24 fw-bold">
+                            {t(`txt_${group.label.toString().replace(/ /g, '_').toLowerCase()}`)}
+                          </h3>
                           <div className="row">
                             {Object.keys(generateFormSetting)
                               .map((groupIndex) => {

@@ -1,7 +1,7 @@
 {
   "txt_welcome_to": "Welcome to ",
   "txt_sign_in": "Sign In",
-  "txt_sign_in_with_sso": "Sign in with SSO",
+  "txt_sign_in_with_sso": "Sign in with AesirX SSO",
   "txt_sign_up": "Sign Up",
   "txt_login_text_1": "Welcome to",
   "txt_pim": "PIM",
@@ -335,5 +335,15 @@
   "txt_successful": "Successful",
   "txt_error": "Error",
   "txt_add_more_value": "Add More Value",
-  "txt_all_dates": "All Dates"
+  "txt_all_dates": "All Dates",
+  "txt_nodata": "No Data",
+  "txt_noopions": "No options",
+  "txt_field_required_error_message": "The :attribute field is required.",
+  "txt_pim_product_type": "Product type",
+  "txt_product_photos": "Product photos",
+  "txt_create_field": "Create field",
+  "txt_seo_page_title": "SEO page title",
+  "txt_seo_page_heading": "SEO page heading",
+  "txt_seo_page_description": "SEO page description",
+  "txt_seo_page_keywords": "SEO page keywords"
 }

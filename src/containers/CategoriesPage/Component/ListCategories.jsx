@@ -283,7 +283,9 @@ const ListCategories = observer((props) => {
       <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
         <div className="d-flex gap-2">
           <SelectComponent
-            options={viewModel?.successResponse?.listPublishStatus}
+            options={viewModel?.successResponse?.listPublishStatus.map((o) => {
+              return { ...o, label: t(`txt_${o.label.toLowerCase()}`) };
+            })}
             className={`fs-sm`}
             isBorder={true}
             pagination={viewModel?.successResponse?.pagination}

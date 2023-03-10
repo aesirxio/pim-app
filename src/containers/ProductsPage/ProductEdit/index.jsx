@@ -44,7 +44,9 @@ const EditProduct = observer(
         ? categoryViewModel.getCategoryListViewModel()
         : null;
       this.productDetailViewModel.setForm(this);
-      this.validator = new SimpleReactValidator({ autoForceUpdate: this });
+      this.validator = new SimpleReactValidator({
+        autoForceUpdate: this,
+      });
       this.isEdit = props.match.params?.id ? true : false;
     }
 
@@ -87,6 +89,9 @@ const EditProduct = observer(
 
     render() {
       const { t, history } = this.props;
+
+      this.validator.messages['required'] = t('txt_field_required_error_message');
+
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -184,12 +189,12 @@ const EditProduct = observer(
                       },
                       required: true,
                       blurred: () => {
-                        this.validator.showMessageFor('Product Name');
+                        this.validator.showMessageFor(t('txt_product_name'));
                       },
                     }}
                   />
                   {this.validator.message(
-                    'Product Name',
+                    t('txt_product_name'),
                     this.productDetailViewModel.productDetailViewModel.formPropsData[
                       PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
                     ],

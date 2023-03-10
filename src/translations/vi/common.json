@@ -1,7 +1,7 @@
 {
   "txt_welcome_to": "Chào mừng đến",
   "txt_sign_in": "Đăng nhập",
-  "txt_sign_in_with_sso": "Đăng nhập với SSO",
+  "txt_sign_in_with_sso": "Đăng nhập bằng AesirX SSO",
   "txt_sign_up": "Đăng ký",
   "txt_login_text_1": "Đăng nhập để",
   "txt_pim": "PIM",
@@ -334,5 +334,8 @@
   "txt_warning": "Cảnh báo",
   "txt_successful": "Thành công",
   "txt_error": "Lỗi",
-  "txt_all_dates": "Tất cả các ngày"
+  "txt_all_dates": "Tất cả các ngày",
+  "txt_nodata": "Không có dữ liệu",
+  "txt_noopions": "Không có lựa chọn",
+  "txt_field_required_error_message": "Vui lòng nhập :attribute"
 }
