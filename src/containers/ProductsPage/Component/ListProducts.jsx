@@ -128,7 +128,7 @@ const ListProducts = observer((props) => {
               <Tab
                 key={o.value}
                 eventKey={o.value}
-                title={t(`txt_${o?.label && o.label?.toString().toLowerCase()}`)}
+                title={t(`txt_${o?.label && o.label?.toString().replace(/ /g, '_').toLowerCase()}`)}
               />
             ))}
           </Tabs>
@@ -136,7 +136,12 @@ const ListProducts = observer((props) => {
           <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
             <div className="d-flex gap-2">
               <SelectComponent
-                options={viewModel?.successResponse?.listPublishStatus}
+                options={viewModel?.successResponse?.listPublishStatus.map((o) => {
+                  return {
+                    ...o,
+                    label: t(`txt_${o.label.toString().replace(/ /g, '_').toLowerCase()}`),
+                  };
+                })}
                 className={`fs-sm`}
                 isBorder={false}
                 placeholder={t('txt_bulk_actions')}
@@ -281,7 +286,7 @@ const ListProducts = observer((props) => {
                           }`,
                         }}
                       >
-                        {t('txt_' + value?.toString().toLowerCase())}
+                        {t('txt_' + value?.toString().replace(/ /g, '_').toLowerCase())}
                       </span>
                     </div>
                   );
@@ -355,6 +360,7 @@ const ListProducts = observer((props) => {
                             viewModel?.listPublishStatus
                               .find((o) => o.value == value.status)
                               .label?.toString()
+                              .replace(/ /g, '_')
                               .toLowerCase()
                         )}
                     </div>
