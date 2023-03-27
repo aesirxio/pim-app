@@ -20,6 +20,8 @@ Find out more in [https://pim.aesirx.io](https://pim.aesirx.io)
    5. `REACT_APP_DAM_LICENSE` replace this with the provided `REACT_APP_DAM_LICENSE` from https://dam.aesirx.io/
 5. Replace the `REACT_APP_ENDPOINT_URL` in the `.env` file with the link to your server.
 
+### `yarn install`
+
 ### `yarn dev`
 
 Runs the app in the development mode.\
