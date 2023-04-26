@@ -3728,6 +3728,14 @@ aesirx-sso@^1.0.6, aesirx-sso@^1.0.7:
     dotenv "^16.0.3"
     react-spinners "^0.13.6"
 
+"aesirx-sso@https://gitpkg.now.sh/vietredweb/sso?162b5c3464b580f15ecf59114a330a3837fcf9dd&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build":
+  version "1.0.7"
+  resolved "https://gitpkg.now.sh/vietredweb/sso?162b5c3464b580f15ecf59114a330a3837fcf9dd&scripts.postinstall=yarn%20install%20--ignore-scripts%20%26%26%20yarn%20build#16dcde897770faed2d7f1ae88c5d4b2dd74e2467"
+  dependencies:
+    cross-env "^7.0.3"
+    dotenv "^16.0.3"
+    react-spinners "^0.13.6"
+
 agent-base@6:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/agent-base/-/agent-base-6.0.2.tgz#49fff58577cfee3f37176feab4c22e00f86d7f77"
