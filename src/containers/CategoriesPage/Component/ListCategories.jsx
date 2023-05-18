@@ -1,14 +1,11 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withCategoryViewModel } from '../CategoryViewModel/CategoryViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
-import { Spinner } from 'aesirx-uikit';
-import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { history } from 'aesirx-uikit';
-import { notify } from 'aesirx-uikit';
+import { Spinner, history, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
 
 const ListCategories = observer((props) => {
   const { t } = props;
@@ -167,7 +164,9 @@ const ListCategories = observer((props) => {
     },
   ];
 
-  viewModel.initializeData();
+  useEffect(() => {
+    viewModel.initializeData();
+  }, []);
 
   const selectBulkActionsHandler = (value) => {
     if (listSelected.length < 1) {
