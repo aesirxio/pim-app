@@ -5,7 +5,7 @@
 
 import React, { useState } from 'react';
 
-import SelectComponent from '../../Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 
 const dataSelectOptionsAgeFrom = [
   { value: '18', label: '18' },

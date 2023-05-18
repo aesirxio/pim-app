@@ -18,4 +18,4 @@ class HelpCenterPage extends Component {
     );
   }
 }
-export default withTranslation('common')(HelpCenterPage);
+export default withTranslation()(HelpCenterPage);

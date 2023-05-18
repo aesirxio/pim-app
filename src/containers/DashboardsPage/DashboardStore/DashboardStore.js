@@ -3,9 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimDashboardApiService } from 'aesirx-dma-lib';
-import { AesirxPimProductApiService } from 'aesirx-dma-lib';
-import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
+import { AesirxPimDashboardApiService } from 'aesirx-lib';
+import { AesirxPimProductApiService } from 'aesirx-lib';
+import { AesirxPimUtilApiService } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class DashboardStore {

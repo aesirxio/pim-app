@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import SelectComponent from '../../../components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 
 import { components } from 'react-select';
 

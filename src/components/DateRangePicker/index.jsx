@@ -1,8 +1,9 @@
-import ComponentDatePicker from 'components/ComponentDatePicker';
+import { AesirXDatePicker } from 'aesirx-uikit';
 import ComponentSVG from 'components/ComponentSVG';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
+import moment from 'moment';
 
 const DateRangePicker = (props) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -10,17 +11,26 @@ const DateRangePicker = (props) => {
 
   const { placeholder, viewModel } = props;
 
+  const [dateRange, setDateRange] = useState([
+    moment(viewModel.filterDate['filter[start_date]']).toDate(),
+    moment(viewModel.filterDate['filter[end_date]']).toDate(),
+  ]);
+
+  const [startDate, endDate] = dateRange;
+
   return (
     <div
       ref={datePickerRef}
       className="bg-white rounded-1 daterange-picker-wrapper position-relative z-index-10 h-100 cursor-pointer"
     >
-      <ComponentDatePicker
+      <AesirXDatePicker
         isOpen={openDatePicker}
         setIsOpen={setOpenDatePicker}
         datePickerRef={datePickerRef}
         placeholder={placeholder}
-        viewModel={viewModel}
+        onChange={setDateRange}
+        dateStart={startDate}
+        dateEnd={endDate}
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
         <i className="icons text-green">
@@ -31,4 +41,4 @@ const DateRangePicker = (props) => {
   );
 };
 
-export default withTranslation('common')(DateRangePicker);
+export default withTranslation()(DateRangePicker);

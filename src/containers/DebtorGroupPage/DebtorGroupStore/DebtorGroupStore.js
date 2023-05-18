@@ -3,9 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimDebtorGroupApiService } from 'aesirx-dma-lib';
-import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { DebtorGroupItemModel } from 'aesirx-dma-lib';
+import { AesirxPimDebtorGroupApiService } from 'aesirx-lib';
+import { AesirxPimUtilApiService } from 'aesirx-lib';
+import { DebtorGroupItemModel } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class DebtorGroupStore {

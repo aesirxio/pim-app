@@ -1,11 +1,11 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 // import TagStore from 'containers/ProductsPage/TagStore/TagStore';
 // import TagViewModel from 'containers/ProductsPage/TagViewModel/TagViewModel';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
@@ -142,4 +142,4 @@ const CommonInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withProductViewModel(CommonInformation));
+export default withTranslation()(withProductViewModel(CommonInformation));

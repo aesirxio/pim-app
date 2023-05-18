@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -14,7 +14,7 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldInformation from './Component/FieldInformation';
@@ -176,4 +176,4 @@ const EditField = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withFieldViewModel(EditField)));
+export default withTranslation()(withRouter(withFieldViewModel(EditField)));

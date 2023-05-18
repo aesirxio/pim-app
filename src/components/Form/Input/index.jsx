@@ -44,4 +44,4 @@ const Input = ({ field, ...props }) => {
   );
 };
 
-export default withTranslation('common')(Input);
+export default withTranslation()(Input);

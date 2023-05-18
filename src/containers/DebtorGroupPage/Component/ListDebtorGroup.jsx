@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withDebtorGroupViewModel } from '../DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
-import history from 'routes/history';
+import { history } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import { notify } from 'components/Toast';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
 
 const ListDebtorGroup = observer((props) => {
   const { t } = props;
@@ -16,9 +16,7 @@ const ListDebtorGroup = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  useEffect(() => {
-    viewModel.initializeData();
-  }, []);
+  viewModel.initializeData();
 
   const columnsTable = [
     {
@@ -240,4 +238,4 @@ const ListDebtorGroup = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withDebtorGroupViewModel(ListDebtorGroup));
+export default withTranslation()(withDebtorGroupViewModel(ListDebtorGroup));

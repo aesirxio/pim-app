@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -30,4 +30,4 @@ const EditDebtorGroupProvider = observer(
     }
   }
 );
-export default withTranslation('common')(EditDebtorGroupProvider);
+export default withTranslation()(EditDebtorGroupProvider);

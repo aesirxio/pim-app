@@ -18,4 +18,4 @@ class DataStreamPage extends Component {
     );
   }
 }
-export default withTranslation('common')(DataStreamPage);
+export default withTranslation()(DataStreamPage);

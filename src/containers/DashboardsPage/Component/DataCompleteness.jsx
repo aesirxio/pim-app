@@ -36,4 +36,4 @@ const DataCompleteness = ({ t }) => {
     </div>
   );
 };
-export default withTranslation('common')(DataCompleteness);
+export default withTranslation()(DataCompleteness);

@@ -79,4 +79,4 @@ const RecentsActivities = ({ t }) => {
     </div>
   );
 };
-export default withTranslation('common')(RecentsActivities);
+export default withTranslation()(RecentsActivities);

@@ -72,4 +72,4 @@ const MostClickingPages = (props) => {
     </div>
   );
 };
-export default withTranslation('common')(MostClickingPages);
+export default withTranslation()(MostClickingPages);

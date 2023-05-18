@@ -37,4 +37,4 @@ const HomePage = (props) => {
   );
 };
 
-export default withTranslation('common')(HomePage);
+export default withTranslation()(HomePage);

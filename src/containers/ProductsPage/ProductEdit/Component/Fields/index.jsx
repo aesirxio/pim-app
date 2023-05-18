@@ -41,4 +41,4 @@ const FieldsTab = observer(
   }
 );
 
-export default withTranslation('common')(FieldsTab);
+export default withTranslation()(FieldsTab);

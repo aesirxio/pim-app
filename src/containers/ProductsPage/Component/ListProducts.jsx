@@ -1,14 +1,12 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { withProductViewModel } from '../ProductViewModel/ProductViewModelContextProvider';
 import Table from 'components/Table';
-import SelectComponent from 'components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import Spinner from 'components/Spinner';
-import history from 'routes/history';
+import { history, Spinner, notify } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
-import { notify } from 'components/Toast';
 import DateRangePicker from 'components/DateRangePicker';
 
 const ListProducts = observer((props) => {
@@ -17,9 +15,7 @@ const ListProducts = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  useEffect(() => {
-    viewModel.initializeData();
-  }, []);
+  viewModel.initializeData();
 
   const selectPageHandler = (value) => {
     if (value != viewModel.successResponse.pagination.page) {
@@ -385,4 +381,4 @@ const ListProducts = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withProductViewModel(ListProducts));
+export default withTranslation()(withProductViewModel(ListProducts));

@@ -4,7 +4,7 @@
  */
 
 import React from 'react';
-import SelectComponent from '../../components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons/faChevronLeft';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons/faChevronRight';

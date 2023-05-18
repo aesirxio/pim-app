@@ -28,4 +28,4 @@ const CategoriesPage = observer(
   }
 );
 
-export default withTranslation('common')(CategoriesPage);
+export default withTranslation()(CategoriesPage);

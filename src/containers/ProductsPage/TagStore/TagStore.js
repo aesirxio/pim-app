@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimTagApiService } from 'aesirx-dma-lib';
+import { AesirxPimTagApiService } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class TagStore {

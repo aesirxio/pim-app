@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -19,7 +19,7 @@ import './index.scss';
 // import RecentsActivities from './Component/RecentsActivities';
 // import DataCompleteness from './Component/DataCompleteness';
 import { withDashboardViewModel } from './DashboardViewModel/DashboardViewModelContextProvider';
-import { AUTHORIZATION_KEY, Storage, PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { AUTHORIZATION_KEY, Storage, PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import ListFeaturedProducts from './Component/ListFeaturedProducts';
 
@@ -152,4 +152,4 @@ const Dashboard = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withDashboardViewModel(Dashboard)));
+export default withTranslation()(withRouter(withDashboardViewModel(Dashboard)));
