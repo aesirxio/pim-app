@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withProductViewModel } from '../ProductViewModel/ProductViewModelContextProvider';
 import Table from 'components/Table';
@@ -15,7 +15,9 @@ const ListProducts = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  viewModel.initializeData();
+  useEffect(() => {
+    viewModel.initializeData();
+  }, []);
 
   const selectPageHandler = (value) => {
     if (value != viewModel.successResponse.pagination.page) {

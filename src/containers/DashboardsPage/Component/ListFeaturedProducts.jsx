@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import Table from 'components/Table';
 import { observer } from 'mobx-react-lite';
@@ -8,8 +8,10 @@ const ListFeaturedProducts = observer((props) => {
   const { t } = props;
   const viewModel = props.viewModel;
 
-  viewModel.isLoading();
-  viewModel.initializeData();
+  useEffect(() => {
+    viewModel.isLoading();
+    viewModel.initializeData();
+  }, []);
 
   return (
     <div className={`position-relative  ${!viewModel?.successResponse?.state ? 'mt-5' : ''} `}>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import ActionsBar from 'components/ActionsBar';
@@ -16,7 +16,9 @@ const ListFields = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  viewModel.initializeData();
+  useEffect(() => {
+    viewModel.initializeData();
+  }, []);
 
   const columnsTable = [
     {
