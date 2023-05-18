@@ -1,5 +1,5 @@
 // import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { observer } from 'mobx-react';

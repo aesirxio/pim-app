@@ -16,7 +16,7 @@ import ActionsBar from 'components/ActionsBar';
 import CommonInformation from './Component/CommonInformation';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
-import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import Input from 'components/Form/Input';
 import ProductInformation from './Component/ProductInformation';
 import FieldsTab from './Component/Fields';

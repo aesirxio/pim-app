@@ -6,7 +6,7 @@
 import history from '../routes/history';
 import { notify } from '../components/Toast';
 
-import { Storage, AesirxAuthenticationApiService } from 'aesirx-dma-lib';
+import { Storage, AesirxAuthenticationApiService } from 'aesirx-lib';
 
 // LOGIN
 const login = async ({ username, password }) => {

@@ -1,5 +1,5 @@
 import { FORMAT_DATE_UPDATE_POST, FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';

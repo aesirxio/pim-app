@@ -12,7 +12,7 @@ import EditHeader from 'components/EditHeader';
 import SimpleReactValidator from 'simple-react-validator';
 import PublishOptions from 'components/PublishOptions';
 import ActionsBar from 'components/ActionsBar';
-import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import ComponentSVG from 'components/ComponentSVG';
 
 const EditVariant = observer(

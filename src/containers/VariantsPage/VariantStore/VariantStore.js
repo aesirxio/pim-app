@@ -1,4 +1,4 @@
-import { AesirxPimVariantApiService, VariantItemModel } from 'aesirx-dma-lib';
+import { AesirxPimVariantApiService, VariantItemModel } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class VariantStore {

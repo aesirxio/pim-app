@@ -3,9 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { AesirxPimProductPriceApiService } from 'aesirx-dma-lib';
-import { AesirxPimUtilApiService } from 'aesirx-dma-lib';
-import { ProductPriceItemModel } from 'aesirx-dma-lib';
+import { AesirxPimProductPriceApiService } from 'aesirx-lib';
+import { AesirxPimUtilApiService } from 'aesirx-lib';
+import { ProductPriceItemModel } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class ProductPriceStore {

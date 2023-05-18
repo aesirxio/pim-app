@@ -6,7 +6,7 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Dropdown } from 'react-bootstrap';
-import { Storage, AUTHORIZATION_KEY } from 'aesirx-dma-lib';
+import { Storage, AUTHORIZATION_KEY } from 'aesirx-lib';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
 

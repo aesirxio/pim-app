@@ -19,7 +19,7 @@ import './index.scss';
 // import RecentsActivities from './Component/RecentsActivities';
 // import DataCompleteness from './Component/DataCompleteness';
 import { withDashboardViewModel } from './DashboardViewModel/DashboardViewModelContextProvider';
-import { AUTHORIZATION_KEY, Storage, PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { AUTHORIZATION_KEY, Storage, PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import ListFeaturedProducts from './Component/ListFeaturedProducts';
 
