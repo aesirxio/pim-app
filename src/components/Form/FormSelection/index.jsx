@@ -50,6 +50,7 @@ class FormSelection extends Component {
               arrowColor={this.props.field?.arrowColor}
               placeholder={this.props.field?.placeholder}
               isDisabled={this.props.field?.isDisabled}
+              size="large"
             />
           </>
         )}

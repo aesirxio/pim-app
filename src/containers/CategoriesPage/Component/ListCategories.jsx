@@ -18,7 +18,7 @@ const ListCategories = observer((props) => {
       Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <>
@@ -60,7 +60,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_parent_cate'),
       accessor: 'parentName',
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -140,7 +140,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -289,6 +289,7 @@ const ListCategories = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             onChange={(o) => selectBulkActionsHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
           <SelectComponent
             options={viewModel?.successResponse?.listCategoriesWithoutPagination}
@@ -298,6 +299,7 @@ const ListCategories = observer((props) => {
             plColor={`text-color`}
             onChange={(o) => selectCategoryHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
         <div className="d-flex align-items-center">
@@ -316,6 +318,7 @@ const ListCategories = observer((props) => {
             isBorder={true}
             placeholder={`Select`}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
       </div>

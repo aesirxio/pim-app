@@ -79,7 +79,7 @@ const FormImage = ({ field, ...props }) => {
           </Row>
           <Button
             variant={`light`}
-            className={` px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border`}
+            className={` px-24 py-10 fw-semibold d-flex align-items-center rounded-1 border`}
             onClick={() => {
               setShow(true);
             }}

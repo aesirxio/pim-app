@@ -25,7 +25,7 @@ const ListDebtorGroup = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <div className="opacity-80">{value}</div>;
       },
@@ -34,7 +34,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_name'),
       accessor: 'title',
       width: 250,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value, row }) => {
         return (
           <div className="py-8px">
@@ -57,7 +57,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_debtor_group_code'),
       accessor: 'code',
       width: 250,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -66,7 +66,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_owner_company'),
       accessor: 'organisationName',
       width: 250,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -75,7 +75,7 @@ const ListDebtorGroup = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 250,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -199,6 +199,7 @@ const ListDebtorGroup = observer((props) => {
                 placeholder={t('txt_bulk_actions')}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
             </div>
             <div className="d-flex align-items-center">
@@ -217,6 +218,7 @@ const ListDebtorGroup = observer((props) => {
                 isBorder={true}
                 placeholder={`Select`}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
             </div>
           </div>

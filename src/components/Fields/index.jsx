@@ -165,8 +165,9 @@ const FieldsList = observer(
                     ) {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                        { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data }
+                        { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ?? '' }
                       );
+                      console.log('this.props.detailViewModal', this.props.detailViewModal);
                     } else {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],

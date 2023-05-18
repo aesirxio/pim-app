@@ -75,7 +75,7 @@ const ListProductPrice = observer((props) => {
       Header: 'Id',
       accessor: 'id',
       width: 60,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -84,7 +84,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_product_name'),
       accessor: 'productInfo',
       width: 150,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value, row }) => {
         return (
           <div className="d-flex align-items-center">
@@ -129,7 +129,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_debtor_group'),
       accessor: 'debtorGroup',
       width: 200,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value.map((o) => o.title).join(', ')}</>;
       },
@@ -138,7 +138,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_price'),
       accessor: 'price',
       width: 200,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <>{parseInt(value).toLocaleString('it-IT', { style: 'currency', currency: 'VND' })}</>
@@ -149,7 +149,7 @@ const ListProductPrice = observer((props) => {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
       width: 150,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -229,6 +229,7 @@ const ListProductPrice = observer((props) => {
                 placeholder={t('txt_bulk_actions')}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
             </div>
             <div className="d-flex align-items-center">
@@ -247,6 +248,7 @@ const ListProductPrice = observer((props) => {
                 isBorder={true}
                 placeholder={`Select`}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
             </div>
           </div>

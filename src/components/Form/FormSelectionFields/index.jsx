@@ -168,7 +168,7 @@ class FormSelectionFields extends Component {
 
                 <Button
                   variant={`light`}
-                  className={`px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1 mt-16`}
+                  className={`px-24 py-10 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1 mt-16`}
                   onClick={() => {
                     if (this.state.listOptions.length) {
                       this.setState((prevState) => {

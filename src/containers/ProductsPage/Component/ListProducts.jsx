@@ -145,6 +145,7 @@ const ListProducts = observer((props) => {
                 placeholder={t('txt_bulk_actions')}
                 onChange={(o) => selectBulkActionsHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
               <SelectComponent
                 options={[
@@ -156,6 +157,7 @@ const ListProducts = observer((props) => {
                 placeholder={`Product Type`}
                 onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
               <SelectComponent
                 options={viewModel?.successResponse?.listCategories}
@@ -164,6 +166,7 @@ const ListProducts = observer((props) => {
                 placeholder={t('txt_all_categories')}
                 onChange={(o) => selectCategoryHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
               <div className="h-auto shadow-sm">
                 <DateRangePicker placeholder={t('txt_all_dates')} viewModel={viewModel} />
@@ -181,10 +184,11 @@ const ListProducts = observer((props) => {
                   value: (index + 1) * 10,
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}
-                className={`fs-sm bg-white shadow-sm rounded-2`}
+                className={`fs-sm bg-white shadow-sm rounded-2 h-100`}
                 isBorder={false}
                 placeholder={`Select`}
                 arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
               />
             </div>
           </div>
@@ -198,7 +202,7 @@ const ListProducts = observer((props) => {
               Header: 'Id',
               accessor: 'id',
               width: 60,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
               Cell: ({ value }) => {
                 return <div>{value}</div>;
               },
@@ -207,7 +211,7 @@ const ListProducts = observer((props) => {
               Header: t('txt_product_name'),
               accessor: 'productInfo',
               width: 300,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
               Cell: ({ value, row }) => {
                 return (
                   <div className="d-flex align-items-center">
@@ -255,7 +259,7 @@ const ListProducts = observer((props) => {
             {
               Header: t('txt_categories'),
               accessor: 'categories',
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
               Cell: ({ value }) => {
                 return <>{value}</>;
               },
@@ -264,12 +268,12 @@ const ListProducts = observer((props) => {
               Header: t('txt_type'),
               accessor: 'type',
               width: 100,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
               Cell: ({ value }) => {
                 if (value) {
                   return (
                     <div
-                      className={`text-uppercase fw-semi ${
+                      className={`text-uppercase fw-semibold ${
                         value === 'indoor' ? 'text-success' : 'text-danger'
                       }`}
                       role={`alert`}
@@ -296,7 +300,7 @@ const ListProducts = observer((props) => {
               Header: t('txt_author'),
               accessor: 'author',
               width: 100,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
               Cell: ({ value }) => {
                 return <>{value}</>;
               },
@@ -347,7 +351,7 @@ const ListProducts = observer((props) => {
               Header: t('txt_last_modified'),
               accessor: 'lastModified',
               width: 150,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
               Cell: ({ value }) => {
                 return (
                   <div className="pe-2">

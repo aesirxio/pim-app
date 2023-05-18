@@ -25,7 +25,7 @@ const ListFields = observer((props) => {
       Header: t('txt_field_name'),
       accessor: 'field',
       width: 200,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center py-8px">
@@ -50,7 +50,7 @@ const ListFields = observer((props) => {
       Header: t('txt_field_group'),
       accessor: 'groupName',
       width: 100,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -59,7 +59,7 @@ const ListFields = observer((props) => {
       Header: t('txt_type'),
       accessor: 'type',
       width: 100,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <div className="text-capitalize">{value}</div>;
       },
@@ -165,6 +165,7 @@ const ListFields = observer((props) => {
             placeholder={t('txt_bulk_actions')}
             onChange={(o) => selectBulkActionsHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
         <div className="d-flex align-items-center">
@@ -183,6 +184,7 @@ const ListFields = observer((props) => {
             isBorder={true}
             placeholder={`Select`}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
       </div>
