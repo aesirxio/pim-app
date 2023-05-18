@@ -2,7 +2,6 @@ import React from 'react';
 import { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 
 const HeaderFilterComponent = ({
