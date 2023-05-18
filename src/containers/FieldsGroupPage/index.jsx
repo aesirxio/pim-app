@@ -31,4 +31,4 @@ const FieldsGroupPage = observer(
   }
 );
 
-export default withTranslation('common')(FieldsGroupPage);
+export default withTranslation()(FieldsGroupPage);

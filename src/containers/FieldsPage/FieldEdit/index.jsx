@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -176,4 +176,4 @@ const EditField = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withFieldViewModel(EditField)));
+export default withTranslation()(withRouter(withFieldViewModel(EditField)));

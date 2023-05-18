@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -142,4 +142,4 @@ const EditProductPrice = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withProductPriceViewModel(EditProductPrice)));
+export default withTranslation()(withRouter(withProductPriceViewModel(EditProductPrice)));

@@ -362,4 +362,4 @@ const recursive = (oldArrs, oldItem, arrays) => {
   return test;
 };
 
-export default withTranslation('common')(Variants);
+export default withTranslation()(Variants);

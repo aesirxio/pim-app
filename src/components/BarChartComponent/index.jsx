@@ -49,4 +49,4 @@ const BarChartComponent = (props) => {
     </div>
   );
 };
-export default withTranslation('common')(BarChartComponent);
+export default withTranslation()(BarChartComponent);

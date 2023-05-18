@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState } from 'react';
 import { ButtonGroup, Button } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 
 const HeaderFilterComponent = ({
@@ -81,4 +82,4 @@ const HeaderFilterComponent = ({
   );
 };
 
-export default withTranslation('common')(HeaderFilterComponent);
+export default withTranslation()(HeaderFilterComponent);

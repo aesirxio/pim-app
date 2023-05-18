@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import { withProductViewModel } from '../../ProductViewModel/ProductViewModelContextProvider';
 
 const ProductInformation = observer(
@@ -133,4 +133,4 @@ const ProductInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withProductViewModel(ProductInformation));
+export default withTranslation()(withProductViewModel(ProductInformation));

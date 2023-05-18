@@ -27,4 +27,4 @@ const DebtorGroupPage = observer(
   }
 );
 
-export default withTranslation('common')(DebtorGroupPage);
+export default withTranslation()(DebtorGroupPage);

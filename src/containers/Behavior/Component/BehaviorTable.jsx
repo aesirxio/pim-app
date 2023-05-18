@@ -155,4 +155,4 @@ const BehaviorTable = () => {
     </div>
   );
 };
-export default withTranslation('common')(BehaviorTable);
+export default withTranslation()(BehaviorTable);

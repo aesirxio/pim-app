@@ -18,4 +18,4 @@ class UTMTrackingPage extends Component {
     );
   }
 }
-export default withTranslation('common')(UTMTrackingPage);
+export default withTranslation()(UTMTrackingPage);

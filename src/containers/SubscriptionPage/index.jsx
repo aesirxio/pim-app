@@ -18,4 +18,4 @@ class SubscriptionPage extends Component {
     );
   }
 }
-export default withTranslation('common')(SubscriptionPage);
+export default withTranslation()(SubscriptionPage);

@@ -110,4 +110,4 @@ const ModalVariantsFields = observer(
     }
   }
 );
-export default withTranslation('common')(ModalVariantsFields);
+export default withTranslation()(ModalVariantsFields);

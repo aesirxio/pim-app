@@ -1,14 +1,14 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withFieldGroupViewModel } from '../FieldGroupViewModel/FieldGroupViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
 import Table from 'components/Table';
-import Spinner from 'components/Spinner';
-import history from 'routes/history';
+import { Spinner } from 'aesirx-uikit';
+import { history } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import { notify } from 'components/Toast';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
 
 const ListFieldsGroup = observer((props) => {
   const { t } = props;
@@ -16,9 +16,7 @@ const ListFieldsGroup = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  useEffect(() => {
-    viewModel.initializeData();
-  }, []);
+  viewModel.initializeData();
 
   const columnsTable = [
     {
@@ -193,4 +191,4 @@ const ListFieldsGroup = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withFieldGroupViewModel(ListFieldsGroup));
+export default withTranslation()(withFieldGroupViewModel(ListFieldsGroup));

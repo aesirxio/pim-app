@@ -4,7 +4,7 @@
  */
 
 import ComponentSVG from 'components/ComponentSVG';
-import ModalDAMComponent from 'components/ModalDamComponent';
+import { ModalDAMComponent } from 'aesirx-uikit';
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
@@ -129,4 +129,4 @@ const FormImage = ({ field, ...props }) => {
   );
 };
 
-export default withTranslation('common')(FormImage);
+export default withTranslation()(FormImage);

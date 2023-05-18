@@ -5,7 +5,7 @@
 
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { notify } from '../../../components/Toast';
+import { notify } from 'aesirx-uikit';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class CategoryDetailViewModel {
   categoryStore = null;

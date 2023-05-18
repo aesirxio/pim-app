@@ -124,4 +124,4 @@ const AreaChartComponent = ({
     </div>
   );
 };
-export default withTranslation('common')(AreaChartComponent);
+export default withTranslation()(AreaChartComponent);

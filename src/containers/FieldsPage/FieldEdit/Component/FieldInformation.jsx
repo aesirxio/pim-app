@@ -3,7 +3,7 @@ import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
@@ -271,4 +271,4 @@ const FieldInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withFieldViewModel(FieldInformation));
+export default withTranslation()(withFieldViewModel(FieldInformation));

@@ -2,7 +2,7 @@ import Button from 'components/Button';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
-import SelectComponent from 'components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import Table from 'components/Table';
 import { Tab, Tabs } from 'react-bootstrap';
 
@@ -134,4 +134,4 @@ class MembersListPage extends Component {
     );
   }
 }
-export default withTranslation('common')(MembersListPage);
+export default withTranslation()(MembersListPage);

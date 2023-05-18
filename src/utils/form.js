@@ -8,7 +8,6 @@ import Label from '../components/Form/Label';
 import { FORM_FIELD_TYPE } from '../constants/FormFieldType';
 import { Form } from 'react-bootstrap';
 import FormAgeField from '../components/Form/FormAgeField';
-import FormLocationField from '../components/Form/FormLocationField';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
@@ -208,14 +207,6 @@ const renderingGroupFieldHandler = (group, validator) => {
                     validator.message(field.label, field.valueFrom, field.validation, {
                       className: 'text-danger',
                     })}
-                </Form.Group>
-              );
-
-            case FORM_FIELD_TYPE.LOCATION:
-              return (
-                <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
-                  <FormLocationField field={field} validator={validator} />
                 </Form.Group>
               );
 

@@ -5,7 +5,7 @@
 
 import PAGE_STATUS from '../../../constants/PageStatus';
 import { makeAutoObservable, runInAction } from 'mobx';
-import { notify } from '../../../components/Toast';
+import { notify } from 'aesirx-uikit';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 // import moment from 'moment';
 class FieldListViewModel {

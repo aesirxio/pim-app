@@ -296,4 +296,4 @@ const FieldsList = observer(
   }
 );
 
-export default withTranslation('common')(withFieldViewModel(FieldsList));
+export default withTranslation()(withFieldViewModel(FieldsList));

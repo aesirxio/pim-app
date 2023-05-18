@@ -2,11 +2,11 @@ import SearchComponent from './SearchComponent';
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 // import ActionComponent from './ActionComponent';
-import ComponentDatePicker from 'components/ComponentDatePicker';
+import { AesirXDatePicker as ComponentDatePicker } from 'aesirx-uikit';
 import ComponentSVG from 'components/ComponentSVG';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faChevronDown } from '@fortawesome/free-solid-svg-icons/faChevronDown';
-import SelectComponent from 'components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 
 const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) => {
   const [openDatePicker, setOpenDatePicker] = useState(false);
@@ -88,4 +88,4 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
   );
 };
 
-export default withTranslation('common')(ComponentFilter);
+export default withTranslation()(ComponentFilter);

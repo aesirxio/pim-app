@@ -119,4 +119,4 @@ const ModalVariantsPrice = ({
     />
   );
 };
-export default withTranslation('common')(ModalVariantsPrice);
+export default withTranslation()(ModalVariantsPrice);

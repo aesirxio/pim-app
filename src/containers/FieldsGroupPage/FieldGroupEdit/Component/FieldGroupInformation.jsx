@@ -72,4 +72,4 @@ const FieldGroupInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withFieldGroupViewModel(FieldGroupInformation));
+export default withTranslation()(withFieldGroupViewModel(FieldGroupInformation));

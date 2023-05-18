@@ -88,4 +88,4 @@ class RevenuePage extends Component {
     );
   }
 }
-export default withTranslation('common')(RevenuePage);
+export default withTranslation()(RevenuePage);

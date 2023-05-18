@@ -3,7 +3,7 @@ import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withDebtorGroupViewModel } from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
@@ -61,4 +61,4 @@ const DebtorGroupInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withDebtorGroupViewModel(DebtorGroupInformation));
+export default withTranslation()(withDebtorGroupViewModel(DebtorGroupInformation));

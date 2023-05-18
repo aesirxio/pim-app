@@ -179,4 +179,4 @@ const PublishOptions = observer(
     }
   }
 );
-export default withTranslation('common')(PublishOptions);
+export default withTranslation()(PublishOptions);

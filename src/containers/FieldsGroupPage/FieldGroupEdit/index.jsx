@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../../components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -207,4 +207,4 @@ const EditFieldGroup = observer(
   }
 );
 
-export default withTranslation('common')(withRouter(withFieldGroupViewModel(EditFieldGroup)));
+export default withTranslation()(withRouter(withFieldGroupViewModel(EditFieldGroup)));

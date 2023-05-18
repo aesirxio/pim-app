@@ -7,4 +7,4 @@ const ProductAsset = ({ t }) => {
     </>
   );
 };
-export default withTranslation('common')(ProductAsset);
+export default withTranslation()(ProductAsset);

@@ -167,4 +167,4 @@ class BehaviorOverviewPage extends Component {
     );
   }
 }
-export default withTranslation('common')(BehaviorOverviewPage);
+export default withTranslation()(BehaviorOverviewPage);

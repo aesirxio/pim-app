@@ -27,4 +27,4 @@ const FieldsPage = observer(
   }
 );
 
-export default withTranslation('common')(FieldsPage);
+export default withTranslation()(FieldsPage);

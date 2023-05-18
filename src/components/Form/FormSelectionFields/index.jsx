@@ -9,7 +9,7 @@ import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 
-import SelectComponent from '../../../components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import CreatableComponent from '../../../components/Select/Creatable';
 import FormRadio from '../FormRadio';
 import Input from '../Input';
@@ -291,4 +291,4 @@ class FormSelectionFields extends Component {
   }
 }
 
-export default withTranslation('common')(FormSelectionFields);
+export default withTranslation()(FormSelectionFields);

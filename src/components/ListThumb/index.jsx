@@ -12,7 +12,7 @@ import { faList } from '@fortawesome/free-solid-svg-icons/faList';
 import { faTh } from '@fortawesome/free-solid-svg-icons/faTh';
 import { faColumns } from '@fortawesome/free-solid-svg-icons/faColumns';
 
-import SelectComponent from '../Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 
 const optionAction = [
   { value: 'action-1', label: 'Action 1' },
@@ -132,4 +132,4 @@ class ListThumb extends React.Component {
   }
 }
 
-export default withTranslation('common')(ListThumb);
+export default withTranslation()(ListThumb);

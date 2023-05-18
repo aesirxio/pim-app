@@ -1,15 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withProductPriceViewModel } from '../ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import { Tab, Tabs } from 'react-bootstrap';
-import SelectComponent from 'components/Select';
-import Spinner from 'components/Spinner';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { Spinner } from 'aesirx-uikit';
 import Table from 'components/Table';
 import '../index.scss';
 import ActionsBar from 'components/ActionsBar';
-import history from 'routes/history';
-import { notify } from 'components/Toast';
+import { history } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
 
 const ListProductPrice = observer((props) => {
   const { t } = props;
@@ -17,9 +17,7 @@ const ListProductPrice = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  useEffect(() => {
-    viewModel.initializeData();
-  }, []);
+  viewModel.initializeData();
 
   const selectTabHandler = (value) => {
     viewModel.isLoading();
@@ -270,4 +268,4 @@ const ListProductPrice = observer((props) => {
   );
 });
 
-export default withTranslation('common')(withProductPriceViewModel(ListProductPrice));
+export default withTranslation()(withProductPriceViewModel(ListProductPrice));
