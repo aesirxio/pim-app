@@ -4,11 +4,10 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../components/Spinner';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import PAGE_STATUS from 'constants/PageStatus';
+
 import DashboardStore from 'containers/DashboardsPage/DashboardStore/DashboardStore';
 import DashboardViewModel from 'containers/DashboardsPage/DashboardViewModel/DashboardViewModel';
 import { DashboardViewModelContextProvider } from 'containers/DashboardsPage/DashboardViewModel/DashboardViewModelContextProvider';
@@ -19,9 +18,6 @@ const dashboardViewModel = new DashboardViewModel(dashboardStore);
 const DashboardProvider = observer(
   class DashboardProvider extends Component {
     render() {
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       return (
         <DashboardViewModelContextProvider viewModel={dashboardViewModel}>
           <Dashboard />
@@ -30,4 +26,4 @@ const DashboardProvider = observer(
     }
   }
 );
-export default withTranslation('common')(DashboardProvider);
+export default withTranslation()(DashboardProvider);

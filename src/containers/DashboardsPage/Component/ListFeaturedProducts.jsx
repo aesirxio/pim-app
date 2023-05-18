@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withTranslation } from 'react-i18next';
 import Table from 'components/Table';
 import { observer } from 'mobx-react-lite';
-import Spinner from 'components/Spinner';
-// import history from 'routes/history';
+import { Spinner } from 'aesirx-uikit';
 
 const ListFeaturedProducts = observer((props) => {
   const { t } = props;
   const viewModel = props.viewModel;
 
-  useEffect(async () => {
-    viewModel.isLoading();
-    viewModel.initializeData();
-  }, []);
+  viewModel.isLoading();
+  viewModel.initializeData();
 
   return (
     <div className={`position-relative  ${!viewModel?.successResponse?.state ? 'mt-5' : ''} `}>
@@ -160,4 +157,4 @@ const ListFeaturedProducts = observer((props) => {
   );
 });
 
-export default withTranslation('common')(ListFeaturedProducts);
+export default withTranslation()(ListFeaturedProducts);

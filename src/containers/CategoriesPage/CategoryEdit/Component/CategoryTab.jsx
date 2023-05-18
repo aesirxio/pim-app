@@ -92,4 +92,4 @@ const CategoryTab = observer(
     }
   }
 );
-export default withTranslation('common')(CategoryTab);
+export default withTranslation()(CategoryTab);

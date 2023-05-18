@@ -167,4 +167,4 @@ class BehaviorClickAnchorPage extends Component {
     );
   }
 }
-export default withTranslation('common')(BehaviorClickAnchorPage);
+export default withTranslation()(BehaviorClickAnchorPage);

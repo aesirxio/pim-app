@@ -1,6 +1,7 @@
 import { CKEditor } from '@ckeditor/ckeditor5-react';
 import React, { useState } from 'react';
-import ModalDAMComponent from 'components/ModalDamComponent';
+
+import { ModalDAMComponent } from 'aesirx-uikit';
 import styles from './index.module.scss';
 import './index.scss';
 import ComponentSVG from 'components/ComponentSVG';

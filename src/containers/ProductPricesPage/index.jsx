@@ -23,4 +23,4 @@ const ProductPrice = observer(
   }
 );
 
-export default withTranslation('common')(ProductPrice);
+export default withTranslation()(ProductPrice);

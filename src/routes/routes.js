@@ -3,14 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-// import { isLogin } from 'auth';
-
 import React, { lazy } from 'react';
-// import { Redirect } from 'react-router-dom';
+import { LoginPage, ProfilePage, DigitalAssetsPage } from 'aesirx-uikit';
 
-const LoginPage = lazy(() => import('../containers/LoginPage'));
-
-const WelcomePage = lazy(() => import('../containers/WelcomePage'));
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
 const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
 const MembersListPage = lazy(() => import('../containers/MembersListPage'));
@@ -22,13 +17,10 @@ const EditProductProvider = lazy(() => import('containers/ProductsPage/edit'));
 const EditCategoryProvider = lazy(() => import('containers/CategoriesPage/edit'));
 const EditFieldProvider = lazy(() => import('containers/FieldsPage/edit'));
 const EditFieldGroupProvider = lazy(() => import('containers/FieldsGroupPage/edit'));
-const DigitalAssetsPage = lazy(() => import('containers/DigitalAssetsPage'));
+
 const EditDebtorGroupProvider = lazy(() => import('containers/DebtorGroupPage/edit'));
 const EditProductPriceProvider = lazy(() => import('containers/ProductPricesPage/edit'));
-
 const EditVariantProvider = lazy(() => import('containers/VariantsPage/edit'));
-
-const ProfilePage = lazy(() => import('../containers/ProfilePage'));
 const ProductsPage = lazy(() => import('../containers/ProductsPage'));
 const ProductPrice = lazy(() => import('../containers/ProductPricesPage'));
 const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
@@ -40,7 +32,7 @@ const authRoutes = [
   {
     path: '/login',
     exact: true,
-    main: () => <LoginPage />,
+    main: () => <LoginPage text="PIM" />,
   },
 ];
 
@@ -192,12 +184,7 @@ const settingRoutes = [
   {
     path: '/profile',
     exact: false,
-    main: ({ match, location }) => <ProfilePage match={match} location={location} />,
-  },
-  {
-    path: '/welcome',
-    exact: true,
-    main: () => <WelcomePage />,
+    main: () => <ProfilePage />,
   },
 ];
 

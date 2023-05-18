@@ -1,4 +1,4 @@
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 
 export const transform = (data) => {

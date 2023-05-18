@@ -21,4 +21,4 @@ function SearchComponent({ ...props }) {
   );
 }
 
-export default withTranslation('common')(SearchComponent);
+export default withTranslation()(SearchComponent);

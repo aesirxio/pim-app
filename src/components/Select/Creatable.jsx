@@ -8,7 +8,7 @@ import React from 'react';
 import CreatableSelect from 'react-select/creatable';
 import { components } from 'react-select';
 import customStyles from './customStyles';
-import { ThemesContext } from 'themes/ThemeContextProvider';
+import { ThemesContext } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import ComponentSVG from 'components/ComponentSVG';
 
@@ -43,7 +43,6 @@ class CreatableComponent extends React.Component {
     }
   };
 
-  componentDidMount() {}
   render() {
     const { t } = this.props;
     const { theme } = this.context;
@@ -125,4 +124,4 @@ class CreatableComponent extends React.Component {
 }
 
 CreatableComponent.contextType = ThemesContext;
-export default withTranslation('common')(CreatableComponent);
+export default withTranslation()(CreatableComponent);

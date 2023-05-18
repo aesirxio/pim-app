@@ -1,4 +1,4 @@
-import ComponentDatePicker from 'components/ComponentDatePicker';
+import { AesirXDatePicker as ComponentDatePicker } from 'aesirx-uikit';
 import ComponentSVG from 'components/ComponentSVG';
 import React, { useRef, useState } from 'react';
 

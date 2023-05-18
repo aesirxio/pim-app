@@ -1,9 +1,9 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
@@ -142,4 +142,4 @@ const CategoryInformation = observer(
     }
   }
 );
-export default withTranslation('common')(withCategoryViewModel(CategoryInformation));
+export default withTranslation()(withCategoryViewModel(CategoryInformation));

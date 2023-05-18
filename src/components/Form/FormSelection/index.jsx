@@ -5,7 +5,7 @@
 
 import React, { Component } from 'react';
 
-import SelectComponent from '../../../components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import CreatableComponent from '../../../components/Select/Creatable';
 import './index.scss';
 

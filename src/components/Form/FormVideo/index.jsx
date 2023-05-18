@@ -5,7 +5,7 @@
 
 import ComponentSVG from 'components/ComponentSVG';
 import ComponentVideo from 'components/ComponentVideo';
-import ModalDAMComponent from 'components/ModalDamComponent';
+import { ModalDAMComponent } from 'aesirx-uikit';
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 

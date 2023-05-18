@@ -10,9 +10,9 @@
 
 import PAGE_STATUS from 'constants/PageStatus';
 import { makeAutoObservable } from 'mobx';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-dma-lib';
+import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 class ProductListViewModel {
   productStore = null;
   formStatus = PAGE_STATUS.READY;

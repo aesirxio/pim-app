@@ -1,5 +1,5 @@
 import GeoChart from 'components/GeoChart';
-import SelectComponent from 'components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import React, { useEffect, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 const ComponentContinent = ({ t }) => {
@@ -123,4 +123,4 @@ const ComponentContinent = ({ t }) => {
     </div>
   );
 };
-export default withTranslation('common')(ComponentContinent);
+export default withTranslation()(ComponentContinent);

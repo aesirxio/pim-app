@@ -28,4 +28,4 @@ const ProductsPage = observer(
   }
 );
 
-export default withTranslation('common')(ProductsPage);
+export default withTranslation()(ProductsPage);

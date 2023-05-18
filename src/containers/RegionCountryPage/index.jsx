@@ -18,4 +18,4 @@ class RegionCountryPage extends Component {
     );
   }
 }
-export default withTranslation('common')(RegionCountryPage);
+export default withTranslation()(RegionCountryPage);

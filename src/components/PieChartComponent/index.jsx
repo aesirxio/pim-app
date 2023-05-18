@@ -1,4 +1,4 @@
-import Spinner from 'components/Spinner';
+import { Spinner } from 'aesirx-uikit';
 import React from 'react';
 import { useState } from 'react';
 import { Cell, Label, Legend, Pie, PieChart, ResponsiveContainer, Sector, Text } from 'recharts';
@@ -213,4 +213,4 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
   );
 };
 
-export default withTranslation('common')(PieChartComponent);
+export default withTranslation()(PieChartComponent);

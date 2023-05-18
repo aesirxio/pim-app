@@ -4,7 +4,8 @@
  */
 
 import React, { Component } from 'react';
-import Spinner from '../../components/Spinner';
+
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -31,4 +32,4 @@ const EditVariantProvider = observer(
     }
   }
 );
-export default withTranslation('common')(EditVariantProvider);
+export default withTranslation()(EditVariantProvider);

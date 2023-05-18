@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import SelectComponent from '../../../components/Select';
+import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 
 class FormSelectionPersona extends Component {
   constructor(props) {
