@@ -167,7 +167,11 @@ const FieldsList = observer(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
                         { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ?? '' }
                       );
-                      console.log('this.props.detailViewModal', this.props.detailViewModal);
+                    } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR) {
+                      this.props.detailViewModal.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                        { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data }
+                      );
                     } else {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
