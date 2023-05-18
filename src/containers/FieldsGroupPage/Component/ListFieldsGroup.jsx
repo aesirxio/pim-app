@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withFieldGroupViewModel } from '../FieldGroupViewModel/FieldGroupViewModelContextProvider';
@@ -16,7 +16,9 @@ const ListFieldsGroup = observer((props) => {
 
   const viewModel = props.viewModel;
 
-  viewModel.initializeData();
+  useEffect(() => {
+    viewModel.initializeData();
+  }, []);
 
   const columnsTable = [
     {
