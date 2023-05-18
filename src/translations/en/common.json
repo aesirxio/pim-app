@@ -345,5 +345,6 @@
   "txt_seo_page_title": "SEO page title",
   "txt_seo_page_heading": "SEO page heading",
   "txt_seo_page_description": "SEO page description",
-  "txt_seo_page_keywords": "SEO page keywords"
+  "txt_seo_page_keywords": "SEO page keywords",
+  "txt_field_change_warning":"Please be careful! Change your field type, the existing database this field on items could be LOST due to different data type."
 }

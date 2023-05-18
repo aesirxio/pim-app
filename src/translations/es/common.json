@@ -341,5 +341,6 @@
   "txt_seo_page_title": "Título de la página SEO",
   "txt_seo_page_heading": "Encabezado de página SEO",
   "txt_seo_page_description": "Descripción de la página SEO",
-  "txt_seo_page_keywords": "Palabras clave de la página SEO"
+  "txt_seo_page_keywords": "Palabras clave de la página SEO",
+  "txt_field_change_warning":"¡Por favor tenga cuidado! Cambie su tipo de campo, la base de datos existente este campo en elementos podría PERDERSE debido a un tipo de datos diferente."
 }

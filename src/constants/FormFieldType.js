@@ -6,7 +6,7 @@
 const FORM_FIELD_TYPE = {
   INPUT: 'text',
   TEXTAREA: 2,
-  CHECKBOX: 3,
+  CHECKBOX: 'checkbox',
   NUMBER: 'number',
   DROPDOWN: 5,
   IMAGE: 'aesir_dam_asset',

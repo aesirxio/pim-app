@@ -16,6 +16,7 @@ import Input from '../Input';
 import Label from '../Label';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
+import { notify } from 'components/Toast';
 
 class FormSelectionFields extends Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class FormSelectionFields extends Component {
   }
 
   handleChange = (data) => {
+    notify(this.props.t('txt_field_change_warning'), 'warn');
     this.props.field.handleChange(data);
     this.setState({ field: data });
   };
@@ -95,7 +97,8 @@ class FormSelectionFields extends Component {
               />
             )}
             {(this.state.field?.value === FORM_FIELD_TYPE.SELECTION ||
-              this.state.field?.value === FORM_FIELD_TYPE.RADIO) && (
+              this.state.field?.value === FORM_FIELD_TYPE.RADIO ||
+              this.state.field?.value === FORM_FIELD_TYPE.CHECKBOX) && (
               <>
                 {this.state.listOptions.length
                   ? this.state.listOptions.map((option, index) => (

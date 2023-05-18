@@ -337,5 +337,6 @@
   "txt_all_dates": "Tất cả các ngày",
   "txt_nodata": "Không có dữ liệu",
   "txt_noopions": "Không có lựa chọn",
-  "txt_field_required_error_message": "Vui lòng nhập :attribute"
+  "txt_field_required_error_message": "Vui lòng nhập :attribute",
+  "txt_field_change_warning":"Hãy cẩn thận! Thay đổi loại trường của bạn, cơ sở dữ liệu hiện có trường này trên các mục có thể bị MẤT do loại dữ liệu khác."
 }
