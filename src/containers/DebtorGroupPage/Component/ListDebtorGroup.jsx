@@ -187,11 +187,11 @@ const ListDebtorGroup = observer((props) => {
             ))}
           </Tabs>
 
-          <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+          <div className="d-flex align-items-center justify-content-between gap-2 my-20">
             <div className="d-flex gap-2">
               <SelectComponent
                 options={viewModel?.listPublishStatus}
-                className={`fs-sm`}
+                className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={true}
                 pagination={viewModel?.pagination}
                 placeholder={t('txt_bulk_actions')}
@@ -211,7 +211,7 @@ const ListDebtorGroup = observer((props) => {
                   value: (index + 1) * 10,
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}
-                className={`fs-sm`}
+                className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={true}
                 placeholder={`Select`}
                 arrowColor={'var(--dropdown-indicator-color)'}

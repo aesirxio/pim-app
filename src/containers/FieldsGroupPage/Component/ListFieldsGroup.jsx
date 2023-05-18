@@ -140,14 +140,14 @@ const ListFieldsGroup = observer((props) => {
         <Tab key={0} eventKey={0} title={t('txt_unpublished')} />
       </Tabs>
 
-      <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+      <div className="d-flex align-items-center justify-content-between gap-2 my-20">
         <div className="d-flex gap-2">
           <SelectComponent
             options={[
               { value: 1, label: t('txt_published') },
               { value: 0, label: t('txt_unpublished') },
             ]}
-            className={`fs-sm`}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={t('txt_bulk_actions')}
             onChange={(o) => selectBulkActionsHandler(o)}

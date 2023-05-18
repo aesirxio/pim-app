@@ -16,6 +16,7 @@ function DatePicker() {
         isOpen={openDatePicker}
         setIsOpen={setOpenDatePicker}
         datePickerRef={datePickerRef}
+        classContainer="h-auto"
       />
       <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
     </div>

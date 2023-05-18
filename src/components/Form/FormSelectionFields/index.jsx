@@ -16,7 +16,7 @@ import Input from '../Input';
 import Label from '../Label';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import { notify } from 'components/Toast';
+import { notify } from 'aesirx-uikit';
 
 class FormSelectionFields extends Component {
   constructor(props) {

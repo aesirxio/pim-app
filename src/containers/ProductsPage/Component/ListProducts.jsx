@@ -129,7 +129,7 @@ const ListProducts = observer((props) => {
             ))}
           </Tabs>
 
-          <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+          <div className="d-flex align-items-center justify-content-between gap-2 my-20">
             <div className="d-flex gap-2">
               <SelectComponent
                 options={viewModel?.successResponse?.listPublishStatus.map((o) => {
@@ -138,7 +138,7 @@ const ListProducts = observer((props) => {
                     label: t(`txt_${o.label.toString().replace(/ /g, '_').toLowerCase()}`),
                   };
                 })}
-                className={`fs-sm`}
+                className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={false}
                 placeholder={t('txt_bulk_actions')}
                 onChange={(o) => selectBulkActionsHandler(o)}
@@ -149,7 +149,7 @@ const ListProducts = observer((props) => {
                   { label: t('txt_indoor'), value: 'indoor' },
                   { label: t('txt_outdoor'), value: 'outdoor' },
                 ]}
-                className={`fs-sm`}
+                className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={false}
                 placeholder={`Product Type`}
                 onChange={(o) => selectTypeHandler(o)}
@@ -157,7 +157,7 @@ const ListProducts = observer((props) => {
               />
               <SelectComponent
                 options={viewModel?.successResponse?.listCategories}
-                className={`fs-sm`}
+                className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={false}
                 placeholder={t('txt_all_categories')}
                 onChange={(o) => selectCategoryHandler(o)}
@@ -179,7 +179,7 @@ const ListProducts = observer((props) => {
                   value: (index + 1) * 10,
                 }))}
                 onChange={(o) => selectShowItemsHandler(o)}
-                className={`fs-sm`}
+                className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={false}
                 placeholder={`Select`}
                 arrowColor={'var(--dropdown-indicator-color)'}

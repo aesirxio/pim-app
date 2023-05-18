@@ -106,7 +106,7 @@ class MembersListPage extends Component {
             <Tab key="merchandiser" eventKey="merchandiser" title={t('txt_merchandiser')} />
           </Tabs>
         </div>
-        <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+        <div className="d-flex align-items-center justify-content-between gap-2 my-20">
           <SelectComponent
             defaultValue={`test`}
             options={[{ label: 'Test', value: 'test' }]}

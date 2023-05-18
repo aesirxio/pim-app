@@ -31,6 +31,7 @@ const DateRangePicker = (props) => {
         onChange={setDateRange}
         dateStart={startDate}
         dateEnd={endDate}
+        classContainer="h-auto"
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
         <i className="icons text-green">
