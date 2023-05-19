@@ -28,7 +28,7 @@ const ListFeaturedProducts = observer((props) => {
                 accessor: 'id',
                 width: 60,
                 className:
-                  'ps-24 py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+                  'ps-24 py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
                 Cell: ({ value }) => {
                   return <div className="ps-24 opacity-80">{value}</div>;
                 },
@@ -37,7 +37,7 @@ const ListFeaturedProducts = observer((props) => {
                 Header: t('txt_product_name'),
                 accessor: 'productInfo',
                 width: 200,
-                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
                 Cell: ({ value }) => {
                   return (
                     <div className="d-flex align-items-center">
@@ -71,7 +71,7 @@ const ListFeaturedProducts = observer((props) => {
               {
                 Header: t('txt_categories'),
                 accessor: 'categories',
-                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
                 Cell: ({ value }) => {
                   return <>{value}</>;
                 },
@@ -80,12 +80,12 @@ const ListFeaturedProducts = observer((props) => {
                 Header: t('txt_type'),
                 accessor: 'type',
                 width: 100,
-                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
                 Cell: ({ value }) => {
                   if (value) {
                     return (
                       <div
-                        className={`text-uppercase fw-semi ${
+                        className={`text-uppercase fw-semibold ${
                           value === 'indoor' ? 'text-success' : 'text-danger'
                         }`}
                         role={`alert`}
@@ -112,7 +112,7 @@ const ListFeaturedProducts = observer((props) => {
                 Header: t('txt_author'),
                 accessor: 'author',
                 width: 100,
-                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
                 Cell: ({ value }) => {
                   return <>{value}</>;
                 },
@@ -122,7 +122,7 @@ const ListFeaturedProducts = observer((props) => {
                 accessor: 'lastModified',
                 width: 100,
                 className:
-                  'py-2 text-gray border-bottom-1 text-uppercase fw-semi pe-2 align-middle',
+                  'py-2 text-gray border-bottom-1 text-uppercase fw-semibold pe-2 align-middle',
                 Cell: ({ value }) => {
                   return (
                     <div className="pe-2">

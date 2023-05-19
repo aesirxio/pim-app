@@ -343,5 +343,6 @@
   "txt_seo_page_title": "SEO side titel",
   "txt_seo_page_heading": "SEO side overskrift",
   "txt_seo_page_description": "SEO side beskrivelse",
-  "txt_seo_page_keywords": "SEO-side søgeord"
+  "txt_seo_page_keywords": "SEO-side søgeord",
+  "txt_field_change_warning":"Vær sød at passe på! Skift din felttype, den eksisterende database dette felt på varer kan gå tabt på grund af anden datatype."
 }

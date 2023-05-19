@@ -252,7 +252,7 @@ const Variants = ({ t, formPropsData }) => {
       {variantOptions()}
       <Button
         variant={`light`}
-        className={` px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1`}
+        className={` px-24 py-10 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1`}
         onClick={() => {
           setOptionVariants([
             ...optionVariants,

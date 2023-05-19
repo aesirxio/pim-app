@@ -25,7 +25,7 @@ const ListFields = observer((props) => {
       Header: t('txt_field_name'),
       accessor: 'field',
       width: 200,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <div className="d-flex align-items-center py-8px">
@@ -50,7 +50,7 @@ const ListFields = observer((props) => {
       Header: t('txt_field_group'),
       accessor: 'groupName',
       width: 100,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value}</>;
       },
@@ -59,7 +59,7 @@ const ListFields = observer((props) => {
       Header: t('txt_type'),
       accessor: 'type',
       width: 100,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <div className="text-capitalize">{value}</div>;
       },
@@ -153,18 +153,19 @@ const ListFields = observer((props) => {
         <Tab key={0} eventKey={0} title={t('txt_unpublished')} />
       </Tabs>
 
-      <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+      <div className="d-flex align-items-center justify-content-between gap-2 my-20">
         <div className="d-flex gap-2">
           <SelectComponent
             options={[
               { value: 1, label: t('txt_published') },
               { value: 0, label: t('txt_unpublished') },
             ]}
-            className={`fs-sm`}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={t('txt_bulk_actions')}
             onChange={(o) => selectBulkActionsHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
         <div className="d-flex align-items-center">
@@ -179,10 +180,11 @@ const ListFields = observer((props) => {
               value: (index + 1) * 10,
             }))}
             onChange={(o) => selectShowItemsHandler(o)}
-            className={`fs-sm`}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={`Select`}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
       </div>

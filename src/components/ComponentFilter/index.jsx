@@ -36,6 +36,7 @@ const ComponentFilter = ({ isSearch, isAction, isDate, isContinent, ...props }) 
             datePickerRef={datePickerRef}
             placeholder={t('txt_date_range')}
             isDays
+            classContainer="h-auto"
           />
           <FontAwesomeIcon className="text-success" icon={faChevronDown} />
         </div>

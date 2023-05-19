@@ -159,7 +159,7 @@ const EditCategory = observer(
                         this.categoryDetailViewModel.categoryDetailViewModel.formPropsData[
                           PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE
                         ],
-                      classNameInput: 'py-1 fs-4',
+                      classNameInput: 'py-10 fs-4',
                       placeholder: t('txt_add_cate_name'),
                       handleChange: (event) => {
                         this.categoryDetailViewModel.handleFormPropsData(

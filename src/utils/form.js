@@ -20,6 +20,7 @@ const FormInformation = lazy(() => import('../components/FormInformation'));
 const FormSelectDropdown = lazy(() => import('../components/Form/FormSelectDropdown'));
 const FormPriceField = lazy(() => import('../components/Form/FormPriceField'));
 const FormRadio = lazy(() => import('../components/Form/FormRadio'));
+const FormCheckbox = lazy(() => import('../components/Form/FormCheckbox'));
 const FormEditor = lazy(() => import('../components/Form/FormEditor'));
 
 const Input = lazy(() => import('../components/Form/Input'));
@@ -156,6 +157,18 @@ const renderingGroupFieldHandler = (group, validator) => {
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <Label text={field.label} required={field.required ?? false} />
                   <FormRadio field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
+
+            case FORM_FIELD_TYPE.CHECKBOX:
+              return (
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
+                  <Label text={field.label} required={field.required ?? false} />
+                  <FormCheckbox field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',

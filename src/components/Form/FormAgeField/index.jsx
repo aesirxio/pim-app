@@ -73,6 +73,7 @@ const FormAgeField = ({ field }) => {
         async={field.async ?? false}
         loadOptions={field.loadOptions ?? null}
         name="age_from"
+        size="large"
       />
 
       <div className="align-self-center m-1">-</div>
@@ -88,6 +89,7 @@ const FormAgeField = ({ field }) => {
         async={field.async ?? false}
         loadOptions={field.loadOptions ?? null}
         name="age_to"
+        size="large"
       />
     </div>
   );

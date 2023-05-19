@@ -340,5 +340,6 @@
   "txt_seo_page_title": "Назва сторінки SEO",
   "txt_seo_page_heading": "Заголовок сторінки SEO",
   "txt_seo_page_description": "Опис сторінки SEO",
-  "txt_seo_page_keywords": "Ключові слова сторінки SEO"
+  "txt_seo_page_keywords": "Ключові слова сторінки SEO",
+  "txt_field_change_warning":"Будь ласка, будь обережним! Змініть тип поля, існуюча база даних це поле для елементів може бути ВТРАЧЕНО через інший тип даних."
 }

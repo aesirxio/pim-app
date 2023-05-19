@@ -129,7 +129,7 @@ const EditField = observer(
                         this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.NAME
                         ],
-                      classNameInput: 'py-1 fs-4',
+                      classNameInput: 'py-10 fs-4',
                       placeholder: t('txt_add_field_name'),
                       handleChange: (event) => {
                         this.fieldDetailViewModel.handleFormPropsData(

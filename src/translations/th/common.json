@@ -342,5 +342,6 @@
   "txt_seo_page_title": "ชื่อหน้า SEO",
   "txt_seo_page_heading": "ส่วนหัวของหน้า SEO",
   "txt_seo_page_description": "คำอธิบายหน้า SEO",
-  "txt_seo_page_keywords": "คำหลักหน้า SEO"
+  "txt_seo_page_keywords": "คำหลักหน้า SEO",
+  "txt_field_change_warning":"โปรดระวัง! เปลี่ยนประเภทฟิลด์ของคุณ ฐานข้อมูลที่มีอยู่ฟิลด์นี้ในรายการอาจหายไปเนื่องจากประเภทข้อมูลอื่น"
 }

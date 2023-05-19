@@ -82,6 +82,7 @@ class ListThumb extends React.Component {
                   placeholder="Choose an action"
                   className="text-green"
                   plColor="rgba(8, 18, 64, 0.8)"
+                  size="large"
                 />
               </div>
               <div className="col-3 border-end-1">
@@ -98,6 +99,7 @@ class ListThumb extends React.Component {
                       placeholder="Columns"
                       className="text-green"
                       plColor="rgba(8, 18, 64, 0.8)"
+                      size="large"
                     />
                   </div>
                 </div>

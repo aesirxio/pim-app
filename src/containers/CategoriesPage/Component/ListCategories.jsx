@@ -18,7 +18,7 @@ const ListCategories = observer((props) => {
       Header: t('txt_category_name'),
       accessor: 'category',
       width: 150,
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <>
@@ -60,7 +60,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_parent_cate'),
       accessor: 'parentName',
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return <>{value == 'ROOT' ? 'Top level' : value}</>;
       },
@@ -140,7 +140,7 @@ const ListCategories = observer((props) => {
     {
       Header: t('txt_last_modified'),
       accessor: 'lastModified',
-      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi align-middle',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
@@ -277,27 +277,29 @@ const ListCategories = observer((props) => {
         ))}
       </Tabs>
 
-      <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+      <div className="d-flex align-items-center justify-content-between gap-2 my-20">
         <div className="d-flex gap-2">
           <SelectComponent
             options={viewModel?.successResponse?.listPublishStatus.map((o) => {
               return { ...o, label: t(`txt_${o.label.toLowerCase()}`) };
             })}
-            className={`fs-sm`}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             pagination={viewModel?.successResponse?.pagination}
             placeholder={t('txt_bulk_actions')}
             onChange={(o) => selectBulkActionsHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
           <SelectComponent
             options={viewModel?.successResponse?.listCategoriesWithoutPagination}
-            className={`fs-sm`}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={t('txt_all_categories')}
             plColor={`text-color`}
             onChange={(o) => selectCategoryHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
         <div className="d-flex align-items-center">
@@ -312,10 +314,11 @@ const ListCategories = observer((props) => {
               value: (index + 1) * 10,
             }))}
             onChange={(o) => selectShowItemsHandler(o)}
-            className={`fs-sm`}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={`Select`}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
         </div>
       </div>

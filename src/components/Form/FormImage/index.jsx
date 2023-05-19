@@ -70,7 +70,7 @@ const FormImage = ({ field, ...props }) => {
                         >
                           <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
-                        <ComponentImage src={item?.download_url} alt={field.value} />
+                        <ComponentImage src={JSON.parse(item)?.download_url} alt={field.value} />
                       </div>
                     </Ratio>
                   </Col>
@@ -79,7 +79,7 @@ const FormImage = ({ field, ...props }) => {
           </Row>
           <Button
             variant={`light`}
-            className={` px-24 py-1 fw-semibold d-flex align-items-center rounded-1 border`}
+            className={` px-24 py-10 fw-semibold d-flex align-items-center rounded-1 border`}
             onClick={() => {
               setShow(true);
             }}

@@ -173,7 +173,7 @@ const EditProduct = observer(
                         this.productDetailViewModel.productDetailViewModel.formPropsData[
                           PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE
                         ],
-                      classNameInput: 'py-1 fs-4',
+                      classNameInput: 'py-10 fs-4',
                       placeholder: t('txt_add_product_name'),
                       handleChange: (event) => {
                         this.productDetailViewModel.productDetailViewModel.formPropsData[

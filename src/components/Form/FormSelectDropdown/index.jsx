@@ -38,6 +38,7 @@ class FormSelectDropdown extends Component {
         loadOptions={this.field.loadOptions ?? null}
         cacheOptions
         placeholder={this.field.placeholder}
+        size="large"
       />
     );
   }

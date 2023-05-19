@@ -28,8 +28,8 @@ class ProductListViewModel {
     pagination: {},
   };
   filterDate = {
-    'filter[start_date]': moment(Date.now()).subtract(30, 'days').format('YYYY-MM-DD'),
-    'filter[end_date]': moment(Date.now()).format('YYYY-MM-DD'),
+    'filter[start_date]': '',
+    'filter[end_date]': '',
   };
   constructor(productStore) {
     makeAutoObservable(this);

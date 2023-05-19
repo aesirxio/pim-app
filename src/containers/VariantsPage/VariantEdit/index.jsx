@@ -133,7 +133,7 @@ const EditVariant = observer(
                 field={{
                   getValueSelected:
                     this.viewModel.formPropsData[PIM_VARIANT_DETAIL_FIELD_KEY.TITLE],
-                  classNameInput: 'py-1 fs-4',
+                  classNameInput: 'py-10 fs-4',
                   placeholder: t('txt_add_product_name'),
                   handleChange: (event) => {
                     this.viewModel.formPropsData['title'] = event.target.value;

@@ -128,7 +128,7 @@ const EditDebtorGroup = observer(
                         this.debtorGroupDetailViewModel.debtorGroupDetailViewModel.formPropsData[
                           PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.TITLE
                         ],
-                      classNameInput: 'py-1 fs-4',
+                      classNameInput: 'py-10 fs-4',
                       placeholder: t('txt_add_debtor_group_name'),
                       handleChange: (event) => {
                         this.debtorGroupDetailViewModel.handleFormPropsData(

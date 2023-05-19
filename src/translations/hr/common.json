@@ -340,5 +340,6 @@
   "txt_seo_page_title": "SEO naslov stranice",
   "txt_seo_page_heading": "SEO naslov stranice",
   "txt_seo_page_description": "SEO opis stranice",
-  "txt_seo_page_keywords": "Ključne riječi za SEO stranicu"
+  "txt_seo_page_keywords": "Ključne riječi za SEO stranicu",
+  "txt_field_change_warning":"Molim te budi oprezan! Promijenite vrstu polja, postojeća baza podataka ovo polje na stavkama može biti IZGUBLJENO zbog različite vrste podataka."
 }

@@ -6,17 +6,24 @@
 import React, { useEffect, useState } from 'react';
 import { Form } from 'react-bootstrap';
 
-const FormRadio = ({ field }) => {
-  const [selectedValue, setSelectedValue] = useState(field.getValueSelected?.value);
+const FormCheckbox = ({ field }) => {
+  const [selectedValue, setSelectedValue] = useState(field.getValueSelected?.value ?? []);
   useEffect(() => {
     if (field.getValueSelected?.value) {
       setSelectedValue(field.getValueSelected?.value);
     }
   }, [field.getValueSelected?.value]);
 
+  useEffect(() => {
+    field.handleChange(selectedValue);
+  }, [selectedValue]);
+
   const handleChange = (data) => {
-    setSelectedValue(data.target.value);
-    field.handleChange(data);
+    if (data.target.checked) {
+      setSelectedValue((current) => [...current, data.target.value]);
+    } else {
+      setSelectedValue((current) => current.filter((item) => item !== data.target.value));
+    }
   };
   return (
     <div className="d-flex align-items-center w-100">
@@ -30,11 +37,11 @@ const FormRadio = ({ field }) => {
               label={option.label}
               value={option.value}
               name={field.key}
-              type={'radio'}
+              type={'checkbox'}
               id={`inline-radio-${option.value}`}
               onChange={handleChange}
               onBlur={field?.blurred}
-              checked={selectedValue === option.value}
+              checked={selectedValue?.includes(option.value)}
             />
           )
       )}
@@ -42,4 +49,4 @@ const FormRadio = ({ field }) => {
   );
 };
 
-export default FormRadio;
+export default FormCheckbox;

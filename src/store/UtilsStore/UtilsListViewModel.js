@@ -71,7 +71,18 @@ class UtilsListViewModel {
       this.listContentType = result.listContentType;
     }
     if (result?.listFieldType) {
-      this.listFieldType = result.listFieldType;
+      let usableFields = [
+        'aesir_dam_asset',
+        'checkbox',
+        'editor',
+        'radio',
+        'number',
+        'select',
+        'text',
+      ];
+      this.listFieldType = result.listFieldType?.filter((item) => {
+        return usableFields?.includes(item?.value);
+      });
     }
     this.formStatus = PAGE_STATUS.READY;
   };

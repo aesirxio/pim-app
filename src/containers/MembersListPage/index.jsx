@@ -106,7 +106,7 @@ class MembersListPage extends Component {
             <Tab key="merchandiser" eventKey="merchandiser" title={t('txt_merchandiser')} />
           </Tabs>
         </div>
-        <div className="d-flex align-items-center justify-content-between gap-2 mb-2">
+        <div className="d-flex align-items-center justify-content-between gap-2 my-20">
           <SelectComponent
             defaultValue={`test`}
             options={[{ label: 'Test', value: 'test' }]}
@@ -114,6 +114,7 @@ class MembersListPage extends Component {
             isBorder={true}
             placeholder={t('txt_bulk_actions')}
             arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
           />
           <div className="d-flex align-items-center">
             <div className="opacity-50 me-2">{t('txt_showing')}</div>
@@ -124,6 +125,7 @@ class MembersListPage extends Component {
               isBorder={true}
               placeholder={t('txt_bulk_actions')}
               arrowColor={'var(--dropdown-indicator-color)'}
+              size="large"
             />
           </div>
         </div>
