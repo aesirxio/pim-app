@@ -30,7 +30,15 @@ const FormEditor = ({ field }) => {
       >
         <ComponentSVG url="/assets/images/data-stream.svg" className={'bg-black'} />
       </p>
-      <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
+      <ModalDAMComponent
+        show={show}
+        onHide={handleClose}
+        onSelect={onSelect}
+        type="image"
+        accept={{
+          'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
+        }}
+      />
       <div className={styles['custom-editor']}>
         <CKEditor
           editor={window.ClassicEditor ?? ClassicEditor}
