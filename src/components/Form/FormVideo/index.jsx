@@ -64,7 +64,15 @@ const FormVideo = ({ field }) => {
           Add More Video
         </Button>
       </div>
-      <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
+      <ModalDAMComponent
+        show={show}
+        onHide={handleClose}
+        onSelect={onSelect}
+        type="video"
+        accept={{
+          'video/*': ['.mp4', '.mpeg', '.webm'],
+        }}
+      />
     </>
   );
 };

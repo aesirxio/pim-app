@@ -27,9 +27,11 @@ const FormImage = ({ field, ...props }) => {
       download_url: item.download_url,
       name: item.name,
     }));
+    console.log('convertedData', convertedData);
+
     if (field.isMulti) {
       convertedData.length && setFile([...file, ...convertedData]);
-      field.handleChange([...file, ...convertedData]);
+      // field.handleChange([...file, ...convertedData]);
     } else {
       convertedData.length && setFile(convertedData);
       field.handleChange(convertedData);
@@ -70,7 +72,7 @@ const FormImage = ({ field, ...props }) => {
                         >
                           <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
-                        <ComponentImage src={JSON.parse(item)?.download_url} alt={field.value} />
+                        <ComponentImage src={item?.download_url} alt={field.value} />
                       </div>
                     </Ratio>
                   </Col>
@@ -124,7 +126,15 @@ const FormImage = ({ field, ...props }) => {
           <p className="my-8px fs-14 opacity-50">{t('txt_max_file_size')}</p>
         </div>
       )}
-      <ModalDAMComponent show={show} onHide={handleClose} onSelect={onSelect} />
+      <ModalDAMComponent
+        show={show}
+        onHide={handleClose}
+        onSelect={onSelect}
+        type="image"
+        accept={{
+          'image/*': ['.png', '.gif', '.jpeg', '.jpg'],
+        }}
+      />
     </>
   );
 };
