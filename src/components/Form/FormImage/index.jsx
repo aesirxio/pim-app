@@ -27,7 +27,6 @@ const FormImage = ({ field, ...props }) => {
       download_url: item.download_url,
       name: item.name,
     }));
-    console.log('convertedData', convertedData);
 
     if (field.isMulti) {
       convertedData.length && setFile([...file, ...convertedData]);
