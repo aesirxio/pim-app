@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const ProductViewModelContext = React.createContext();
+export const ProductViewModelContext = React.createContext();
 
 export const ProductViewModelContextProvider = ({ children, viewModel }) => {
   return (

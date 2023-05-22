@@ -8,15 +8,15 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
+import { ProductViewModelContext } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
 
 // const tagStore = new TagStore();
 // const tagViewModel = new TagViewModel(tagStore);
 const CommonInformation = observer(
   class CommonInformation extends Component {
+    static contextType = ProductViewModelContext;
     constructor(props) {
       super(props);
-      this.viewModel = this.props.viewModel.productDetailViewModel;
       this.categoryListViewModel = this.props.categoryListViewModel;
       // this.tagListViewModel = tagViewModel ? tagViewModel.getTagListViewModel() : null;
     }
@@ -26,6 +26,7 @@ const CommonInformation = observer(
     }
 
     render() {
+      this.viewModel = this.context.productDetailViewModel;
       const { t, validator } = this.props;
       const generateFormSetting = [
         {
@@ -142,4 +143,4 @@ const CommonInformation = observer(
     }
   }
 );
-export default withTranslation()(withProductViewModel(CommonInformation));
+export default withTranslation()(CommonInformation);

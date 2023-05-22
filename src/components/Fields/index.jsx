@@ -32,9 +32,8 @@ const FieldsList = observer(
               let itemsByGroup = this.viewModel.fieldListViewModel.items.filter(
                 (value) => value[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID] === item.id
               );
-              return { group: item.id, fields: itemsByGroup };
+              return { group: item.id, label: item.label, fields: itemsByGroup };
             }),
-
             defaultActive: 'group-' + this.viewModel.fieldListViewModel.groupList[0]?.id,
           };
         });
@@ -243,10 +242,10 @@ const FieldsList = observer(
                     {t('txt_field_group')}
                   </div>
                   <Nav variant="tabs" className="flex-column">
-                    {this.viewModel.fieldListViewModel.groupList?.map((group, key) => {
+                    {this.state.itemsByGroup?.map((group, key) => {
                       return (
                         <Nav.Item key={key}>
-                          <Nav.Link eventKey={`group-${group.id}`}>{group.label}</Nav.Link>
+                          <Nav.Link eventKey={`group-${group.group}`}>{group.label}</Nav.Link>
                         </Nav.Item>
                       );
                     })}
@@ -254,14 +253,14 @@ const FieldsList = observer(
                 </Col>
                 <Col lg={9}>
                   <Tab.Content>
-                    {this.viewModel.fieldListViewModel.groupList?.map((group, key) => {
+                    {this.state.itemsByGroup?.map((group, key) => {
                       return (
-                        <Tab.Pane eventKey={`group-${group.id}`} key={key}>
+                        <Tab.Pane eventKey={`group-${group.group}`} key={key}>
                           <h3 className="mb-24 fw-bold">{group.label}</h3>
                           <div className="row">
                             {Object.keys(generateFormSetting)
                               .map((groupIndex) => {
-                                if (generateFormSetting[groupIndex].group === group.id) {
+                                if (generateFormSetting[groupIndex].group === group.group) {
                                   return [...Array(generateFormSetting[groupIndex])].map(
                                     (group) => {
                                       return renderingGroupFieldHandler(
