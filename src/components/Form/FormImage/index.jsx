@@ -31,7 +31,7 @@ const FormImage = ({ field, ...props }) => {
 
     if (field.isMulti) {
       convertedData.length && setFile([...file, ...convertedData]);
-      // field.handleChange([...file, ...convertedData]);
+      field.handleChange([...file, ...convertedData]);
     } else {
       convertedData.length && setFile(convertedData);
       field.handleChange(convertedData);
