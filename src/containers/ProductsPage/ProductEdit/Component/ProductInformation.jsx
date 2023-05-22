@@ -6,17 +6,19 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 import { Spinner } from 'aesirx-uikit';
-import { withProductViewModel } from '../../ProductViewModel/ProductViewModelContextProvider';
+import { ProductViewModelContext } from '../../ProductViewModel/ProductViewModelContextProvider';
 
 const ProductInformation = observer(
   class ProductInformation extends Component {
+    static contextType = ProductViewModelContext;
+
     constructor(props) {
       super(props);
-      this.viewModel = this.props.viewModel.productDetailViewModel;
       this.categoryListViewModel = this.props.categoryListViewModel;
     }
 
     render() {
+      this.viewModel = this.context.productDetailViewModel;
       const { t, validator } = this.props;
       const generateFormSetting = [
         {
@@ -133,4 +135,4 @@ const ProductInformation = observer(
     }
   }
 );
-export default withTranslation()(withProductViewModel(ProductInformation));
+export default withTranslation()(ProductInformation);
