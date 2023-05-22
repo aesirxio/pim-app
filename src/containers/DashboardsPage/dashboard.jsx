@@ -76,7 +76,7 @@ const Dashboard = observer(
             <div className="d-flex align-items-center justify-content-between mb-26 flex-wrap">
               <div className="position-relative">
                 <h2 className="text-blue-0 fw-bold mb-8px">{t('txt_dashboard')}</h2>
-                <p className="mb-0 text-color">{t('txt_dashboard_below')}</p>
+                <p className="mb-20px text-color">{t('txt_dashboard_below')}</p>
               </div>
               <div style={{ height: '50px' }}>
                 <DateRangePicker viewModel={this.viewModel} />

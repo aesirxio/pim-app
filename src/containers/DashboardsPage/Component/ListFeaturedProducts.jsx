@@ -76,38 +76,38 @@ const ListFeaturedProducts = observer((props) => {
                   return <>{value}</>;
                 },
               },
-              {
-                Header: t('txt_type'),
-                accessor: 'type',
-                width: 100,
-                className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
-                Cell: ({ value }) => {
-                  if (value) {
-                    return (
-                      <div
-                        className={`text-uppercase fw-semibold ${
-                          value === 'indoor' ? 'text-success' : 'text-danger'
-                        }`}
-                        role={`alert`}
-                      >
-                        <span
-                          className="d-inline-block p-1 rounded"
-                          style={{
-                            backgroundColor: `${
-                              value === 'indoor'
-                                ? 'rgba(50, 177, 151, 0.15)'
-                                : 'rgba(239, 55, 55, 0.15)'
-                            }`,
-                          }}
-                        >
-                          {t('txt_' + value?.toString().toLowerCase())}
-                        </span>
-                      </div>
-                    );
-                  }
-                  return '';
-                },
-              },
+              // {
+              //   Header: t('txt_type'),
+              //   accessor: 'type',
+              //   width: 100,
+              //   className: 'py-2 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+              //   Cell: ({ value }) => {
+              //     if (value) {
+              //       return (
+              //         <div
+              //           className={`text-uppercase fw-semibold ${
+              //             value === 'indoor' ? 'text-success' : 'text-danger'
+              //           }`}
+              //           role={`alert`}
+              //         >
+              //           <span
+              //             className="d-inline-block p-1 rounded"
+              //             style={{
+              //               backgroundColor: `${
+              //                 value === 'indoor'
+              //                   ? 'rgba(50, 177, 151, 0.15)'
+              //                   : 'rgba(239, 55, 55, 0.15)'
+              //               }`,
+              //             }}
+              //           >
+              //             {t('txt_' + value?.toString().toLowerCase())}
+              //           </span>
+              //         </div>
+              //       );
+              //     }
+              //     return '';
+              //   },
+              // },
               {
                 Header: t('txt_author'),
                 accessor: 'author',

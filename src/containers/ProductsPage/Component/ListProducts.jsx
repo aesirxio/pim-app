@@ -167,6 +167,7 @@ const ListProducts = observer((props) => {
                 onChange={(o) => selectCategoryHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
                 size="large"
+                minWidth={200}
               />
               <div className="h-auto shadow-sm">
                 <DateRangePicker placeholder={t('txt_all_dates')} viewModel={viewModel} />
@@ -264,38 +265,38 @@ const ListProducts = observer((props) => {
                 return <>{value}</>;
               },
             },
-            {
-              Header: t('txt_type'),
-              accessor: 'type',
-              width: 100,
-              className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
-              Cell: ({ value }) => {
-                if (value) {
-                  return (
-                    <div
-                      className={`text-uppercase fw-semibold ${
-                        value === 'indoor' ? 'text-success' : 'text-danger'
-                      }`}
-                      role={`alert`}
-                    >
-                      <span
-                        className="d-inline-block p-1 rounded"
-                        style={{
-                          backgroundColor: `${
-                            value === 'indoor'
-                              ? 'rgba(50, 177, 151, 0.15)'
-                              : 'rgba(239, 55, 55, 0.15)'
-                          }`,
-                        }}
-                      >
-                        {t('txt_' + value?.toString().replace(/ /g, '_').toLowerCase())}
-                      </span>
-                    </div>
-                  );
-                }
-                return '';
-              },
-            },
+            // {
+            //   Header: t('txt_type'),
+            //   accessor: 'type',
+            //   width: 100,
+            //   className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+            //   Cell: ({ value }) => {
+            //     if (value) {
+            //       return (
+            //         <div
+            //           className={`text-uppercase fw-semibold ${
+            //             value === 'indoor' ? 'text-success' : 'text-danger'
+            //           }`}
+            //           role={`alert`}
+            //         >
+            //           <span
+            //             className="d-inline-block p-1 rounded"
+            //             style={{
+            //               backgroundColor: `${
+            //                 value === 'indoor'
+            //                   ? 'rgba(50, 177, 151, 0.15)'
+            //                   : 'rgba(239, 55, 55, 0.15)'
+            //               }`,
+            //             }}
+            //           >
+            //             {t('txt_' + value?.toString().replace(/ /g, '_').toLowerCase())}
+            //           </span>
+            //         </div>
+            //       );
+            //     }
+            //     return '';
+            //   },
+            // },
             {
               Header: t('txt_author'),
               accessor: 'author',

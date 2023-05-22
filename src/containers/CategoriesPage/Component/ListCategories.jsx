@@ -296,10 +296,10 @@ const ListCategories = observer((props) => {
             className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={t('txt_all_categories')}
-            plColor={`text-color`}
             onChange={(o) => selectCategoryHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
             size="large"
+            minWidth={200}
           />
         </div>
         <div className="d-flex align-items-center">
