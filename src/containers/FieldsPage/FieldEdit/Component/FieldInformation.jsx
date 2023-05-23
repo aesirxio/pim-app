@@ -38,7 +38,7 @@ const FieldInformation = observer(
 
     render() {
       this.viewModel = this.context.fieldDetailViewModel;
-      const { validator, t } = this.props;
+      const { validator, t, isEdit } = this.props;
       const relevanceArray = [
         {
           label: t('txt_optional'),
@@ -97,6 +97,7 @@ const FieldInformation = observer(
               },
               className: 'col-lg-12',
               viewModel: this.viewModel,
+              isEdit: isEdit,
             },
             {
               label: 'txt_section',
