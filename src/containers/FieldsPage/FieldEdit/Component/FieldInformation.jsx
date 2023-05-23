@@ -6,7 +6,7 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import { FieldViewModelContext } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import FieldGroupStore from 'containers/FieldsGroupPage/FieldGroupStore/FieldGroupStore';
 import FieldGroupViewModel from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModel';
 import UtilsStore from 'store/UtilsStore/UtilsStore';
@@ -19,23 +19,25 @@ const fieldGroupViewModel = new FieldGroupViewModel(fieldGroupStore);
 
 const FieldInformation = observer(
   class FieldInformation extends Component {
+    static contextType = FieldViewModelContext;
+
     constructor(props) {
       super(props);
       this.utilsListViewModel = utilsViewModel.utilsListViewModel;
-      this.fieldDetailViewModel = this.props.viewModel.fieldDetailViewModel;
       this.fieldGroupListViewModel = fieldGroupViewModel.fieldGroupListViewModel;
     }
 
     componentDidMount() {
-      const fetchData = async () => {
-        await this.utilsListViewModel.getListContentType();
-        await this.utilsListViewModel.getListFieldType();
-        await this.fieldGroupListViewModel.initializeData();
+      const fetchData = () => {
+        this.utilsListViewModel.getListContentType();
+        this.utilsListViewModel.getListFieldType();
+        this.fieldGroupListViewModel.initializeData();
       };
       fetchData();
     }
 
     render() {
+      this.viewModel = this.context.fieldDetailViewModel;
       const { validator, t } = this.props;
       const relevanceArray = [
         {
@@ -58,19 +60,19 @@ const FieldInformation = observer(
               label: 'txt_type',
               key: PIM_FIELD_DETAIL_FIELD_KEY.TYPE,
               type: FORM_FIELD_TYPE.SELECTION_FIELDS,
-              getValueSelected: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+              getValueSelected: this.viewModel.fieldDetailViewModel?.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.TYPE
               ]
                 ? {
                     label: this.utilsListViewModel.listFieldType?.find(
                       (x) =>
                         x.value ===
-                        this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                        this.viewModel.fieldDetailViewModel?.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.TYPE
                         ]
                     )?.label,
                     value:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                      this.viewModel.fieldDetailViewModel?.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.TYPE
                       ],
                   }
@@ -83,36 +85,33 @@ const FieldInformation = observer(
                     };
                   })
                 : null,
-              getValueSelectedOptions: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+              getValueSelectedOptions: this.viewModel.fieldDetailViewModel?.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS
               ]
-                ? this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                ? this.viewModel.fieldDetailViewModel?.formPropsData[
                     PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS
                   ]
                 : [],
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData(
-                  PIM_FIELD_DETAIL_FIELD_KEY.TYPE,
-                  data.value
-                );
+                this.viewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.TYPE, data.value);
               },
               className: 'col-lg-12',
-              viewModel: this.fieldDetailViewModel,
+              viewModel: this.viewModel,
             },
             {
               label: 'txt_section',
               key: PIM_FIELD_DETAIL_FIELD_KEY.SECTION,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+              getValueSelected: this.viewModel.fieldDetailViewModel?.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.SECTION
               ]?.length
                 ? {
                     label:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                      this.viewModel.fieldDetailViewModel?.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.SECTION
                       ][0].title,
                     value:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                      this.viewModel.fieldDetailViewModel?.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.SECTION
                       ][0].id,
                   }
@@ -126,7 +125,7 @@ const FieldInformation = observer(
                   })
                 : null,
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.SECTION, [
+                this.viewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.SECTION, [
                   { id: data.value },
                 ]);
               },
@@ -136,18 +135,18 @@ const FieldInformation = observer(
               label: 'txt_unique',
               key: PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE,
               type: FORM_FIELD_TYPE.RADIO,
-              getValueSelected: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+              getValueSelected: this.viewModel.fieldDetailViewModel?.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE
               ]
                 ? {
                     label:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                      this.viewModel.fieldDetailViewModel?.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE
                       ].toString() === '0'
                         ? t('txt_no')
                         : t('txt_yes'),
                     value:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                      this.viewModel.fieldDetailViewModel?.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE
                       ].toString(),
                   }
@@ -157,7 +156,7 @@ const FieldInformation = observer(
                 { label: t('txt_yes'), value: '1' },
               ],
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData(
+                this.viewModel.handleFormPropsData(
                   PIM_FIELD_DETAIL_FIELD_KEY.UNIQUE,
                   data.target.value
                 );
@@ -168,19 +167,19 @@ const FieldInformation = observer(
               label: 'txt_group',
               key: PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+              getValueSelected: this.viewModel.fieldDetailViewModel?.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
               ]
                 ? {
                     label: this.fieldGroupListViewModel.items?.find(
                       (x) =>
                         x.id ===
-                        this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                        this.viewModel.fieldDetailViewModel?.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
                         ]
                     )?.name,
                     value:
-                      this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                      this.viewModel.fieldDetailViewModel?.formPropsData[
                         PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
                       ],
                   }
@@ -194,7 +193,7 @@ const FieldInformation = observer(
                   })
                 : null,
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData(
+                this.viewModel.handleFormPropsData(
                   PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID,
                   data.value
                 );
@@ -206,26 +205,26 @@ const FieldInformation = observer(
               key: PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected:
-                this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                this.viewModel.fieldDetailViewModel?.formPropsData[
                   PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
                 ] !== undefined
                   ? {
                       label: relevanceArray?.find(
                         (x) =>
                           x.value ===
-                          this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                          this.viewModel.fieldDetailViewModel?.formPropsData[
                             PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
                           ].toString()
                       )?.label,
                       value:
-                        this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                        this.viewModel.fieldDetailViewModel?.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE
                         ].toString(),
                     }
                   : null,
               getDataSelectOptions: relevanceArray,
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData(
+                this.viewModel.handleFormPropsData(
                   PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE,
                   data.value
                 );
@@ -237,12 +236,12 @@ const FieldInformation = observer(
               key: PIM_FIELD_DETAIL_FIELD_KEY.PARAMS.NOTE,
               type: FORM_FIELD_TYPE.EDITOR,
               getValueSelected:
-                this.fieldDetailViewModel.fieldDetailViewModel.formPropsData[
+                this.viewModel.fieldDetailViewModel?.formPropsData[
                   PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
                 ]?.note ?? null,
               isEditor: false,
               handleChange: (data) => {
-                this.fieldDetailViewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.PARAMS, {
+                this.viewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.PARAMS, {
                   note: data.target.value,
                 });
               },
@@ -271,4 +270,4 @@ const FieldInformation = observer(
     }
   }
 );
-export default withTranslation()(withFieldViewModel(FieldInformation));
+export default withTranslation()(FieldInformation);

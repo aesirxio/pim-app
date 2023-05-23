@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const FieldGroupViewModelContext = React.createContext();
+export const FieldGroupViewModelContext = React.createContext();
 
 export const FieldGroupViewModelContextProvider = ({ children, viewModel }) => {
   return (

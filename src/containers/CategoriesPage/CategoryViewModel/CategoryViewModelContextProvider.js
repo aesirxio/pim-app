@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const CategoryViewModelContext = React.createContext();
+export const CategoryViewModelContext = React.createContext();
 
 export const CategoryViewModelContextProvider = ({ children, viewModel }) => {
   return (

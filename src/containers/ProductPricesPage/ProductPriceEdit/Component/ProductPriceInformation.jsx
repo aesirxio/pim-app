@@ -6,7 +6,7 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
+import { ProductPriceViewModelContext } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import { Row } from 'react-bootstrap';
 import DebtorGroupStore from 'containers/DebtorGroupPage/DebtorGroupStore/DebtorGroupStore';
 import DebtorGroupViewModel from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModel';
@@ -19,25 +19,27 @@ const productStore = new ProductStore();
 const productViewModel = new ProductViewModel(productStore);
 const ProductPriceInformation = observer(
   class ProductPriceInformation extends Component {
+    static contextType = ProductPriceViewModelContext;
+
     constructor(props) {
       super(props);
       this.debtorGroupListViewModel = debtorGroupViewModel.debtorGroupListViewModel;
       this.productListViewModel = productViewModel.productListViewModel;
-      this.viewModel = this.props.viewModel.productPriceDetailViewModel;
       this.validator = this.props.validator;
     }
 
     componentDidMount() {
-      const fetchData = async () => {
-        await this.debtorGroupListViewModel.initializeData();
-        await this.productListViewModel.initializeData();
-        this.forceUpdate();
+      const fetchData = () => {
+        this.debtorGroupListViewModel.initializeDataDebtorList();
+        this.productListViewModel.initializeDataListProduct();
       };
       fetchData();
     }
 
     render() {
       const { t } = this.props;
+      this.viewModel = this.context.productPriceDetailViewModel;
+
       const generateFormSetting = [
         {
           fields: [
@@ -229,24 +231,26 @@ const ProductPriceInformation = observer(
         },
       ];
       return (
-        <Row className="gx-24">
-          {(this.props.viewModel.productPriceDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
-            this.productListViewModel.formStatus === PAGE_STATUS.LOADING ||
-            this.debtorGroupListViewModel.formStatus === PAGE_STATUS.LOADING) && (
-            <Spinner className="spinner-overlay" />
-          )}
-          {Object.keys(generateFormSetting)
-            .map((groupIndex) => {
-              return [...Array(generateFormSetting[groupIndex])].map((group) => {
-                return renderingGroupFieldHandler(group, this.validator);
-              });
-            })
-            .reduce((arr, el) => {
-              return arr.concat(el);
-            }, [])}
-        </Row>
+        <div className="p-24 bg-white rounded-1 shadow-sm h-100">
+          <Row className="gx-24">
+            {(this.viewModel.productPriceDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
+              this.productListViewModel.formStatus === PAGE_STATUS.LOADING ||
+              this.debtorGroupListViewModel.formStatus === PAGE_STATUS.LOADING) && (
+              <Spinner className="spinner-overlay" />
+            )}
+            {Object.keys(generateFormSetting)
+              .map((groupIndex) => {
+                return [...Array(generateFormSetting[groupIndex])].map((group) => {
+                  return renderingGroupFieldHandler(group, this.validator);
+                });
+              })
+              .reduce((arr, el) => {
+                return arr.concat(el);
+              }, [])}
+          </Row>
+        </div>
       );
     }
   }
 );
-export default withTranslation()(withProductPriceViewModel(ProductPriceInformation));
+export default withTranslation()(ProductPriceInformation);

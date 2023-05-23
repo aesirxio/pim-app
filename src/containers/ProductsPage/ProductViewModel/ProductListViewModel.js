@@ -57,6 +57,16 @@ class ProductListViewModel {
     this.successResponse.state = true;
   };
 
+  initializeDataListProduct = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.productStore.getList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+      this.successResponse.filters
+    );
+    this.successResponse.state = true;
+  };
+
   setFeatured = async (id, featured = 0) => {
     await this.productStore.update(
       { id: id.toString(), featured: featured.toString() },

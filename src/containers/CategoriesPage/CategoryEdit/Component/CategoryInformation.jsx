@@ -6,30 +6,30 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
+import { CategoryViewModelContext } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 
 const CategoryInformation = observer(
   class CategoryInformation extends Component {
+    static contextType = CategoryViewModelContext;
+
     constructor(props) {
       super(props);
-      this.viewModel = this.props.viewModel.categoryDetailViewModel;
     }
 
     async componentDidMount() {
-      await this.props.viewModel.categoryListViewModel.handleFilter({ limit: 0 });
-      await this.props.viewModel.categoryListViewModel.initializeDataCustom();
+      await this.context.categoryListViewModel.handleFilter({ limit: 0 });
+      await this.context.categoryListViewModel.initializeDataCustom();
     }
 
     render() {
+      this.viewModel = this.context.categoryDetailViewModel;
       const { t, validator } = this.props;
-      const filteredCategoryList = this.props.viewModel.categoryListViewModel.items.filter(
-        (category) => {
-          return (
-            category.id !==
-            this.viewModel.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID]
-          );
-        }
-      );
+      const filteredCategoryList = this.context.categoryListViewModel.items.filter((category) => {
+        return (
+          category.id !==
+          this.viewModel.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID]
+        );
+      });
       const generateFormSetting = [
         {
           fields: [
@@ -58,7 +58,7 @@ const CategoryInformation = observer(
                 PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
               ]
                 ? {
-                    label: this.props.viewModel.categoryListViewModel.items?.find(
+                    label: this.context.categoryListViewModel.items?.find(
                       (x) =>
                         x.id ===
                         this.viewModel.categoryDetailViewModel.formPropsData[
@@ -124,8 +124,8 @@ const CategoryInformation = observer(
       ];
       return (
         <div>
-          {(this.props.viewModel.categoryListViewModel.formStatus === PAGE_STATUS.LOADING ||
-            this.props.viewModel.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING) && (
+          {(this.context.categoryListViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.context.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)
@@ -142,4 +142,4 @@ const CategoryInformation = observer(
     }
   }
 );
-export default withTranslation()(withCategoryViewModel(CategoryInformation));
+export default withTranslation()(CategoryInformation);

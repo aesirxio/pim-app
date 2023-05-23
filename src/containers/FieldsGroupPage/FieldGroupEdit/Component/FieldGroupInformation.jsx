@@ -4,16 +4,18 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 import { observer } from 'mobx-react';
-import { withFieldGroupViewModel } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
+import { FieldGroupViewModelContext } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
 
 const FieldGroupInformation = observer(
   class FieldGroupInformation extends Component {
+    static contextType = FieldGroupViewModelContext;
+
     constructor(props) {
       super(props);
-      this.fieldGroupDetailViewModel = this.props.viewModel.fieldGroupDetailViewModel;
     }
 
     render() {
+      this.viewModel = this.context.fieldGroupDetailViewModel;
       const { t, validator } = this.props;
       const generateFormSetting = [
         {
@@ -23,14 +25,12 @@ const FieldGroupInformation = observer(
               key: PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS,
               type: FORM_FIELD_TYPE.INPUT,
               getValueSelected:
-                this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
+                this.viewModel.fieldGroupDetailViewModel.formPropsData[
                   PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS
                 ],
-              placeholder: this.fieldGroupDetailViewModel.aliasChange
-                ? this.fieldGroupDetailViewModel.aliasChange
-                : t('txt_type'),
+              placeholder: this.viewModel.aliasChange ? this.viewModel.aliasChange : t('txt_type'),
               handleChange: (data) => {
-                this.fieldGroupDetailViewModel.handleFormPropsData(
+                this.viewModel.handleFormPropsData(
                   PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ALIAS,
                   data.target.value
                 );
@@ -42,11 +42,11 @@ const FieldGroupInformation = observer(
               key: PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION,
               type: FORM_FIELD_TYPE.EDITOR,
               getValueSelected:
-                this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData[
+                this.viewModel.fieldGroupDetailViewModel.formPropsData[
                   PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION
                 ] ?? null,
               handleChange: (data) => {
-                this.fieldGroupDetailViewModel.handleFormPropsData(
+                this.viewModel.handleFormPropsData(
                   PIM_FIELD_GROUP_DETAIL_FIELD_KEY.DESCRIPTION,
                   data
                 );
@@ -72,4 +72,4 @@ const FieldGroupInformation = observer(
     }
   }
 );
-export default withTranslation()(withFieldGroupViewModel(FieldGroupInformation));
+export default withTranslation()(FieldGroupInformation);

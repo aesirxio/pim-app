@@ -6,18 +6,20 @@ import { renderingGroupFieldHandler } from 'utils/form';
 import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
-import { withDebtorGroupViewModel } from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
+import { DebtorGroupViewModelContext } from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
 
 const DebtorGroupInformation = observer(
   class DebtorGroupInformation extends Component {
+    static contextType = DebtorGroupViewModelContext;
+
     constructor(props) {
       super(props);
-      this.viewModel = this.props.viewModel.debtorGroupDetailViewModel;
     }
 
     async componentDidMount() {}
 
     render() {
+      this.viewModel = this.context.debtorGroupDetailViewModel;
       const { t, validator } = this.props;
       const generateFormSetting = [
         {
@@ -44,7 +46,7 @@ const DebtorGroupInformation = observer(
       ];
       return (
         <div>
-          {this.props.viewModel.debtorGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.viewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)
@@ -61,4 +63,4 @@ const DebtorGroupInformation = observer(
     }
   }
 );
-export default withTranslation()(withDebtorGroupViewModel(DebtorGroupInformation));
+export default withTranslation()(DebtorGroupInformation);

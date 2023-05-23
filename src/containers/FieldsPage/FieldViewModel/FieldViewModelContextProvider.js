@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const FieldViewModelContext = React.createContext();
+export const FieldViewModelContext = React.createContext();
 
 export const FieldViewModelContextProvider = ({ children, viewModel }) => {
   return (
