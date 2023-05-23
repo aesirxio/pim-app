@@ -5,7 +5,7 @@
 
 import React from 'react';
 
-const DebtorGroupViewModelContext = React.createContext();
+export const DebtorGroupViewModelContext = React.createContext();
 
 export const DebtorGroupViewModelContextProvider = ({ children, viewModel }) => {
   return (

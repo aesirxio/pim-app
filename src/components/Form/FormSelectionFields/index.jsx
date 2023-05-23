@@ -29,7 +29,9 @@ class FormSelectionFields extends Component {
   }
 
   handleChange = (data) => {
-    notify(this.props.t('txt_field_change_warning'), 'warn');
+    if (this.props.field.isEdit) {
+      notify(this.props.t('txt_field_change_warning'), 'warn');
+    }
     this.props.field.handleChange(data);
     this.setState({ field: data });
   };

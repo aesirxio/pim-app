@@ -48,6 +48,16 @@ class DebtorGroupListViewModel {
     this.successResponse.state = true;
   };
 
+  initializeDataDebtorList = async () => {
+    this.formStatus = PAGE_STATUS.LOADING;
+    await this.debtorGroupStore.getList(
+      this.filter,
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler
+    );
+    this.successResponse.state = true;
+  };
+
   getListByFilter = async (key, value) => {
     value ? (this.filter[key] = value) : delete this.filter[key];
 

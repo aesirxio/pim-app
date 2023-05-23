@@ -48,9 +48,6 @@ const EditProductPrice = observer(
     render() {
       const { t } = this.props;
       let history = this.props.history;
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.productPriceDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
