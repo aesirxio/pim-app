@@ -28,10 +28,10 @@ const FieldInformation = observer(
     }
 
     componentDidMount() {
-      const fetchData = () => {
-        this.utilsListViewModel.getListContentType();
-        this.utilsListViewModel.getListFieldType();
-        this.fieldGroupListViewModel.initializeData();
+      const fetchData = async () => {
+        await this.utilsListViewModel.getListContentType();
+        await this.utilsListViewModel.getListFieldType();
+        await this.fieldGroupListViewModel.initializeData();
       };
       fetchData();
     }
