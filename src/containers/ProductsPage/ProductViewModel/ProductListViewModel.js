@@ -37,12 +37,10 @@ class ProductListViewModel {
   }
 
   initializeData = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
+    this.successResponse.state = false;
+    await this.productStore.getList(this.callbackOnSuccessHandler, this.callbackOnErrorHandler, {
+      'list[limit]': 10,
+    });
 
     await this.productStore.getListPublishStatus(
       this.callbackOnSuccessHandler,
