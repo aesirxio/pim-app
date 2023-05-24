@@ -155,7 +155,11 @@ const EditField = observer(
                     }
                   )}
                 </Form.Group>
-                <FieldInformation validator={this.validator} isEdit={this.isEdit} />
+                <FieldInformation
+                  validator={this.validator}
+                  isEdit={this.isEdit}
+                  formPropsData={this.formPropsData}
+                />
               </Col>
               <Col lg={3}>
                 <PublishOptions
