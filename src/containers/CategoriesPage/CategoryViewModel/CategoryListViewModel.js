@@ -36,9 +36,11 @@ class CategoryListViewModel {
 
   initializeData = async () => {
     this.successResponse.state = false;
-    await this.categoryStore.getList(this.callbackOnSuccessHandler, this.callbackOnErrorHandler, {
-      'list[limit]': 10,
-    });
+    await this.categoryStore.getList(
+      this.callbackOnSuccessHandler,
+      this.callbackOnErrorHandler,
+      this.successResponse.filters
+    );
 
     await this.categoryStore.getListWithoutPagination(
       this.callbackOnSuccessGetCategoriesHandler,

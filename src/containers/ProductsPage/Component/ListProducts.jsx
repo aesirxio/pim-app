@@ -51,17 +51,17 @@ const ListProducts = observer((props) => {
     }
   };
 
-  const selectTypeHandler = (value) => {
-    viewModel.isLoading();
-    viewModel.getListByFilter('pim_product_type', {
-      value: value.value,
-      type: 'custom_fields',
-    });
-  };
+  // const selectTypeHandler = (value) => {
+  //   viewModel.isLoading();
+  //   viewModel.getListByFilter('pim_product_type', {
+  //     value: value.value,
+  //     type: 'custom_fields',
+  //   });
+  // };
 
   const selectShowItemsHandler = (value) => {
     viewModel.isLoading();
-    viewModel.getListByFilter('list[limit]', value.value);
+    viewModel.getListByFilter('list[limit]', value?.value);
   };
 
   const selectBulkActionsHandler = (value) => {
@@ -69,13 +69,13 @@ const ListProducts = observer((props) => {
       notify(t('txt_row_select_error'), 'error');
     } else {
       viewModel.isLoading();
-      viewModel.updateStatus(listSelected, value.value);
+      viewModel.updateStatus(listSelected, value?.value);
     }
   };
 
   const selectCategoryHandler = (value) => {
     viewModel.isLoading();
-    viewModel.getListByFilter('filter[category]', value.value);
+    viewModel.getListByFilter('filter[category]', value?.value);
   };
 
   const deleteProducts = () => {
@@ -147,7 +147,7 @@ const ListProducts = observer((props) => {
                 arrowColor={'var(--dropdown-indicator-color)'}
                 size="large"
               />
-              <SelectComponent
+              {/* <SelectComponent
                 options={[
                   { label: t('txt_indoor'), value: 'indoor' },
                   { label: t('txt_outdoor'), value: 'outdoor' },
@@ -158,9 +158,19 @@ const ListProducts = observer((props) => {
                 onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
                 size="large"
-              />
+              /> */}
               <SelectComponent
                 options={viewModel?.successResponse?.listCategories}
+                defaultValue={
+                  viewModel?.successResponse?.filters['filter[category]']
+                    ? {
+                        label: viewModel?.successResponse?.listCategories.find(
+                          (o) => o.value == viewModel?.successResponse?.filters['filter[category]']
+                        )?.label,
+                        value: viewModel?.successResponse?.filters['filter[category]'],
+                      }
+                    : null
+                }
                 className={`fs-sm bg-white shadow-sm rounded-2`}
                 isBorder={false}
                 placeholder={t('txt_all_categories')}
@@ -168,6 +178,7 @@ const ListProducts = observer((props) => {
                 arrowColor={'var(--dropdown-indicator-color)'}
                 size="large"
                 minWidth={200}
+                isClearable={true}
               />
               <div className="h-auto shadow-sm">
                 <DateRangePicker placeholder={t('txt_all_dates')} viewModel={viewModel} />

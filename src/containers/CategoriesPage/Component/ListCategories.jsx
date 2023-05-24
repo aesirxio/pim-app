@@ -205,13 +205,13 @@ const ListCategories = observer((props) => {
   };
 
   const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1].value.id);
+    listSelected = arr.map((o) => o.cells[1].value?.id);
   };
 
   const publishedBtnHandler = (value) => {
     viewModel.isLoading();
-    const isPublished = value.state != 1 ? 1 : 0;
-    viewModel.setPublished(value.id, isPublished);
+    const isPublished = value?.state != 1 ? 1 : 0;
+    viewModel.setPublished(value?.id, isPublished);
   };
 
   const deleteCategories = () => {
@@ -225,12 +225,8 @@ const ListCategories = observer((props) => {
 
   const selectCategoryHandler = (value) => {
     viewModel.isLoading();
-    viewModel.getListByFilter('tree', {
-      value: value.value,
-      type: 'filter',
-    });
+    viewModel.getListByFilter('filter[tree]', value?.value);
   };
-
   return (
     <>
       <div className="d-flex justify-content-between align-items-start mb-3">
@@ -293,6 +289,16 @@ const ListCategories = observer((props) => {
           />
           <SelectComponent
             options={viewModel?.successResponse?.listCategoriesWithoutPagination}
+            defaultValue={
+              viewModel?.successResponse?.filters['filter[tree]']
+                ? {
+                    label: viewModel?.successResponse?.listCategoriesWithoutPagination.find(
+                      (o) => o.value == viewModel?.successResponse?.filters['filter[tree]']
+                    )?.label,
+                    value: viewModel?.successResponse?.filters['filter[tree]'],
+                  }
+                : null
+            }
             className={`fs-sm bg-white shadow-sm rounded-2`}
             isBorder={true}
             placeholder={t('txt_all_categories')}
@@ -300,6 +306,7 @@ const ListCategories = observer((props) => {
             arrowColor={'var(--dropdown-indicator-color)'}
             size="large"
             minWidth={200}
+            isClearable={true}
           />
         </div>
         <div className="d-flex align-items-center">
