@@ -225,7 +225,7 @@ const ListCategories = observer((props) => {
 
   const selectCategoryHandler = (value) => {
     viewModel.isLoading();
-    viewModel.getListByFilter('id', {
+    viewModel.getListByFilter('parentid', {
       value: value.value,
       type: 'filter',
     });
