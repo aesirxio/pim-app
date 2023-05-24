@@ -29,9 +29,12 @@ const FieldInformation = observer(
 
     componentDidMount() {
       const fetchData = async () => {
-        await this.utilsListViewModel.getListContentType();
-        await this.utilsListViewModel.getListFieldType();
-        await this.fieldGroupListViewModel.initializeData();
+        await Promise.all([
+          this.utilsListViewModel.getListContentType(),
+          this.utilsListViewModel.getListFieldType(),
+        ]).then(() => {
+          this.fieldGroupListViewModel.initializeData();
+        });
       };
       fetchData();
     }
