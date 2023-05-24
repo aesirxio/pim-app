@@ -28,10 +28,13 @@ const FieldInformation = observer(
     }
 
     componentDidMount() {
-      const fetchData = () => {
-        this.utilsListViewModel.getListContentType();
-        this.utilsListViewModel.getListFieldType();
-        this.fieldGroupListViewModel.initializeData();
+      const fetchData = async () => {
+        await Promise.all([
+          this.utilsListViewModel.getListContentType(),
+          this.utilsListViewModel.getListFieldType(),
+        ]).then(() => {
+          this.fieldGroupListViewModel.initializeData();
+        });
       };
       fetchData();
     }

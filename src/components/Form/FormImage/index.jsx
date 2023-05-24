@@ -71,7 +71,7 @@ const FormImage = ({ field, ...props }) => {
                         >
                           <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
-                        <ComponentImage src={item?.download_url} alt={field.value} />
+                        <ComponentImage src={JSON.parse(item)?.download_url} alt={field.value} />
                       </div>
                     </Ratio>
                   </Col>
