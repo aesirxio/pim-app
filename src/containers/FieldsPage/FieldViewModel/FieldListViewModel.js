@@ -35,7 +35,9 @@ class FieldListViewModel {
   };
 
   initializeData = async () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
     await this.fieldStore.getList(
       this.filter,
       this.filterList,
@@ -47,7 +49,9 @@ class FieldListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   initializeDataCustom = async () => {
@@ -86,7 +90,9 @@ class FieldListViewModel {
       this.callbackOnErrorHandler
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   handleFilter = (filter) => {
@@ -136,7 +142,9 @@ class FieldListViewModel {
         this.callbackOnErrorHandler
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   deleteFields = async (arr) => {
@@ -153,7 +161,9 @@ class FieldListViewModel {
         this.callbackOnErrorHandler
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   callbackOnErrorHandler = (error) => {
@@ -201,7 +211,9 @@ class FieldListViewModel {
   };
 
   isLoading = () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
   };
 }
 

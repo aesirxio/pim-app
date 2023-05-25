@@ -9,7 +9,7 @@
  */
 
 import PAGE_STATUS from 'constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { notify } from 'aesirx-uikit';
@@ -37,7 +37,9 @@ class ProductListViewModel {
   }
 
   initializeData = async () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
     await this.productStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
@@ -53,8 +55,9 @@ class ProductListViewModel {
       this.callbackOnSuccessGetCategoriesHandler,
       this.callbackOnErrorHandler
     );
-
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   initializeDataListProduct = async () => {
@@ -64,7 +67,9 @@ class ProductListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   setFeatured = async (id, featured = 0) => {
@@ -73,7 +78,9 @@ class ProductListViewModel {
       this.callbackOnSuccessSetFeatured,
       this.callbackOnErrorHandler
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   getListByFilter = async (key, value) => {
@@ -104,7 +111,9 @@ class ProductListViewModel {
       this.successResponse.filters
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   updateStatus = async (arr, status = 0) => {
@@ -121,7 +130,9 @@ class ProductListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   deleteProducts = async (arr) => {
@@ -137,7 +148,9 @@ class ProductListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   getStatisticalDataByDate = async (startDate, endDate) => {
@@ -147,7 +160,9 @@ class ProductListViewModel {
       'filter[modified_date][start]': startDate,
       'filter[modified_date][end]': endDate,
     });
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   callbackOnSuccessSetFeatured = async (result, message) => {
@@ -235,7 +250,9 @@ class ProductListViewModel {
   };
 
   isLoading = () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
   };
 }
 

@@ -5,7 +5,7 @@
 
 import PAGE_STATUS from 'constants/PageStatus';
 import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import moment from 'moment';
 import { notify } from 'aesirx-uikit';
 
@@ -55,7 +55,9 @@ class ProductPriceListViewModel {
       this.callbackOnErrorHandler,
       this.successResponse.filters
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   initializeData = async () => {
@@ -71,7 +73,9 @@ class ProductPriceListViewModel {
       this.callbackOnErrorHandler
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   updateStatus = async (arr, status = 0) => {
@@ -88,7 +92,9 @@ class ProductPriceListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   updatePrices = async (listPrices) => {
@@ -104,7 +110,9 @@ class ProductPriceListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   deleteProductPrices = async (arr) => {
@@ -120,7 +128,9 @@ class ProductPriceListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   callbackOnSuccessHandler = (result, message) => {
@@ -144,7 +154,9 @@ class ProductPriceListViewModel {
   };
 
   isLoading = () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
   };
 
   transform = (data) => {
