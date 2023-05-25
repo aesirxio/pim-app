@@ -69,12 +69,9 @@ const ListFields = observer((props) => {
   const selectTabHandler = (value) => {
     viewModel.isLoading();
     if (value != 'default') {
-      viewModel.getListByFilter('state', {
-        value: value,
-        type: 'filter',
-      });
+      viewModel.getListByFilter('filter[state]', value);
     } else {
-      viewModel.getListByFilter('state', '');
+      viewModel.getListByFilter('filter[state]', '');
     }
   };
 
@@ -93,7 +90,7 @@ const ListFields = observer((props) => {
 
   const selectShowItemsHandler = (value) => {
     viewModel.isLoading();
-    viewModel.getListByFilter('list[limit]', value.value);
+    viewModel.getListByFilter('list[limit]', value?.value);
   };
 
   const selectPageHandler = (value) => {
@@ -143,7 +140,7 @@ const ListFields = observer((props) => {
       </div>
 
       <Tabs
-        defaultActiveKey={'default'}
+        defaultActiveKey={viewModel?.filter['filter[state]'] ?? 'default'}
         id="tab-setting"
         onSelect={(k) => selectTabHandler(k)}
         className="mb-3"
