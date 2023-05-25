@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
@@ -35,7 +35,9 @@ class CategoryListViewModel {
   };
 
   initializeData = async () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
     await this.categoryStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
@@ -51,7 +53,9 @@ class CategoryListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   initializeDataCustom = async () => {
@@ -95,7 +99,9 @@ class CategoryListViewModel {
       this.successResponse.filters
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   setPublished = async (id, state = 0) => {
@@ -111,7 +117,9 @@ class CategoryListViewModel {
       this.successResponse.filters
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   updateStatus = async (arr, status = 0) => {
@@ -128,7 +136,9 @@ class CategoryListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   deleteCategories = async (arr) => {
@@ -144,7 +154,9 @@ class CategoryListViewModel {
         this.successResponse.filters
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   handleFilter = (filter) => {
@@ -224,7 +236,9 @@ class CategoryListViewModel {
   };
 
   isLoading = () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
   };
 }
 

@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
@@ -45,7 +45,9 @@ class DebtorGroupListViewModel {
       this.callbackOnErrorHandler
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   initializeDataDebtorList = async () => {
@@ -55,7 +57,9 @@ class DebtorGroupListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   getListByFilter = async (key, value) => {
@@ -81,7 +85,9 @@ class DebtorGroupListViewModel {
       this.callbackOnErrorHandler
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   updateStatus = async (arr, status = 0) => {
@@ -98,7 +104,9 @@ class DebtorGroupListViewModel {
         this.callbackOnErrorHandler
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   handleFilter = (filter) => {
@@ -118,7 +126,9 @@ class DebtorGroupListViewModel {
         this.callbackOnErrorHandler
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   callbackOnErrorHandler = (error) => {
@@ -166,7 +176,9 @@ class DebtorGroupListViewModel {
   };
 
   isLoading = () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
   };
 }
 

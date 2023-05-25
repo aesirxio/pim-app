@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
@@ -34,13 +34,17 @@ class FieldGroupListViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
     await this.fieldGroupStore.getList(
       this.filter,
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   handleFilter = (filter) => {
@@ -70,7 +74,9 @@ class FieldGroupListViewModel {
       this.callbackOnErrorHandler
     );
 
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   updateStatus = async (arr, status = 0) => {
@@ -87,7 +93,9 @@ class FieldGroupListViewModel {
         this.callbackOnErrorHandler
       );
     }
-    this.successResponse.state = true;
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
 
   callbackOnErrorHandler = (error) => {
@@ -129,7 +137,9 @@ class FieldGroupListViewModel {
   };
 
   isLoading = () => {
-    this.successResponse.state = false;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
   };
 }
 
