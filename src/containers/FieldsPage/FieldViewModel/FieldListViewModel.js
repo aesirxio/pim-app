@@ -35,8 +35,7 @@ class FieldListViewModel {
   };
 
   initializeData = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-
+    this.successResponse.state = false;
     await this.fieldStore.getList(
       this.filter,
       this.filterList,
@@ -48,9 +47,7 @@ class FieldListViewModel {
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler
     );
-    runInAction(() => {
-      this.successResponse.state = true;
-    });
+    this.successResponse.state = true;
   };
 
   initializeDataCustom = async () => {

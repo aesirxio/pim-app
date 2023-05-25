@@ -195,12 +195,9 @@ const ListCategories = observer((props) => {
   const selectTabHandler = (value) => {
     viewModel.isLoading();
     if (value != 'default') {
-      viewModel.getListByFilter('published', {
-        value: value,
-        type: 'filter',
-      });
+      viewModel.getListByFilter('filter[published]', value);
     } else {
-      viewModel.getListByFilter('published', '');
+      viewModel.getListByFilter('filter[published]', '');
     }
   };
 
@@ -258,7 +255,7 @@ const ListCategories = observer((props) => {
       </div>
 
       <Tabs
-        defaultActiveKey={'default'}
+        defaultActiveKey={viewModel?.successResponse?.filters['filter[published]'] ?? 'default'}
         id="tab-setting"
         onSelect={(k) => selectTabHandler(k)}
         className="mb-3"
