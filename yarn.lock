@@ -3265,10 +3265,51 @@ aesirx-dam-app@^1.2.10:
     simple-react-validator "^1.6.2"
     web-vitals "^3.3.1"
 
+aesirx-dam-app@^1.2.11:
+  version "1.2.11"
+  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.2.11.tgz#c09840367728f432418dfa1f90a989fa69b4486c"
+  integrity sha512-xc6UeDZ0ODMVI7lo06dXQYSypg7OFTl4QGtgC8dyhPYCiwZ+DyAmd2W7S0Vj9CXN8SYKphCvs7K9MgB83OU+2A==
+  dependencies:
+    "@fortawesome/fontawesome-svg-core" "^6.2.0"
+    "@fortawesome/free-regular-svg-icons" "^6.2.0"
+    "@fortawesome/free-solid-svg-icons" "^6.2.0"
+    "@fortawesome/react-fontawesome" "^0.2.0"
+    aesirx-lib "^1.9.7"
+    aesirx-uikit "^1.0.8"
+    file-saver "^2.0.5"
+    mobx "^6.9.0"
+    mobx-react "^7.6.0"
+    moment "^2.29.4"
+    react "^18.2.0"
+    react-bootstrap "^2.7.4"
+    react-bootstrap-typeahead "^6.0.0"
+    react-dnd "^16.0.1"
+    react-dnd-html5-backend "^16.0.1"
+    react-dom "^18.2.0"
+    react-dropzone "^14.2.3"
+    react-i18next "^12.2.0"
+    react-router-dom "^5.2.0"
+    react-table "^7.8.0"
+    simple-react-validator "^1.6.2"
+    web-vitals "^3.3.1"
+
 aesirx-lib@^1.9.5, aesirx-lib@^1.9.6:
   version "1.9.6"
   resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.6.tgz#76a380e93fcd0b326ef5c252315871707a35e26f"
   integrity sha512-cZCmaAm8ZVjxWVDSt6R8LcZhh6+b7soyMMkP6ImMNUEvhmANCFC385AGqWI8Y1OsOBIowjj0E9nL2+NDtHn6Ag==
+  dependencies:
+    axios "^1.3.5"
+    axios-auth-refresh "^3.3.6"
+    date-fns "^2.30.0"
+    date-fns-tz "^2.0.0"
+    moment "^2.29.4"
+    query-string "7"
+    react-secure-storage "^1.2.2"
+
+aesirx-lib@^1.9.7:
+  version "1.9.7"
+  resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.7.tgz#3a41257b6f4cfda4cb7a5a75efaed23a82c27a8c"
+  integrity sha512-guXs/uAN5wW+xKr9UjyMv5/u9fYXEp8xQVGFA10XIBy/19/j+JJnUOas1A82zHWOawN7LfbZIRHq8gL11n1B+g==
   dependencies:
     axios "^1.3.5"
     axios-auth-refresh "^3.3.6"
@@ -3288,10 +3329,40 @@ aesirx-sso@^1.0.10:
     react "^18.2.0"
     react-spinners "^0.13.6"
 
-aesirx-uikit@^1.0.5, aesirx-uikit@^1.0.6:
+aesirx-uikit@^1.0.5:
   version "1.0.6"
   resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.6.tgz#f10d9a59d9197f14909171da15d7a12a9642de93"
   integrity sha512-AyFtOO20KvFeYc/NBSeNqXzyjnlMx5N55Jw3UWIyIBtBXVu6njUTBlx5948dRh28FF7xay2pftYkWaFLL15Q3g==
+  dependencies:
+    "@fortawesome/fontawesome-svg-core" "^6.4.0"
+    "@fortawesome/free-regular-svg-icons" "^6.4.0"
+    "@fortawesome/free-solid-svg-icons" "^6.4.0"
+    "@fortawesome/react-fontawesome" "^0.2.0"
+    aesirx-dam-app "^1.2.10"
+    aesirx-lib "^1.9.6"
+    aesirx-sso "^1.0.10"
+    bootstrap "^5.2.3"
+    i18next "^22.4.15"
+    i18next-browser-languagedetector "^7.0.1"
+    mobx "^6.9.0"
+    mobx-react "^7.6.0"
+    moment "^2.29.4"
+    react "^18.2.0"
+    react-bootstrap "^2.7.4"
+    react-datepicker "^4.11.0"
+    react-dom "^18.2.0"
+    react-i18next "^12.2.0"
+    react-lazy-load-image-component "^1.5.6"
+    react-router-dom "^5.2.0"
+    react-select "^5.7.2"
+    react-spinners "^0.13.8"
+    react-toastify "^9.1.2"
+    simple-react-validator "^1.6.2"
+
+aesirx-uikit@^1.0.8:
+  version "1.0.8"
+  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.8.tgz#c5eb9a3b94348c5bfb52089e4769c5111981be50"
+  integrity sha512-x1h5hgmNBH/Qu/9+yzVYpvwqWLDxx344yTjKcedriPhn8pwfPq+8KeQfR6P0FlZfj2nEmNm9x/VKujN3j56Q1A==
   dependencies:
     "@fortawesome/fontawesome-svg-core" "^6.4.0"
     "@fortawesome/free-regular-svg-icons" "^6.4.0"
@@ -5356,13 +5427,6 @@ dom-serializer@^1.0.1:
     domhandler "^4.2.0"
     entities "^2.0.0"
 
-dom7@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/dom7/-/dom7-3.0.0.tgz#b861ce5d67a6becd7aaa3ad02942ff14b1240331"
-  integrity sha512-oNlcUdHsC4zb7Msx7JN3K0Nro1dzJ48knvBOnDPKJ2GV9wl1i5vydJZUSyOfrkKFDZEud/jBsTk92S/VGSAe/g==
-  dependencies:
-    ssr-window "^3.0.0-alpha.1"
-
 domain-browser@^1.1.1:
   version "1.2.0"
   resolved "https://registry.yarnpkg.com/domain-browser/-/domain-browser-1.2.0.tgz#3d31f50191a6749dd1375a7f522e823d42e54eda"
@@ -6198,6 +6262,13 @@ file-selector@^0.4.0:
   integrity sha512-iACCiXeMYOvZqlF1kTiYINzgepRBymz1wwjiuup9u9nayhb6g4fSwiyJ/6adli+EPwrWtpgQAh2PoS7HukEGEg==
   dependencies:
     tslib "^2.0.3"
+
+file-selector@^0.6.0:
+  version "0.6.0"
+  resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.6.0.tgz#fa0a8d9007b829504db4d07dd4de0310b65287dc"
+  integrity sha512-QlZ5yJC0VxHxQQsQhXvBaC7VRJ2uaxTf+Tfpu4Z/OcVQJVpZO+DGU0rkoVW5ce2SccxugvpBJoMvUs59iILYdw==
+  dependencies:
+    tslib "^2.4.0"
 
 file-uri-to-path@1.0.0:
   version "1.0.0"
@@ -10226,6 +10297,15 @@ react-dropzone@^11.2.4:
     file-selector "^0.4.0"
     prop-types "^15.8.1"
 
+react-dropzone@^14.2.3:
+  version "14.2.3"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-14.2.3.tgz#0acab68308fda2d54d1273a1e626264e13d4e84b"
+  integrity sha512-O3om8I+PkFKbxCukfIR3QAGftYXDZfOE2N1mr/7qebQJHs7U+/RSL/9xomJNpRg9kM5h9soQSdf0Gc7OHF5Fug==
+  dependencies:
+    attr-accept "^2.2.2"
+    file-selector "^0.6.0"
+    prop-types "^15.8.1"
+
 react-error-overlay@^6.0.11:
   version "6.0.11"
   resolved "https://registry.yarnpkg.com/react-error-overlay/-/react-error-overlay-6.0.11.tgz#92835de5841c5cf08ba00ddd2d677b6d17ff9adb"
@@ -11343,11 +11423,6 @@ sprintf-js@~1.0.2:
   resolved "https://registry.yarnpkg.com/sprintf-js/-/sprintf-js-1.0.3.tgz#04e6926f662895354f3dd015203633b857297e2c"
   integrity sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g==
 
-ssr-window@^3.0.0, ssr-window@^3.0.0-alpha.1:
-  version "3.0.0"
-  resolved "https://registry.yarnpkg.com/ssr-window/-/ssr-window-3.0.0.tgz#fd5b82801638943e0cc704c4691801435af7ac37"
-  integrity sha512-q+8UfWDg9Itrg0yWK7oe5p/XRCJpJF9OBtXfOPgSJl+u3Xd5KI328RUEvUqSMVM9CiQUEf1QdBzJMkYGErj9QA==
-
 ssri@^6.0.1:
   version "6.0.2"
   resolved "https://registry.yarnpkg.com/ssri/-/ssri-6.0.2.tgz#157939134f20464e7301ddba3e90ffa8f7728ac5"
@@ -11672,14 +11747,6 @@ svgo@^2.7.0:
     csso "^4.2.0"
     picocolors "^1.0.0"
     stable "^0.1.8"
-
-swiper@^6.3.5:
-  version "6.8.4"
-  resolved "https://registry.yarnpkg.com/swiper/-/swiper-6.8.4.tgz#938fed4144f4d7952fbf9c44e5832d133a4de794"
-  integrity sha512-O+buF9Q+sMA0H7luMS8R59hCaJKlpo8PXhQ6ZYu6Rn2v9OsFd4d1jmrv14QvxtQpKAvL/ZiovEeANI/uDGet7g==
-  dependencies:
-    dom7 "^3.0.0"
-    ssr-window "^3.0.0"
 
 symbol-tree@^3.2.4:
   version "3.2.4"
