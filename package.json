@@ -78,6 +78,8 @@
   },
   "resolutions": {
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "aesirx-dam-app": "^1.2.11",
+    "aesirx-uikit": "^1.0.8"
   }
 }

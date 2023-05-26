@@ -3237,35 +3237,7 @@ aesirx-ckeditor@^1.0.0:
   resolved "https://registry.yarnpkg.com/aesirx-ckeditor/-/aesirx-ckeditor-1.0.0.tgz#25bb08c5a20281e191df258596d34d1d1ba6b09a"
   integrity sha512-CTNTVe6OGdAikmZTgy60XIgIYI3nAhlAIwTPGFlwhcM0tHzaHneG249fQBldR2UvaZR/p/SCY9GOQd6OyFEywQ==
 
-aesirx-dam-app@^1.2.10:
-  version "1.2.10"
-  resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.2.10.tgz#06f79f79d1867a1c3689488d6463352c9f87ddd3"
-  integrity sha512-0Qz2uwJZJJ3zVmKdwC3DWAqsLjj0Y/uMjghbUlvrO4CgsHFI/Nuka+C24LHsNJK5gYZq9w6IpWbzvnKpMpsofA==
-  dependencies:
-    "@fortawesome/fontawesome-svg-core" "^6.2.0"
-    "@fortawesome/free-regular-svg-icons" "^6.2.0"
-    "@fortawesome/free-solid-svg-icons" "^6.2.0"
-    "@fortawesome/react-fontawesome" "^0.2.0"
-    aesirx-lib "^1.9.5"
-    aesirx-uikit "^1.0.5"
-    file-saver "^2.0.5"
-    mobx "^6.9.0"
-    mobx-react "^7.6.0"
-    moment "^2.29.4"
-    react "^18.2.0"
-    react-bootstrap "^2.7.4"
-    react-bootstrap-typeahead "^6.0.0"
-    react-dnd "^16.0.1"
-    react-dnd-html5-backend "^16.0.1"
-    react-dom "^18.2.0"
-    react-dropzone "^11.2.4"
-    react-i18next "^12.2.0"
-    react-router-dom "^5.2.0"
-    react-table "^7.8.0"
-    simple-react-validator "^1.6.2"
-    web-vitals "^3.3.1"
-
-aesirx-dam-app@^1.2.11:
+aesirx-dam-app@^1.2.10, aesirx-dam-app@^1.2.11:
   version "1.2.11"
   resolved "https://registry.yarnpkg.com/aesirx-dam-app/-/aesirx-dam-app-1.2.11.tgz#c09840367728f432418dfa1f90a989fa69b4486c"
   integrity sha512-xc6UeDZ0ODMVI7lo06dXQYSypg7OFTl4QGtgC8dyhPYCiwZ+DyAmd2W7S0Vj9CXN8SYKphCvs7K9MgB83OU+2A==
@@ -3293,7 +3265,7 @@ aesirx-dam-app@^1.2.11:
     simple-react-validator "^1.6.2"
     web-vitals "^3.3.1"
 
-aesirx-lib@^1.9.5, aesirx-lib@^1.9.6:
+aesirx-lib@^1.9.6:
   version "1.9.6"
   resolved "https://registry.yarnpkg.com/aesirx-lib/-/aesirx-lib-1.9.6.tgz#76a380e93fcd0b326ef5c252315871707a35e26f"
   integrity sha512-cZCmaAm8ZVjxWVDSt6R8LcZhh6+b7soyMMkP6ImMNUEvhmANCFC385AGqWI8Y1OsOBIowjj0E9nL2+NDtHn6Ag==
@@ -3328,36 +3300,6 @@ aesirx-sso@^1.0.10:
     dotenv "^16.0.3"
     react "^18.2.0"
     react-spinners "^0.13.6"
-
-aesirx-uikit@^1.0.5:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/aesirx-uikit/-/aesirx-uikit-1.0.6.tgz#f10d9a59d9197f14909171da15d7a12a9642de93"
-  integrity sha512-AyFtOO20KvFeYc/NBSeNqXzyjnlMx5N55Jw3UWIyIBtBXVu6njUTBlx5948dRh28FF7xay2pftYkWaFLL15Q3g==
-  dependencies:
-    "@fortawesome/fontawesome-svg-core" "^6.4.0"
-    "@fortawesome/free-regular-svg-icons" "^6.4.0"
-    "@fortawesome/free-solid-svg-icons" "^6.4.0"
-    "@fortawesome/react-fontawesome" "^0.2.0"
-    aesirx-dam-app "^1.2.10"
-    aesirx-lib "^1.9.6"
-    aesirx-sso "^1.0.10"
-    bootstrap "^5.2.3"
-    i18next "^22.4.15"
-    i18next-browser-languagedetector "^7.0.1"
-    mobx "^6.9.0"
-    mobx-react "^7.6.0"
-    moment "^2.29.4"
-    react "^18.2.0"
-    react-bootstrap "^2.7.4"
-    react-datepicker "^4.11.0"
-    react-dom "^18.2.0"
-    react-i18next "^12.2.0"
-    react-lazy-load-image-component "^1.5.6"
-    react-router-dom "^5.2.0"
-    react-select "^5.7.2"
-    react-spinners "^0.13.8"
-    react-toastify "^9.1.2"
-    simple-react-validator "^1.6.2"
 
 aesirx-uikit@^1.0.8:
   version "1.0.8"
@@ -6255,13 +6197,6 @@ file-saver@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.5.tgz#d61cfe2ce059f414d899e9dd6d4107ee25670c38"
   integrity sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==
-
-file-selector@^0.4.0:
-  version "0.4.0"
-  resolved "https://registry.yarnpkg.com/file-selector/-/file-selector-0.4.0.tgz#59ec4f27aa5baf0841e9c6385c8386bef4d18b17"
-  integrity sha512-iACCiXeMYOvZqlF1kTiYINzgepRBymz1wwjiuup9u9nayhb6g4fSwiyJ/6adli+EPwrWtpgQAh2PoS7HukEGEg==
-  dependencies:
-    tslib "^2.0.3"
 
 file-selector@^0.6.0:
   version "0.6.0"
@@ -10287,15 +10222,6 @@ react-dom@^18, react-dom@^18.2.0:
   dependencies:
     loose-envify "^1.1.0"
     scheduler "^0.23.0"
-
-react-dropzone@^11.2.4:
-  version "11.7.1"
-  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-11.7.1.tgz#3851bb75b26af0bf1b17ce1449fd980e643b9356"
-  integrity sha512-zxCMwhfPy1olUEbw3FLNPLhAm/HnaYH5aELIEglRbqabizKAdHs0h+WuyOpmA+v1JXn0++fpQDdNfUagWt5hJQ==
-  dependencies:
-    attr-accept "^2.2.2"
-    file-selector "^0.4.0"
-    prop-types "^15.8.1"
 
 react-dropzone@^14.2.3:
   version "14.2.3"
