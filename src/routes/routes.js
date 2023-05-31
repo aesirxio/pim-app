@@ -4,10 +4,9 @@
  */
 
 import React, { lazy } from 'react';
-import { LoginPage, ProfilePage, DigitalAssetsPage } from 'aesirx-uikit';
+import { LoginPage, ProfilePage, DigitalAssetsPage, MembersPage } from 'aesirx-uikit';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
-const MembersListPage = lazy(() => import('../containers/MembersListPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
 const SettingPage = lazy(() => import('containers/SettingPage'));
@@ -63,9 +62,9 @@ const mainRoutes = [
     main: () => <CategoriesPage />,
   },
   {
-    path: '/members-list',
+    path: '/members',
     exact: true,
-    main: () => <MembersListPage />,
+    main: () => <MembersPage />,
   },
   {
     path: '/data-stream',
