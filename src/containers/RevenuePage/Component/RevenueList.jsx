@@ -1,7 +1,6 @@
 import React from 'react';
 import Table from 'components/Table';
 import { withTranslation } from 'react-i18next';
-import ComponentFilter from 'components/ComponentFilter';
 
 const RevenueList = ({ ...props }) => {
   const { t } = props;
@@ -126,7 +125,6 @@ const RevenueList = ({ ...props }) => {
   );
   return (
     <>
-      <ComponentFilter isSearch isAction isDate />
       <Table
         classNameTable={`test`}
         columns={columnsTable}

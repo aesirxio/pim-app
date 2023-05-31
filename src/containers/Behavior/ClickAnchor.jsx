@@ -1,6 +1,4 @@
 // import AreaChartComponent from 'components/AreaChartComponent';
-// import BarChartComponent from 'components/BarChartComponent';
-// import ComponentContinent from 'components/ComponentContinent';
 import DateRangePicker from 'components/DateRangePicker';
 // import PieChartComponent from 'components/PieChartComponent';
 import React, { Component } from 'react';
@@ -133,7 +131,6 @@ class BehaviorClickAnchorPage extends Component {
               />
             </Col>
             <Col lg={6}>
-              <ComponentContinent></ComponentContinent>
             </Col>
           </Row>
           <Row className="gx-24 mb-24">
@@ -148,15 +145,6 @@ class BehaviorClickAnchorPage extends Component {
               />
             </Col>
             <Col lg={4}>
-              <BarChartComponent
-                chartTitle={'By Age'}
-                height={390}
-                bars={['bar1']}
-                barColors={['#005DAC']}
-                data={dataBarChart}
-                margin={{ left: -20 }}
-                viewMoreLink={'#'}
-              ></BarChartComponent>
             </Col>
             <Col lg={5}>
               <MostClickingPages></MostClickingPages>
