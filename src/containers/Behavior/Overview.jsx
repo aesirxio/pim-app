@@ -1,12 +1,10 @@
 // import AreaChartComponent from 'components/AreaChartComponent';
-// import BarChartComponent from 'components/BarChartComponent';
 import DateRangePicker from 'components/DateRangePicker';
 // import PieChartComponent from 'components/PieChartComponent';
 import React, { Component } from 'react';
 // import { Col, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 // import BehaviorTable from './Component/BehaviorTable';
-// import ComponentFilter from 'components/ComponentFilter';
 
 class BehaviorOverviewPage extends Component {
   render() {
@@ -116,7 +114,7 @@ class BehaviorOverviewPage extends Component {
               <DateRangePicker></DateRangePicker>
             </div>
           </div>
-          {/* <ComponentFilter isContinent />
+          {/*
           <Row className="gx-24 mb-24">
             <Col lg={6}>
               <AreaChartComponent
@@ -134,16 +132,6 @@ class BehaviorOverviewPage extends Component {
               />
             </Col>
             <Col lg={6}>
-              <BarChartComponent
-                chartTitle={'Event count'}
-                height={390}
-                bars={['bar1']}
-                barColors={['#2C94EA']}
-                data={dataBarChart}
-                margin={{ left: 40 }}
-                isFilterButtons={true}
-                filterButtons={true}
-              ></BarChartComponent>
             </Col>
           </Row>
           <Row className="gx-24 mb-24">

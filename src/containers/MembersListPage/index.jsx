@@ -1,10 +1,10 @@
-import Button from 'components/Button';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import Table from 'components/Table';
-import { Tab, Tabs } from 'react-bootstrap';
+import { Button, Tab, Tabs } from 'react-bootstrap';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class MembersListPage extends Component {
   constructor(props) {
@@ -82,11 +82,14 @@ class MembersListPage extends Component {
         <div className="mb-3 d-flex align-items-center justify-content-between">
           <h2 className="fw-bold">{t('txt_left_menu_member_list')}</h2>
           <Button
-            icon={faPlus}
-            text={t('txt_left_menu_add_new')}
             variant={`light`}
             className={` px-16 fw-semibold d-flex align-items-center rounded-1 btn btn-success`}
-          ></Button>
+          >
+            <i className="pe-1">
+              <FontAwesomeIcon icon={faPlus} />
+            </i>
+            {t('txt_left_menu_add_new')}
+          </Button>
         </div>
         <div className="mb-3">
           <Tabs
