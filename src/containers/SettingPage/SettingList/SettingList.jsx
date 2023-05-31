@@ -5,13 +5,13 @@
 
 import React, { Component } from 'react';
 
-import Button from 'components/Button';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { observer } from 'mobx-react';
 import { withTranslation } from 'react-i18next';
 import { withRouter } from 'react-router-dom';
 import SimpleReactValidator from 'simple-react-validator';
 import { renderingGroupFieldHandler } from 'utils/form';
+import { Button } from 'react-bootstrap';
 
 const SettingList = observer(
   class SettingList extends Component {
@@ -217,11 +217,9 @@ const SettingList = observer(
             .reduce((arr, el) => {
               return arr.concat(el);
             }, [])}
-          <Button
-            text={t('txt_save_setting')}
-            onClick={this.handleSubmit}
-            className="btn btn-success ms-auto"
-          />
+          <Button onClick={this.handleSubmit} className="btn btn-success ms-auto">
+            {t('txt_save_setting')}
+          </Button>
         </div>
       );
     }

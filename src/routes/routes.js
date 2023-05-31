@@ -7,7 +7,6 @@ import React, { lazy } from 'react';
 import { LoginPage, ProfilePage, DigitalAssetsPage } from 'aesirx-uikit';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
-const SubscriptionPage = lazy(() => import('../containers/SubscriptionPage'));
 const MembersListPage = lazy(() => import('../containers/MembersListPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
 const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
@@ -62,11 +61,6 @@ const mainRoutes = [
     path: ['/categories', '/categories'],
     exact: true,
     main: () => <CategoriesPage />,
-  },
-  {
-    path: '/subscription',
-    exact: true,
-    main: () => <SubscriptionPage />,
   },
   {
     path: '/members-list',
