@@ -5,6 +5,8 @@
   "author": "AesirX",
   "repository": "https://github.com/aesirxio/pim-app",
   "dependencies": {
+    "@ckeditor/ckeditor5-font": "^35.2.0",
+    "@ckeditor/ckeditor5-html-embed": "^35.2.0",
     "@ckeditor/ckeditor5-build-classic": "^35.3.2",
     "@ckeditor/ckeditor5-react": "^5.0.3",
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
@@ -60,8 +62,6 @@
   "devDependencies": {
     "@babel/eslint-parser": "^7.18",
     "@babel/preset-react": "^7.17",
-    "@ckeditor/ckeditor5-font": "^35.2.0",
-    "@ckeditor/ckeditor5-html-embed": "^35.2.0",
     "@testing-library/jest-dom": "^5.16.3",
     "@testing-library/react": "^12.1.4",
     "@testing-library/user-event": "^13.5.0",
