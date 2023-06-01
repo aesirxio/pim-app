@@ -4,7 +4,13 @@
  */
 
 import React, { lazy } from 'react';
-import { LoginPage, ProfilePage, DigitalAssetsPage, MembersPage } from 'aesirx-uikit';
+import {
+  LoginPage,
+  ProfilePage,
+  DigitalAssetsPage,
+  MembersPage,
+  EditMemberProvider,
+} from 'aesirx-uikit';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
@@ -65,6 +71,16 @@ const mainRoutes = [
     path: '/members',
     exact: true,
     main: () => <MembersPage />,
+  },
+  {
+    path: '/members/edit/:id',
+    exact: true,
+    main: ({ match }) => <EditMemberProvider match={match} />,
+  },
+  {
+    path: '/members/add',
+    exact: true,
+    main: () => <EditMemberProvider />,
   },
   {
     path: '/data-stream',
