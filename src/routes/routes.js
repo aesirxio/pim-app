@@ -4,7 +4,13 @@
  */
 
 import React, { lazy } from 'react';
-import { LoginPage, ProfilePage, DigitalAssetsPage, MembersPage } from 'aesirx-uikit';
+import {
+  LoginPage,
+  ProfilePage,
+  DigitalAssetsPage,
+  MembersPage,
+  EditMemberProvider,
+} from 'aesirx-uikit';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
@@ -48,12 +54,7 @@ const mainRoutes = [
     main: () => <ProductsPage />,
   },
   {
-    path: '/variants/add',
-    exact: true,
-    main: () => <EditVariantProvider />,
-  },
-  {
-    path: '/variants/edit/:id',
+    path: ['/variants/add', '/variants/edit/:id'],
     exact: true,
     main: ({ match }) => <EditVariantProvider match={match} />,
   },
@@ -67,6 +68,11 @@ const mainRoutes = [
     path: '/members',
     exact: true,
     main: () => <MembersPage />,
+  },
+  {
+    path: ['/members/add', '/members/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditMemberProvider match={match} />,
   },
   {
     path: '/data-stream',
@@ -89,24 +95,14 @@ const mainRoutes = [
     main: () => <HelpCenterPage />,
   },
   {
-    path: '/products/edit/:id',
+    path: ['/products/add', '/products/edit/:id'],
     exact: true,
     main: ({ match }) => <EditProductProvider match={match} />,
   },
   {
-    path: '/products/add',
-    exact: true,
-    main: () => <EditProductProvider />,
-  },
-  {
-    path: '/categories/edit/:id',
+    path: ['/categories/add', '/categories/edit/:id'],
     exact: true,
     main: ({ match }) => <EditCategoryProvider match={match} />,
-  },
-  {
-    path: '/categories/add',
-    exact: true,
-    main: () => <EditCategoryProvider />,
   },
   {
     path: '/fields',
@@ -114,14 +110,9 @@ const mainRoutes = [
     main: () => <FieldsPage />,
   },
   {
-    path: '/fields/edit/:id',
+    path: ['/fields/add', '/fields/edit/:id'],
     exact: true,
     main: ({ match }) => <EditFieldProvider match={match} />,
-  },
-  {
-    path: '/fields/add',
-    exact: true,
-    main: () => <EditFieldProvider />,
   },
   {
     path: '/fields-group',
@@ -129,14 +120,9 @@ const mainRoutes = [
     main: () => <FieldsGroupPage />,
   },
   {
-    path: '/fields-group/edit/:id',
+    path: ['/fields-group/add', '/fields-group/edit/:id'],
     exact: true,
     main: ({ match }) => <EditFieldGroupProvider match={match} />,
-  },
-  {
-    path: '/fields-group/add',
-    exact: true,
-    main: () => <EditFieldGroupProvider />,
   },
   {
     path: '/dam',
@@ -149,14 +135,9 @@ const mainRoutes = [
     main: () => <DebtorGroupPage />,
   },
   {
-    path: '/debtor-group/edit/:id',
+    path: ['/debtor-group/add', '/debtor-group/edit/:id'],
     exact: true,
     main: ({ match }) => <EditDebtorGroupProvider match={match} />,
-  },
-  {
-    path: '/debtor-group/add',
-    exact: true,
-    main: () => <EditDebtorGroupProvider />,
   },
   {
     path: ['/prices'],
@@ -164,14 +145,9 @@ const mainRoutes = [
     main: () => <ProductPrice />,
   },
   {
-    path: '/prices/edit/:id',
+    path: ['/prices/add', '/prices/edit/:id'],
     exact: true,
     main: ({ match }) => <EditProductPriceProvider match={match} />,
-  },
-  {
-    path: '/prices/add',
-    exact: true,
-    main: () => <EditProductPriceProvider />,
   },
   {
     path: ['/product-types'],
