@@ -337,5 +337,12 @@
   "txt_nodata": "Không có dữ liệu",
   "txt_noopions": "Không có lựa chọn",
   "txt_field_required_error_message": "Vui lòng nhập :attribute",
-  "txt_field_change_warning":"Hãy cẩn thận! Thay đổi loại trường của bạn, cơ sở dữ liệu hiện có trường này trên các mục có thể bị MẤT do loại dữ liệu khác."
+  "txt_field_change_warning":"Hãy cẩn thận! Thay đổi loại trường của bạn, cơ sở dữ liệu hiện có trường này trên các mục có thể bị MẤT do loại dữ liệu khác.",
+  "txt_left_menu_product_type": "Loại sản phẩm",
+  "txt_all_product_type": "Tất cả các loại sản phẩm",
+  "txt_add_product_type_name": "Thêm tên loại sản phẩm",
+  "txt_product_type_name": "Tên loại sản phẩm",
+  "txt_parent_type": "Loại cha",
+  "txt_select_parent_type": "Chọn loại cha",
+  "txt_parent_product_type": "Loại sản phẩm cha"
 }

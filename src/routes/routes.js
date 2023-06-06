@@ -31,6 +31,8 @@ const CategoriesPage = lazy(() => import('../containers/CategoriesPage'));
 const FieldsPage = lazy(() => import('../containers/FieldsPage'));
 const DebtorGroupPage = lazy(() => import('../containers/DebtorGroupPage'));
 const FieldsGroupPage = lazy(() => import('../containers/FieldsGroupPage'));
+const ProductTypePage = lazy(() => import('../containers/ProductTypePage'));
+const EditProductTypeProvider = lazy(() => import('containers/ProductTypePage/edit'));
 
 const authRoutes = [
   {
@@ -146,6 +148,16 @@ const mainRoutes = [
     path: ['/prices/add', '/prices/edit/:id'],
     exact: true,
     main: ({ match }) => <EditProductPriceProvider match={match} />,
+  },
+  {
+    path: ['/product-types'],
+    exact: true,
+    main: () => <ProductTypePage />,
+  },
+  {
+    path: ['/product-types/edit/:id', '/product-types/add'],
+    exact: true,
+    main: ({ match }) => <EditProductTypeProvider match={match} />,
   },
 ];
 

@@ -341,5 +341,12 @@
   "txt_seo_page_heading": "Заголовок сторінки SEO",
   "txt_seo_page_description": "Опис сторінки SEO",
   "txt_seo_page_keywords": "Ключові слова сторінки SEO",
-  "txt_field_change_warning":"Будь ласка, будь обережним! Змініть тип поля, існуюча база даних це поле для елементів може бути ВТРАЧЕНО через інший тип даних."
+  "txt_field_change_warning":"Будь ласка, будь обережним! Змініть тип поля, існуюча база даних це поле для елементів може бути ВТРАЧЕНО через інший тип даних.",
+  "txt_left_menu_product_type": "Тип продукту",
+  "txt_all_product_type": "Усі типи продукції",
+  "txt_add_product_type_name": "Додайте назву типу продукту",
+  "txt_product_type_name": "Назва типу продукту",
+  "txt_parent_type": "Батьківський тип",
+  "txt_select_parent_type": "Виберіть тип батьківського елемента",
+  "txt_parent_product_type": "Батьківський тип продукту"
 }
