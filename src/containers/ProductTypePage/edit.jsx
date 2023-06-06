@@ -20,4 +20,4 @@ const EditProductTypeProvider = observer(
     }
   }
 );
-export { EditProductTypeProvider };
+export default EditProductTypeProvider;

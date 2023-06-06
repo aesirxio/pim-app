@@ -341,5 +341,11 @@
   "txt_seo_page_heading": "SEO naslov stranice",
   "txt_seo_page_description": "SEO opis stranice",
   "txt_seo_page_keywords": "Ključne riječi za SEO stranicu",
-  "txt_field_change_warning":"Molim te budi oprezan! Promijenite vrstu polja, postojeća baza podataka ovo polje na stavkama može biti IZGUBLJENO zbog različite vrste podataka."
+  "txt_field_change_warning":"Molim te budi oprezan! Promijenite vrstu polja, postojeća baza podataka ovo polje na stavkama može biti IZGUBLJENO zbog različite vrste podataka.",
+  "txt_left_menu_product_type": "Vrsta proizvoda",
+  "txt_all_product_type": "Sve vrste proizvoda",
+  "txt_add_product_type_name": "Dodajte naziv vrste proizvoda",
+  "txt_product_type_name": "Naziv vrste proizvoda",
+  "txt_parent_type": "Vrsta roditelja",
+  "txt_select_parent_type": "Odaberite Vrsta roditelja"
 }

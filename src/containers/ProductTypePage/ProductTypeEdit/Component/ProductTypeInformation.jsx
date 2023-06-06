@@ -2,9 +2,8 @@ import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { ProductTypeViewModelContext } from 'pages/ProductTypes/ProductTypeViewModel/ProductTypeViewModelContextProvider';
-import { renderingGroupFieldHandler } from 'components';
-import { FORM_FIELD_TYPE } from 'aesirx-uikit';
+import { FORM_FIELD_TYPE, renderingGroupFieldHandler } from 'aesirx-uikit';
+import { ProductTypeViewModelContext } from 'containers/ProductTypePage/ProductTypeViewModel/ProductTypeViewModelContextProvider';
 
 const ProductTypeInformation = observer(
   class ProductTypeInformation extends Component {
@@ -17,34 +16,37 @@ const ProductTypeInformation = observer(
     render() {
       this.viewModel = this.context.model.productTypeDetailViewModel;
       const { t, validator } = this.props;
+
       const generateFormSetting = [
         {
           fields: [
             {
-              label: t('txt_parent'),
+              label: t('txt_parent_type'),
               key: PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
-              required: true,
-              validation: 'required',
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.productTypeDetailViewModel.formPropsData[
-                PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
-              ]
-                ? {
-                    label: this.viewModel?.productTypeList?.listItems?.find(
-                      (x) =>
-                        x.id.toString() ===
+              getValueSelected:
+                this.viewModel.productTypeDetailViewModel.formPropsData[
+                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                ] &&
+                this.viewModel.productTypeDetailViewModel.formPropsData[
+                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                ] !== '0'
+                  ? {
+                      label: this.viewModel?.productTypeList?.find(
+                        (x) =>
+                          x.id.toString() ===
+                          this.viewModel.productTypeDetailViewModel.formPropsData[
+                            PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                          ]
+                      )?.name,
+                      value:
                         this.viewModel.productTypeDetailViewModel.formPropsData[
                           PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
-                        ]
-                    )?.name,
-                    value:
-                      this.viewModel.productTypeDetailViewModel.formPropsData[
-                        PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
-                      ],
-                  }
-                : null,
-              getDataSelectOptions: this.viewModel?.productTypeList?.listItems?.length
-                ? this.viewModel?.productTypeList?.listItems?.map((item) => {
+                        ],
+                    }
+                  : null,
+              getDataSelectOptions: this.viewModel?.productTypeList?.length
+                ? this.viewModel?.productTypeList?.map((item) => {
                     return {
                       label: item.name,
                       value: item.id,
@@ -57,6 +59,7 @@ const ProductTypeInformation = observer(
                   data.value
                 );
               },
+              placeholder: t('txt_select_parent_type'),
               className: 'col-lg-12',
             },
           ],

@@ -1,12 +1,11 @@
-import { ORGANISATION_MEMBER_FIELD } from 'aesirx-lib';
+import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 /*
  * @copyright   Copyright (C) 2022 AesirX. All rights reserved.
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { PAGE_STATUS } from 'constant';
-import { notify } from 'components';
+import { PAGE_STATUS, notify } from 'aesirx-uikit';
 class ProductTypeDetailViewModel {
   formStatus = PAGE_STATUS.READY;
   productTypeDetailViewModel = { formPropsData: [{}] };
@@ -15,7 +14,7 @@ class ProductTypeDetailViewModel {
   successResponse = {
     state: true,
     content_id: '',
-    filters: {},
+    filters: { limit: 0 },
   };
 
   constructor(productTypeStore) {
@@ -30,12 +29,27 @@ class ProductTypeDetailViewModel {
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
     const data = await this.productTypeStore.getDetail(
-      this.productTypeDetailViewModel.formPropsData[ORGANISATION_MEMBER_FIELD.ID]
+      this.productTypeDetailViewModel.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]
     );
 
     runInAction(() => {
       if (!data?.error) {
         this.onGetProductTypeSuccessHandler(data?.response);
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+  };
+
+  getProductTypeList = async () => {
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.productTypeStore.getList(this.successResponse.filters);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
       } else {
         this.onErrorHandler(data?.response);
       }
@@ -83,6 +97,9 @@ class ProductTypeDetailViewModel {
     if (result && message) {
       notify(message, 'success');
     }
+    if (result?.listItems) {
+      this.productTypeList = result?.listItems;
+    }
     this.formStatus = PAGE_STATUS.READY;
   };
 
@@ -90,10 +107,11 @@ class ProductTypeDetailViewModel {
     if (result) {
       this.productTypeDetailViewModel.formPropsData = {
         ...this.productTypeDetailViewModel.formPropsData,
-        ...Object.keys(ORGANISATION_MEMBER_FIELD)
+        ...Object.keys(PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
-              [ORGANISATION_MEMBER_FIELD[index]]: result[ORGANISATION_MEMBER_FIELD[index]],
+              [PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY[index]]:
+                result[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY[index]],
             };
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),

@@ -21,4 +21,4 @@ const ProductTypePage = observer(
   }
 );
 
-export { ProductTypePage };
+export default ProductTypePage;

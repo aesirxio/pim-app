@@ -17,9 +17,8 @@ import _ from 'lodash';
 import { withProductTypeViewModel } from '../ProductTypeViewModel/ProductTypeViewModelContextProvider';
 import ProductTypeInformation from './Component/ProductTypeInformation';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS } from 'constant';
-import { Input } from 'components/Form/Input';
-import { Spinner } from 'components';
+import { PAGE_STATUS, Spinner } from 'aesirx-uikit';
+import Input from 'components/Form/Input';
 
 const EditProductType = observer(
   class EditProductType extends Component {
@@ -44,7 +43,7 @@ const EditProductType = observer(
         this.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID] = match.params?.id;
         await this.productTypeDetailViewModel.initializeData();
       }
-      await this.productTypeDetailViewModel.getRoleList();
+      await this.productTypeDetailViewModel.getProductTypeList();
     }
 
     handleValidateForm() {
@@ -66,7 +65,7 @@ const EditProductType = observer(
     render() {
       const { t, history } = this.props;
       // eslint-disable-next-line no-console
-      console.log('rerender ProductType');
+      console.log('rerender ProductType', this.productTypeDetailViewModel);
 
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
@@ -137,29 +136,33 @@ const EditProductType = observer(
                 <Form.Group className={`mb-24`}>
                   <Input
                     field={{
-                      value:
+                      getValueSelected:
                         this.productTypeDetailViewModel.productTypeDetailViewModel.formPropsData[
-                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.MEMBER_NAME
+                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME
                         ],
                       classNameInput: 'py-10 fs-4',
                       placeholder: t('txt_add_product_type_name'),
-                      changed: (event) => {
+                      handleChange: (event) => {
+                        console.log(
+                          'this.productTypeDetailViewModel',
+                          this.productTypeDetailViewModel
+                        );
                         this.productTypeDetailViewModel.handleFormPropsData(
-                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.MEMBER_NAME,
+                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME,
                           event.target.value
                         );
                       },
                       required: true,
                       validation: 'required',
                       blurred: () => {
-                        this.validator.showMessageFor('Product Type Name');
+                        this.validator.showMessageFor(t('txt_product_type_name'));
                       },
                     }}
                   />
                   {this.validator.message(
-                    'Product Type Name',
+                    t('txt_product_type_name'),
                     this.productTypeDetailViewModel.productTypeDetailViewModel.formPropsData[
-                      PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.MEMBER_NAME
+                      PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME
                     ],
                     'required',
                     {
@@ -184,8 +187,8 @@ const EditProductType = observer(
                     this.productTypeDetailViewModel.productTypeDetailViewModel.formPropsData
                   }
                   isEdit={this.isEdit}
+                  isPublished={false}
                   isFeatured={false}
-                  isPublishedSimple={true}
                 />
               </Col>
             </Row>

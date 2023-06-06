@@ -342,5 +342,11 @@
   "txt_seo_page_heading": "Encabezado de página SEO",
   "txt_seo_page_description": "Descripción de la página SEO",
   "txt_seo_page_keywords": "Palabras clave de la página SEO",
-  "txt_field_change_warning":"¡Por favor tenga cuidado! Cambie su tipo de campo, la base de datos existente este campo en elementos podría PERDERSE debido a un tipo de datos diferente."
+  "txt_field_change_warning":"¡Por favor tenga cuidado! Cambie su tipo de campo, la base de datos existente este campo en elementos podría PERDERSE debido a un tipo de datos diferente.",
+  "txt_left_menu_product_type": "tipo de producto",
+  "txt_all_product_type": "Todo tipo de producto",
+  "txt_add_product_type_name": "Agregar nombre de tipo de producto",
+  "txt_product_type_name": "Nombre del tipo de producto",
+  "txt_parent_type": "Tipo principal",
+  "txt_select_parent_type": "Seleccionar tipo de padre"
 }

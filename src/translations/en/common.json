@@ -344,5 +344,11 @@
   "txt_seo_page_heading": "SEO page heading",
   "txt_seo_page_description": "SEO page description",
   "txt_seo_page_keywords": "SEO page keywords",
-  "txt_field_change_warning":"Please be careful! Change your field type, the existing database this field on items could be LOST due to different data type."
+  "txt_field_change_warning":"Please be careful! Change your field type, the existing database this field on items could be LOST due to different data type.",
+  "txt_left_menu_product_type": "Product Type",
+  "txt_all_product_type": "All Product Type",
+  "txt_add_product_type_name": "Add Product Type Name",
+  "txt_product_type_name": "Product Type Name",
+  "txt_parent_type": "Parent Type",
+  "txt_select_parent_type": "Select Parent Type"
 }
