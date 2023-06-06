@@ -42,6 +42,16 @@ const ListProductType = observer((props) => {
         );
       },
     },
+    {
+      Header: t('txt_parent_product_type'),
+      accessor: 'productTypeParent',
+      width: 150,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return <>{value == 'ROOT' ? 'Top level' : value}</>;
+      },
+    },
+
     // {
     //   Header: t('txt_last_modified'),
     //   accessor: 'lastModified',

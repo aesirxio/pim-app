@@ -347,5 +347,6 @@
   "txt_add_product_type_name": "Додайте назву типу продукту",
   "txt_product_type_name": "Назва типу продукту",
   "txt_parent_type": "Батьківський тип",
-  "txt_select_parent_type": "Виберіть тип батьківського елемента"
+  "txt_select_parent_type": "Виберіть тип батьківського елемента",
+  "txt_parent_product_type": "Батьківський тип продукту"
 }

@@ -343,5 +343,6 @@
   "txt_add_product_type_name": "Thêm tên loại sản phẩm",
   "txt_product_type_name": "Tên loại sản phẩm",
   "txt_parent_type": "Loại cha",
-  "txt_select_parent_type": "Chọn loại cha"
+  "txt_select_parent_type": "Chọn loại cha",
+  "txt_parent_product_type": "Loại sản phẩm cha"
 }

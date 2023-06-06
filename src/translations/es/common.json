@@ -348,5 +348,6 @@
   "txt_add_product_type_name": "Agregar nombre de tipo de producto",
   "txt_product_type_name": "Nombre del tipo de producto",
   "txt_parent_type": "Tipo principal",
-  "txt_select_parent_type": "Seleccionar tipo de padre"
+  "txt_select_parent_type": "Seleccionar tipo de padre",
+  "txt_parent_product_type": "Tipo de producto principal"
 }

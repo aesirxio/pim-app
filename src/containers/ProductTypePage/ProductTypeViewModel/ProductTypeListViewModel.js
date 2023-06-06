@@ -116,10 +116,9 @@ class ProductTypeListViewModel {
           id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID],
           name: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME],
         },
-        productTypeParent: {
-          id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID],
-          name: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME],
-        },
+        productTypeParent: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
+          ? o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
+          : 'ROOT',
         lastModified: {
           status: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',

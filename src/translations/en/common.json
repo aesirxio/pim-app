@@ -350,5 +350,6 @@
   "txt_add_product_type_name": "Add Product Type Name",
   "txt_product_type_name": "Product Type Name",
   "txt_parent_type": "Parent Type",
-  "txt_select_parent_type": "Select Parent Type"
+  "txt_select_parent_type": "Select Parent Type",
+  "txt_parent_product_type": "Parent Product Type"
 }

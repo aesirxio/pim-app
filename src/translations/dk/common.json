@@ -350,5 +350,6 @@
   "txt_add_product_type_name": "Tilføj produkttypenavn",
   "txt_product_type_name": "Produkttypenavn",
   "txt_parent_type": "Forældretype",
-  "txt_select_parent_type": "Vælg forældretype"
+  "txt_select_parent_type": "Vælg forældretype",
+  "txt_parent_product_type": "Overordnet produkttype"
 }

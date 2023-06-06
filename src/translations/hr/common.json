@@ -347,5 +347,6 @@
   "txt_add_product_type_name": "Dodajte naziv vrste proizvoda",
   "txt_product_type_name": "Naziv vrste proizvoda",
   "txt_parent_type": "Vrsta roditelja",
-  "txt_select_parent_type": "Odaberite Vrsta roditelja"
+  "txt_select_parent_type": "Odaberite Vrsta roditelja",
+  "txt_parent_product_type": "Nadređena vrsta proizvoda"
 }
