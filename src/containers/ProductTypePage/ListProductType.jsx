@@ -24,6 +24,21 @@ const ListProductType = observer((props) => {
         return (
           <>
             <div className="d-flex align-items-center py-8px">
+              {value.level > 1 && (
+                <div className="me-1 d-flex align-items-center">
+                  {[...Array(value.level - 1)].map((o, index) => (
+                    <span
+                      key={index}
+                      style={{
+                        height: '2px',
+                        width: '16px',
+                        marginRight: '7px',
+                      }}
+                      className="d-inline-block bg-gray"
+                    ></span>
+                  ))}
+                </div>
+              )}
               <div>
                 <div className="mb-1">{value.name}</div>
                 <div className="text-green">

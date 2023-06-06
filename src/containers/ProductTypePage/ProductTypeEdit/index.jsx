@@ -143,10 +143,6 @@ const EditProductType = observer(
                       classNameInput: 'py-10 fs-4',
                       placeholder: t('txt_add_product_type_name'),
                       handleChange: (event) => {
-                        console.log(
-                          'this.productTypeDetailViewModel',
-                          this.productTypeDetailViewModel
-                        );
                         this.productTypeDetailViewModel.handleFormPropsData(
                           PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME,
                           event.target.value
