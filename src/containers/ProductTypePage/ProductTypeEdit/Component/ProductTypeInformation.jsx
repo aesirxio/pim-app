@@ -15,6 +15,16 @@ const ProductTypeInformation = observer(
 
     render() {
       this.viewModel = this.context.model.productTypeDetailViewModel;
+
+      const filteredProductTypeList = this.viewModel?.productTypeList?.filter((item) => {
+        return (
+          item.id !==
+          this.viewModel.productTypeDetailViewModel.formPropsData[
+            PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID
+          ]
+        );
+      });
+
       const { t, validator } = this.props;
 
       const generateFormSetting = [
@@ -45,8 +55,8 @@ const ProductTypeInformation = observer(
                         ],
                     }
                   : null,
-              getDataSelectOptions: this.viewModel?.productTypeList?.length
-                ? this.viewModel?.productTypeList?.map((item) => {
+              getDataSelectOptions: filteredProductTypeList?.length
+                ? filteredProductTypeList?.map((item) => {
                     return {
                       label: item.name,
                       value: item.id,
