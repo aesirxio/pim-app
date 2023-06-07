@@ -234,12 +234,14 @@ const EditProduct = observer(
                   </Tab>
                   <Tab eventKey="fields" title={t('txt_fields')}>
                     <FieldsTab
+                      key={this.productDetailViewModel.productType}
                       detailViewModal={this.productDetailViewModel}
                       formPropsData={
                         this.productDetailViewModel.productDetailViewModel.formPropsData
                       }
                       validator={this.validator}
                       requiredField={this.state.requiredField}
+                      productType={this.productDetailViewModel.productType}
                     />
                   </Tab>
                   {/* <Tab key="variants" eventKey="variants" title={t('txt_variants')}>

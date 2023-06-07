@@ -21,7 +21,7 @@ const FieldsTab = observer(
     }
 
     render() {
-      const { detailViewModal, formPropsData, validator } = this.props;
+      const { detailViewModal, formPropsData, validator, productType } = this.props;
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           <FieldViewModelContextProvider viewModel={fieldViewModel}>
@@ -31,7 +31,8 @@ const FieldsTab = observer(
               validator={validator}
               fieldClass={'col-lg-6'}
               requiredField={this.props.requiredField}
-              typeId={59}
+              type={'product'}
+              productType={productType}
               fieldByGroup={true}
             />
           </FieldViewModelContextProvider>

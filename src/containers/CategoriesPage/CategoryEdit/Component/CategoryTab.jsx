@@ -73,12 +73,14 @@ const CategoryTab = observer(
                     <Tab.Pane eventKey="customFields">
                       <div className="row">
                         <FieldsList
+                          key={this.detailViewModal.productType}
                           detailViewModal={this.detailViewModal}
                           formPropsData={this.detailViewModal.categoryDetailViewModel.formPropsData}
                           validator={validator}
                           fieldClass={'col-lg-12'}
                           requiredField={this.props.requiredField}
-                          typeId={65}
+                          type={'category'}
+                          productType={this.detailViewModal.productType}
                         />
                       </div>
                     </Tab.Pane>

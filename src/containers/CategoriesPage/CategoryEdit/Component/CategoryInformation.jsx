@@ -7,18 +7,24 @@ import { Spinner } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { CategoryViewModelContext } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
+import UtilsStore from 'store/UtilsStore/UtilsStore';
+import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
 
+const utilsStore = new UtilsStore();
+const utilsViewModel = new UtilsViewModel(utilsStore);
 const CategoryInformation = observer(
   class CategoryInformation extends Component {
     static contextType = CategoryViewModelContext;
 
     constructor(props) {
       super(props);
+      this.utilsListViewModel = utilsViewModel.utilsListViewModel;
     }
 
     async componentDidMount() {
-      await this.context.categoryListViewModel.handleFilter({ limit: 0 });
-      await this.context.categoryListViewModel.initializeDataCustom();
+      this.context.categoryListViewModel.handleFilter({ limit: 0 });
+      this.context.categoryListViewModel.initializeDataCustom();
+      this.utilsListViewModel.getListContentType({ 'filter[type]': 'category' });
     }
 
     render() {
@@ -49,6 +55,50 @@ const CategoryInformation = observer(
                   event.target.value
                 );
               },
+            },
+            {
+              label: 'txt_product_type',
+              key: PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected: this.viewModel.categoryDetailViewModel?.formPropsData[
+                PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID
+              ]
+                ? {
+                    label:
+                      this.viewModel.categoryDetailViewModel?.formPropsData[
+                        PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_NAME
+                      ],
+                    value:
+                      this.viewModel.categoryDetailViewModel?.formPropsData[
+                        PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID
+                      ],
+                  }
+                : null,
+              getDataSelectOptions: this.utilsListViewModel.listContentType.length
+                ? this.utilsListViewModel.listContentType.map((item) => {
+                    let levelString = item?.level
+                      ? Array.from(Array(parseInt(item?.level)).keys())
+                          .map(() => ``)
+                          .join('- ')
+                      : '';
+                    return {
+                      label: levelString + item?.label,
+                      value: item?.value,
+                    };
+                  })
+                : null,
+              handleChange: (data) => {
+                this.viewModel.handleFormPropsData(
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
+                  data.value
+                );
+                this.viewModel.handleFormPropsData(
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_NAME,
+                  data.label
+                );
+                this.viewModel.handleProductType(data?.value);
+              },
+              className: 'col-lg-12',
             },
             {
               label: 'txt_parent_category',

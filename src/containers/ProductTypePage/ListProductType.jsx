@@ -41,16 +41,18 @@ const ListProductType = observer((props) => {
               )}
               <div>
                 <div className="mb-1">{value.name}</div>
-                <div className="text-green">
-                  <button
-                    onClick={() => {
-                      history.push(`/product-types/edit/${value.id}`);
-                    }}
-                    className="p-0 border-0 bg-transparent d-inline-block text-green"
-                  >
-                    {t('txt_edit')}
-                  </button>
-                </div>
+                {value.level !== 1 && (
+                  <div className="text-green">
+                    <button
+                      onClick={() => {
+                        history.push(`/product-types/edit/${value.id}`);
+                      }}
+                      className="p-0 border-0 bg-transparent d-inline-block text-green"
+                    >
+                      {t('txt_edit')}
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </>

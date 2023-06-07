@@ -27,10 +27,11 @@ export default class UtilsStore {
 
     return false;
   }
-  async getListContentType(callbackOnSuccess, callbackOnError) {
+  async getListContentType(callbackOnSuccess, callbackOnError, filters) {
     try {
       const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
-      const respondedData = await getAesirxPimUtilApiService.getListContentType();
+      console.log('filters', filters);
+      const respondedData = await getAesirxPimUtilApiService.getListContentType(filters);
       if (respondedData) {
         runInAction(() => {
           callbackOnSuccess(respondedData);

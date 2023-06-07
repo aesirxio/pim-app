@@ -12,6 +12,7 @@ class UtilsListViewModel {
   utilsListViewModel = null;
   listPublishStatus = [];
   listContentType = [];
+  filter = {};
   listFieldType = [];
   successResponse = {
     state: true,
@@ -34,11 +35,12 @@ class UtilsListViewModel {
       this.callbackOnErrorHandler
     );
   };
-  getListContentType = async () => {
+  getListContentType = async (filter) => {
     this.formStatus = PAGE_STATUS.LOADING;
     await this.utilsStore.getListContentType(
       this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+      this.callbackOnErrorHandler,
+      filter
     );
   };
   getListFieldType = async () => {
@@ -85,6 +87,10 @@ class UtilsListViewModel {
       });
     }
     this.formStatus = PAGE_STATUS.READY;
+  };
+
+  handleFilter = (filter) => {
+    this.filter = { ...this.filter, ...filter };
   };
 }
 

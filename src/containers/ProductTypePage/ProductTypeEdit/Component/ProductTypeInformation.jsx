@@ -47,7 +47,7 @@ const ProductTypeInformation = observer(
                           x.id.toString() ===
                           this.viewModel.productTypeDetailViewModel.formPropsData[
                             PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
-                          ]
+                          ].toString()
                       )?.name,
                       value:
                         this.viewModel.productTypeDetailViewModel.formPropsData[
@@ -66,9 +66,12 @@ const ProductTypeInformation = observer(
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
-                  data.value
+                  data?.value ?? 0
                 );
+                this.forceUpdate();
               },
+              required: true,
+              validation: 'required',
               placeholder: t('txt_select_parent_type'),
               className: 'col-lg-12',
             },

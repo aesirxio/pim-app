@@ -104,21 +104,19 @@ const FieldInformation = observer(
             },
             {
               label: 'txt_section',
-              key: PIM_FIELD_DETAIL_FIELD_KEY.SECTION,
+              key: PIM_FIELD_DETAIL_FIELD_KEY.PRODUCT_TYPES,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.viewModel.fieldDetailViewModel?.formPropsData[
-                PIM_FIELD_DETAIL_FIELD_KEY.SECTION
+                PIM_FIELD_DETAIL_FIELD_KEY.PRODUCT_TYPES
               ]?.length
-                ? {
-                    label:
-                      this.viewModel.fieldDetailViewModel?.formPropsData[
-                        PIM_FIELD_DETAIL_FIELD_KEY.SECTION
-                      ][0].title,
-                    value:
-                      this.viewModel.fieldDetailViewModel?.formPropsData[
-                        PIM_FIELD_DETAIL_FIELD_KEY.SECTION
-                      ][0].id,
-                  }
+                ? this.viewModel.fieldDetailViewModel?.formPropsData[
+                    PIM_FIELD_DETAIL_FIELD_KEY.PRODUCT_TYPES
+                  ].map((item) => {
+                    return {
+                      label: item.name,
+                      value: item.id,
+                    };
+                  })
                 : null,
               getDataSelectOptions: this.utilsListViewModel.listContentType.length
                 ? this.utilsListViewModel.listContentType.map((item) => {
@@ -129,10 +127,13 @@ const FieldInformation = observer(
                   })
                 : null,
               handleChange: (data) => {
-                this.viewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.SECTION, [
-                  { id: data.value },
-                ]);
+                let convertData = data.map((item) => ({ title: item.label, id: item.value }));
+                this.viewModel.handleFormPropsData(
+                  PIM_FIELD_DETAIL_FIELD_KEY.PRODUCT_TYPES,
+                  convertData
+                );
               },
+              isMulti: true,
               className: 'col-lg-12',
             },
             {

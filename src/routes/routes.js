@@ -54,9 +54,14 @@ const mainRoutes = [
     main: () => <ProductsPage />,
   },
   {
-    path: ['/variants/add', '/variants/edit/:id'],
+    path: ['/variants/edit/:id'],
     exact: true,
     main: ({ match }) => <EditVariantProvider match={match} />,
+  },
+  {
+    path: ['/variants/add'],
+    exact: true,
+    main: () => <EditVariantProvider />,
   },
 
   {
@@ -70,9 +75,14 @@ const mainRoutes = [
     main: () => <MembersPage />,
   },
   {
-    path: ['/members/add', '/members/edit/:id'],
+    path: ['/members/edit/:id'],
     exact: true,
     main: ({ match }) => <EditMemberProvider match={match} />,
+  },
+  {
+    path: ['/members/add'],
+    exact: true,
+    main: () => <EditMemberProvider />,
   },
   {
     path: '/data-stream',
@@ -95,14 +105,24 @@ const mainRoutes = [
     main: () => <HelpCenterPage />,
   },
   {
-    path: ['/products/add', '/products/edit/:id'],
+    path: ['/products/edit/:id'],
     exact: true,
     main: ({ match }) => <EditProductProvider match={match} />,
   },
   {
-    path: ['/categories/add', '/categories/edit/:id'],
+    path: ['/products/add'],
+    exact: true,
+    main: () => <EditProductProvider />,
+  },
+  {
+    path: ['/categories/edit/:id'],
     exact: true,
     main: ({ match }) => <EditCategoryProvider match={match} />,
+  },
+  {
+    path: ['/categories/add'],
+    exact: true,
+    main: () => <EditCategoryProvider />,
   },
   {
     path: '/fields',
@@ -110,9 +130,14 @@ const mainRoutes = [
     main: () => <FieldsPage />,
   },
   {
-    path: ['/fields/add', '/fields/edit/:id'],
+    path: ['/fields/edit/:id'],
     exact: true,
     main: ({ match }) => <EditFieldProvider match={match} />,
+  },
+  {
+    path: ['/fields/add'],
+    exact: true,
+    main: () => <EditFieldProvider />,
   },
   {
     path: '/fields-group',
@@ -120,9 +145,14 @@ const mainRoutes = [
     main: () => <FieldsGroupPage />,
   },
   {
-    path: ['/fields-group/add', '/fields-group/edit/:id'],
+    path: ['/fields-group/edit/:id'],
     exact: true,
     main: ({ match }) => <EditFieldGroupProvider match={match} />,
+  },
+  {
+    path: ['/fields-group/add'],
+    exact: true,
+    main: () => <EditFieldGroupProvider />,
   },
   {
     path: '/dam',
@@ -135,9 +165,14 @@ const mainRoutes = [
     main: () => <DebtorGroupPage />,
   },
   {
-    path: ['/debtor-group/add', '/debtor-group/edit/:id'],
+    path: ['/debtor-group/edit/:id'],
     exact: true,
     main: ({ match }) => <EditDebtorGroupProvider match={match} />,
+  },
+  {
+    path: ['/debtor-group/add'],
+    exact: true,
+    main: () => <EditDebtorGroupProvider />,
   },
   {
     path: ['/prices'],
@@ -145,9 +180,14 @@ const mainRoutes = [
     main: () => <ProductPrice />,
   },
   {
-    path: ['/prices/add', '/prices/edit/:id'],
+    path: ['/prices/edit/:id'],
     exact: true,
     main: ({ match }) => <EditProductPriceProvider match={match} />,
+  },
+  {
+    path: ['/prices/add'],
+    exact: true,
+    main: () => <EditProductPriceProvider />,
   },
   {
     path: ['/product-types'],
@@ -155,9 +195,14 @@ const mainRoutes = [
     main: () => <ProductTypePage />,
   },
   {
-    path: ['/product-types/edit/:id', '/product-types/add'],
+    path: ['/product-types/edit/:id'],
     exact: true,
     main: ({ match }) => <EditProductTypeProvider match={match} />,
+  },
+  {
+    path: ['/product-types/add'],
+    exact: true,
+    main: () => <EditProductTypeProvider />,
   },
 ];
 
