@@ -347,7 +347,7 @@
   "txt_field_change_warning":"โปรดระวัง! เปลี่ยนประเภทฟิลด์ของคุณ ฐานข้อมูลที่มีอยู่ฟิลด์นี้ในรายการอาจหายไปเนื่องจากประเภทข้อมูลอื่น",
   "txt_left_menu_product_type": "ประเภทสินค้า",
   "txt_all_product_type": "สินค้าทุกประเภท",
-  "txt_add_product_type_name": "เพิ่มชื่อประเภทสินค้า",
+  "txt_add_product_type_name": "เพิ่มชื่อประเภทสินค้า (สูงสุด 15 ตัวอักษร)",
   "txt_product_type_name": "ชื่อประเภทสินค้า",
   "txt_parent_type": "ประเภทผู้ปกครอง",
   "txt_select_parent_type": "เลือกประเภทผู้ปกครอง",

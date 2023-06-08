@@ -348,7 +348,7 @@
   "txt_field_change_warning":"Vær sød at passe på! Skift din felttype, den eksisterende database dette felt på varer kan gå tabt på grund af anden datatype.",
   "txt_left_menu_product_type": "produkttype",
   "txt_all_product_type": "Alle produkttyper",
-  "txt_add_product_type_name": "Tilføj produkttypenavn",
+  "txt_add_product_type_name": "Tilføj produkttypenavn (maks. 15 tegn)",
   "txt_product_type_name": "Produkttypenavn",
   "txt_parent_type": "Forældretype",
   "txt_select_parent_type": "Vælg forældretype",
