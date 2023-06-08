@@ -20,7 +20,11 @@ import CategoryTab from './Component/CategoryTab';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
-
+import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
+import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
+import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+const fieldStore = new FieldStore();
+const fieldViewModel = new FieldViewModel(fieldStore);
 const EditCategory = observer(
   class EditCategory extends Component {
     categoryDetailViewModel = null;
@@ -35,6 +39,7 @@ const EditCategory = observer(
       this.categoryDetailViewModel = this.viewModel
         ? this.viewModel.getCategoryDetailViewModel()
         : null;
+      this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
       this.categoryDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
@@ -83,7 +88,8 @@ const EditCategory = observer(
       }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {(this.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.fieldListViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -193,12 +199,14 @@ const EditCategory = observer(
                     }
                   )}
                 </Form.Group>
-                <CategoryTab
-                  detailViewModal={this.categoryDetailViewModel}
-                  validator={this.validator}
-                  requiredField={this.state.requiredField}
-                  isEdit={this.isEdit}
-                />
+                <FieldViewModelContextProvider viewModel={fieldViewModel}>
+                  <CategoryTab
+                    detailViewModal={this.categoryDetailViewModel}
+                    validator={this.validator}
+                    requiredField={this.state.requiredField}
+                    isEdit={this.isEdit}
+                  />
+                </FieldViewModelContextProvider>
               </Col>
               <Col lg={3}>
                 <PublishOptions
