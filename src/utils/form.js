@@ -7,6 +7,7 @@ import React, { lazy } from 'react';
 import Label from '../components/Form/Label';
 import { FORM_FIELD_TYPE } from '../constants/FormFieldType';
 import { Form } from 'react-bootstrap';
+import { Tooltip } from 'react-tooltip';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
@@ -30,7 +31,12 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.INPUT:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                  <Label
+                    text={field.label}
+                    required={field.required ?? false}
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Hello world!"
+                  />
                   <Input field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
@@ -110,6 +116,26 @@ const renderingGroupFieldHandler = (group, validator) => {
                     })}
                 </Form.Group>
               );
+            case FORM_FIELD_TYPE.LIST:
+              return (
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
+                  {field.label && (
+                    <Label
+                      text={field.label}
+                      required={field.required ?? false}
+                      data-tooltip-id="my-tooltip"
+                      data-tooltip-content="Hello world!"
+                    />
+                  )}
+
+                  <FormSelection key={Math.random(40, 200)} field={field} />
+
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
             case FORM_FIELD_TYPE.SELECTION_FIELDS:
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
@@ -126,7 +152,12 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.RADIO:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                  <Label
+                    data-tooltip-id="my-tooltip"
+                    data-tooltip-content="Hello world!"
+                    text={field.label}
+                    required={field.required ?? false}
+                  />
                   <FormRadio field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {

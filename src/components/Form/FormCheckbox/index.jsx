@@ -38,7 +38,7 @@ const FormCheckbox = ({ field }) => {
               value={option.value}
               name={field.key}
               type={'checkbox'}
-              id={`inline-radio-${option.value}`}
+              id={`inline-radio-${field.key}-${option.value}`}
               onChange={handleChange}
               onBlur={field?.blurred}
               checked={selectedValue?.includes(option.value)}

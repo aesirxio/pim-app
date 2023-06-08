@@ -17,6 +17,7 @@ import Label from '../Label';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
 import { notify } from 'aesirx-uikit';
+import { renderingGroupFieldHandler } from 'utils/form';
 
 class FormSelectionFields extends Component {
   constructor(props) {
@@ -51,7 +52,69 @@ class FormSelectionFields extends Component {
       );
   };
   render() {
-    const { t } = this.props;
+    const { t, validator } = this.props;
+    const specifications = this.props.field.listFieldType?.length
+      ? this.props.field.listFieldType?.find((item) => item?.value === this.state.field?.value)
+          ?.specifications
+      : null;
+    const generateSpecificationsSetting = [
+      {
+        fields: specifications?.length
+          ? specifications?.map((item) => {
+              return (
+                item?.attributes?.label && {
+                  label: item?.attributes?.label,
+                  key: item?.attributes?.name,
+                  type: item?.attributes?.type,
+                  getValueSelected:
+                    this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                    ][item?.attributes?.name],
+                  getDataSelectOptions:
+                    item?.options?.map((item) => {
+                      return { label: item?.label, value: item?.value?.toString() };
+                    }) ?? [],
+                  handleChange: (data) => {
+                    if (
+                      item?.attributes?.type === FORM_FIELD_TYPE.SELECTION ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.LIST
+                    ) {
+                      this.props.field.viewModel.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                        { [item?.attributes?.name]: [data.value] }
+                      );
+                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.IMAGE) {
+                      this.props.field.viewModel.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                        { [item?.attributes?.name]: data }
+                      );
+                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.CHECKBOX) {
+                      this.props.field.viewModel.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                        { [item?.attributes?.name]: data ?? '' }
+                      );
+                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.EDITOR) {
+                      this.props.field.viewModel.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                        { [item?.attributes?.name]: data }
+                      );
+                    } else {
+                      this.props.field.viewModel.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                        { [item?.attributes?.name]: data.target.value }
+                      );
+                    }
+                  },
+                  description: item?.attributes?.description,
+                  className: 'col-lg-12 mt-24',
+                }
+              );
+            })
+          : {},
+      },
+    ];
+    console.log('specifications', specifications);
+    console.log('generateSpecificationsSetting', generateSpecificationsSetting);
     return (
       <>
         {this.props.field.creatable ? (
@@ -78,26 +141,7 @@ class FormSelectionFields extends Component {
               placeholder={this.props.field?.placeholder}
               isDisabled={this.props.field?.isDisabled}
             />
-            {this.state.field?.value === FORM_FIELD_TYPE.NUMBER && (
-              <Input
-                field={{
-                  getValueSelected:
-                    this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                    ].number_units,
-                  classNameInput: 'fs-14 mt-16',
-                  placeholder: 'Format',
-                  handleChange: (data) => {
-                    this.props.field.viewModel.handleFormPropsData(
-                      [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                      {
-                        number_units: data.target.value,
-                      }
-                    );
-                  },
-                }}
-              />
-            )}
+
             {(this.state.field?.value === FORM_FIELD_TYPE.SELECTION ||
               this.state.field?.value === FORM_FIELD_TYPE.RADIO ||
               this.state.field?.value === FORM_FIELD_TYPE.CHECKBOX) && (
@@ -244,51 +288,15 @@ class FormSelectionFields extends Component {
                 />
               </div>
             )}
-            {this.state.field?.value === FORM_FIELD_TYPE.IMAGE && (
-              <div className="mt-16">
-                <Label text={'Multiple'} />
-                <FormRadio
-                  field={{
-                    key: 'isMulti',
-                    getValueSelected: this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                    ]?.multiple
-                      ? {
-                          label:
-                            this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                              PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                            ]?.multiple === '1'
-                              ? 'Yes'
-                              : 'No',
-                          value:
-                            this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                              PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                            ]?.multiple.toString(),
-                        }
-                      : {
-                          label: 'No',
-                          value: '0',
-                        },
-                    getDataSelectOptions: [
-                      {
-                        label: 'No',
-                        value: '0',
-                      },
-                      {
-                        label: 'Yes',
-                        value: '1',
-                      },
-                    ],
-                    handleChange: (data) => {
-                      this.props.field.viewModel.handleFormPropsData(
-                        PIM_FIELD_DETAIL_FIELD_KEY.PARAMS,
-                        { multiple: data.target.value }
-                      );
-                    },
-                  }}
-                />
-              </div>
-            )}
+            {Object.keys(generateSpecificationsSetting)
+              .map((groupIndex) => {
+                return [...Array(generateSpecificationsSetting[groupIndex])].map((group) => {
+                  return renderingGroupFieldHandler(group, validator);
+                });
+              })
+              .reduce((arr, el) => {
+                return arr.concat(el);
+              }, [])}
           </>
         )}
       </>

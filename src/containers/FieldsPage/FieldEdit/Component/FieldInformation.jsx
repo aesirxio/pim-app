@@ -98,6 +98,8 @@ const FieldInformation = observer(
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.TYPE, data.value);
               },
+              listFieldType: this.utilsListViewModel?.listFieldType,
+              validator: validator,
               className: 'col-lg-12',
               viewModel: this.viewModel,
               isEdit: isEdit,

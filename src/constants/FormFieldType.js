@@ -13,6 +13,7 @@ const FORM_FIELD_TYPE = {
   DATE: 7,
   DATERANGE: 8,
   SELECTION: 'select',
+  LIST: 'list',
   SELECTION_FIELDS: 'select_fields',
   TAB: 10,
   PASSWORD: 11,

@@ -31,7 +31,7 @@ const FormRadio = ({ field }) => {
               value={option.value}
               name={field.key}
               type={'radio'}
-              id={`inline-radio-${option.value}`}
+              id={`inline-radio-${field.key}-${option.value}`}
               onChange={handleChange}
               onBlur={field?.blurred}
               checked={selectedValue === option.value}
