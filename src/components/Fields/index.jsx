@@ -1,6 +1,5 @@
 // import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import { PAGE_STATUS, Spinner } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { observer } from 'mobx-react';
@@ -228,9 +227,6 @@ const FieldsList = observer(
 
       return (
         <>
-         {this.viewModel.fieldListViewModel.formStatus === PAGE_STATUS.LOADING && (
-            <Spinner className="spinner-overlay" />
-          )}
           {this.props.fieldByGroup ? (
             <Tab.Container
               id="left-tabs-fields"

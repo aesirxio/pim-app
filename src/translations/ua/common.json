@@ -312,6 +312,7 @@
   "txt_featured_product": "Рекомендовані товари",
   "txt_row_select_error": "Будь ласка, спочатку виберіть зі списку.",
   "txt_product_type": "Тип продукту",
+  "txt_category_type": "Тип категорії",
   "txt_indoor": "закритий",
   "txt_outdoor": "Відкритий",
   "txt_yes": "Так",
@@ -348,5 +349,6 @@
   "txt_product_type_name": "Назва типу продукту",
   "txt_parent_type": "Батьківський тип",
   "txt_select_parent_type": "Виберіть тип батьківського елемента",
-  "txt_parent_product_type": "Батьківський тип продукту"
+  "txt_parent_product_type": "Батьківський тип продукту",
+  "txt_product_type_change_warning":"Будь ласка, будь обережним! Змініть тип продукту, існуючі поля бази даних для елементів можуть бути ВТРАЧЕНІ через інший тип даних."
 }

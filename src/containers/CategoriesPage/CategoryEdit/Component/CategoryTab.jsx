@@ -36,7 +36,7 @@ const CategoryTab = observer(
     }
 
     render() {
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           <Tab.Container
@@ -68,7 +68,7 @@ const CategoryTab = observer(
                 <FieldViewModelContextProvider viewModel={fieldViewModel}>
                   <Tab.Content>
                     <Tab.Pane eventKey="categoryInformation">
-                      <CategoryInformation validator={validator} />
+                      <CategoryInformation validator={validator} isEdit={isEdit} />
                     </Tab.Pane>
                     <Tab.Pane eventKey="customFields">
                       <div className="row">

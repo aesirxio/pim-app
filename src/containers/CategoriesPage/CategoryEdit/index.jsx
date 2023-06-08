@@ -197,6 +197,7 @@ const EditCategory = observer(
                   detailViewModal={this.categoryDetailViewModel}
                   validator={this.validator}
                   requiredField={this.state.requiredField}
+                  isEdit={this.isEdit}
                 />
               </Col>
               <Col lg={3}>

@@ -313,6 +313,7 @@
   "txt_featured_product": "Productos Destacados",
   "txt_row_select_error": "Por favor, primero haga una selección de la lista.",
   "txt_product_type": "tipo de producto",
+  "txt_category_type": "Tipo de categoria",
   "txt_indoor": "Interior",
   "txt_outdoor": "Exterior",
   "txt_yes": "Sí",
@@ -349,5 +350,6 @@
   "txt_product_type_name": "Nombre del tipo de producto",
   "txt_parent_type": "Tipo principal",
   "txt_select_parent_type": "Seleccionar tipo de padre",
-  "txt_parent_product_type": "Tipo de producto principal"
+  "txt_parent_product_type": "Tipo de producto principal",
+  "txt_product_type_change_warning":"Por favor, seja cuidadoso! Altere o tipo de produto, os campos de banco de dados existentes nos itens podem ser PERDIDOS devido a diferentes tipos de dados."
 }

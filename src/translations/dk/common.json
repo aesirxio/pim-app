@@ -312,6 +312,7 @@
   "txt_featured_product": "Udvalgte produkter",
   "txt_row_select_error": "Foretag venligst først et valg fra listen.",
   "txt_product_type": "Produkttype",
+  "txt_category_type": "Kategori Type",
   "txt_indoor": "Indendørs",
   "txt_outdoor": "Udendørs",
   "txt_yes": "Ja",
@@ -351,5 +352,6 @@
   "txt_product_type_name": "Produkttypenavn",
   "txt_parent_type": "Forældretype",
   "txt_select_parent_type": "Vælg forældretype",
-  "txt_parent_product_type": "Overordnet produkttype"
+  "txt_parent_product_type": "Overordnet produkttype",
+  "txt_product_type_change_warning":"Vær sød at passe på! Skift din produkttype, de eksisterende databasefelter på varer kan gå tabt på grund af anden datatype."
 }

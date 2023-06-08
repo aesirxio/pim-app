@@ -5,7 +5,7 @@ import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
 // import TagStore from 'containers/ProductsPage/TagStore/TagStore';
 // import TagViewModel from 'containers/ProductsPage/TagViewModel/TagViewModel';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { ProductViewModelContext } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
@@ -29,7 +29,7 @@ const CommonInformation = observer(
 
     render() {
       this.viewModel = this.context.productDetailViewModel;
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
       const generateFormSetting = [
         {
           fields: [
@@ -68,7 +68,7 @@ const CommonInformation = observer(
                   }
                 : null,
               getDataSelectOptions: this.utilsListViewModel.listContentType.length
-                ? this.utilsListViewModel.listContentType.map((item) => {
+                ? this.utilsListViewModel.listContentType?.map((item) => {
                     let levelString = item?.level
                       ? Array.from(Array(parseInt(item?.level)).keys())
                           .map(() => ``)
@@ -79,7 +79,7 @@ const CommonInformation = observer(
                       value: item?.value,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
@@ -90,6 +90,9 @@ const CommonInformation = observer(
                   data.label
                 );
                 this.viewModel.handleProductType(data?.value);
+                if (isEdit) {
+                  notify(this.props.t('txt_product_type_change_warning'), 'warn');
+                }
               },
               className: 'col-lg-12',
             },
@@ -121,7 +124,7 @@ const CommonInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.productDetailViewModel.formPropsData[
                   PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME

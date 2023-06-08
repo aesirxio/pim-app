@@ -3,7 +3,7 @@ import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { CategoryViewModelContext } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
@@ -29,7 +29,7 @@ const CategoryInformation = observer(
 
     render() {
       this.viewModel = this.context.categoryDetailViewModel;
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
       const filteredCategoryList = this.context.categoryListViewModel.items.filter((category) => {
         return (
           category.id !==
@@ -57,7 +57,7 @@ const CategoryInformation = observer(
               },
             },
             {
-              label: 'txt_product_type',
+              label: 'txt_category_type',
               key: PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected: this.viewModel.categoryDetailViewModel?.formPropsData[
@@ -86,7 +86,7 @@ const CategoryInformation = observer(
                       value: item?.value,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
@@ -97,6 +97,9 @@ const CategoryInformation = observer(
                   data.label
                 );
                 this.viewModel.handleProductType(data?.value);
+                if (isEdit) {
+                  notify(this.props.t('txt_product_type_change_warning'), 'warn');
+                }
               },
               className: 'col-lg-12',
             },

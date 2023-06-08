@@ -312,6 +312,7 @@
   "txt_featured_product": "Sản phẩm nổi bật",
   "txt_row_select_error": "Trước tiên hãy thực hiện lựa chọn từ danh sách.",
   "txt_product_type": "Kiểu sản phẩm",
+  "txt_category_type": "Loại danh mục",
   "txt_indoor": "Trong nhà",
   "txt_outdoor": "Ngoài trời",
   "txt_yes": "Có",
@@ -344,5 +345,6 @@
   "txt_product_type_name": "Tên loại sản phẩm",
   "txt_parent_type": "Loại cha",
   "txt_select_parent_type": "Chọn loại cha",
-  "txt_parent_product_type": "Loại sản phẩm cha"
+  "txt_parent_product_type": "Loại sản phẩm cha",
+  "txt_product_type_change_warning":"Hãy cẩn thận! Thay đổi loại sản phẩm của bạn, các trường cơ sở dữ liệu hiện có trên các mặt hàng có thể bị MẤT do loại dữ liệu khác."
 }

@@ -222,6 +222,7 @@ const EditProduct = observer(
                         formPropsData={this.formPropsData}
                         validator={this.validator}
                         categoryListViewModel={this.categoryListViewModel}
+                        isEdit={this.isEdit}
                       />
                     )}
                   </Tab>

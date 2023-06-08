@@ -30,7 +30,6 @@ export default class UtilsStore {
   async getListContentType(callbackOnSuccess, callbackOnError, filters) {
     try {
       const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
-      console.log('filters', filters);
       const respondedData = await getAesirxPimUtilApiService.getListContentType(filters);
       if (respondedData) {
         runInAction(() => {
