@@ -147,12 +147,19 @@ const EditProductType = observer(
                           PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME,
                           event.target.value
                         );
+                        console.log(
+                          'dsklakdlsa',
+                          this.productTypeDetailViewModel.productTypeDetailViewModel.formPropsData[
+                            PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME
+                          ]
+                        );
                       },
                       required: true,
                       validation: 'required',
                       blurred: () => {
                         this.validator.showMessageFor(t('txt_product_type_name'));
                       },
+                      maxLength: 15,
                     }}
                   />
                   {this.validator.message(
