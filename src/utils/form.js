@@ -8,6 +8,8 @@ import Label from '../components/Form/Label';
 import { FORM_FIELD_TYPE } from '../constants/FormFieldType';
 import { Form } from 'react-bootstrap';
 import { Tooltip } from 'react-tooltip';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
@@ -31,12 +33,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.INPUT:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label
-                    text={field.label}
-                    required={field.required ?? false}
-                    data-tooltip-id="my-tooltip"
-                    data-tooltip-content="Hello world!"
-                  />
+                  <div className="d-flex align-item-center">
+                    <Label text={field.label} required={field.required ?? false} />
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   <Input field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
@@ -47,7 +57,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.NUMBER:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                  <div className="d-flex align-item-center">
+                    <Label text={field.label} required={field.required ?? false} />
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   <Input field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
@@ -58,7 +81,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.TEXTAREA:
               return (
                 <Form.Group key={field.key} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   <Form.Control
                     as="textarea"
                     defaultValue={field.getValueSelected}
@@ -90,7 +126,20 @@ const renderingGroupFieldHandler = (group, validator) => {
                   ref={field.ref}
                   className={`mb-24 ${className}`}
                 >
-                  <Label text={field.label} required={field.required ?? false} />
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   {field.isVideo ? (
                     <FormVideo key={Math.random(40, 200)} field={field} />
                   ) : (
@@ -119,14 +168,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.LIST:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  {field.label && (
-                    <Label
-                      text={field.label}
-                      required={field.required ?? false}
-                      data-tooltip-id="my-tooltip"
-                      data-tooltip-content="Hello world!"
-                    />
-                  )}
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
 
                   <FormSelection key={Math.random(40, 200)} field={field} />
 
@@ -139,7 +194,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.SELECTION_FIELDS:
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
-                  {field.label && <Label text={field.label} required={field.required ?? false} />}
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
 
                   <FormSelectionFields key={Math.random(40, 200)} field={field} />
 
@@ -152,12 +220,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.RADIO:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label
-                    data-tooltip-id="my-tooltip"
-                    data-tooltip-content="Hello world!"
-                    text={field.label}
-                    required={field.required ?? false}
-                  />
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   <FormRadio field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
@@ -169,7 +245,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.CHECKBOX:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  <Label text={field.label} required={field.required ?? false} />
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   <FormCheckbox field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
@@ -181,7 +270,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.DATE:
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 fs-14 ${className}`}>
-                  <Label text={field.label} />
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   <CustomizedDatePicker
                     dateFormat={'dd/MM/yyyy'}
                     handleOnChange={(date) => field.handleChange(date)}
@@ -194,11 +296,20 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.EDITOR:
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
-                  <Label
-                    labelClassName={field.labelClassName}
-                    text={field.label}
-                    required={field.required ?? false}
-                  />
+                  <div className="d-flex align-item-center">
+                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-content={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
                   {field.isEditor === false ? (
                     <Form.Control
                       as="textarea"
