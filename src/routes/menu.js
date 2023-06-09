@@ -55,12 +55,12 @@ const mainMenu = [
     icons: '/assets/images/product-type.svg',
     icons_color: '/assets/images/product-type.svg',
   },
-  // {
-  //   text: 'txt_left_menu_member_list',
-  //   link: `/members`,
-  //   icons: '/assets/images/member-list.svg',
-  //   icons_color: '/assets/images/member-list.svg',
-  // },
+  {
+    text: 'txt_left_menu_member_list',
+    link: `/members`,
+    icons: '/assets/images/member-list.svg',
+    icons_color: '/assets/images/member-list.svg',
+  },
   {
     text: 'txt_left_menu_dam',
     link: `/dam`,
