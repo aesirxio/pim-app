@@ -22,7 +22,6 @@ import { renderingGroupFieldHandler } from 'utils/form';
 class FormSelectionFields extends Component {
   constructor(props) {
     super(props);
-    console.log('this.props', this.props);
     this.state = {
       field: props.field?.getValueSelected,
       listOptions: this.props.field.getValueSelectedOptions,
@@ -57,6 +56,13 @@ class FormSelectionFields extends Component {
       ? this.props.field.listFieldType?.find((item) => item?.value === this.state.field?.value)
           ?.specifications
       : null;
+    if (specifications?.length && !this.props.field.isEdit) {
+      specifications?.map((item) => {
+        return this.props.field.viewModel.handleFormPropsData([PIM_FIELD_DETAIL_FIELD_KEY.PARAMS], {
+          [item?.attributes?.name]: item?.attributes?.default,
+        });
+      });
+    }
     const generateSpecificationsSetting = [
       {
         fields: specifications?.length
@@ -125,6 +131,12 @@ class FormSelectionFields extends Component {
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
                         { [item?.attributes?.name]: data.target.value }
+                      );
+                      console.log(
+                        'dsadsa',
+                        this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                          PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                        ]
                       );
                     }
                   },

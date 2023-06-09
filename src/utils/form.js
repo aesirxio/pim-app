@@ -102,6 +102,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     id={field.key}
                     onChange={field.handleChange ?? undefined}
                     onBlur={field.blurred ?? undefined}
+                    maxLength={field?.maxLength}
                   />
 
                   {field.validation &&
@@ -319,6 +320,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       onChange={field.handleChange ?? undefined}
                       onBlur={field.blurred ?? undefined}
                       placeholder={field.placeholder}
+                      maxLength={field?.maxLength}
                     />
                   ) : (
                     <FormEditor field={field} />

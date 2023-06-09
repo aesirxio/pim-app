@@ -232,6 +232,11 @@ const FieldsList = observer(
                   ...(field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR && {
                     placeholder: t('txt_type'),
                   }),
+                  isCheckAll:
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CHECKBOX &&
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.show_checkall === '1'
+                      ? true
+                      : false,
                   creatable:
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.filter_type === 'creatable'
                       ? true
