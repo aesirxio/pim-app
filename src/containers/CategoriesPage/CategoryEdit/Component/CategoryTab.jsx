@@ -31,10 +31,6 @@ const CategoryTab = observer(
 
     render() {
       const { t, validator, isEdit, productType } = this.props;
-      console.log(
-        'productTypeproductTypeproductTypeproductTypeproductTypeproductTypeproductType',
-        productType
-      );
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           <Tab.Container
@@ -70,14 +66,18 @@ const CategoryTab = observer(
                   <Tab.Pane eventKey="customFields">
                     <div className="row">
                       <FieldsList
-                        key={productType ?? this.detailViewModal.productType}
+                        key={
+                          !this.detailViewModal.productType
+                            ? productType
+                            : this.detailViewModal.productType
+                        }
                         detailViewModal={this.detailViewModal}
                         formPropsData={this.detailViewModal.categoryDetailViewModel.formPropsData}
                         validator={validator}
                         fieldClass={'col-lg-12'}
                         requiredField={this.props.requiredField}
                         type={'category'}
-                        productType={productType ?? this.detailViewModal.productType}
+                        productType={this.detailViewModal.productType}
                       />
                     </div>
                   </Tab.Pane>
