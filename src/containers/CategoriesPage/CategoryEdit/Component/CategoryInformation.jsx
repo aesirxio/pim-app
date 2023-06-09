@@ -107,23 +107,27 @@ const CategoryInformation = observer(
               label: 'txt_parent_category',
               key: PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.categoryDetailViewModel.formPropsData[
-                PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
-              ]
-                ? {
-                    label: this.context.categoryListViewModel.items?.find(
-                      (x) =>
-                        x.id ===
+              getValueSelected:
+                this.viewModel.categoryDetailViewModel.formPropsData[
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                ] &&
+                this.viewModel.categoryDetailViewModel.formPropsData[
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                ] !== 1
+                  ? {
+                      label: this.context.categoryListViewModel.items?.find(
+                        (x) =>
+                          x.id ===
+                          this.viewModel.categoryDetailViewModel.formPropsData[
+                            PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                          ]
+                      )?.title,
+                      value:
                         this.viewModel.categoryDetailViewModel.formPropsData[
                           PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
-                        ]
-                    )?.title,
-                    value:
-                      this.viewModel.categoryDetailViewModel.formPropsData[
-                        PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
-                      ],
-                  }
-                : null,
+                        ],
+                    }
+                  : null,
               getDataSelectOptions: filteredCategoryList
                 ? filteredCategoryList.map((item) => {
                     let levelString = Array.from(Array(parseInt(item.level)).keys())
@@ -134,7 +138,7 @@ const CategoryInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID,

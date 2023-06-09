@@ -1,5 +1,5 @@
 // import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { observer } from 'mobx-react';
@@ -19,6 +19,10 @@ const FieldsList = observer(
     componentDidMount = async () => {
       this.viewModel.fieldListViewModel.handleFilter({
         'filter[type]': this.props.type,
+        ...(this.props.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID] && {
+          'filter[product_types]':
+            this.props.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID],
+        }),
         ...(this.props.productType && { 'filter[product_types]': this.props.productType }),
         'filter[published]': 1,
       });
@@ -47,16 +51,17 @@ const FieldsList = observer(
         });
       }
 
-      if (
-        Object.prototype.hasOwnProperty.call(
-          this.props.formPropsData,
-          PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-        )
-      ) {
-        Object.assign(this.props.formPropsData, {
-          [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {},
-        });
-      }
+      // if (
+      //   Object.prototype.hasOwnProperty.call(
+      //     this.props.formPropsData,
+      //     PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+      //   )
+      // ) {
+      //   Object.assign(this.props.formPropsData, {
+      //     [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {},
+      //   });
+      // }
+      console.log('this.props.formPropsData', this.props.formPropsData);
     };
 
     handleActiveTabRequiredField() {
@@ -127,16 +132,29 @@ const FieldsList = observer(
                       : this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                           field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
                         ];
-                  selectedValue = this.props.formPropsData[
-                    PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                  ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]?.length
-                    ? {
-                        label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
-                          (x) => x.value === fieldValue
-                        )?.label,
-                        value: fieldValue,
-                      }
-                    : null;
+                  if (field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1') {
+                    selectedValue = fieldValue?.length
+                      ? fieldValue.map((item) => {
+                          return {
+                            label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
+                              (x) => x.value === item
+                            )?.label,
+                            value: item,
+                          };
+                        })
+                      : null;
+                  } else {
+                    selectedValue = this.props.formPropsData[
+                      PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                    ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]?.length
+                      ? {
+                          label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
+                            (x) => x.value === fieldValue
+                          )?.label,
+                          value: fieldValue,
+                        }
+                      : null;
+                  }
                 } else {
                   selectedValue =
                     this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
@@ -151,10 +169,18 @@ const FieldsList = observer(
                   getDataSelectOptions: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
                   handleChange: (data) => {
                     if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
-                      this.props.detailViewModal.handleFormPropsData(
-                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                        { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [data.value] }
-                      );
+                      if (field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1') {
+                        let convertData = data.map((item) => item?.value);
+                        this.props.detailViewModal.handleFormPropsData(
+                          [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [convertData] }
+                        );
+                      } else {
+                        this.props.detailViewModal.handleFormPropsData(
+                          [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [data.value] }
+                        );
+                      }
                     } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE) {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
@@ -185,12 +211,14 @@ const FieldsList = observer(
                       ? 'col-lg-12'
                       : this.props.fieldClass,
 
-                  ...(field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2 && {
-                    required: true,
-                    validation: 'required',
-                  }),
+                  // ...(field[PIM_FIELD_DETAIL_FIELD_KEY.RELEVANCE] === 2 && {
+                  //   required: true,
+                  //   validation: 'required',
+                  // }),
                   isMulti:
-                    field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
+                    (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.LIST ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) &&
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',
                   isVideo:
                     field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&
@@ -212,6 +240,10 @@ const FieldsList = observer(
                     this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]
                       .product_width,
                   format: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.number_units,
+                  placeholder: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.placeholder
+                    ? field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.placeholder
+                    : null,
+                  maxLength: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.limit ?? null,
                   blurred: () => {
                     this.props.validator.showMessageFor(field[PIM_FIELD_DETAIL_FIELD_KEY.NAME]);
                   },

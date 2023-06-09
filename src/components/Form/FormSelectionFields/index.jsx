@@ -61,15 +61,38 @@ class FormSelectionFields extends Component {
       {
         fields: specifications?.length
           ? specifications?.map((item) => {
+              let selectedValue = '';
+              if (
+                item?.attributes?.type === FORM_FIELD_TYPE.SELECTION ||
+                item?.attributes?.type === FORM_FIELD_TYPE.LIST ||
+                item?.attributes?.type === FORM_FIELD_TYPE.RADIO ||
+                item?.attributes?.type === FORM_FIELD_TYPE.CHECKBOX
+              ) {
+                let fieldValue = this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                  PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                ][item?.attributes?.name]
+                  ? this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                    ][item?.attributes?.name]
+                  : item?.attributes?.default;
+                selectedValue = fieldValue
+                  ? {
+                      label: item?.options?.find((x) => x.value?.toString() === fieldValue)?.label,
+                      value: fieldValue,
+                    }
+                  : null;
+              } else {
+                selectedValue =
+                  this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                    PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                  ][item?.attributes?.name] ?? null;
+              }
               return (
                 item?.attributes?.label && {
                   label: item?.attributes?.label,
                   key: item?.attributes?.name,
                   type: item?.attributes?.type,
-                  getValueSelected:
-                    this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                    ][item?.attributes?.name],
+                  getValueSelected: selectedValue,
                   getDataSelectOptions:
                     item?.options?.map((item) => {
                       return { label: item?.label, value: item?.value?.toString() };
@@ -81,7 +104,7 @@ class FormSelectionFields extends Component {
                     ) {
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                        { [item?.attributes?.name]: [data.value] }
+                        { [item?.attributes?.name]: data.value }
                       );
                     } else if (item?.attributes?.type === FORM_FIELD_TYPE.IMAGE) {
                       this.props.field.viewModel.handleFormPropsData(
@@ -113,8 +136,6 @@ class FormSelectionFields extends Component {
           : {},
       },
     ];
-    console.log('specifications', specifications);
-    console.log('generateSpecificationsSetting', generateSpecificationsSetting);
     return (
       <>
         {this.props.field.creatable ? (

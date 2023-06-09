@@ -239,7 +239,10 @@ const EditProduct = observer(
                   <Tab eventKey="fields" title={t('txt_fields')}>
                     <FieldViewModelContextProvider viewModel={fieldViewModel}>
                       <FieldsTab
-                        key={this.productDetailViewModel.productType}
+                        key={
+                          this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID] ??
+                          this.productDetailViewModel.productType
+                        }
                         detailViewModal={this.productDetailViewModel}
                         fieldListViewModel={this.fieldListViewModel}
                         formPropsData={
@@ -247,7 +250,10 @@ const EditProduct = observer(
                         }
                         validator={this.validator}
                         requiredField={this.state.requiredField}
-                        productType={this.productDetailViewModel.productType}
+                        productType={
+                          this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID] ??
+                          this.productDetailViewModel.productType
+                        }
                       />
                     </FieldViewModelContextProvider>
                   </Tab>

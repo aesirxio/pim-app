@@ -205,6 +205,7 @@ const EditCategory = observer(
                     validator={this.validator}
                     requiredField={this.state.requiredField}
                     isEdit={this.isEdit}
+                    productType={this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID]}
                   />
                 </FieldViewModelContextProvider>
               </Col>
