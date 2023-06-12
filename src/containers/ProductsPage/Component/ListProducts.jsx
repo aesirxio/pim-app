@@ -5,10 +5,9 @@ import Table from 'components/Table';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { Spinner, notify } from 'aesirx-uikit';
+import { Spinner, notify, historyPush } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
 import DateRangePicker from 'components/DateRangePicker';
-import { historyPush } from 'routes/routes';
 
 const ListProducts = observer((props) => {
   const { t } = props;

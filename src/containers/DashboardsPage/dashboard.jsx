@@ -14,12 +14,11 @@ import { withRouter } from 'react-router-dom';
 import PieChartComponent from 'components/PieChartComponent';
 import { Col, Row } from 'react-bootstrap';
 import ComponentCard from 'components/ComponentCard';
-import numberWithCommas from 'utils/formatNumber';
 import './index.scss';
 // import RecentsActivities from './Component/RecentsActivities';
 // import DataCompleteness from './Component/DataCompleteness';
 import { withDashboardViewModel } from './DashboardViewModel/DashboardViewModelContextProvider';
-import { AUTHORIZATION_KEY, Storage, PIM_DASH_BOARD_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { AUTHORIZATION_KEY, Storage, PIM_DASH_BOARD_DETAIL_FIELD_KEY, Helper } from 'aesirx-lib';
 import moment from 'moment';
 import ListFeaturedProducts from './Component/ListFeaturedProducts';
 
@@ -90,7 +89,7 @@ const Dashboard = observer(
                       title={t('txt_products')}
                       icon={'/assets/images/product-icon.svg'}
                       iconColor={'#1AB394'}
-                      value={numberWithCommas(
+                      value={Helper.numberWithCommas(
                         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_PRODUCT] ?? 0
                       )}
                       loading={this.viewModel.formStatus}
@@ -108,7 +107,7 @@ const Dashboard = observer(
                       title={t('txt_categories')}
                       icon={'/assets/images/categories.svg'}
                       iconColor={'#EF3737'}
-                      value={numberWithCommas(
+                      value={Helper.numberWithCommas(
                         this.viewModel.result[PIM_DASH_BOARD_DETAIL_FIELD_KEY.TOTAL_CATEGORIES] ?? 0
                       )}
                       loading={this.viewModel.formStatus}

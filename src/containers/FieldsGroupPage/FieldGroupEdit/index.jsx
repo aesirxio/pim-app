@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, historyPush } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -20,7 +20,6 @@ import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
-import { historyPush } from 'routes/routes';
 
 const EditFieldGroup = observer(
   class EditFieldGroup extends Component {
