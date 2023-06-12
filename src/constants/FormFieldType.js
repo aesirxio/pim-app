@@ -32,6 +32,13 @@ const FORM_FIELD_TYPE = {
   TIMEZONE: 24,
   EDITOR: 'editor',
   VIDEO: 26,
+  CATEGORY_RELATED: 'category_related',
+  ITEM_RELATED: 'item_related',
+  COLOR: 'color',
+  REDITEM_TYPE: 'reditem.type',
+  REDITEM_CATEGORY: 'reditem.category',
+  RICATEGORIESTREE: 'ricategoriestree',
+  REDITEM_CUSTOMFIELD: 'reditem.customfield',
 };
 
 const FORMAT_DATE = 'dd MMM, yyyy';

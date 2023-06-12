@@ -80,16 +80,16 @@ class CategoryListViewModel {
     } else {
       if (
         key == 'list[limit]' &&
-        value * this.successResponse.pagination.page >= this.successResponse.pagination.totalItems
+        value * this.successResponse.pagination?.page >= this.successResponse.pagination?.totalItems
       ) {
         this.successResponse.filters['list[limitstart]'] =
           Math.ceil(this.successResponse.pagination.totalItems / value - 1) * value;
       } else if (
         key == 'list[limit]' &&
-        value * this.successResponse.pagination.page < this.successResponse.pagination.totalItems
+        value * this.successResponse.pagination?.page < this.successResponse.pagination?.totalItems
       ) {
         this.successResponse.filters['list[limitstart]'] =
-          (this.successResponse.pagination.page - 1) * value;
+          (this.successResponse.pagination?.page - 1) * value;
       }
     }
 
