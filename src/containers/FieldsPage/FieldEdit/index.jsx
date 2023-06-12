@@ -50,9 +50,6 @@ const EditField = observer(
 
     render() {
       const { t } = this.props;
-      console.log('rerender', this.props.match.params?.id);
-      console.log('this.isEdit', this.isEdit);
-
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }

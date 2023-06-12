@@ -1,12 +1,25 @@
 // import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import {
+  PIM_CATEGORY_DETAIL_FIELD_KEY,
+  PIM_FIELD_DETAIL_FIELD_KEY,
+  PIM_PRODUCT_DETAIL_FIELD_KEY,
+} from 'aesirx-lib';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
+import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
+import CategoryListViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryListViewModel';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
+import ProductListViewModel from 'containers/ProductsPage/ProductViewModel/ProductListViewModel';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
+
+const productStore = new ProductStore();
+const productListViewModel = new ProductListViewModel(productStore);
+const categoryStore = new CategoryStore();
+const categoryListViewModel = new CategoryListViewModel(categoryStore);
 const FieldsList = observer(
   class FieldsList extends Component {
     constructor(props) {
@@ -50,18 +63,18 @@ const FieldsList = observer(
           };
         });
       }
-
-      // if (
-      //   Object.prototype.hasOwnProperty.call(
-      //     this.props.formPropsData,
-      //     PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-      //   )
-      // ) {
-      //   Object.assign(this.props.formPropsData, {
-      //     [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {},
-      //   });
-      // }
-      console.log('this.props.formPropsData', this.props.formPropsData);
+      const isItemRelatedField = this.viewModel.fieldListViewModel?.items.find(
+        (item) => item?.type === FORM_FIELD_TYPE.ITEM_RELATED
+      );
+      if (!productListViewModel?.items?.length && isItemRelatedField) {
+        productListViewModel.getListByFilter('list[limit]', 9999);
+      }
+      const isCategoryRelatedField = this.viewModel.fieldListViewModel?.items.find(
+        (item) => item?.type === FORM_FIELD_TYPE.CATEGORY_RELATED
+      );
+      if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
+        categoryListViewModel.getListByFilter('list[limit]', 9999);
+      }
     };
 
     handleActiveTabRequiredField() {
@@ -118,11 +131,15 @@ const FieldsList = observer(
                 let selectedValue = '';
                 if (
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED ||
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CHECKBOX
                 ) {
                   let fieldValue =
-                    field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION &&
+                    (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED) &&
                     this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                       field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
                     ]
@@ -161,14 +178,35 @@ const FieldsList = observer(
                       field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
                     ] ?? null;
                 }
+                let selectOptions =
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
+                    ? productListViewModel?.items?.map((item) => {
+                        return {
+                          label: item[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
+                          value: item[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+                        };
+                      })
+                    : field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED
+                    ? categoryListViewModel?.items?.map((item) => {
+                        return {
+                          label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
+                          value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+                        };
+                      })
+                    : field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS];
+
                 return {
                   label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
                   key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
                   type: field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE],
                   getValueSelected: selectedValue,
-                  getDataSelectOptions: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
+                  getDataSelectOptions: selectOptions,
                   handleChange: (data) => {
-                    if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) {
+                    if (
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
+                    ) {
                       if (field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1') {
                         let convertData = data.map((item) => item?.value);
                         this.props.detailViewModal.handleFormPropsData(
@@ -218,7 +256,9 @@ const FieldsList = observer(
                   isMulti:
                     (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.LIST ||
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION) &&
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED) &&
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',
                   isVideo:
                     field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE &&

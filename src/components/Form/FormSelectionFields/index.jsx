@@ -5,11 +5,11 @@
 
 import { SVGComponent } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_CATEGORY_DETAIL_FIELD_KEY, PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 
-import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { AesirXSelect as SelectComponent, Spinner } from 'aesirx-uikit';
 import CreatableComponent from '../../../components/Select/Creatable';
 import FormRadio from '../FormRadio';
 import Input from '../Input';
@@ -18,7 +18,14 @@ import './index.scss';
 import { withTranslation } from 'react-i18next';
 import { notify } from 'aesirx-uikit';
 import { renderingGroupFieldHandler } from 'utils/form';
-
+import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
+import CategoryListViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryListViewModel';
+import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
+import FieldListViewModel from 'containers/FieldsPage/FieldViewModel/FieldListViewModel';
+const categoryStore = new CategoryStore();
+const categoryListViewModel = new CategoryListViewModel(categoryStore);
+const fieldStore = new FieldStore();
+const fieldListViewModel = new FieldListViewModel(fieldStore);
 class FormSelectionFields extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +42,24 @@ class FormSelectionFields extends Component {
     this.props.field.handleChange(data);
     this.setState({ field: data });
   };
+  componentDidMount = () => {
+    const fetchData = async () => {
+      const isCategoryRelatedField =
+        this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
+        this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
+      if (!fieldListViewModel?.items?.length && isCategoryRelatedField) {
+        await Promise.all([
+          categoryListViewModel.getListByFilter('list[limit]', 9999),
+          fieldListViewModel.handleFilterList({ limit: 9999 }),
+          fieldListViewModel.handleFilter({ 'filter[fieldtypes]': 'item_related' }),
+          fieldListViewModel.initializeDataCustom(),
+        ]).then(() => {
+          this.forceUpdate();
+        });
+      }
+    };
+    fetchData();
+  };
   componentDidUpdate = (prevProps) => {
     if (prevProps.field.getValueSelected !== this.props.field.getValueSelected) {
       this.setState((prevState) => {
@@ -49,6 +74,22 @@ class FormSelectionFields extends Component {
         [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
         [...this.state.listOptions]
       );
+    const fetchData = async () => {
+      const isCategoryRelatedField =
+        this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
+        this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
+      if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
+        await Promise.all([
+          categoryListViewModel.getListByFilter('list[limit]', 9999),
+          fieldListViewModel.handleFilterList({ limit: 9999 }),
+          fieldListViewModel.handleFilter({ 'filter[fieldtypes]': 'item_related' }),
+          fieldListViewModel.initializeDataCustom(),
+        ]).then(() => {
+          this.forceUpdate();
+        });
+      }
+    };
+    fetchData();
   };
   render() {
     const { t, validator } = this.props;
@@ -67,26 +108,84 @@ class FormSelectionFields extends Component {
       {
         fields: specifications?.length
           ? specifications?.map((item) => {
+              let selectOptions =
+                item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_TYPE &&
+                this.props.field.listContentType.length
+                  ? this.props.field.listContentType.map((item) => {
+                      return {
+                        label: item.label,
+                        value: item.value,
+                      };
+                    })
+                  : (item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CATEGORY ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE) &&
+                    categoryListViewModel?.items.length
+                  ? categoryListViewModel?.items.map((item) => {
+                      return {
+                        label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
+                        value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+                      };
+                    })
+                  : item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD &&
+                    fieldListViewModel?.items.length
+                  ? fieldListViewModel?.items
+                      .map((item) => {
+                        return {
+                          label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+                          value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+                        };
+                      })
+                      ?.filter((item) => {
+                        return (
+                          item.value !==
+                          this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                            PIM_FIELD_DETAIL_FIELD_KEY.ID
+                          ]
+                        );
+                      })
+                  : item?.options?.map((item) => {
+                      return { label: item?.label, value: item?.value?.toString() };
+                    }) ?? [];
+
               let selectedValue = '';
               if (
                 item?.attributes?.type === FORM_FIELD_TYPE.SELECTION ||
                 item?.attributes?.type === FORM_FIELD_TYPE.LIST ||
+                item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_TYPE ||
+                item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CATEGORY ||
+                item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD ||
+                item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE ||
                 item?.attributes?.type === FORM_FIELD_TYPE.RADIO ||
                 item?.attributes?.type === FORM_FIELD_TYPE.CHECKBOX
               ) {
-                let fieldValue = this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                  PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                ][item?.attributes?.name]
-                  ? this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                    ][item?.attributes?.name]
-                  : item?.attributes?.default;
-                selectedValue = fieldValue
-                  ? {
-                      label: item?.options?.find((x) => x.value?.toString() === fieldValue)?.label,
-                      value: fieldValue,
-                    }
-                  : null;
+                let attributesName =
+                  this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                    PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                  ][item?.attributes?.name];
+                let fieldValue =
+                  attributesName && attributesName !== 'undefined'
+                    ? this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                        PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                      ][item?.attributes?.name]
+                    : item?.attributes?.default;
+                if (item?.attributes?.multiple) {
+                  selectedValue = fieldValue?.length
+                    ? fieldValue.map((item) => {
+                        return {
+                          label: selectOptions.find((x) => x.value.toString() === item)?.label,
+                          value: item,
+                        };
+                      })
+                    : null;
+                } else {
+                  selectedValue = fieldValue
+                    ? {
+                        label: selectOptions?.find((x) => x.value?.toString() === fieldValue)
+                          ?.label,
+                        value: fieldValue,
+                      }
+                    : null;
+                }
               } else {
                 selectedValue =
                   this.props.field.viewModel.fieldDetailViewModel.formPropsData[
@@ -99,19 +198,29 @@ class FormSelectionFields extends Component {
                   key: item?.attributes?.name,
                   type: item?.attributes?.type,
                   getValueSelected: selectedValue,
-                  getDataSelectOptions:
-                    item?.options?.map((item) => {
-                      return { label: item?.label, value: item?.value?.toString() };
-                    }) ?? [],
+                  getDataSelectOptions: selectOptions,
+                  isMulti: item?.attributes?.multiple,
                   handleChange: (data) => {
                     if (
                       item?.attributes?.type === FORM_FIELD_TYPE.SELECTION ||
-                      item?.attributes?.type === FORM_FIELD_TYPE.LIST
+                      item?.attributes?.type === FORM_FIELD_TYPE.LIST ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_TYPE ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CATEGORY ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE
                     ) {
-                      this.props.field.viewModel.handleFormPropsData(
-                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                        { [item?.attributes?.name]: data.value }
-                      );
+                      if (item?.attributes?.multiple) {
+                        let convertData = data.map((item) => item?.value);
+                        this.props.field.viewModel.handleFormPropsData(
+                          [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                          { [item?.attributes?.name]: convertData }
+                        );
+                      } else {
+                        this.props.field.viewModel.handleFormPropsData(
+                          [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                          { [item?.attributes?.name]: data.value }
+                        );
+                      }
                     } else if (item?.attributes?.type === FORM_FIELD_TYPE.IMAGE) {
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
@@ -128,20 +237,32 @@ class FormSelectionFields extends Component {
                         { [item?.attributes?.name]: data }
                       );
                     } else {
+                      if (
+                        item?.attributes?.name === 'both_sides_related' &&
+                        data.target.value === '1'
+                      ) {
+                        document.querySelector('.sub-field').classList.remove('d-none');
+                      } else if (
+                        item?.attributes?.name === 'both_sides_related' &&
+                        data.target.value === '0'
+                      ) {
+                        document.querySelector('.sub-field').classList.add('d-none');
+                      }
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
                         { [item?.attributes?.name]: data.target.value }
                       );
-                      console.log(
-                        'dsadsa',
-                        this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                          PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                        ]
-                      );
                     }
                   },
                   description: item?.attributes?.description,
-                  className: 'col-lg-12 mt-24',
+                  className: `col-lg-12 mt-24 ${
+                    this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                      PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                    ]['both_sides_related'] !== '1' &&
+                    item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD
+                      ? 'sub-field d-none'
+                      : ''
+                  }`,
                 }
               );
             })
@@ -321,6 +442,11 @@ class FormSelectionFields extends Component {
                 />
               </div>
             )}
+            {!categoryListViewModel?.successResponse?.state &&
+              (this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
+                this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED) && (
+                <Spinner className="spinner-overlay" />
+              )}
             {Object.keys(generateSpecificationsSetting)
               .map((groupIndex) => {
                 return [...Array(generateSpecificationsSetting[groupIndex])].map((group) => {

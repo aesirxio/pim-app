@@ -116,6 +116,7 @@ class ProductTypeListViewModel {
           id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID],
           name: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME],
           level: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.LEVEL],
+          organization_id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ORGANIZATION_ID],
         },
         productTypeParent: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
           ? o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]

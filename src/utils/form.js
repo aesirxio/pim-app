@@ -154,18 +154,12 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
 
             case FORM_FIELD_TYPE.SELECTION:
-              return (
-                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
-                  {field.label && <Label text={field.label} required={field.required ?? false} />}
-
-                  <FormSelection key={Math.random(40, 200)} field={field} />
-
-                  {field.validation &&
-                    validator.message(field.label, field.getValueSelected, field.validation, {
-                      className: 'text-danger',
-                    })}
-                </Form.Group>
-              );
+            case FORM_FIELD_TYPE.ITEM_RELATED:
+            case FORM_FIELD_TYPE.CATEGORY_RELATED:
+            case FORM_FIELD_TYPE.REDITEM_TYPE:
+            case FORM_FIELD_TYPE.REDITEM_CATEGORY:
+            case FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD:
+            case FORM_FIELD_TYPE.RICATEGORIESTREE:
             case FORM_FIELD_TYPE.LIST:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
