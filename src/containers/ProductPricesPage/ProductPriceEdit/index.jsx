@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, historyPush } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -18,7 +18,6 @@ import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
 import EditHeader from 'components/EditHeader';
-import { historyPush } from 'routes/routes';
 
 const EditProductPrice = observer(
   class EditProductPrice extends Component {

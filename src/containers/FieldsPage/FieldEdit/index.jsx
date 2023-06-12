@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, historyPush  } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -19,7 +19,6 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldInformation from './Component/FieldInformation';
 import EditHeader from 'components/EditHeader';
-import { historyPush } from 'routes/routes';
 
 const EditField = observer(
   class EditField extends Component {

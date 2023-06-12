@@ -4,11 +4,10 @@ import { observer } from 'mobx-react-lite';
 import { withFieldGroupViewModel } from '../FieldGroupViewModel/FieldGroupViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
 import Table from 'components/Table';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, historyPush } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { notify } from 'aesirx-uikit';
-import { historyPush } from 'routes/routes';
 
 const ListFieldsGroup = observer((props) => {
   const { t } = props;

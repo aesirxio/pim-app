@@ -4,11 +4,10 @@ import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
 import Table from 'components/Table';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { Helper, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import numberWithCommas from 'utils/formatNumber';
 import ModalVariantsPrice from './ModalVariantsPrice';
 import ModalVariantsFields from './ModalVariantsFields';
 
@@ -272,7 +271,7 @@ const Variants = ({ t, formPropsData }) => {
             <Label text={t('txt_price')} />
             <Input
               field={{
-                getValueSelected: formPropsData.quickPrice ?? numberWithCommas(7000000),
+                getValueSelected: formPropsData.quickPrice ?? Helper.numberWithCommas(7000000),
                 classNameInput: 'fs-14',
                 placeholder: t('txt_type'),
                 format: 'VND',
@@ -304,7 +303,8 @@ const Variants = ({ t, formPropsData }) => {
             className={`px-4 py-1 fw-bold mb-0 fs-14 lh-sm`}
             onClick={() => {
               forceUpdate();
-              formPropsData.quickPrice = formPropsData.quickPrice ?? numberWithCommas(7000000);
+              formPropsData.quickPrice =
+                formPropsData.quickPrice ?? Helper.numberWithCommas(7000000);
               formPropsData.quickSKU = formPropsData.quickSKU ?? 'SKU-PRODUCT';
               formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.VARIANTS] = dataTable.map((variant) => {
                 return {

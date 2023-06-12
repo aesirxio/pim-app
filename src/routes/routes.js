@@ -10,7 +10,6 @@ import {
   DigitalAssetsPage,
   MembersPage,
   EditMemberProvider,
-  history,
 } from 'aesirx-uikit';
 import { BrowserRouter } from 'react-router-dom';
 
@@ -343,8 +342,4 @@ const integrationRoutes = () =>
       return item;
     });
 
-const historyPush = (link) => {
-  return history.push((process.env.REACT_APP_INTERGRATION ? '/pim' : '') + link);
-};
-
-export { authRoutes, mainRoutes, settingRoutes, integrationRoutes, historyPush };
+export { authRoutes, mainRoutes, settingRoutes, integrationRoutes };

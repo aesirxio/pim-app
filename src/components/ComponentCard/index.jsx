@@ -1,9 +1,8 @@
 import React from 'react';
 import './index.scss';
-import { PulseLoaderComponent } from 'aesirx-uikit';
+import { PulseLoaderComponent, historyPush } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 
-import { historyPush } from 'routes/routes';
 const ComponentCard = ({
   title,
   icon,
@@ -91,6 +90,7 @@ const ComponentCard = ({
     </div>
   );
 };
+
 function hexToRGB(hex, alpha) {
   var r = parseInt(hex.slice(1, 3), 16),
     g = parseInt(hex.slice(3, 5), 16),
