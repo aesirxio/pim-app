@@ -9,7 +9,7 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withRouter } from 'react-router-dom';
+
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
@@ -52,7 +52,7 @@ const EditField = observer(
       const { t } = this.props;
       console.log('rerender', this.props.match.params?.id);
       console.log('this.isEdit', this.isEdit);
-      let history = this.props.history;
+
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -183,4 +183,4 @@ const EditField = observer(
   }
 );
 
-export default withTranslation()(withRouter(withFieldViewModel(EditField)));
+export default withTranslation()(withFieldViewModel(EditField));

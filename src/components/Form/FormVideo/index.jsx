@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import ComponentVideo from 'components/ComponentVideo';
 import { ModalDAMComponent } from 'aesirx-uikit';
 import React, { useState } from 'react';
@@ -45,7 +45,7 @@ const FormVideo = ({ field }) => {
                       deleteImage(e, 0);
                     }}
                   >
-                    <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
+                    <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                   </div>
                   <ComponentVideo src={file[0] && file[0]?.download_url} />
                 </div>
@@ -60,7 +60,7 @@ const FormVideo = ({ field }) => {
             setShow(true);
           }}
         >
-          <ComponentSVG url="/assets/images/add-media-image.svg" className="bg-black me-1" />
+          <SVGComponent url="/assets/images/add-media-image.svg" className="bg-black me-1" />
           Add More Video
         </Button>
       </div>

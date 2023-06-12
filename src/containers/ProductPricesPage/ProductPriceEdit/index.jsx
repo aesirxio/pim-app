@@ -9,7 +9,7 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withRouter } from 'react-router-dom';
+
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
@@ -48,7 +48,7 @@ const EditProductPrice = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
+
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.productPriceDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -140,4 +140,4 @@ const EditProductPrice = observer(
   }
 );
 
-export default withTranslation()(withRouter(withProductPriceViewModel(EditProductPrice)));
+export default withTranslation()(withProductPriceViewModel(EditProductPrice));

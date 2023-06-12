@@ -64,7 +64,7 @@ const EditProductType = observer(
     }, 300);
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       // eslint-disable-next-line no-console
       console.log('rerender ProductType', this.productTypeDetailViewModel);
 

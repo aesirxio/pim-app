@@ -5,7 +5,7 @@ import { withDebtorGroupViewModel } from '../DebtorGroupViewModel/DebtorGroupVie
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
-import { history } from 'aesirx-uikit';
+
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { notify } from 'aesirx-uikit';

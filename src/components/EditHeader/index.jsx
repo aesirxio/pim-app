@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import React from 'react';
 import { historyPush } from 'routes/routes';
 const EditHeader = ({ props, title, isEdit, redirectUrl }) => {
@@ -17,7 +17,7 @@ const EditHeader = ({ props, title, isEdit, redirectUrl }) => {
             historyPush(redirectUrl);
           }}
         >
-          <ComponentSVG url="/assets/images/back.svg" className={'bg-success'} />
+          <SVGComponent url="/assets/images/back.svg" className={'bg-success'} />
         </div>
         {isEdit ? t('txt_edit') : t('txt_add_new')} {title}
       </h2>

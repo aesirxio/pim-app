@@ -8,9 +8,8 @@ import React from 'react';
 import CreatableSelect from 'react-select/creatable';
 import { components } from 'react-select';
 import customStyles from './customStyles';
-import { ThemesContext } from 'aesirx-uikit';
+import { ThemesContext, SVGComponent } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
-import ComponentSVG from 'components/ComponentSVG';
 
 class CreatableComponent extends React.Component {
   constructor(props) {
@@ -80,7 +79,7 @@ class CreatableComponent extends React.Component {
       return (
         <components.MultiValueRemove {...props}>
           {' '}
-          <ComponentSVG url="/assets/images/cancel.svg" color="#C0C0C0" />
+          <SVGComponent url="/assets/images/cancel.svg" color="#C0C0C0" />
         </components.MultiValueRemove>
       );
     };

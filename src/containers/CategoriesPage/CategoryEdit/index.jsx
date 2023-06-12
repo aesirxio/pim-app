@@ -9,7 +9,7 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withRouter } from 'react-router-dom';
+
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
@@ -82,7 +82,7 @@ const EditCategory = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
+
       console.log('rerender Category');
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
@@ -225,4 +225,4 @@ const EditCategory = observer(
   }
 );
 
-export default withTranslation()(withRouter(withCategoryViewModel(EditCategory)));
+export default withTranslation()(withCategoryViewModel(EditCategory));

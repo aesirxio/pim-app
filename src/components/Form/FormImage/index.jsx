@@ -3,13 +3,13 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
-import { ModalDAMComponent } from 'aesirx-uikit';
+import { ModalDAMComponent, SVGComponent } from 'aesirx-uikit';
 import React, { useState } from 'react';
 import { Button, Col, Ratio, Row } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 
-import ComponentImage from '../../ComponentImage';
+import { Image as ComponentImage } from 'aesirx-uikit';
+
 import './index.scss';
 const FormImage = ({ field, ...props }) => {
   const { t } = props;
@@ -69,7 +69,7 @@ const FormImage = ({ field, ...props }) => {
                             deleteImage(e, key);
                           }}
                         >
-                          <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
+                          <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
                         <ComponentImage src={JSON.parse(item)?.download_url} alt={field.value} />
                       </div>
@@ -85,7 +85,7 @@ const FormImage = ({ field, ...props }) => {
               setShow(true);
             }}
           >
-            <ComponentSVG url="/assets/images/add-media-image.svg" className="bg-black me-1" />
+            <SVGComponent url="/assets/images/add-media-image.svg" className="bg-black me-1" />
             {t('txt_add_more_photo')}
           </Button>
         </div>
@@ -115,7 +115,7 @@ const FormImage = ({ field, ...props }) => {
                         deleteImage(e, 0);
                       }}
                     >
-                      <ComponentSVG url="/assets/images/delete.svg" className={'bg-danger'} />
+                      <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                     </div>
                     <ComponentImage src={file[0]?.download_url} alt={field.value} />
                   </>

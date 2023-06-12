@@ -1,5 +1,5 @@
-import { AesirXDatePicker } from 'aesirx-uikit';
-import ComponentSVG from 'components/ComponentSVG';
+import { AesirXDatePicker, SVGComponent } from 'aesirx-uikit';
+
 import React, { useRef, useState } from 'react';
 import { withTranslation } from 'react-i18next';
 import './index.scss';
@@ -50,7 +50,7 @@ const DateRangePicker = (props) => {
       />
       <div className="calendar-icon calendar-icon-end position-absolute top-50 translate-middle-y">
         <i className="icons text-green">
-          <ComponentSVG url="/assets/images/calendar.svg" className={'bg-green'} />
+          <SVGComponent url="/assets/images/calendar.svg" className={'bg-green'} />
         </i>
       </div>
     </div>

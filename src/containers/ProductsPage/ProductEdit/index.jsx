@@ -95,7 +95,7 @@ const EditProduct = observer(
     }
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       this.validator.messages['required'] = t('txt_field_required_error_message');
 
       return (

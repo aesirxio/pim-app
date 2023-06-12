@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
@@ -234,7 +234,7 @@ class FormSelectionFields extends Component {
                                 });
                               }}
                             >
-                              <ComponentSVG
+                              <SVGComponent
                                 url="/assets/images/cancel.svg"
                                 className={'bg-danger'}
                               />
@@ -271,7 +271,7 @@ class FormSelectionFields extends Component {
                     }
                   }}
                 >
-                  <ComponentSVG url="/assets/images/plus.svg" className={`me-15`} />
+                  <SVGComponent url="/assets/images/plus.svg" className={`me-15`} />
                   {t('txt_add_more_option')}
                 </Button>
               </>

@@ -13,7 +13,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import PublishOptions from 'components/PublishOptions';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 
 const EditVariant = observer(
@@ -64,7 +64,7 @@ const EditVariant = observer(
     }
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -189,7 +189,7 @@ const EditVariant = observer(
                             this.delete(o.id);
                           }}
                         >
-                          <ComponentSVG
+                          <SVGComponent
                             color={'#1ab394'}
                             url={'/assets/images/cancel.svg'}
                             className={`bg-green`}
@@ -209,7 +209,7 @@ const EditVariant = observer(
                     this.handle();
                   }}
                 >
-                  <ComponentSVG
+                  <SVGComponent
                     color={'#1ab394'}
                     url={'/assets/images/plus.svg'}
                     className={`light me-1`}

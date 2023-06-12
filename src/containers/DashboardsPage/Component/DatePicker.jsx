@@ -1,5 +1,5 @@
-import { AesirXDatePicker as ComponentDatePicker } from 'aesirx-uikit';
-import ComponentSVG from 'components/ComponentSVG';
+import { AesirXDatePicker as ComponentDatePicker, SVGComponent } from 'aesirx-uikit';
+
 import React, { useRef, useState } from 'react';
 
 function DatePicker() {
@@ -18,7 +18,7 @@ function DatePicker() {
         datePickerRef={datePickerRef}
         classContainer="h-auto"
       />
-      <ComponentSVG url="/assets/images/calendar.svg" color="#00B96D" />
+      <SVGComponent url="/assets/images/calendar.svg" color="#00B96D" />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import FormRadio from 'components/Form/FormRadio';
 import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
@@ -119,7 +119,7 @@ const Variants = ({ t, formPropsData }) => {
                   setShowModalPrice(true);
                 }}
               >
-                <ComponentSVG url="/assets/images/plus-circle.svg" className={`bg-success ms-0`} />
+                <SVGComponent url="/assets/images/plus-circle.svg" className={`bg-success ms-0`} />
               </div>
             </div>
           );
@@ -260,7 +260,7 @@ const Variants = ({ t, formPropsData }) => {
           ]);
         }}
       >
-        <ComponentSVG url="/assets/images/plus.svg" className={`me-15`} />
+        <SVGComponent url="/assets/images/plus.svg" className={`me-15`} />
         Add More variant
       </Button>
       <hr className="my-4" />

@@ -6,7 +6,7 @@ import React from 'react';
 import { Component } from 'react';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import {Image as ComponentImage} from 'aesirx-uikit';
+import { Image as ComponentImage } from 'aesirx-uikit';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Link } from 'react-router-dom';
 import { faPlus } from '@fortawesome/free-solid-svg-icons';
