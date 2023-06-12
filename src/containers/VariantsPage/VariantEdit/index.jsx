@@ -13,7 +13,8 @@ import SimpleReactValidator from 'simple-react-validator';
 import PublishOptions from 'components/PublishOptions';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const EditVariant = observer(
   class EditVariant extends Component {
@@ -63,7 +64,7 @@ const EditVariant = observer(
     }
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -85,7 +86,7 @@ const EditVariant = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/variants/all`);
+                      historyPush(`/variants/all`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -97,7 +98,7 @@ const EditVariant = observer(
                           ? await this.viewModel.update()
                           : await this.viewModel.create();
                         if (result !== 0) {
-                          history.push(`/variants/all`);
+                          historyPush(`/variants/all`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -113,7 +114,7 @@ const EditVariant = observer(
                           await this.viewModel.update();
                         } else {
                           let result = await this.viewModel.create();
-                          result && history.push(`/variants/edit/${result}`);
+                          result && historyPush(`/variants/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -188,7 +189,7 @@ const EditVariant = observer(
                             this.delete(o.id);
                           }}
                         >
-                          <ComponentSVG
+                          <SVGComponent
                             color={'#1ab394'}
                             url={'/assets/images/cancel.svg'}
                             className={`bg-green`}
@@ -208,7 +209,7 @@ const EditVariant = observer(
                     this.handle();
                   }}
                 >
-                  <ComponentSVG
+                  <SVGComponent
                     color={'#1ab394'}
                     url={'/assets/images/plus.svg'}
                     className={`light me-1`}

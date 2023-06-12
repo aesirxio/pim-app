@@ -16,4 +16,4 @@ const appLanguages = {
   es: common_es,
 };
 
-export default appLanguages;
+export { appLanguages };

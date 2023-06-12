@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import { FORMAT_DATE_TIME_UPDATE_POST } from 'constants/FormFieldType';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
@@ -31,7 +31,7 @@ const CustomizedDatePicker = ({
   return (
     <div className="d-flex align-items-center bg-white position-relative date-picker">
       <div className="calendar-icon calendar-icon-start position-absolute top-50 translate-middle-y">
-        <ComponentSVG url="/assets/images/clock.svg" color="#C0C0C0" />
+        <SVGComponent url="/assets/images/clock.svg" color="#C0C0C0" />
       </div>
       <DatePicker
         dateFormat={dateFormat ?? 'MMM d, yyyy'}

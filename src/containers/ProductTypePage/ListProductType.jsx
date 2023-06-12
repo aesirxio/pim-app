@@ -1,4 +1,4 @@
-import { AesirXSelect, Spinner, history, notify } from 'aesirx-uikit';
+import { AesirXSelect, Spinner, notify } from 'aesirx-uikit';
 import Table from 'components/Table';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
@@ -6,6 +6,7 @@ import { useTranslation, withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withProductTypeViewModel } from './ProductTypeViewModel/ProductTypeViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
+import { historyPush } from 'routes/routes';
 
 const ListProductType = observer((props) => {
   const { t } = useTranslation();
@@ -47,7 +48,7 @@ const ListProductType = observer((props) => {
                   <div className="text-green">
                     <button
                       onClick={() => {
-                        history.push(`/product-types/edit/${value.id}`);
+                        historyPush(`/product-types/edit/${value.id}`);
                       }}
                       className="p-0 border-0 bg-transparent d-inline-block text-green"
                     >
@@ -145,7 +146,7 @@ const ListProductType = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/product-types/add');
+                historyPush('/product-types/add');
               },
             },
           ]}

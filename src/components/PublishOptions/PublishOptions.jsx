@@ -1,11 +1,11 @@
-import ComponentSVG from 'components/ComponentSVG';
+import { SVGComponent } from 'aesirx-uikit';
 import FormSelection from 'components/Form/FormSelection';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
-import CustomizedDatePicker from 'components/DatePicker';
+import { CustomizedDatePicker } from 'aesirx-uikit';
 import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
 import { AUTHORIZATION_KEY, Storage } from 'aesirx-lib';
 import { observer } from 'mobx-react';
@@ -53,7 +53,7 @@ const PublishOptionsDetail = observer(
             <div className="d-flex align-items-center justify-content-between w-100 mb-24">
               <div>
                 <div style={{ marginLeft: '-5px' }}>
-                  <ComponentSVG url="/assets/images/post-status.svg" className="bg-black" />
+                  <SVGComponent url="/assets/images/post-status.svg" className="bg-black" />
                   &nbsp;
                   {t('txt_status')}:
                 </div>

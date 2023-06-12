@@ -19,6 +19,7 @@ import ProductTypeInformation from './Component/ProductTypeInformation';
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner } from 'aesirx-uikit';
 import Input from 'components/Form/Input';
+import { historyPush } from 'routes/routes';
 
 const EditProductType = observer(
   class EditProductType extends Component {
@@ -63,7 +64,7 @@ const EditProductType = observer(
     }, 300);
 
     render() {
-      const { t, history } = this.props;
+      const { t } = this.props;
       // eslint-disable-next-line no-console
       console.log('rerender ProductType', this.productTypeDetailViewModel);
 
@@ -85,7 +86,7 @@ const EditProductType = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/product-types`);
+                      historyPush(`/product-types`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -97,7 +98,7 @@ const EditProductType = observer(
                           ? await this.productTypeDetailViewModel.update()
                           : await this.productTypeDetailViewModel.create();
                         if (!result?.error) {
-                          history.push(`/product-types`);
+                          historyPush(`/product-types`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -116,7 +117,7 @@ const EditProductType = observer(
                         } else {
                           const result = await this.productTypeDetailViewModel.create();
                           if (!result?.error) {
-                            history.push(`/product-types/edit/${result?.response}`);
+                            historyPush(`/product-types/edit/${result?.response}`);
                           }
                         }
                       } else {

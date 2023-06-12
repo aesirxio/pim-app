@@ -2,7 +2,8 @@ import React from 'react';
 import './index.scss';
 import { PulseLoaderComponent } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
-import { history } from 'aesirx-uikit';
+
+import { historyPush } from 'routes/routes';
 const ComponentCard = ({
   title,
   icon,
@@ -74,7 +75,7 @@ const ComponentCard = ({
       <a
         className="mb-0 fs-6 w-100 text-uppercase text-body fw-semibold d-flex align-items-center text-decoration-none cursor-pointer"
         onClick={() => {
-          history.push(link);
+          historyPush(link);
         }}
       >
         {titleLink}

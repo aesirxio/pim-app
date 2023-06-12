@@ -9,7 +9,7 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withRouter } from 'react-router-dom';
+
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withFieldGroupViewModel } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
@@ -20,6 +20,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
+import { historyPush } from 'routes/routes';
 
 const EditFieldGroup = observer(
   class EditFieldGroup extends Component {
@@ -64,7 +65,6 @@ const EditFieldGroup = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
 
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
@@ -87,7 +87,7 @@ const EditFieldGroup = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/fields-group`);
+                      historyPush(`/fields-group`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -105,7 +105,7 @@ const EditFieldGroup = observer(
                           ? await this.fieldGroupDetailViewModel.update()
                           : await this.fieldGroupDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/fields-group`);
+                          historyPush(`/fields-group`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -124,7 +124,7 @@ const EditFieldGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.fieldGroupDetailViewModel.create();
-                          history.push(`/fields-group/edit/${result}`);
+                          historyPush(`/fields-group/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -207,4 +207,4 @@ const EditFieldGroup = observer(
   }
 );
 
-export default withTranslation()(withRouter(withFieldGroupViewModel(EditFieldGroup)));
+export default withTranslation()(withFieldGroupViewModel(EditFieldGroup));

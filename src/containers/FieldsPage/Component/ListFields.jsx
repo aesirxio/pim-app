@@ -5,10 +5,11 @@ import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from '../FieldViewModel/FieldViewModelContextProvider';
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
-import { history } from 'aesirx-uikit';
+
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListFields = observer((props) => {
   const { t } = props;
@@ -34,7 +35,7 @@ const ListFields = observer((props) => {
               <div className="text-green">
                 <button
                   onClick={() => {
-                    history.push(`/fields/edit/${value.id}`);
+                    historyPush(`/fields/edit/${value.id}`);
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
@@ -132,7 +133,7 @@ const ListFields = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/fields/add');
+                historyPush('/fields/add');
               },
             },
           ]}

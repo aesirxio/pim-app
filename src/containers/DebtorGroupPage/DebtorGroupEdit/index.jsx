@@ -9,7 +9,7 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withRouter } from 'react-router-dom';
+
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withDebtorGroupViewModel } from 'containers/DebtorGroupPage/DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import DebtorGroupInformation from './Component/DebtorGroupInformation';
 import EditHeader from 'components/EditHeader';
+import { historyPush } from 'routes/routes';
 
 const EditDebtorGroup = observer(
   class EditDebtorGroup extends Component {
@@ -48,7 +49,7 @@ const EditDebtorGroup = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
+
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -70,7 +71,7 @@ const EditDebtorGroup = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/debtor-group`);
+                      historyPush(`/debtor-group`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -87,7 +88,7 @@ const EditDebtorGroup = observer(
                           ? await this.debtorGroupDetailViewModel.update()
                           : await this.debtorGroupDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/debtor-group`);
+                          historyPush(`/debtor-group`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -105,7 +106,7 @@ const EditDebtorGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.debtorGroupDetailViewModel.create();
-                          result && history.push(`/debtor-group/edit/${result}`);
+                          result && historyPush(`/debtor-group/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -173,4 +174,4 @@ const EditDebtorGroup = observer(
   }
 );
 
-export default withTranslation()(withRouter(withDebtorGroupViewModel(EditDebtorGroup)));
+export default withTranslation()(withDebtorGroupViewModel(EditDebtorGroup));

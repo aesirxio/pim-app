@@ -4,11 +4,10 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import PAGE_STATUS from 'constants/PageStatus';
+
 import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
 import ProductViewModel from 'containers/ProductsPage/ProductViewModel/ProductViewModel';
 import { ProductViewModelContextProvider } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
@@ -19,9 +18,6 @@ const productViewModel = new ProductViewModel(productStore);
 const EditProductProvider = observer(
   class EditProductProvider extends Component {
     render() {
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       return (
         <ProductViewModelContextProvider viewModel={productViewModel}>
           <EditProduct />

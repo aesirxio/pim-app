@@ -5,10 +5,11 @@ import { withDebtorGroupViewModel } from '../DebtorGroupViewModel/DebtorGroupVie
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
-import { history } from 'aesirx-uikit';
+
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListDebtorGroup = observer((props) => {
   const { t } = props;
@@ -42,7 +43,7 @@ const ListDebtorGroup = observer((props) => {
             <div className="text-green">
               <button
                 onClick={() => {
-                  history.push(`/debtor-group/edit/${row.cells[1].value}`);
+                  historyPush(`/debtor-group/edit/${row.cells[1].value}`);
                 }}
                 className="p-0 border-0 bg-transparent d-inline-block text-green"
               >
@@ -161,7 +162,7 @@ const ListDebtorGroup = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/debtor-group/add');
+                historyPush('/debtor-group/add');
               },
             },
           ]}

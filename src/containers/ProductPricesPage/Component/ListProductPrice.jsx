@@ -8,8 +8,8 @@ import { Spinner } from 'aesirx-uikit';
 import Table from 'components/Table';
 import '../index.scss';
 import ActionsBar from 'components/ActionsBar';
-import { history } from 'aesirx-uikit';
 import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListProductPrice = observer((props) => {
   const { t } = props;
@@ -110,7 +110,7 @@ const ListProductPrice = observer((props) => {
               <div className="text-green">
                 <button
                   onClick={() => {
-                    history.push(`/prices/edit/${row.cells[1].value}`);
+                    historyPush(`/prices/edit/${row.cells[1].value}`);
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
@@ -190,7 +190,7 @@ const ListProductPrice = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/prices/add');
+                historyPush('/prices/add');
               },
             },
           ]}

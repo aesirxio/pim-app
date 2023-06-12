@@ -9,7 +9,7 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import { withRouter } from 'react-router-dom';
+
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldInformation from './Component/FieldInformation';
 import EditHeader from 'components/EditHeader';
+import { historyPush } from 'routes/routes';
 
 const EditField = observer(
   class EditField extends Component {
@@ -49,7 +50,6 @@ const EditField = observer(
 
     render() {
       const { t } = this.props;
-      let history = this.props.history;
       if (status === PAGE_STATUS.LOADING) {
         return <Spinner />;
       }
@@ -71,7 +71,7 @@ const EditField = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/fields`);
+                      historyPush(`/fields`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -88,7 +88,7 @@ const EditField = observer(
                           ? await this.fieldDetailViewModel.update()
                           : await this.fieldDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/fields`);
+                          historyPush(`/fields`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -106,7 +106,7 @@ const EditField = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.fieldDetailViewModel.create();
-                          history.push(`/fields/edit/${result}`);
+                          historyPush(`/fields/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -180,4 +180,4 @@ const EditField = observer(
   }
 );
 
-export default withTranslation()(withRouter(withFieldViewModel(EditField)));
+export default withTranslation()(withFieldViewModel(EditField));
