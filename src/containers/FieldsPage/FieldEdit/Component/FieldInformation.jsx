@@ -103,6 +103,7 @@ const FieldInformation = observer(
               className: 'col-lg-12',
               viewModel: this.viewModel,
               isEdit: isEdit,
+              listContentType: this.utilsListViewModel.listContentType,
             },
             {
               label: 'txt_section',
@@ -127,7 +128,7 @@ const FieldInformation = observer(
                       value: item.value,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 let convertData = data.map((item) => ({ title: item.label, id: item.value }));
                 this.viewModel.handleFormPropsData(

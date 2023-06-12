@@ -82,10 +82,6 @@ class CategoryDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
-      console.log(
-        'this.categoryDetailViewModel.formPropsData',
-        this.categoryDetailViewModel.formPropsData
-      );
     }
 
     this.formStatus = PAGE_STATUS.READY;

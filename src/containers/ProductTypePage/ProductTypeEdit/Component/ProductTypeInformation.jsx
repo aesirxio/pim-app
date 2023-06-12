@@ -76,10 +76,10 @@ const ProductTypeInformation = observer(
                 if (isEdit) {
                   notify(this.props.t('txt_product_type_change_warning'), 'warn');
                 }
-                this.forceUpdate();
+                // this.forceUpdate();
               },
-              required: true,
-              validation: 'required',
+              // required: true,
+              // validation: 'required',
               placeholder: t('txt_select_parent_type'),
               className: 'col-lg-12',
             },
