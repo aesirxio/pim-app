@@ -14,6 +14,7 @@ import PublishOptions from 'components/PublishOptions';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import ComponentSVG from 'components/ComponentSVG';
+import { historyPush } from 'routes/routes';
 
 const EditVariant = observer(
   class EditVariant extends Component {
@@ -85,7 +86,7 @@ const EditVariant = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/variants/all`);
+                      historyPush(`/variants/all`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -97,7 +98,7 @@ const EditVariant = observer(
                           ? await this.viewModel.update()
                           : await this.viewModel.create();
                         if (result !== 0) {
-                          history.push(`/variants/all`);
+                          historyPush(`/variants/all`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -113,7 +114,7 @@ const EditVariant = observer(
                           await this.viewModel.update();
                         } else {
                           let result = await this.viewModel.create();
-                          result && history.push(`/variants/edit/${result}`);
+                          result && historyPush(`/variants/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();

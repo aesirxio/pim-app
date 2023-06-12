@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldInformation from './Component/FieldInformation';
 import EditHeader from 'components/EditHeader';
+import { historyPush } from 'routes/routes';
 
 const EditField = observer(
   class EditField extends Component {
@@ -73,7 +74,7 @@ const EditField = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/fields`);
+                      historyPush(`/fields`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -90,7 +91,7 @@ const EditField = observer(
                           ? await this.fieldDetailViewModel.update()
                           : await this.fieldDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/fields`);
+                          historyPush(`/fields`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -108,7 +109,7 @@ const EditField = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.fieldDetailViewModel.create();
-                          history.push(`/fields/edit/${result}`);
+                          historyPush(`/fields/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();

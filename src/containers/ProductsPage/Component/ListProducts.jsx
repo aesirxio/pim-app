@@ -5,9 +5,10 @@ import Table from 'components/Table';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { history, Spinner, notify } from 'aesirx-uikit';
+import { Spinner, notify } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
 import DateRangePicker from 'components/DateRangePicker';
+import { historyPush } from 'routes/routes';
 
 const ListProducts = observer((props) => {
   const { t } = props;
@@ -104,7 +105,7 @@ const ListProducts = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/products/add');
+                historyPush('/products/add');
               },
             },
           ]}
@@ -249,7 +250,7 @@ const ListProducts = observer((props) => {
                       <div className="text-green">
                         <button
                           onClick={() => {
-                            history.push(`/products/edit/${row.values.id}`);
+                            historyPush(`/products/edit/${row.values.id}`);
                           }}
                           className="p-0 border-0 bg-transparent d-inline-block text-green"
                         >

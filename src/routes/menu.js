@@ -101,4 +101,12 @@ const menuSetup = [
   },
 ];
 
-export { profileMenu, mainMenu, settingMenu, menuSetup };
+const integrationMenu = () =>
+  mainMenu
+    .filter((item) => item.link !== '/dam' && item.link !== '/' && item.link !== '/members')
+    .map((item) => {
+      item.link = '/pim' + item.link;
+      return item;
+    });
+
+export { profileMenu, mainMenu, settingMenu, menuSetup, integrationMenu };

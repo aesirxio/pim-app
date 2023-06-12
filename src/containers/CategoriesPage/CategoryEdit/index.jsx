@@ -23,6 +23,7 @@ import EditHeader from 'components/EditHeader';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import { historyPush } from 'routes/routes';
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
 const EditCategory = observer(
@@ -105,7 +106,7 @@ const EditCategory = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/categories`);
+                      historyPush(`/categories`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -123,7 +124,7 @@ const EditCategory = observer(
                           ? await this.categoryDetailViewModel.update()
                           : await this.categoryDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/categories`);
+                          historyPush(`/categories`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -142,7 +143,7 @@ const EditCategory = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.categoryDetailViewModel.create();
-                          history.push(`/categories/edit/${result}`);
+                          historyPush(`/categories/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();

@@ -33,6 +33,7 @@ const fieldViewModel = new FieldViewModel(fieldStore);
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import { historyPush } from 'routes/routes';
 const EditProduct = observer(
   class EditProduct extends Component {
     productDetailViewModel = null;
@@ -116,7 +117,7 @@ const EditProduct = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/products/all`);
+                      historyPush(`/products/all`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -134,7 +135,7 @@ const EditProduct = observer(
                           ? await this.productDetailViewModel.update()
                           : await this.productDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/products/all`);
+                          historyPush(`/products/all`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -153,7 +154,7 @@ const EditProduct = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.productDetailViewModel.create();
-                          result && history.push(`/products/edit/${result}`);
+                          result && historyPush(`/products/edit/${result}`);
                         }
                       } else {
                         this.handleValidateForm();

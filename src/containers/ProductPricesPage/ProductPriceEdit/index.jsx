@@ -18,6 +18,7 @@ import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
 import EditHeader from 'components/EditHeader';
+import { historyPush } from 'routes/routes';
 
 const EditProductPrice = observer(
   class EditProductPrice extends Component {
@@ -66,7 +67,7 @@ const EditProductPrice = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/prices`);
+                      historyPush(`/prices`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -83,7 +84,7 @@ const EditProductPrice = observer(
                           ? await this.productPriceDetailViewModel.update()
                           : await this.productPriceDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/prices`);
+                          historyPush(`/prices`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -100,7 +101,7 @@ const EditProductPrice = observer(
                           await this.productPriceDetailViewModel.initializeData();
                         } else {
                           let result = await this.productPriceDetailViewModel.create();
-                          result && history.push(`/prices/edit/${result}`);
+                          result && historyPush(`/prices/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();

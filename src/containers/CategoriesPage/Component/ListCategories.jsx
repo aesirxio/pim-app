@@ -5,7 +5,8 @@ import { withCategoryViewModel } from '../CategoryViewModel/CategoryViewModelCon
 import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
-import { Spinner, history, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { Spinner, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListCategories = observer((props) => {
   const { t } = props;
@@ -43,7 +44,7 @@ const ListCategories = observer((props) => {
                 <div className="text-green">
                   <button
                     onClick={() => {
-                      history.push(`/categories/edit/${value.id}`);
+                      historyPush(`/categories/edit/${value.id}`);
                     }}
                     className="p-0 border-0 bg-transparent d-inline-block text-green"
                   >
@@ -247,7 +248,7 @@ const ListCategories = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/categories/add');
+                historyPush('/categories/add');
               },
             },
           ]}

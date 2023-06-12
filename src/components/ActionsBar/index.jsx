@@ -1,8 +1,9 @@
 import React from 'react';
 import { withTranslation } from 'react-i18next';
 import { Button } from 'react-bootstrap';
-import ComponentSVG from 'components/ComponentSVG';
+
 import './index.scss';
+import { SVGComponent } from 'aesirx-uikit';
 const ActionsBar = ({ t, buttons = [] }) => {
   return (
     <div className="d-flex align-items-center">
@@ -17,7 +18,7 @@ const ActionsBar = ({ t, buttons = [] }) => {
               onClick={item.handle}
             >
               {item.icon && (
-                <ComponentSVG
+                <SVGComponent
                   color={item.iconColor}
                   url={item.icon}
                   className={`icon-${item.variant ? item.variant : 'light'} me-1`}

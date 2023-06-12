@@ -5,10 +5,10 @@ import { withFieldGroupViewModel } from '../FieldGroupViewModel/FieldGroupViewMo
 import ActionsBar from 'components/ActionsBar';
 import Table from 'components/Table';
 import { Spinner } from 'aesirx-uikit';
-import { history } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListFieldsGroup = observer((props) => {
   const { t } = props;
@@ -34,7 +34,7 @@ const ListFieldsGroup = observer((props) => {
               <div className="text-green">
                 <button
                   onClick={() => {
-                    history.push(`/fields-group/edit/${value.id}`);
+                    historyPush(`/fields-group/edit/${value.id}`);
                   }}
                   className="p-0 border-0 bg-transparent d-inline-block text-green"
                 >
@@ -121,7 +121,7 @@ const ListFieldsGroup = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                history.push('/fields-group/add');
+                historyPush('/fields-group/add');
               },
             },
           ]}

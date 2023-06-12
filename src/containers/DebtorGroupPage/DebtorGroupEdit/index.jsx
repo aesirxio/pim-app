@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import DebtorGroupInformation from './Component/DebtorGroupInformation';
 import EditHeader from 'components/EditHeader';
+import { historyPush } from 'routes/routes';
 
 const EditDebtorGroup = observer(
   class EditDebtorGroup extends Component {
@@ -70,7 +71,7 @@ const EditDebtorGroup = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      history.push(`/debtor-group`);
+                      historyPush(`/debtor-group`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -87,7 +88,7 @@ const EditDebtorGroup = observer(
                           ? await this.debtorGroupDetailViewModel.update()
                           : await this.debtorGroupDetailViewModel.create();
                         if (result !== 0) {
-                          history.push(`/debtor-group`);
+                          historyPush(`/debtor-group`);
                         }
                       } else {
                         this.validator.showMessages();
@@ -105,7 +106,7 @@ const EditDebtorGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.debtorGroupDetailViewModel.create();
-                          result && history.push(`/debtor-group/edit/${result}`);
+                          result && historyPush(`/debtor-group/edit/${result}`);
                         }
                       } else {
                         this.validator.showMessages();

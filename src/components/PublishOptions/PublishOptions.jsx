@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { Form } from 'react-bootstrap';
 import FormRadio from 'components/Form/FormRadio';
-import CustomizedDatePicker from 'components/DatePicker';
+import { CustomizedDatePicker } from 'aesirx-uikit';
 import { FORMAT_DATE, FORMAT_TIME } from 'constants/FormFieldType';
 import { AUTHORIZATION_KEY, Storage } from 'aesirx-lib';
 import { observer } from 'mobx-react';
