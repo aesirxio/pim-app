@@ -69,11 +69,11 @@ const SettingList = observer(
                 label: t('txt_client_id'),
                 key: 'key',
                 type: FORM_FIELD_TYPE.INPUT,
-                value: this.formPropsData?.key,
+                getValueSelected: this.formPropsData?.key,
                 required: true,
                 validation: 'required',
                 className: 'col-12',
-                changed: (event) => {
+                handleChange: (event) => {
                   this.formPropsData.key = event.target.value;
                 },
                 blurred: () => {
@@ -84,11 +84,11 @@ const SettingList = observer(
                 label: t('txt_client_secret'),
                 key: 'secret',
                 type: FORM_FIELD_TYPE.INPUT,
-                value: this.formPropsData?.secret,
+                getValueSelected: this.formPropsData?.secret,
                 required: true,
                 validation: 'required',
                 className: 'col-12',
-                changed: (event) => {
+                handleChange: (event) => {
                   this.formPropsData.secret = event.target.value;
                 },
                 blurred: () => {
@@ -99,11 +99,11 @@ const SettingList = observer(
                 label: t('txt_region'),
                 key: 'region',
                 type: FORM_FIELD_TYPE.INPUT,
-                value: this.formPropsData?.region,
+                getValueSelected: this.formPropsData?.region,
                 required: true,
                 validation: 'required',
                 className: 'col-12',
-                changed: (event) => {
+                handleChange: (event) => {
                   this.formPropsData.region = event.target.value;
                 },
                 blurred: () => {
@@ -114,11 +114,11 @@ const SettingList = observer(
                 label: t('txt_bucket'),
                 key: 'bucket',
                 type: FORM_FIELD_TYPE.INPUT,
-                value: this.formPropsData?.bucket,
+                getValueSelected: this.formPropsData?.bucket,
                 required: true,
                 validation: 'required',
                 className: 'col-12',
-                changed: (event) => {
+                handleChange: (event) => {
                   this.formPropsData.bucket = event.target.value;
                 },
                 blurred: () => {

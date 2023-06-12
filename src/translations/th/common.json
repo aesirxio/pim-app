@@ -311,6 +311,7 @@
   "txt_featured_product": "สินค้าเด่น",
   "txt_row_select_error": "โปรดเลือกจากรายการก่อน",
   "txt_product_type": "ประเภทสินค้า",
+  "txt_category_type": "ประเภทประเภท",
   "txt_indoor": "ในร่ม",
   "txt_outdoor": "กลางแจ้ง",
   "txt_yes": "ใช่",
@@ -346,9 +347,10 @@
   "txt_field_change_warning":"โปรดระวัง! เปลี่ยนประเภทฟิลด์ของคุณ ฐานข้อมูลที่มีอยู่ฟิลด์นี้ในรายการอาจหายไปเนื่องจากประเภทข้อมูลอื่น",
   "txt_left_menu_product_type": "ประเภทสินค้า",
   "txt_all_product_type": "สินค้าทุกประเภท",
-  "txt_add_product_type_name": "เพิ่มชื่อประเภทสินค้า",
+  "txt_add_product_type_name": "เพิ่มชื่อประเภทสินค้า (สูงสุด 15 ตัวอักษร)",
   "txt_product_type_name": "ชื่อประเภทสินค้า",
   "txt_parent_type": "ประเภทผู้ปกครอง",
   "txt_select_parent_type": "เลือกประเภทผู้ปกครอง",
-  "txt_parent_product_type": "ประเภทผลิตภัณฑ์หลัก"
+  "txt_parent_product_type": "ประเภทผลิตภัณฑ์หลัก",
+  "txt_product_type_change_warning":"โปรดระวัง! เปลี่ยนประเภทผลิตภัณฑ์ของคุณ ฟิลด์ฐานข้อมูลที่มีอยู่ในรายการอาจสูญหายได้เนื่องจากประเภทข้อมูลอื่น"
 }

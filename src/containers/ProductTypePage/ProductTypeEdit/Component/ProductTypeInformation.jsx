@@ -2,7 +2,7 @@ import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { FORM_FIELD_TYPE, renderingGroupFieldHandler } from 'aesirx-uikit';
+import { FORM_FIELD_TYPE, notify, renderingGroupFieldHandler } from 'aesirx-uikit';
 import { ProductTypeViewModelContext } from 'containers/ProductTypePage/ProductTypeViewModel/ProductTypeViewModelContextProvider';
 
 const ProductTypeInformation = observer(
@@ -25,7 +25,7 @@ const ProductTypeInformation = observer(
         );
       });
 
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
 
       const generateFormSetting = [
         {
@@ -47,7 +47,7 @@ const ProductTypeInformation = observer(
                           x.id.toString() ===
                           this.viewModel.productTypeDetailViewModel.formPropsData[
                             PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
-                          ]
+                          ].toString()
                       )?.name,
                       value:
                         this.viewModel.productTypeDetailViewModel.formPropsData[
@@ -57,8 +57,13 @@ const ProductTypeInformation = observer(
                   : null,
               getDataSelectOptions: filteredProductTypeList?.length
                 ? filteredProductTypeList?.map((item) => {
+                    let levelString = item?.level
+                      ? Array.from(Array(parseInt(item?.level)).keys())
+                          .map(() => ``)
+                          .join('- ')
+                      : '';
                     return {
-                      label: item.name,
+                      label: levelString + item?.name,
                       value: item.id,
                     };
                   })
@@ -66,9 +71,15 @@ const ProductTypeInformation = observer(
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
-                  data.value
+                  data?.value ?? 0
                 );
+                if (isEdit) {
+                  notify(this.props.t('txt_product_type_change_warning'), 'warn');
+                }
+                this.forceUpdate();
               },
+              required: true,
+              validation: 'required',
               placeholder: t('txt_select_parent_type'),
               className: 'col-lg-12',
             },

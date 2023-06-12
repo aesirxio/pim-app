@@ -11,7 +11,9 @@ const Input = ({ field, ...props }) => {
   const { t } = props;
   const handleChange = (e) => {
     if (Object.prototype.hasOwnProperty.call(field, 'handleChange')) {
-      e.target.value = e.target.value.normalize('NFKC');
+      e.target.value = field.maxLength
+        ? e.target.value.normalize('NFKC').slice(0, field.maxLength)
+        : e.target.value.normalize('NFKC');
       field.handleChange(e);
     }
   };
@@ -32,6 +34,7 @@ const Input = ({ field, ...props }) => {
         placeholder={field.placeholder ?? t('txt_type')}
         readOnly={field.readOnly}
         disabled={field.disabled}
+        maxLength={field.maxLength}
       />
       {field.format && (
         <div

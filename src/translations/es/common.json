@@ -313,6 +313,7 @@
   "txt_featured_product": "Productos Destacados",
   "txt_row_select_error": "Por favor, primero haga una selección de la lista.",
   "txt_product_type": "tipo de producto",
+  "txt_category_type": "Tipo de categoria",
   "txt_indoor": "Interior",
   "txt_outdoor": "Exterior",
   "txt_yes": "Sí",
@@ -345,9 +346,10 @@
   "txt_field_change_warning":"¡Por favor tenga cuidado! Cambie su tipo de campo, la base de datos existente este campo en elementos podría PERDERSE debido a un tipo de datos diferente.",
   "txt_left_menu_product_type": "tipo de producto",
   "txt_all_product_type": "Todo tipo de producto",
-  "txt_add_product_type_name": "Agregar nombre de tipo de producto",
+  "txt_add_product_type_name": "Adicionar nome do tipo de produto (máximo de 15 caracteres)",
   "txt_product_type_name": "Nombre del tipo de producto",
   "txt_parent_type": "Tipo principal",
   "txt_select_parent_type": "Seleccionar tipo de padre",
-  "txt_parent_product_type": "Tipo de producto principal"
+  "txt_parent_product_type": "Tipo de producto principal",
+  "txt_product_type_change_warning":"Por favor, seja cuidadoso! Altere o tipo de produto, os campos de banco de dados existentes nos itens podem ser PERDIDOS devido a diferentes tipos de dados."
 }

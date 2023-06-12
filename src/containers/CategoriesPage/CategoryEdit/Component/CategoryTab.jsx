@@ -1,20 +1,14 @@
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
-import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
-import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { observer } from 'mobx-react';
-import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import FieldsList from 'components/Fields';
 import CategoryInformation from './CategoryInformation';
-const fieldStore = new FieldStore();
-const fieldViewModel = new FieldViewModel(fieldStore);
 const CategoryTab = observer(
   class CategoryTab extends Component {
     groupList = [];
     constructor(props) {
       super(props);
-      this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
       this.detailViewModal = this.props.detailViewModal;
       this.state = {
         defaultActive: 'categoryInformation',
@@ -36,7 +30,7 @@ const CategoryTab = observer(
     }
 
     render() {
-      const { t, validator } = this.props;
+      const { t, validator, isEdit, productType } = this.props;
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           <Tab.Container
@@ -65,25 +59,29 @@ const CategoryTab = observer(
                 </Nav>
               </Col>
               <Col lg={9}>
-                <FieldViewModelContextProvider viewModel={fieldViewModel}>
-                  <Tab.Content>
-                    <Tab.Pane eventKey="categoryInformation">
-                      <CategoryInformation validator={validator} />
-                    </Tab.Pane>
-                    <Tab.Pane eventKey="customFields">
-                      <div className="row">
-                        <FieldsList
-                          detailViewModal={this.detailViewModal}
-                          formPropsData={this.detailViewModal.categoryDetailViewModel.formPropsData}
-                          validator={validator}
-                          fieldClass={'col-lg-12'}
-                          requiredField={this.props.requiredField}
-                          typeId={65}
-                        />
-                      </div>
-                    </Tab.Pane>
-                  </Tab.Content>
-                </FieldViewModelContextProvider>
+                <Tab.Content>
+                  <Tab.Pane eventKey="categoryInformation">
+                    <CategoryInformation validator={validator} isEdit={isEdit} />
+                  </Tab.Pane>
+                  <Tab.Pane eventKey="customFields">
+                    <div className="row">
+                      <FieldsList
+                        key={
+                          !this.detailViewModal.productType
+                            ? productType
+                            : this.detailViewModal.productType
+                        }
+                        detailViewModal={this.detailViewModal}
+                        formPropsData={this.detailViewModal.categoryDetailViewModel.formPropsData}
+                        validator={validator}
+                        fieldClass={'col-lg-12'}
+                        requiredField={this.props.requiredField}
+                        type={'category'}
+                        productType={this.detailViewModal.productType}
+                      />
+                    </div>
+                  </Tab.Pane>
+                </Tab.Content>
               </Col>
             </Row>
           </Tab.Container>

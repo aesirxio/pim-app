@@ -311,6 +311,7 @@
   "txt_featured_product": "Featured Products",
   "txt_row_select_error": "Please first make a selection from the list.",
   "txt_product_type": "Product Type",
+  "txt_category_type": "Category Type",
   "txt_indoor": "Indoor",
   "txt_outdoor": "Outdoor",
   "txt_yes": "Yes",
@@ -347,9 +348,10 @@
   "txt_field_change_warning":"Please be careful! Change your field type, the existing database this field on items could be LOST due to different data type.",
   "txt_left_menu_product_type": "Product Type",
   "txt_all_product_type": "All Product Type",
-  "txt_add_product_type_name": "Add Product Type Name",
+  "txt_add_product_type_name": "Add Product Type Name (maximum 15 characters)",
   "txt_product_type_name": "Product Type Name",
   "txt_parent_type": "Parent Type",
   "txt_select_parent_type": "Select Parent Type",
-  "txt_parent_product_type": "Parent Product Type"
+  "txt_parent_product_type": "Parent Product Type",
+  "txt_product_type_change_warning":"Please be careful! Change your product type, the existing database fields on items could be LOST due to different data type."
 }

@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 const FormCheckbox = ({ field }) => {
   const [selectedValue, setSelectedValue] = useState(field.getValueSelected?.value ?? []);
@@ -19,6 +19,7 @@ const FormCheckbox = ({ field }) => {
   }, [selectedValue]);
 
   const handleChange = (data) => {
+    console.log('data', data);
     if (data.target.checked) {
       setSelectedValue((current) => [...current, data.target.value]);
     } else {
@@ -26,7 +27,7 @@ const FormCheckbox = ({ field }) => {
     }
   };
   return (
-    <div className="d-flex align-items-center w-100">
+    <div className="d-flex align-items-center w-100 flex-wrap">
       {field.getDataSelectOptions?.map(
         (option, key) =>
           option.label && (
@@ -38,12 +39,34 @@ const FormCheckbox = ({ field }) => {
               value={option.value}
               name={field.key}
               type={'checkbox'}
-              id={`inline-radio-${option.value}`}
+              id={`inline-radio-${field.key}-${option.value}`}
               onChange={handleChange}
               onBlur={field?.blurred}
               checked={selectedValue?.includes(option.value)}
             />
           )
+      )}
+      {field?.isCheckAll && (
+        <div className="d-flex align-items-center w-100 mt-2">
+          <Button
+            variant="success"
+            className="mx-1 py-1"
+            onClick={() => {
+              setSelectedValue(field.getDataSelectOptions.map((item) => item?.value));
+            }}
+          >
+            Check All
+          </Button>
+          <Button
+            variant="danger"
+            className="mx-1 py-1"
+            onClick={() => {
+              setSelectedValue('');
+            }}
+          >
+            Clear All
+          </Button>
+        </div>
       )}
     </div>
   );

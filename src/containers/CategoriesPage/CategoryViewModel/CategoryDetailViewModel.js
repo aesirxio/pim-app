@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class CategoryDetailViewModel {
@@ -12,6 +12,7 @@ class CategoryDetailViewModel {
   formStatus = PAGE_STATUS.READY;
   categoryDetailViewModel = null;
   aliasChange = '';
+  productType = '';
   successResponse = {
     state: true,
     content_id: '',
@@ -81,6 +82,10 @@ class CategoryDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      console.log(
+        'this.categoryDetailViewModel.formPropsData',
+        this.categoryDetailViewModel.formPropsData
+      );
     }
 
     this.formStatus = PAGE_STATUS.READY;
@@ -95,6 +100,13 @@ class CategoryDetailViewModel {
       }
     }
   };
+
+  handleProductType = (value) => {
+    runInAction(() => {
+      this.productType = value;
+    });
+  };
+
   handleAliasChange = (value) => {
     this.aliasChange = value;
   };

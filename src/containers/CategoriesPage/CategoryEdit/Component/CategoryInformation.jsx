@@ -3,27 +3,33 @@ import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, notify } from 'aesirx-uikit';
 import PAGE_STATUS from 'constants/PageStatus';
 import { observer } from 'mobx-react';
 import { CategoryViewModelContext } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
+import UtilsStore from 'store/UtilsStore/UtilsStore';
+import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
 
+const utilsStore = new UtilsStore();
+const utilsViewModel = new UtilsViewModel(utilsStore);
 const CategoryInformation = observer(
   class CategoryInformation extends Component {
     static contextType = CategoryViewModelContext;
 
     constructor(props) {
       super(props);
+      this.utilsListViewModel = utilsViewModel.utilsListViewModel;
     }
 
     async componentDidMount() {
-      await this.context.categoryListViewModel.handleFilter({ limit: 0 });
-      await this.context.categoryListViewModel.initializeDataCustom();
+      this.context.categoryListViewModel.handleFilter({ limit: 0 });
+      this.context.categoryListViewModel.initializeDataCustom();
+      this.utilsListViewModel.getListContentType({ 'filter[type]': 'category' });
     }
 
     render() {
       this.viewModel = this.context.categoryDetailViewModel;
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
       const filteredCategoryList = this.context.categoryListViewModel.items.filter((category) => {
         return (
           category.id !==
@@ -51,26 +57,77 @@ const CategoryInformation = observer(
               },
             },
             {
-              label: 'txt_parent_category',
-              key: PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID,
+              label: 'txt_category_type',
+              key: PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.categoryDetailViewModel.formPropsData[
-                PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+              getValueSelected: this.viewModel.categoryDetailViewModel?.formPropsData[
+                PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID
               ]
                 ? {
-                    label: this.context.categoryListViewModel.items?.find(
-                      (x) =>
-                        x.id ===
-                        this.viewModel.categoryDetailViewModel.formPropsData[
-                          PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
-                        ]
-                    )?.title,
+                    label:
+                      this.viewModel.categoryDetailViewModel?.formPropsData[
+                        PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_NAME
+                      ],
                     value:
-                      this.viewModel.categoryDetailViewModel.formPropsData[
-                        PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                      this.viewModel.categoryDetailViewModel?.formPropsData[
+                        PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID
                       ],
                   }
                 : null,
+              getDataSelectOptions: this.utilsListViewModel.listContentType.length
+                ? this.utilsListViewModel.listContentType.map((item) => {
+                    let levelString = item?.level
+                      ? Array.from(Array(parseInt(item?.level)).keys())
+                          .map(() => ``)
+                          .join('- ')
+                      : '';
+                    return {
+                      label: levelString + item?.label,
+                      value: item?.value,
+                    };
+                  })
+                : [],
+              handleChange: (data) => {
+                this.viewModel.handleFormPropsData(
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID,
+                  data.value
+                );
+                this.viewModel.handleFormPropsData(
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_NAME,
+                  data.label
+                );
+                this.viewModel.handleProductType(data?.value);
+                if (isEdit) {
+                  notify(this.props.t('txt_product_type_change_warning'), 'warn');
+                }
+              },
+              className: 'col-lg-12',
+            },
+            {
+              label: 'txt_parent_category',
+              key: PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID,
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected:
+                this.viewModel.categoryDetailViewModel.formPropsData[
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                ] &&
+                this.viewModel.categoryDetailViewModel.formPropsData[
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                ] !== 1
+                  ? {
+                      label: this.context.categoryListViewModel.items?.find(
+                        (x) =>
+                          x.id ===
+                          this.viewModel.categoryDetailViewModel.formPropsData[
+                            PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                          ]
+                      )?.title,
+                      value:
+                        this.viewModel.categoryDetailViewModel.formPropsData[
+                          PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
+                        ],
+                    }
+                  : null,
               getDataSelectOptions: filteredCategoryList
                 ? filteredCategoryList.map((item) => {
                     let levelString = Array.from(Array(parseInt(item.level)).keys())
@@ -81,7 +138,7 @@ const CategoryInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID,

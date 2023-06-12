@@ -28,6 +28,11 @@ import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
+const fieldStore = new FieldStore();
+const fieldViewModel = new FieldViewModel(fieldStore);
+import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
+import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
+import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 const EditProduct = observer(
   class EditProduct extends Component {
     productDetailViewModel = null;
@@ -43,6 +48,7 @@ const EditProduct = observer(
       this.categoryListViewModel = categoryViewModel
         ? categoryViewModel.getCategoryListViewModel()
         : null;
+      this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
       this.productDetailViewModel.setForm(this);
       this.validator = new SimpleReactValidator({
         autoForceUpdate: this,
@@ -89,15 +95,12 @@ const EditProduct = observer(
 
     render() {
       const { t, history } = this.props;
-
       this.validator.messages['required'] = t('txt_field_required_error_message');
 
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.productDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {(this.productDetailViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.fieldListViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
@@ -222,6 +225,7 @@ const EditProduct = observer(
                         formPropsData={this.formPropsData}
                         validator={this.validator}
                         categoryListViewModel={this.categoryListViewModel}
+                        isEdit={this.isEdit}
                       />
                     )}
                   </Tab>
@@ -233,14 +237,23 @@ const EditProduct = observer(
                     />
                   </Tab>
                   <Tab eventKey="fields" title={t('txt_fields')}>
-                    <FieldsTab
-                      detailViewModal={this.productDetailViewModel}
-                      formPropsData={
-                        this.productDetailViewModel.productDetailViewModel.formPropsData
-                      }
-                      validator={this.validator}
-                      requiredField={this.state.requiredField}
-                    />
+                    <FieldViewModelContextProvider viewModel={fieldViewModel}>
+                      <FieldsTab
+                        key={
+                          !this.productDetailViewModel.productType
+                            ? this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID]
+                            : this.productDetailViewModel.productType
+                        }
+                        detailViewModal={this.productDetailViewModel}
+                        fieldListViewModel={this.fieldListViewModel}
+                        formPropsData={
+                          this.productDetailViewModel.productDetailViewModel.formPropsData
+                        }
+                        validator={this.validator}
+                        requiredField={this.state.requiredField}
+                        productType={this.productDetailViewModel.productType}
+                      />
+                    </FieldViewModelContextProvider>
                   </Tab>
                   {/* <Tab key="variants" eventKey="variants" title={t('txt_variants')}>
                     {this.state.key === 'variants' && (

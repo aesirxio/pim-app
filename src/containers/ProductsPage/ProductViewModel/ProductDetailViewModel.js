@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class ProductDetailViewModel {
@@ -12,6 +12,7 @@ class ProductDetailViewModel {
   formStatus = PAGE_STATUS.READY;
   productDetailViewModel = null;
   aliasChange = '';
+  productType = '';
   successResponse = {
     state: true,
     content_id: '',
@@ -94,6 +95,12 @@ class ProductDetailViewModel {
         this.productDetailViewModel.formPropsData[key] = value;
       }
     }
+  };
+
+  handleProductType = (value) => {
+    runInAction(() => {
+      this.productType = value;
+    });
   };
 
   handleAliasChange = (value) => {
