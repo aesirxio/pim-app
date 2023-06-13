@@ -66,8 +66,6 @@ const EditFieldGroup = observer(
     render() {
       const { t } = this.props;
 
-      console.log('111', this.fieldGroupDetailViewModel.fieldGroupDetailViewModel.formPropsData);
-
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.fieldGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (

@@ -123,6 +123,15 @@ const EditProductPrice = observer(
                   isShowValidator={this.validator.messagesShown}
                 />
               </Col>
+              <Col lg={3}>
+                <PublishOptions
+                  detailViewModal={this.productPriceDetailViewModel}
+                  formPropsData={
+                    this.productPriceDetailViewModel.productPriceDetailViewModel.formPropsData
+                  }
+                  isEdit={this.isEdit}
+                />
+              </Col>
             </Row>
           </Form>
         </div>
