@@ -109,9 +109,12 @@ class FormSelectionFields extends Component {
       : null;
     if (specifications?.length && !this.props.field.isEdit) {
       specifications?.map((item) => {
-        return this.props.field.viewModel.handleFormPropsData([PIM_FIELD_DETAIL_FIELD_KEY.PARAMS], {
-          [item?.attributes?.name]: item?.attributes?.default,
-        });
+        return (
+          item?.attributes?.default &&
+          this.props.field.viewModel.handleFormPropsData([PIM_FIELD_DETAIL_FIELD_KEY.PARAMS], {
+            [item?.attributes?.name]: item?.attributes?.default,
+          })
+        );
       });
     }
     const generateSpecificationsSetting = [
@@ -211,6 +214,7 @@ class FormSelectionFields extends Component {
                   getValueSelected: selectedValue,
                   getDataSelectOptions: selectOptions,
                   isMulti: item?.attributes?.multiple,
+                  isClearable: true,
                   handleChange: (data) => {
                     if (
                       item?.attributes?.type === FORM_FIELD_TYPE.SELECTION ||
@@ -220,16 +224,23 @@ class FormSelectionFields extends Component {
                       item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD ||
                       item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE
                     ) {
-                      if (item?.attributes?.multiple) {
-                        let convertData = data.map((item) => item?.value);
-                        this.props.field.viewModel.handleFormPropsData(
-                          [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                          { [item?.attributes?.name]: convertData }
-                        );
+                      if (data) {
+                        if (item?.attributes?.multiple) {
+                          let convertData = data.map((item) => item?.value);
+                          this.props.field.viewModel.handleFormPropsData(
+                            [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                            { [item?.attributes?.name]: convertData }
+                          );
+                        } else {
+                          this.props.field.viewModel.handleFormPropsData(
+                            [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                            { [item?.attributes?.name]: data.value }
+                          );
+                        }
                       } else {
                         this.props.field.viewModel.handleFormPropsData(
                           [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                          { [item?.attributes?.name]: data.value }
+                          { [item?.attributes?.name]: '' }
                         );
                       }
                     } else if (item?.attributes?.type === FORM_FIELD_TYPE.IMAGE) {
