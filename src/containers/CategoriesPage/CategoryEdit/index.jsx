@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner,historyPush } from 'aesirx-uikit';
+import { Spinner, historyPush } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -23,6 +23,7 @@ import EditHeader from 'components/EditHeader';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
+import { withRouter } from 'react-router-dom';
 
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
@@ -33,6 +34,7 @@ const EditCategory = observer(
     isEdit = false;
     constructor(props) {
       super(props);
+
       this.viewModel = props.viewModel ? props.viewModel : null;
       this.state = {};
 
@@ -225,4 +227,4 @@ const EditCategory = observer(
   }
 );
 
-export default withTranslation()(withCategoryViewModel(EditCategory));
+export default withTranslation()(withRouter(withCategoryViewModel(EditCategory)));

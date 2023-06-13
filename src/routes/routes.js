@@ -11,7 +11,6 @@ import {
   MembersPage,
   EditMemberProvider,
 } from 'aesirx-uikit';
-import { BrowserRouter } from 'react-router-dom';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
 const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
@@ -43,283 +42,169 @@ const authRoutes = [
   },
 ];
 
-const mainRoutes = (basename = '/') => {
-  return [
-    {
-      path: ['/'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <DashboardPageProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/products', '/products/all'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <ProductsPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/variants/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditVariantProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/variants/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditVariantProvider />
-        </BrowserRouter>
-      ),
-    },
+const mainRoutes = [
+  {
+    path: ['/'],
+    exact: true,
+    main: () => <DashboardPageProvider />,
+  },
+  {
+    path: ['/products', '/products/all'],
+    exact: true,
+    main: () => <ProductsPage />,
+  },
+  {
+    path: ['/variants/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditVariantProvider match={match} />,
+  },
+  {
+    path: ['/variants/add'],
+    exact: true,
+    main: () => <EditVariantProvider />,
+  },
 
-    {
-      path: ['/categories', '/categories'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <CategoriesPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/members',
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <MembersPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/members/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditMemberProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/members/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditMemberProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/data-stream',
-      exact: true,
-      main: () => <DataStreamPage />,
-    },
-    {
-      path: ['/setting', '/setting/configuration'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <SettingPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/region-country',
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <RegionCountryPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/help-center',
-      exact: true,
-      main: () => <HelpCenterPage />,
-    },
-    {
-      path: ['/products/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditProductProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/products/add'],
-      exact: true,
-      main: () => <EditProductProvider />,
-    },
-    {
-      path: ['/categories/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditCategoryProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/categories/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditCategoryProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/fields',
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <FieldsPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/fields/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditFieldProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/fields/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditFieldProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/fields-group',
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <FieldsGroupPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/fields-group/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditFieldGroupProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/fields-group/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditFieldGroupProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: '/dam',
-      exact: true,
-      main: () => <DigitalAssetsPage />,
-    },
-    {
-      path: '/debtor-group',
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <DebtorGroupPage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/debtor-group/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditDebtorGroupProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/debtor-group/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditDebtorGroupProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/prices'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <ProductPrice />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/prices/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditProductPriceProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/prices/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditProductPriceProvider />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/product-types'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <ProductTypePage />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/product-types/edit/:id'],
-      exact: true,
-      main: ({ match }) => (
-        <BrowserRouter basename={basename}>
-          <EditProductTypeProvider match={match} />
-        </BrowserRouter>
-      ),
-    },
-    {
-      path: ['/product-types/add'],
-      exact: true,
-      main: () => (
-        <BrowserRouter basename={basename}>
-          <EditProductTypeProvider />
-        </BrowserRouter>
-      ),
-    },
-  ];
-};
+  {
+    path: ['/categories', '/categories'],
+    exact: true,
+    main: () => <CategoriesPage />,
+  },
+  {
+    path: '/members',
+    exact: true,
+    main: () => <MembersPage />,
+  },
+  {
+    path: ['/members/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditMemberProvider match={match} />,
+  },
+  {
+    path: ['/members/add'],
+    exact: true,
+    main: () => <EditMemberProvider />,
+  },
+  {
+    path: '/data-stream',
+    exact: true,
+    main: () => <DataStreamPage />,
+  },
+  {
+    path: ['/setting', '/setting/configuration'],
+    exact: true,
+    main: () => <SettingPage />,
+  },
+  {
+    path: '/region-country',
+    exact: true,
+    main: () => <RegionCountryPage />,
+  },
+  {
+    path: '/help-center',
+    exact: true,
+    main: () => <HelpCenterPage />,
+  },
+  {
+    path: ['/products/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditProductProvider match={match} />,
+  },
+  {
+    path: ['/products/add'],
+    exact: true,
+    main: () => <EditProductProvider />,
+  },
+  {
+    path: ['/categories/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditCategoryProvider match={match} />,
+  },
+  {
+    path: ['/categories/add'],
+    exact: true,
+    main: () => <EditCategoryProvider />,
+  },
+  {
+    path: '/fields',
+    exact: true,
+    main: () => <FieldsPage />,
+  },
+  {
+    path: ['/fields/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditFieldProvider match={match} />,
+  },
+  {
+    path: ['/fields/add'],
+    exact: true,
+    main: () => <EditFieldProvider />,
+  },
+  {
+    path: '/fields-group',
+    exact: true,
+    main: () => <FieldsGroupPage />,
+  },
+  {
+    path: ['/fields-group/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditFieldGroupProvider match={match} />,
+  },
+  {
+    path: ['/fields-group/add'],
+    exact: true,
+    main: () => <EditFieldGroupProvider />,
+  },
+  {
+    path: '/dam',
+    exact: true,
+    main: () => <DigitalAssetsPage />,
+  },
+  {
+    path: '/debtor-group',
+    exact: true,
+    main: () => <DebtorGroupPage />,
+  },
+  {
+    path: ['/debtor-group/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditDebtorGroupProvider match={match} />,
+  },
+  {
+    path: ['/debtor-group/add'],
+    exact: true,
+    main: () => <EditDebtorGroupProvider />,
+  },
+  {
+    path: ['/prices'],
+    exact: true,
+    main: () => <ProductPrice />,
+  },
+  {
+    path: ['/prices/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditProductPriceProvider match={match} />,
+  },
+  {
+    path: ['/prices/add'],
+    exact: true,
+    main: () => <EditProductPriceProvider />,
+  },
+  {
+    path: ['/product-types'],
+    exact: true,
+    main: () => <ProductTypePage />,
+  },
+  {
+    path: ['/product-types/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditProductTypeProvider match={match} />,
+  },
+  {
+    path: ['/product-types/add'],
+    exact: true,
+    main: () => <EditProductTypeProvider />,
+  },
+];
 
 const settingRoutes = [
   {
@@ -330,7 +215,7 @@ const settingRoutes = [
 ];
 
 const integrationRoutes = () =>
-  mainRoutes('/pim')
+  mainRoutes
     .filter((item) => item.path !== '/digital-assets')
     .map((item) => {
       if (Array.isArray(item.path)) {
