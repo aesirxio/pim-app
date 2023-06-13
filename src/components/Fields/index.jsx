@@ -140,6 +140,22 @@ const FieldsList = observer(
             group: group?.group,
             fields: [
               ...group.fields?.map((field) => {
+                let selectOptions =
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
+                    ? productListViewModel?.items?.map((item) => {
+                        return {
+                          label: item[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
+                          value: item[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
+                        };
+                      })
+                    : field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED
+                    ? categoryListViewModel?.items?.map((item) => {
+                        return {
+                          label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
+                          value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+                        };
+                      })
+                    : field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS];
                 let selectedValue = '';
                 if (
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
@@ -157,9 +173,7 @@ const FieldsList = observer(
                       fieldValue?.length && Array.isArray(fieldValue)
                         ? fieldValue?.map((item) => {
                             return {
-                              label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
-                                (x) => x.value === item
-                              )?.label,
+                              label: selectOptions.find((x) => x.value.toString() === item)?.label,
                               value: item,
                             };
                           })
@@ -169,9 +183,8 @@ const FieldsList = observer(
                       PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
                     ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]?.length
                       ? {
-                          label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
-                            (x) => x.value === fieldValue
-                          )?.label,
+                          label: selectOptions.find((x) => x.value.toString() === fieldValue)
+                            ?.label,
                           value: fieldValue,
                         }
                       : null;
@@ -182,22 +195,7 @@ const FieldsList = observer(
                       field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
                     ] ?? null;
                 }
-                let selectOptions =
-                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
-                    ? productListViewModel?.items?.map((item) => {
-                        return {
-                          label: item[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
-                          value: item[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
-                        };
-                      })
-                    : field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED
-                    ? categoryListViewModel?.items?.map((item) => {
-                        return {
-                          label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
-                          value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
-                        };
-                      })
-                    : field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS];
+
                 return {
                   label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
                   key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
