@@ -17,6 +17,7 @@ class ProductListViewModel {
   productStore = null;
   formStatus = PAGE_STATUS.READY;
   items = [];
+  filter = {};
   successResponse = {
     state: false,
     filters: {
@@ -65,7 +66,7 @@ class ProductListViewModel {
     await this.productStore.getList(
       this.callbackOnSuccessHandler,
       this.callbackOnErrorHandler,
-      this.successResponse.filters
+      this.filter
     );
     runInAction(() => {
       this.successResponse.state = true;
@@ -253,6 +254,10 @@ class ProductListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
+  };
+
+  handleFilter = (filter) => {
+    this.filter = { ...this.filter, ...filter };
   };
 }
 

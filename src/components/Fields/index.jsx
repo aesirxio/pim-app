@@ -15,7 +15,6 @@ import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-
 const productStore = new ProductStore();
 const productListViewModel = new ProductListViewModel(productStore);
 const categoryStore = new CategoryStore();
@@ -63,17 +62,30 @@ const FieldsList = observer(
           };
         });
       }
-      const isItemRelatedField = this.viewModel.fieldListViewModel?.items.find(
+      const itemRelatedField = this.viewModel.fieldListViewModel?.items.find(
         (item) => item?.type === FORM_FIELD_TYPE.ITEM_RELATED
       );
-      if (!productListViewModel?.items?.length && isItemRelatedField) {
-        productListViewModel.getListByFilter('list[limit]', 9999);
+      if (!productListViewModel?.items?.length && itemRelatedField) {
+        productListViewModel.handleFilter({
+          limit: 9999,
+          'filter[categoy]': itemRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.categories,
+          'filter[type]': itemRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.types,
+        });
+        productListViewModel.initializeDataListProduct();
       }
-      const isCategoryRelatedField = this.viewModel.fieldListViewModel?.items.find(
+
+      const categoryRelatedField = this.viewModel.fieldListViewModel?.items.find(
         (item) => item?.type === FORM_FIELD_TYPE.CATEGORY_RELATED
       );
-      if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
-        categoryListViewModel.getListByFilter('list[limit]', 9999);
+
+      if (!categoryListViewModel?.items?.length && categoryRelatedField) {
+        categoryListViewModel.handleFilter({
+          limit: 9999,
+          'filter[parentid]':
+            categoryRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.top_category_id,
+          'filter[type]': categoryRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.types,
+        });
+        categoryListViewModel.initializeDataCustom();
       }
     };
 
@@ -137,29 +149,21 @@ const FieldsList = observer(
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CHECKBOX
                 ) {
                   let fieldValue =
-                    (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED) &&
                     this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
                       field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                    ]
-                      ? this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-                          field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                        ][0]
-                      : this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-                          field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
-                        ];
+                    ];
                   if (field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1') {
-                    selectedValue = fieldValue?.length
-                      ? fieldValue.map((item) => {
-                          return {
-                            label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
-                              (x) => x.value === item
-                            )?.label,
-                            value: item,
-                          };
-                        })
-                      : null;
+                    selectedValue =
+                      fieldValue?.length && Array.isArray(fieldValue)
+                        ? fieldValue?.map((item) => {
+                            return {
+                              label: field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS].find(
+                                (x) => x.value === item
+                              )?.label,
+                              value: item,
+                            };
+                          })
+                        : [];
                   } else {
                     selectedValue = this.props.formPropsData[
                       PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
@@ -194,7 +198,6 @@ const FieldsList = observer(
                         };
                       })
                     : field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS];
-
                 return {
                   label: field[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
                   key: field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE],
@@ -211,12 +214,12 @@ const FieldsList = observer(
                         let convertData = data.map((item) => item?.value);
                         this.props.detailViewModal.handleFormPropsData(
                           [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [convertData] }
+                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: convertData }
                         );
                       } else {
                         this.props.detailViewModal.handleFormPropsData(
                           [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: [data.value] }
+                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data.value }
                         );
                       }
                     } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE) {

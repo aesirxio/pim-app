@@ -36,12 +36,12 @@ const EditField = observer(
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
       this.fieldDetailViewModel = this.viewModel ? this.viewModel.getFieldDetailViewModel() : null;
       this.fieldDetailViewModel.setForm(this);
-      this.isEdit = props.match.params?.id ? true : false;
+      this.isEdit = props.match?.params?.id ? true : false;
     }
 
     async componentDidMount() {
       if (this.isEdit) {
-        this.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
+        this.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID] = this.props.match?.params?.id;
         await this.fieldDetailViewModel.initializeData();
       } else {
         this.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.PUBLISHED] = 1;
