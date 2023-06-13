@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import DebtorGroupInformation from './Component/DebtorGroupInformation';
 import EditHeader from 'components/EditHeader';
+import { withRouter } from 'react-router-dom';
 
 const EditDebtorGroup = observer(
   class EditDebtorGroup extends Component {
@@ -173,4 +174,4 @@ const EditDebtorGroup = observer(
   }
 );
 
-export default withTranslation()(withDebtorGroupViewModel(EditDebtorGroup));
+export default withTranslation()(withRouter(withDebtorGroupViewModel(EditDebtorGroup)));

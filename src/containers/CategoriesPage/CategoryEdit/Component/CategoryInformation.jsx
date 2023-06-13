@@ -30,7 +30,7 @@ const CategoryInformation = observer(
     render() {
       this.viewModel = this.context.categoryDetailViewModel;
       const { t, validator, isEdit } = this.props;
-      const filteredCategoryList = this.context.categoryListViewModel.items.filter((category) => {
+      const filteredCategoryList = this.context.categoryListViewModel.items?.filter((category) => {
         return (
           category.id !==
           this.viewModel.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID]
