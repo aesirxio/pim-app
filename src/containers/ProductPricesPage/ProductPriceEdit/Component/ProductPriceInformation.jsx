@@ -164,40 +164,40 @@ const ProductPriceInformation = observer(
                 this.validator.showMessageFor(t('txt_retail_price'));
               },
             },
-            // {
-            //   label: 'txt_start_time',
-            //   key: 'start_time',
-            //   type: FORM_FIELD_TYPE.DATE,
-            //   getValueSelected:
-            //     this.viewModel.productPriceDetailViewModel.formPropsData[
-            //       PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-            //     ][PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE],
-            //   className: 'col-lg-6',
-            //   placeholder: 'dd/mm/yyyy',
-            //   handleChange: (event) => {
-            //     this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
-            //       [PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE]:
-            //         event && moment(event).format(FORMAT_DATE_UPDATE_POST),
-            //     });
-            //   },
-            // },
-            // {
-            //   label: 'txt_end_time',
-            //   key: 'end_time',
-            //   type: FORM_FIELD_TYPE.DATE,
-            //   getValueSelected:
-            //     this.viewModel.productPriceDetailViewModel.formPropsData[
-            //       PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-            //     ][PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE],
-            //   className: 'col-lg-6',
-            //   placeholder: 'dd/mm/yyyy',
-            //   handleChange: (event) => {
-            //     this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
-            //       [PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE]:
-            //         event && moment(event).format(FORMAT_DATE_UPDATE_POST),
-            //     });
-            //   },
-            // },
+            {
+              label: 'txt_start_time',
+              key: 'start_time',
+              type: FORM_FIELD_TYPE.DATE,
+              getValueSelected:
+                this.viewModel.productPriceDetailViewModel.formPropsData[
+                  PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE],
+              className: 'col-lg-6',
+              placeholder: 'dd/mm/yyyy',
+              handleChange: (event) => {
+                this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
+                  [PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE]:
+                    event && moment(event).format(FORMAT_DATE_UPDATE_POST),
+                });
+              },
+            },
+            {
+              label: 'txt_end_time',
+              key: 'end_time',
+              type: FORM_FIELD_TYPE.DATE,
+              getValueSelected:
+                this.viewModel.productPriceDetailViewModel.formPropsData[
+                  PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ][PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE],
+              className: 'col-lg-6',
+              placeholder: 'dd/mm/yyyy',
+              handleChange: (event) => {
+                this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
+                  [PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE]:
+                    event && moment(event).format(FORMAT_DATE_UPDATE_POST),
+                });
+              },
+            },
             {
               label: 'txt_quantity_min',
               key: 'quantity_min',
