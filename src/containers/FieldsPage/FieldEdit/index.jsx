@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner, historyPush  } from 'aesirx-uikit';
+import { Spinner, historyPush } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -19,6 +19,7 @@ import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldInformation from './Component/FieldInformation';
 import EditHeader from 'components/EditHeader';
+import { withRouter } from 'react-router-dom';
 
 const EditField = observer(
   class EditField extends Component {
@@ -179,4 +180,4 @@ const EditField = observer(
   }
 );
 
-export default withTranslation()(withFieldViewModel(EditField));
+export default withTranslation()(withRouter(withFieldViewModel(EditField)));

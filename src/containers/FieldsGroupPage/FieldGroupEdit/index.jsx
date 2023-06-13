@@ -20,6 +20,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
+import { withRouter } from 'react-router-dom';
 
 const EditFieldGroup = observer(
   class EditFieldGroup extends Component {
@@ -206,4 +207,4 @@ const EditFieldGroup = observer(
   }
 );
 
-export default withTranslation()(withFieldGroupViewModel(EditFieldGroup));
+export default withTranslation()(withRouter(withFieldGroupViewModel(EditFieldGroup)));

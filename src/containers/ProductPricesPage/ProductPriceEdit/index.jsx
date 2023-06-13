@@ -18,6 +18,7 @@ import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
 import EditHeader from 'components/EditHeader';
+import { withRouter } from 'react-router-dom';
 
 const EditProductPrice = observer(
   class EditProductPrice extends Component {
@@ -139,4 +140,4 @@ const EditProductPrice = observer(
   }
 );
 
-export default withTranslation()(withProductPriceViewModel(EditProductPrice));
+export default withTranslation()(withRouter(withProductPriceViewModel(EditProductPrice)));
