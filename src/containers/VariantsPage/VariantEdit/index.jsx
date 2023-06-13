@@ -13,7 +13,8 @@ import SimpleReactValidator from 'simple-react-validator';
 import PublishOptions from 'components/PublishOptions';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import { SVGComponent, historyPush  } from 'aesirx-uikit';
+import { SVGComponent } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const EditVariant = observer(
   class EditVariant extends Component {

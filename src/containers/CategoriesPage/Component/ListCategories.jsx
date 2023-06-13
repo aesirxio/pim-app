@@ -5,7 +5,8 @@ import { withCategoryViewModel } from '../CategoryViewModel/CategoryViewModelCon
 import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
 import Table from 'components/Table';
-import { Spinner, notify, AesirXSelect as SelectComponent,historyPush } from 'aesirx-uikit';
+import { Spinner, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListCategories = observer((props) => {
   const { t } = props;

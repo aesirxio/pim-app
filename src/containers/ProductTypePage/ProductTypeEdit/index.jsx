@@ -17,8 +17,9 @@ import _ from 'lodash';
 import { withProductTypeViewModel } from '../ProductTypeViewModel/ProductTypeViewModelContextProvider';
 import ProductTypeInformation from './Component/ProductTypeInformation';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS, Spinner, historyPush } from 'aesirx-uikit';
+import { PAGE_STATUS, Spinner } from 'aesirx-uikit';
 import Input from 'components/Form/Input';
+import { historyPush } from 'routes/routes';
 
 const EditProductType = observer(
   class EditProductType extends Component {

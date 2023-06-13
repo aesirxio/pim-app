@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner, historyPush } from 'aesirx-uikit';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -24,6 +24,7 @@ import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
+import { historyPush } from 'routes/routes';
 
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);

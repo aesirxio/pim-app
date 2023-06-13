@@ -8,7 +8,8 @@ import { Spinner } from 'aesirx-uikit';
 
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { notify, historyPush } from 'aesirx-uikit';
+import { notify } from 'aesirx-uikit';
+import { historyPush } from 'routes/routes';
 
 const ListFields = observer((props) => {
   const { t } = props;
