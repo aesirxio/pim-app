@@ -280,7 +280,6 @@ class FormSelectionFields extends Component {
           : {},
       },
     ];
-    console.log('loading', categoryListViewModel?.successResponse?.state);
     return (
       <>
         {this.props.field.creatable ? (

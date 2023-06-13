@@ -24,7 +24,7 @@ const FieldsList = observer(
     constructor(props) {
       super(props);
       this.viewModel = props.viewModel ? props.viewModel : null;
-      this.state = { itemsByGroup: [], defaultActive: '', productRelatedOptions: [] };
+      this.state = { itemsByGroup: [], defaultActive: '' };
       this.fieldRef = [];
     }
 
@@ -134,7 +134,6 @@ const FieldsList = observer(
 
     render() {
       const { t } = this.props;
-      console.log('this.productRelatedOptionsabcdsaneee', this.productRelatedOptions);
       const generateFormSetting = [
         ...this.state.itemsByGroup?.map((group) => {
           return {
