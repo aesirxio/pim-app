@@ -3,8 +3,8 @@ import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import { Spinner } from 'aesirx-uikit';
-import PAGE_STATUS from 'constants/PageStatus';
+import { Spinner, PAGE_STATUS } from 'aesirx-uikit';
+
 import { observer } from 'mobx-react';
 import { ProductPriceViewModelContext } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import { Row } from 'react-bootstrap';
@@ -13,6 +13,7 @@ import DebtorGroupViewModel from 'containers/DebtorGroupPage/DebtorGroupViewMode
 import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
 import ProductViewModel from 'containers/ProductsPage/ProductViewModel/ProductViewModel';
 import moment from 'moment';
+
 const debtorGroupStore = new DebtorGroupStore();
 const debtorGroupViewModel = new DebtorGroupViewModel(debtorGroupStore);
 const productStore = new ProductStore();
@@ -163,40 +164,40 @@ const ProductPriceInformation = observer(
                 this.validator.showMessageFor(t('txt_retail_price'));
               },
             },
-            {
-              label: 'txt_start_time',
-              key: 'start_time',
-              type: FORM_FIELD_TYPE.DATE,
-              getValueSelected:
-                this.viewModel.productPriceDetailViewModel.formPropsData[
-                  PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                ][PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE],
-              className: 'col-lg-6',
-              placeholder: 'dd/mm/yyyy',
-              handleChange: (event) => {
-                this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
-                  [PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE]:
-                    event && moment(event).format(FORMAT_DATE_UPDATE_POST),
-                });
-              },
-            },
-            {
-              label: 'txt_end_time',
-              key: 'end_time',
-              type: FORM_FIELD_TYPE.DATE,
-              getValueSelected:
-                this.viewModel.productPriceDetailViewModel.formPropsData[
-                  PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                ][PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE],
-              className: 'col-lg-6',
-              placeholder: 'dd/mm/yyyy',
-              handleChange: (event) => {
-                this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
-                  [PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE]:
-                    event && moment(event).format(FORMAT_DATE_UPDATE_POST),
-                });
-              },
-            },
+            // {
+            //   label: 'txt_start_time',
+            //   key: 'start_time',
+            //   type: FORM_FIELD_TYPE.DATE,
+            //   getValueSelected:
+            //     this.viewModel.productPriceDetailViewModel.formPropsData[
+            //       PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+            //     ][PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE],
+            //   className: 'col-lg-6',
+            //   placeholder: 'dd/mm/yyyy',
+            //   handleChange: (event) => {
+            //     this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
+            //       [PIM_PRICES_DETAIL_FIELD_KEY.STARTING_DATE]:
+            //         event && moment(event).format(FORMAT_DATE_UPDATE_POST),
+            //     });
+            //   },
+            // },
+            // {
+            //   label: 'txt_end_time',
+            //   key: 'end_time',
+            //   type: FORM_FIELD_TYPE.DATE,
+            //   getValueSelected:
+            //     this.viewModel.productPriceDetailViewModel.formPropsData[
+            //       PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+            //     ][PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE],
+            //   className: 'col-lg-6',
+            //   placeholder: 'dd/mm/yyyy',
+            //   handleChange: (event) => {
+            //     this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
+            //       [PIM_PRICES_DETAIL_FIELD_KEY.ENDING_DATE]:
+            //         event && moment(event).format(FORMAT_DATE_UPDATE_POST),
+            //     });
+            //   },
+            // },
             {
               label: 'txt_quantity_min',
               key: 'quantity_min',

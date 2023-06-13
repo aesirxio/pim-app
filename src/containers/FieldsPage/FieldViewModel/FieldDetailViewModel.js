@@ -69,7 +69,7 @@ class FieldDetailViewModel {
   };
 
   callbackOnGetFieldSuccessHandler = (result) => {
-    if (result) {
+    if (result && result[PIM_FIELD_DETAIL_FIELD_KEY.ID]) {
       this.fieldDetailViewModel.formPropsData = {
         ...this.fieldDetailViewModel.formPropsData,
         ...Object.keys(PIM_FIELD_DETAIL_FIELD_KEY)
@@ -80,9 +80,8 @@ class FieldDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      this.formStatus = PAGE_STATUS.READY;
     }
-
-    this.formStatus = PAGE_STATUS.READY;
   };
 
   handleFormPropsData = (key, value, arrayIndex) => {

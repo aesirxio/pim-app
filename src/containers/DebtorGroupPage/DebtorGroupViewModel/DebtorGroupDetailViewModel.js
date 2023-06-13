@@ -69,7 +69,7 @@ class DebtorGroupDetailViewModel {
   };
 
   callbackOnGetDebtorGroupSuccessHandler = (result) => {
-    if (result) {
+    if (result && result[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID]) {
       this.debtorGroupDetailViewModel.formPropsData = {
         ...this.debtorGroupDetailViewModel.formPropsData,
         ...Object.keys(PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY)
@@ -81,9 +81,8 @@ class DebtorGroupDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      this.formStatus = PAGE_STATUS.READY;
     }
-
-    this.formStatus = PAGE_STATUS.READY;
   };
 
   handleFormPropsData = (key, value) => {
