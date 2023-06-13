@@ -71,7 +71,7 @@ class CategoryDetailViewModel {
   };
 
   callbackOnGetCategorySuccessHandler = (result) => {
-    if (result) {
+    if (result && result[PIM_CATEGORY_DETAIL_FIELD_KEY.ID]) {
       this.categoryDetailViewModel.formPropsData = {
         ...this.categoryDetailViewModel.formPropsData,
         ...Object.keys(PIM_CATEGORY_DETAIL_FIELD_KEY)
@@ -82,9 +82,8 @@ class CategoryDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      this.formStatus = PAGE_STATUS.READY;
     }
-
-    this.formStatus = PAGE_STATUS.READY;
   };
 
   handleFormPropsData = (key, value) => {

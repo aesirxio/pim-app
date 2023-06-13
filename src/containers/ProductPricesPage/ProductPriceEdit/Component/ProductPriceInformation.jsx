@@ -3,8 +3,8 @@ import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import { Spinner } from 'aesirx-uikit';
-import PAGE_STATUS from 'constants/PageStatus';
+import { Spinner, PAGE_STATUS } from 'aesirx-uikit';
+
 import { observer } from 'mobx-react';
 import { ProductPriceViewModelContext } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import { Row } from 'react-bootstrap';
@@ -13,6 +13,7 @@ import DebtorGroupViewModel from 'containers/DebtorGroupPage/DebtorGroupViewMode
 import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
 import ProductViewModel from 'containers/ProductsPage/ProductViewModel/ProductViewModel';
 import moment from 'moment';
+
 const debtorGroupStore = new DebtorGroupStore();
 const debtorGroupViewModel = new DebtorGroupViewModel(debtorGroupStore);
 const productStore = new ProductStore();

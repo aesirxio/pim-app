@@ -10,10 +10,9 @@ import { Form } from 'react-bootstrap';
 import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { FormEditor } from 'aesirx-uikit';
+import { FormEditor, CustomizedDatePicker } from 'aesirx-uikit';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
-const CustomizedDatePicker = lazy(() => import('../components/DatePicker'));
 const FormImage = lazy(() => import('../components/Form/FormImage'));
 const FormVideo = lazy(() => import('../components/Form/FormVideo'));
 const FormSelection = lazy(() => import('../components/Form/FormSelection'));

@@ -4,16 +4,16 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, ComponentCard, PAGE_STATUS } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import PAGE_STATUS from 'constants/PageStatus';
+
 import DateRangePicker from 'components/DateRangePicker';
 import { withRouter } from 'react-router-dom';
 import PieChartComponent from 'components/PieChartComponent';
 import { Col, Row } from 'react-bootstrap';
-import ComponentCard from 'components/ComponentCard';
+
 import './index.scss';
 // import RecentsActivities from './Component/RecentsActivities';
 // import DataCompleteness from './Component/DataCompleteness';

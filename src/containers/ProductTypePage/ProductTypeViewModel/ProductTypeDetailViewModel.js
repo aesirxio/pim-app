@@ -104,7 +104,7 @@ class ProductTypeDetailViewModel {
   };
 
   onGetProductTypeSuccessHandler = (result) => {
-    if (result) {
+    if (result && result[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]) {
       this.productTypeDetailViewModel.formPropsData = {
         ...this.productTypeDetailViewModel.formPropsData,
         ...Object.keys(PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY)
@@ -116,9 +116,8 @@ class ProductTypeDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      this.formStatus = PAGE_STATUS.READY;
     }
-
-    this.formStatus = PAGE_STATUS.READY;
   };
 
   onGetProductTypeListSuccessHandler = (result) => {

@@ -20,6 +20,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
+import { withRouter } from 'react-router-dom';
 
 const EditFieldGroup = observer(
   class EditFieldGroup extends Component {
@@ -65,9 +66,6 @@ const EditFieldGroup = observer(
     render() {
       const { t } = this.props;
 
-      if (status === PAGE_STATUS.LOADING) {
-        return <Spinner />;
-      }
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
           {this.fieldGroupDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
@@ -206,4 +204,4 @@ const EditFieldGroup = observer(
   }
 );
 
-export default withTranslation()(withFieldGroupViewModel(EditFieldGroup));
+export default withTranslation()(withRouter(withFieldGroupViewModel(EditFieldGroup)));

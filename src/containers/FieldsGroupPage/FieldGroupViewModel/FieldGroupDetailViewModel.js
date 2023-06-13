@@ -70,7 +70,7 @@ class FieldGroupDetailViewModel {
   };
 
   callbackOnGetFieldGroupSuccessHandler = (result) => {
-    if (result) {
+    if (result && result[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID]) {
       this.fieldGroupDetailViewModel.formPropsData = {
         ...this.fieldGroupDetailViewModel.formPropsData,
         ...Object.keys(PIM_FIELD_GROUP_DETAIL_FIELD_KEY)
@@ -82,9 +82,9 @@ class FieldGroupDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
-    }
 
-    this.formStatus = PAGE_STATUS.READY;
+      this.formStatus = PAGE_STATUS.READY;
+    }
   };
 
   handleFormPropsData = (key, value) => {
