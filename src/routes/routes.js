@@ -10,6 +10,7 @@ import {
   DigitalAssetsPage,
   MembersPage,
   EditMemberProvider,
+  history,
 } from 'aesirx-uikit';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
@@ -203,4 +204,8 @@ const integrationRoutes = () =>
       return item;
     });
 
-export { authRoutes, mainRoutes, settingRoutes, integrationRoutes };
+const historyPush = (link) => {
+  return history.push((process.env.REACT_APP_INTERGRATION ? '/pim' : '') + link);
+};
+
+export { authRoutes, mainRoutes, settingRoutes, integrationRoutes, historyPush };

@@ -3,8 +3,9 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { SVGComponent,historyPush } from 'aesirx-uikit';
+import { SVGComponent } from 'aesirx-uikit';
 import React from 'react';
+import { historyPush } from 'routes/routes';
 
 const EditHeader = ({ props, title, isEdit, redirectUrl }) => {
   const { t } = props;
