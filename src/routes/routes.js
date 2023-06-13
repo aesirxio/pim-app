@@ -13,10 +13,6 @@ import {
 } from 'aesirx-uikit';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
-const DataStreamPage = lazy(() => import('../containers/DataStreamPage'));
-const RegionCountryPage = lazy(() => import('../containers/RegionCountryPage'));
-const SettingPage = lazy(() => import('containers/SettingPage'));
-const HelpCenterPage = lazy(() => import('containers/HelpCenterPage'));
 const EditProductProvider = lazy(() => import('containers/ProductsPage/edit'));
 const EditCategoryProvider = lazy(() => import('containers/CategoriesPage/edit'));
 const EditFieldProvider = lazy(() => import('containers/FieldsPage/edit'));
@@ -83,26 +79,6 @@ const mainRoutes = [
     path: ['/members/add'],
     exact: true,
     main: () => <EditMemberProvider />,
-  },
-  {
-    path: '/data-stream',
-    exact: true,
-    main: () => <DataStreamPage />,
-  },
-  {
-    path: ['/setting', '/setting/configuration'],
-    exact: true,
-    main: () => <SettingPage />,
-  },
-  {
-    path: '/region-country',
-    exact: true,
-    main: () => <RegionCountryPage />,
-  },
-  {
-    path: '/help-center',
-    exact: true,
-    main: () => <HelpCenterPage />,
   },
   {
     path: ['/products/edit/:id'],

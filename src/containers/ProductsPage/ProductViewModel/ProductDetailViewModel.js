@@ -71,7 +71,7 @@ class ProductDetailViewModel {
   };
 
   callbackOnGetProductSuccessHandler = (result) => {
-    if (result) {
+    if (result && result[PIM_PRODUCT_DETAIL_FIELD_KEY.ID]) {
       this.productDetailViewModel.formPropsData = {
         ...this.productDetailViewModel.formPropsData,
         ...Object.keys(PIM_PRODUCT_DETAIL_FIELD_KEY)
@@ -82,9 +82,8 @@ class ProductDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
+      this.formStatus = PAGE_STATUS.READY;
     }
-
-    this.formStatus = PAGE_STATUS.READY;
   };
 
   handleFormPropsData = (key, value) => {
