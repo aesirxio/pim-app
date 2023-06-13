@@ -101,12 +101,23 @@ const menuSetup = [
   },
 ];
 
-const integrationMenu = () =>
-  mainMenu
-    .filter((item) => item.link !== '/dam' && item.link !== '/' && item.link !== '/members')
-    .map((item) => {
+const integrationMenu = () => {
+  return [
+    ...mainMenu
+      .filter((item) => item.link !== '/dam' && item.link !== '/' && item.link !== '/members')
+      .map((item) => {
+        item.link = '/pim' + item.link;
+        return item;
+      }),
+    {
+      text: 'txt_left_menu_debtor_group',
+      link: `/pim/debtor-group`,
+    },
+    ...menuSetup.map((item) => {
       item.link = '/pim' + item.link;
       return item;
-    });
+    }),
+  ];
+};
 
 export { profileMenu, mainMenu, settingMenu, menuSetup, integrationMenu };
