@@ -47,9 +47,14 @@ class FormSelectionFields extends Component {
       const isCategoryRelatedField =
         this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
         this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
+      const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
       if (!fieldListViewModel?.items?.length && isCategoryRelatedField) {
+        isTopCategoryField &&
+          categoryListViewModel.handleFilter({ limit: 9999, 'filter[maxlevel]': 2 });
         await Promise.all([
-          categoryListViewModel.getListByFilter('list[limit]', 9999),
+          isTopCategoryField
+            ? categoryListViewModel.initializeDataCustom()
+            : categoryListViewModel.getListByFilter('list[limit]', 9999),
           fieldListViewModel.handleFilterList({ limit: 9999 }),
           fieldListViewModel.handleFilter({ 'filter[fieldtypes]': 'item_related' }),
           fieldListViewModel.initializeDataCustom(),
@@ -78,9 +83,14 @@ class FormSelectionFields extends Component {
       const isCategoryRelatedField =
         this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
         this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
+      const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
       if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
+        isTopCategoryField &&
+          categoryListViewModel.handleFilter({ limit: 9999, 'filter[maxlevel]': 2 });
         await Promise.all([
-          categoryListViewModel.getListByFilter('list[limit]', 9999),
+          isTopCategoryField
+            ? categoryListViewModel.initializeDataCustom()
+            : categoryListViewModel.getListByFilter('list[limit]', 9999),
           fieldListViewModel.handleFilterList({ limit: 9999 }),
           fieldListViewModel.handleFilter({ 'filter[fieldtypes]': 'item_related' }),
           fieldListViewModel.initializeDataCustom(),
@@ -110,8 +120,8 @@ class FormSelectionFields extends Component {
           ? specifications?.map((item) => {
               let selectOptions =
                 item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_TYPE &&
-                this.props.field.listContentType.length
-                  ? this.props.field.listContentType.map((item) => {
+                this.props.field.listContentType?.length
+                  ? this.props.field.listContentType?.map((item) => {
                       return {
                         label: item.label,
                         value: item.value,
@@ -119,7 +129,7 @@ class FormSelectionFields extends Component {
                     })
                   : (item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CATEGORY ||
                       item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE) &&
-                    categoryListViewModel?.items.length
+                    categoryListViewModel?.items?.length
                   ? categoryListViewModel?.items.map((item) => {
                       return {
                         label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
@@ -127,7 +137,7 @@ class FormSelectionFields extends Component {
                       };
                     })
                   : item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD &&
-                    fieldListViewModel?.items.length
+                    fieldListViewModel?.items?.length
                   ? fieldListViewModel?.items
                       .map((item) => {
                         return {
@@ -169,14 +179,15 @@ class FormSelectionFields extends Component {
                       ][item?.attributes?.name]
                     : item?.attributes?.default;
                 if (item?.attributes?.multiple) {
-                  selectedValue = fieldValue?.length
-                    ? fieldValue.map((item) => {
-                        return {
-                          label: selectOptions.find((x) => x.value.toString() === item)?.label,
-                          value: item,
-                        };
-                      })
-                    : null;
+                  selectedValue =
+                    fieldValue?.length && Array.isArray(fieldValue)
+                      ? fieldValue?.map((item) => {
+                          return {
+                            label: selectOptions.find((x) => x.value.toString() === item)?.label,
+                            value: item,
+                          };
+                        })
+                      : [];
                 } else {
                   selectedValue = fieldValue
                     ? {
@@ -269,6 +280,7 @@ class FormSelectionFields extends Component {
           : {},
       },
     ];
+    console.log('loading', categoryListViewModel?.successResponse?.state);
     return (
       <>
         {this.props.field.creatable ? (

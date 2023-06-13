@@ -60,11 +60,17 @@ class CategoryListViewModel {
 
   initializeDataCustom = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
     await this.categoryStore.getList(
       this.callbackOnSuccessHandlerCustom,
       this.callbackOnErrorHandler,
       this.filter
     );
+    runInAction(() => {
+      this.successResponse.state = true;
+    });
   };
   callbackOnSuccessHandlerCustom = (result) => {
     this.items = result.listItems;
