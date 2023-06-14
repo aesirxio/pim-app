@@ -70,66 +70,74 @@ const FormColor = ({ field, ...props }) => {
     }),
   };
   const cover = {
-    position: 'fixed',
+    position: 'absolute',
     top: '0px',
     right: '0px',
     bottom: '0px',
     left: '0px',
+    height: '200vh',
   };
   return (
-    <div className="position-relative">
-      <Row className="align-items-center">
-        <Col sm="3">
-          <Form.Control
-            as="input"
-            value={colorSelected}
-            type={'text'}
-            required={field.required ?? false}
-            id={field.key}
-            onPaste={field.pasted ?? undefined}
-            className={`${field.classNameInput}`}
-            onChange={(e) => handleChangeInput(e)}
-            onSelect={(e) => handleChangeInput(e)}
-            onBlur={field.blurred ?? undefined}
-            placeholder={field.placeholder ?? t('txt_type')}
-            disabled={field.disabled}
-            maxLength={field.maxLength}
-          />
-        </Col>
-        <Col sm="9">
-          <div className="d-flex">
-            <div className="w-100 ">
-              <div style={swatch} onClick={handleClick}>
-                <div style={color} />
-              </div>
-              {displayColorPicker ? (
-                <div style={popover}>
-                  <div style={cover} onClick={handleClose} />
-                  {field?.params?.control === 'photoshop' ? (
-                    <PhotoshopPicker color={colorSelected} onChange={handleChange} />
-                  ) : field?.params?.control === 'block' ? (
-                    <BlockPicker color={colorSelected} onChange={handleChange} />
-                  ) : field?.params?.control === 'compact' ? (
-                    <CompactPicker color={colorSelected} onChange={handleChange} />
-                  ) : (
-                    <SketchPicker color={colorSelected} onChange={handleChange} />
-                  )}
+    <>
+      {displayColorPicker && <div style={cover} onClick={handleClose} />}
+      <div className="position-relative">
+        <Row className="align-items-center">
+          <Col sm="3">
+            <Form.Control
+              as="input"
+              value={colorSelected}
+              type={'text'}
+              required={field.required ?? false}
+              id={field.key}
+              onPaste={field.pasted ?? undefined}
+              className={`${field.classNameInput}`}
+              onChange={(e) => handleChangeInput(e)}
+              onSelect={(e) => handleChangeInput(e)}
+              onBlur={field.blurred ?? undefined}
+              placeholder={field.placeholder ?? t('txt_type')}
+              disabled={field.disabled}
+              maxLength={field.maxLength}
+            />
+          </Col>
+          <Col sm="9">
+            <div className="d-flex">
+              <div className="w-100 ">
+                <div style={swatch} onClick={handleClick}>
+                  <div style={color} />
                 </div>
-              ) : null}
+                {displayColorPicker ? (
+                  <div style={popover}>
+                    {field?.params?.control === 'photoshop' ? (
+                      <PhotoshopPicker
+                        color={colorSelected}
+                        onChange={handleChange}
+                        onAccept={handleClose}
+                        onCancel={handleClose}
+                      />
+                    ) : field?.params?.control === 'block' ? (
+                      <BlockPicker color={colorSelected} onChange={handleChange} />
+                    ) : field?.params?.control === 'compact' ? (
+                      <CompactPicker color={colorSelected} onChange={handleChange} />
+                    ) : (
+                      <SketchPicker color={colorSelected} onChange={handleChange} />
+                    )}
+                  </div>
+                ) : null}
+              </div>
+              <div
+                className="border-1 rounded-1 d-flex align-items-center justify-content-center ms-24 px-8px cursor-pointer"
+                onClick={() => {
+                  setColor('#ffffff');
+                  field.handleChange('#ffffff');
+                }}
+              >
+                <SVGComponent url="/assets/images/cancel.svg" className={'bg-danger'} />
+              </div>
             </div>
-            <div
-              className="border-1 rounded-1 d-flex align-items-center justify-content-center ms-24 px-8px cursor-pointer"
-              onClick={() => {
-                setColor('#ffffff');
-                field.handleChange('#ffffff');
-              }}
-            >
-              <SVGComponent url="/assets/images/cancel.svg" className={'bg-danger'} />
-            </div>
-          </div>
-        </Col>
-      </Row>
-    </div>
+          </Col>
+        </Row>
+      </div>
+    </>
   );
 };
 

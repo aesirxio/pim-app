@@ -209,6 +209,7 @@ class FormSelectionFields extends Component {
               return (
                 item?.attributes?.label && {
                   label: item?.attributes?.label,
+                  isLabelHTML: true,
                   key: item?.attributes?.name,
                   type: item?.attributes?.type,
                   getValueSelected: selectedValue,
@@ -270,6 +271,18 @@ class FormSelectionFields extends Component {
                       ) {
                         document.querySelector('.sub-field').classList.add('d-none');
                       }
+                      if (item?.attributes?.name === 'changeYear' && data.target.value === 'true') {
+                        document.querySelectorAll('.sub-field')?.forEach((item) => {
+                          item.classList.remove('d-none');
+                        });
+                      } else if (
+                        item?.attributes?.name === 'changeYear' &&
+                        data.target.value === 'false'
+                      ) {
+                        document.querySelectorAll('.sub-field')?.forEach((item) => {
+                          item.classList.add('d-none');
+                        });
+                      }
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
                         { [item?.attributes?.name]: data.target.value }
@@ -278,10 +291,12 @@ class FormSelectionFields extends Component {
                   },
                   description: item?.attributes?.description,
                   className: `col-lg-12 mt-24 ${
-                    this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                    (this.props.field.viewModel.fieldDetailViewModel.formPropsData[
                       PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
                     ]['both_sides_related'] !== '1' &&
-                    item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD
+                      item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD) ||
+                    item?.attributes?.name === 'yearRangeMin' ||
+                    item?.attributes?.name === 'yearRangeMax'
                       ? 'sub-field d-none'
                       : ''
                   }`,
