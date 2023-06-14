@@ -128,10 +128,11 @@ const FieldsList = observer(
                   } else {
                     selectedValue = this.props.formPropsData[
                       PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                    ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]?.length
+                    ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]
                       ? {
-                          label: selectOptions.find((x) => x.value.toString() === fieldValue)
-                            ?.label,
+                          label: selectOptions.find(
+                            (x) => x.value.toString() === fieldValue.toString()
+                          )?.label,
                           value: fieldValue,
                         }
                       : null;
