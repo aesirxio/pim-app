@@ -1,24 +1,11 @@
-// import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import {
-  PIM_CATEGORY_DETAIL_FIELD_KEY,
-  PIM_FIELD_DETAIL_FIELD_KEY,
-  PIM_PRODUCT_DETAIL_FIELD_KEY,
-} from 'aesirx-lib';
+import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
-import CategoryListViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryListViewModel';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
-import ProductStore from 'containers/ProductsPage/ProductStore/ProductStore';
-import ProductListViewModel from 'containers/ProductsPage/ProductViewModel/ProductListViewModel';
 import { observer } from 'mobx-react';
 import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-const productStore = new ProductStore();
-const productListViewModel = new ProductListViewModel(productStore);
-const categoryStore = new CategoryStore();
-const categoryListViewModel = new CategoryListViewModel(categoryStore);
 const FieldsList = observer(
   class FieldsList extends Component {
     constructor(props) {
@@ -61,31 +48,6 @@ const FieldsList = observer(
             itemsByGroup: [{ group: null, fields: this.viewModel.fieldListViewModel.items }],
           };
         });
-      }
-      const itemRelatedField = this.viewModel.fieldListViewModel?.items.find(
-        (item) => item?.type === FORM_FIELD_TYPE.ITEM_RELATED
-      );
-      if (!productListViewModel?.items?.length && itemRelatedField) {
-        productListViewModel.handleFilter({
-          limit: 9999,
-          'filter[categoy]': itemRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.categories,
-          'filter[type]': itemRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.types,
-        });
-        productListViewModel.initializeDataListProduct();
-      }
-
-      const categoryRelatedField = this.viewModel.fieldListViewModel?.items.find(
-        (item) => item?.type === FORM_FIELD_TYPE.CATEGORY_RELATED
-      );
-
-      if (!categoryListViewModel?.items?.length && categoryRelatedField) {
-        categoryListViewModel.handleFilter({
-          limit: 9999,
-          'filter[parentid]':
-            categoryRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.top_category_id,
-          'filter[type]': categoryRelatedField[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.types,
-        });
-        categoryListViewModel.initializeDataCustom();
       }
     };
 
@@ -140,22 +102,7 @@ const FieldsList = observer(
             group: group?.group,
             fields: [
               ...group.fields?.map((field) => {
-                let selectOptions =
-                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
-                    ? productListViewModel?.items?.map((item) => {
-                        return {
-                          label: item[PIM_PRODUCT_DETAIL_FIELD_KEY.TITLE],
-                          value: item[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
-                        };
-                      })
-                    : field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED
-                    ? categoryListViewModel?.items?.map((item) => {
-                        return {
-                          label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
-                          value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
-                        };
-                      })
-                    : field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS];
+                let selectOptions = field[PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS];
                 let selectedValue = '';
                 if (
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
