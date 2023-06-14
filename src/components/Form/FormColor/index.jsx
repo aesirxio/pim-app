@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import { SketchPicker } from 'react-color';
+import { BlockPicker, CompactPicker, PhotoshopPicker, SketchPicker } from 'react-color';
 import { SVGComponent } from 'aesirx-uikit';
 const FormColor = ({ field, ...props }) => {
   const { t } = props;
@@ -47,10 +47,27 @@ const FormColor = ({ field, ...props }) => {
     display: 'block',
     cursor: 'pointer',
     width: '100%',
+    ...(field?.readOnly && {
+      pointerEvents: 'none',
+      background: '#ebebeb',
+      cursor: 'default',
+    }),
   };
   const popover = {
     position: 'absolute',
     zIndex: '2',
+    ...(field?.params?.position?.includes('bottom') && {
+      top: '100%',
+      left: '0',
+    }),
+    ...(field?.params?.position?.includes('top') && {
+      bottom: '100%',
+      top: 'auto',
+    }),
+    ...(field?.params?.position?.includes('right') && {
+      left: 'auto',
+      right: '0',
+    }),
   };
   const cover = {
     position: 'fixed',
@@ -75,21 +92,28 @@ const FormColor = ({ field, ...props }) => {
             onSelect={(e) => handleChangeInput(e)}
             onBlur={field.blurred ?? undefined}
             placeholder={field.placeholder ?? t('txt_type')}
-            readOnly={field.readOnly}
             disabled={field.disabled}
             maxLength={field.maxLength}
           />
         </Col>
         <Col sm="9">
           <div className="d-flex">
-            <div className="w-100">
+            <div className="w-100 ">
               <div style={swatch} onClick={handleClick}>
                 <div style={color} />
               </div>
               {displayColorPicker ? (
                 <div style={popover}>
                   <div style={cover} onClick={handleClose} />
-                  <SketchPicker color={colorSelected} onChange={handleChange} />
+                  {field?.params?.control === 'photoshop' ? (
+                    <PhotoshopPicker color={colorSelected} onChange={handleChange} />
+                  ) : field?.params?.control === 'block' ? (
+                    <BlockPicker color={colorSelected} onChange={handleChange} />
+                  ) : field?.params?.control === 'compact' ? (
+                    <CompactPicker color={colorSelected} onChange={handleChange} />
+                  ) : (
+                    <SketchPicker color={colorSelected} onChange={handleChange} />
+                  )}
                 </div>
               ) : null}
             </div>

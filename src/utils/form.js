@@ -39,7 +39,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -63,7 +63,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -87,7 +87,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -133,7 +133,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -169,7 +169,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -195,7 +195,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -221,7 +221,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -246,7 +246,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -271,7 +271,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -297,7 +297,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />
@@ -335,7 +335,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       <>
                         <FontAwesomeIcon
                           data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-content={field.description}
+                          data-tooltip-html={field.description}
                           className="mx-sm fs-12 mb-1"
                           icon={faCircleInfo}
                         />

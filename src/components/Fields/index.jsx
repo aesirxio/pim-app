@@ -230,6 +230,9 @@ const FieldsList = observer(
                     ? field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.placeholder
                     : null,
                   maxLength: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.limit ?? null,
+                  readOnly:
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.readonly === '1' ? true : false,
+                  params: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
                   blurred: () => {
                     this.props.validator.showMessageFor(field[PIM_FIELD_DETAIL_FIELD_KEY.NAME]);
                   },
