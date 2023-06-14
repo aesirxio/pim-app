@@ -8,11 +8,11 @@ import { Form } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 class Label extends React.Component {
   render() {
-    let { text, required } = this.props;
+    let { text, required, isLabelHTML } = this.props;
     const { t } = this.props;
     return (
       <Form.Label className="fw-semibold">
-        {t(text)}
+        {isLabelHTML ? <div dangerouslySetInnerHTML={{ __html: text }}></div> : t(text)}
         {required && <span className="text-red-1">*</span>}
       </Form.Label>
     );

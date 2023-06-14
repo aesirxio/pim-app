@@ -34,7 +34,11 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    <Label text={field.label} required={field.required ?? false} />
+                    <Label
+                      text={field.label}
+                      isLabelHTML={field.isLabelHTML}
+                      required={field.required ?? false}
+                    />
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -58,7 +62,11 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    <Label text={field.label} required={field.required ?? false} />
+                    <Label
+                      text={field.label}
+                      isLabelHTML={field.isLabelHTML}
+                      required={field.required ?? false}
+                    />
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -82,7 +90,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -128,7 +142,13 @@ const renderingGroupFieldHandler = (group, validator) => {
                   className={`mb-24 ${className}`}
                 >
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -164,7 +184,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -190,7 +216,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -216,7 +248,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -241,7 +279,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -266,7 +310,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 fs-14 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -292,7 +342,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
@@ -330,7 +386,13 @@ const renderingGroupFieldHandler = (group, validator) => {
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
-                    {field.label && <Label text={field.label} required={field.required ?? false} />}
+                    {field.label && (
+                      <Label
+                        text={field.label}
+                        isLabelHTML={field.isLabelHTML}
+                        required={field.required ?? false}
+                      />
+                    )}
                     {field.description && (
                       <>
                         <FontAwesomeIcon
