@@ -120,7 +120,9 @@ const FieldsList = observer(
                       fieldValue?.length && Array.isArray(fieldValue)
                         ? fieldValue?.map((item) => {
                             return {
-                              label: selectOptions.find((x) => x.value.toString() === item)?.label,
+                              label: selectOptions.find(
+                                (x) => x.value?.toString() === item?.toString()
+                              )?.label,
                               value: item,
                             };
                           })
@@ -131,7 +133,7 @@ const FieldsList = observer(
                     ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]
                       ? {
                           label: selectOptions.find(
-                            (x) => x.value.toString() === fieldValue.toString()
+                            (x) => x.value?.toString() === fieldValue?.toString()
                           )?.label,
                           value: fieldValue,
                         }
