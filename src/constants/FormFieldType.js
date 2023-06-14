@@ -10,7 +10,7 @@ const FORM_FIELD_TYPE = {
   NUMBER: 'number',
   DROPDOWN: 5,
   IMAGE: 'aesir_dam_asset',
-  DATE: 7,
+  DATE: 'date',
   DATERANGE: 8,
   SELECTION: 'select',
   LIST: 'list',
