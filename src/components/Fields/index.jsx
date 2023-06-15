@@ -1,4 +1,8 @@
-import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import {
+  PIM_FIELD_DETAIL_FIELD_KEY,
+  PIM_PRODUCT_DETAIL_FIELD_KEY,
+  dateFormatConvert,
+} from 'aesirx-lib';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { withFieldViewModel } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { observer } from 'mobx-react';
@@ -6,7 +10,6 @@ import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
-import { dateFormat } from 'utils/dateFormat';
 import moment from 'moment';
 
 const FieldsList = observer(
@@ -107,10 +110,10 @@ const FieldsList = observer(
               ...group.fields?.map((field) => {
                 let dateFormatConverted = field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat;
                 if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE) {
-                  dateFormatConverted = dateFormat.convert(
+                  dateFormatConverted = dateFormatConvert.convert(
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat,
-                    dateFormat.datepicker,
-                    dateFormat.momentJs
+                    dateFormatConvert.datepicker,
+                    dateFormatConvert.momentJs
                   );
                 }
                 let selectOptions =
