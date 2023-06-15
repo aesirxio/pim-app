@@ -11,6 +11,7 @@ const FORM_FIELD_TYPE = {
   DROPDOWN: 5,
   IMAGE: 'aesir_dam_asset',
   DATE: 'date',
+  CALENDAR: 'calendar',
   DATERANGE: 8,
   SELECTION: 'select',
   LIST: 'list',

@@ -22,6 +22,7 @@ import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore
 import CategoryListViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryListViewModel';
 import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldListViewModel from 'containers/FieldsPage/FieldViewModel/FieldListViewModel';
+import moment from 'moment';
 const categoryStore = new CategoryStore();
 const categoryListViewModel = new CategoryListViewModel(categoryStore);
 const fieldStore = new FieldStore();
@@ -216,6 +217,9 @@ class FormSelectionFields extends Component {
                   getDataSelectOptions: selectOptions,
                   isMulti: item?.attributes?.multiple,
                   isClearable: true,
+                  ...(item?.attributes?.type === FORM_FIELD_TYPE.CALENDAR && {
+                    dateFormat: 'yyyy-MM-dd',
+                  }),
                   handleChange: (data) => {
                     if (
                       item?.attributes?.type === FORM_FIELD_TYPE.SELECTION ||
@@ -244,20 +248,19 @@ class FormSelectionFields extends Component {
                           { [item?.attributes?.name]: '' }
                         );
                       }
-                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.IMAGE) {
-                      this.props.field.viewModel.handleFormPropsData(
-                        [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                        { [item?.attributes?.name]: data }
-                      );
-                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.CHECKBOX) {
+                    } else if (
+                      item?.attributes?.type === FORM_FIELD_TYPE.CHECKBOX ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.IMAGE ||
+                      item?.attributes?.type === FORM_FIELD_TYPE.EDITOR
+                    ) {
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
                         { [item?.attributes?.name]: data ?? '' }
                       );
-                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.EDITOR) {
+                    } else if (item?.attributes?.type === FORM_FIELD_TYPE.CALENDAR) {
                       this.props.field.viewModel.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
-                        { [item?.attributes?.name]: data }
+                        { [item?.attributes?.name]: data ? moment(data).format('yyyy-MM-DD') : '' }
                       );
                     } else {
                       if (
