@@ -6,6 +6,9 @@ import React, { Component } from 'react';
 import { Col, Nav, Row, Tab } from 'react-bootstrap';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
+import { dateFormat } from 'utils/dateFormat';
+import moment from 'moment';
+
 const FieldsList = observer(
   class FieldsList extends Component {
     constructor(props) {
@@ -102,6 +105,14 @@ const FieldsList = observer(
             group: group?.group,
             fields: [
               ...group.fields?.map((field) => {
+                let dateFormatConverted = field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat;
+                if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE) {
+                  dateFormatConverted = dateFormat.convert(
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat,
+                    dateFormat.datepicker,
+                    dateFormat.momentJs
+                  );
+                }
                 let selectOptions =
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED ||
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
@@ -181,13 +192,9 @@ const FieldsList = observer(
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.COLOR ||
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CHECKBOX
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CHECKBOX ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE
                     ) {
-                      this.props.detailViewModal.handleFormPropsData(
-                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                        { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ?? '' }
-                      );
-                    } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE) {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
                         { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ?? '' }
@@ -248,6 +255,35 @@ const FieldsList = observer(
                   readOnly:
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.readonly === '1' ? true : false,
                   params: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS],
+                  ...(field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE && {
+                    dateFormat: dateFormatConverted,
+                    timePicker:
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.showTimePicker === '1'
+                        ? true
+                        : false,
+                    disablePast:
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.disablePast === '1' ? true : false,
+                    changeYear:
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.changeYear === 'true'
+                        ? true
+                        : false,
+                    ...(field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.changeYear === 'true' && {
+                      yearRangeMin: moment(
+                        field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.yearRangeMin,
+                        'YYYY'
+                      ).toDate(),
+                      yearRangeMax: moment(
+                        field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.yearRangeMax,
+                        'YYYY'
+                      ).toDate(),
+                    }),
+                    minDate: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.minDate
+                      ? moment(field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.minDate).toDate()
+                      : null,
+                    maxDate: field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.maxDate
+                      ? moment(field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.maxDate).toDate()
+                      : null,
+                  }),
                   blurred: () => {
                     this.props.validator.showMessageFor(field[PIM_FIELD_DETAIL_FIELD_KEY.NAME]);
                   },

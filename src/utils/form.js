@@ -10,7 +10,7 @@ import { Form } from 'react-bootstrap';
 import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { FormEditor, CustomizedDatePicker } from 'aesirx-uikit';
+import { FormEditor, CustomizedDatePicker, FORMAT_TIME } from 'aesirx-uikit';
 
 const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
 const FormImage = lazy(() => import('../components/Form/FormImage'));
@@ -307,6 +307,7 @@ const renderingGroupFieldHandler = (group, validator) => {
               );
 
             case FORM_FIELD_TYPE.DATE:
+            case FORM_FIELD_TYPE.CALENDAR:
               return (
                 <Form.Group key={Math.random(40, 200)} className={`mb-24 fs-14 ${className}`}>
                   <div className="d-flex align-item-center">
@@ -330,10 +331,20 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                   </div>
                   <CustomizedDatePicker
-                    dateFormat={'dd/MM/yyyy'}
+                    dateFormat={
+                      field?.timePicker
+                        ? field?.dateFormat + ' ' + FORMAT_TIME
+                        : field?.dateFormat ?? 'dd/MM/yyyy'
+                    }
+                    disablePast={field?.disablePast}
+                    showTimeSelect={field?.timePicker}
+                    changeYear={field?.changeYear}
+                    minDate={field?.minDate ? field?.minDate : field?.yearRangeMin ?? null}
+                    maxDate={field?.maxDate ? field?.maxDate : field?.yearRangeMax ?? null}
                     handleOnChange={(date) => field.handleChange(date)}
                     defaultDate={field.getValueSelected ? field.getValueSelected : null}
                     placeholderText={field.placeholder}
+                    isClearable={field?.isClearable}
                   />
                 </Form.Group>
               );
