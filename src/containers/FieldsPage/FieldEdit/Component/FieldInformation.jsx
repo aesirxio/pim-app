@@ -33,7 +33,8 @@ const FieldInformation = observer(
           this.utilsListViewModel.getListContentType(),
           this.utilsListViewModel.getListFieldType(),
         ]).then(() => {
-          this.fieldGroupListViewModel.initializeData();
+          this.fieldGroupListViewModel.handleFilter({ 'list[limit]': 9999 }),
+            this.fieldGroupListViewModel.initializeData();
         });
       };
       fetchData();

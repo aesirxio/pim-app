@@ -50,7 +50,7 @@ class FormSelectionFields extends Component {
       const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
       if (!fieldListViewModel?.items?.length && isCategoryRelatedField) {
         isTopCategoryField &&
-          categoryListViewModel.handleFilter({ limit: 9999, 'filter[maxlevel]': 2 });
+          categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
         await Promise.all([
           isTopCategoryField
             ? categoryListViewModel.initializeDataCustom()
@@ -86,7 +86,7 @@ class FormSelectionFields extends Component {
       const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
       if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
         isTopCategoryField &&
-          categoryListViewModel.handleFilter({ limit: 9999, 'filter[maxlevel]': 2 });
+          categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
         await Promise.all([
           isTopCategoryField
             ? categoryListViewModel.initializeDataCustom()

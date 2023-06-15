@@ -46,6 +46,7 @@ const EditFieldGroup = observer(
         this.formPropsData[PIM_FIELD_GROUP_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.fieldGroupDetailViewModel.initializeData();
       }
+      this.fieldGroupDetailViewModel.handleAliasChange('');
     }
 
     handleAliasFormPropsData() {
