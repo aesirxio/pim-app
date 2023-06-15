@@ -53,6 +53,7 @@ const EditCategory = observer(
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.categoryDetailViewModel.initializeData();
       }
+      this.categoryDetailViewModel.handleAliasChange('');
     }
 
     handleAliasFormPropsData() {

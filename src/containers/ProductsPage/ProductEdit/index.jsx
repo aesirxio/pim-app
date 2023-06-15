@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner  } from 'aesirx-uikit';
+import { Spinner } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -67,6 +67,7 @@ const EditProduct = observer(
       }
       await this.categoryListViewModel.handleFilter({ limit: 0 });
       await this.categoryListViewModel.initializeDataCustom();
+      this.productDetailViewModel.handleAliasChange('');
     }
 
     handleAliasFormPropsData() {

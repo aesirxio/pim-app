@@ -45,6 +45,7 @@ const EditProductType = observer(
         await this.productTypeDetailViewModel.initializeData();
       }
       await this.productTypeDetailViewModel.getProductTypeList();
+      this.productTypeDetailViewModel.handleAliasChange('');
     }
 
     handleValidateForm() {
