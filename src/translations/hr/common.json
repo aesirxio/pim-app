@@ -349,5 +349,19 @@
   "txt_parent_type": "Vrsta roditelja",
   "txt_select_parent_type": "Odaberite Vrsta roditelja",
   "txt_parent_product_type": "Nadređena vrsta proizvoda",
-  "txt_product_type_change_warning":"Molim te budi oprezan! Promijenite vrstu proizvoda, postojeća polja baze podataka na stavkama mogu biti IZGUBLJENA zbog različite vrste podataka."
+  "txt_product_type_change_warning":"Molim te budi oprezan! Promijenite vrstu proizvoda, postojeća polja baze podataka na stavkama mogu biti IZGUBLJENA zbog različite vrste podataka.",
+  "txt_type_product_alias": "Upišite pseudonim proizvoda",
+  "txt_select_type": "Odaberite vrstu",
+  "txt_type_category_alias": "Upišite pseudonim kategorije",
+  "txt_select_section": "Odaberi odjeljak",
+  "txt_select_group": "Odaberi grupu",
+  "txt_select_relevance": "Odaberite relevantnost",
+  "txt_type_note": "Upišite bilješku",
+  "txt_type_field_group_alias": "Upišite pseudonim grupe polja",
+  "txt_select_debtor_group": "Odaberite grupu dužnika",
+  "txt_select_product": "Odaberi proizvod",
+  "txt_type_price": "Upišite cijenu",
+  "txt_type_retail_price": "Upišite maloprodajnu cijenu",
+  "txt_type_quantity": "Upišite količinu",
+  "txt_type_debtor_code": "Upišite šifru dužnika"
 }

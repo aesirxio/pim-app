@@ -74,7 +74,7 @@ const ProductPriceInformation = observer(
                   })
                 : null,
               className: 'col-lg-12',
-              placeholder: t('txt_select'),
+              placeholder: t('txt_select_debtor_group'),
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS, {
                   [PIM_PRICES_DETAIL_FIELD_KEY.DEBTOR_GROUP]: [data.value],
@@ -113,7 +113,7 @@ const ProductPriceInformation = observer(
               // required: true,
               // validation: 'required',
               className: 'col-lg-12',
-              placeholder: t('txt_select'),
+              placeholder: t('txt_select_product'),
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS, {
                   [PIM_PRICES_DETAIL_FIELD_KEY.PIM_PRODUCT]: [data.value],
@@ -132,7 +132,7 @@ const ProductPriceInformation = observer(
               className: 'col-lg-6',
               // required: true,
               // validation: 'required',
-              placeholder: t('txt_type'),
+              placeholder: t('txt_type_price'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
                   [PIM_PRICES_DETAIL_FIELD_KEY.PRICE]: event.target.value,
@@ -154,7 +154,7 @@ const ProductPriceInformation = observer(
               className: 'col-lg-6',
               // required: true,
               // validation: 'required',
-              placeholder: t('txt_type'),
+              placeholder: t('txt_type_retail_price'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
                   [PIM_PRICES_DETAIL_FIELD_KEY.RETAIL_PRICE]: event.target.value,
@@ -207,6 +207,7 @@ const ProductPriceInformation = observer(
                   PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
                 ][PIM_PRICES_DETAIL_FIELD_KEY.QUANTITY_MIN],
               className: 'col-lg-6',
+              placeholder: t('txt_type_quantity'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
                   [PIM_PRICES_DETAIL_FIELD_KEY.QUANTITY_MIN]: event.target.value,
@@ -222,6 +223,7 @@ const ProductPriceInformation = observer(
                   PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS
                 ][PIM_PRICES_DETAIL_FIELD_KEY.QUANTITY_MAX],
               className: 'col-lg-6',
+              placeholder: t('txt_type_quantity'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData([PIM_PRICES_DETAIL_FIELD_KEY.CUSTOM_FIELDS], {
                   [PIM_PRICES_DETAIL_FIELD_KEY.QUANTITY_MAX]: event.target.value,

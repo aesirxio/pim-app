@@ -33,7 +33,7 @@ const DebtorGroupInformation = observer(
                   PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS
                 ]?.code,
               className: 'col-lg-12',
-              placeholder: t('txt_type'),
+              placeholder: t('txt_type_debtor_code'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData(
                   [PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.CUSTOM_FIELDS],

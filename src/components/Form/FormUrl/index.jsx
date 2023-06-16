@@ -14,7 +14,6 @@ const FormUrl = ({ field, ...props }) => {
   const [listOptions, setListOptions] = useState(
     field?.getValueSelected?.length ? field?.getValueSelected : [{ url: '', title: '' }]
   );
-  console.log('listOptions', listOptions);
   return (
     <>
       {listOptions?.map((option, index) => {

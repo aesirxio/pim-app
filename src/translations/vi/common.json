@@ -345,5 +345,19 @@
   "txt_parent_type": "Loại cha",
   "txt_select_parent_type": "Chọn loại cha",
   "txt_parent_product_type": "Loại sản phẩm cha",
-  "txt_product_type_change_warning":"Hãy cẩn thận! Thay đổi loại sản phẩm của bạn, các trường cơ sở dữ liệu hiện có trên các mặt hàng có thể bị MẤT do loại dữ liệu khác."
+  "txt_product_type_change_warning":"Hãy cẩn thận! Thay đổi loại sản phẩm của bạn, các trường cơ sở dữ liệu hiện có trên các mặt hàng có thể bị MẤT do loại dữ liệu khác.",
+  "txt_type_product_alias":"Nhập bí danh sản phẩm",
+  "txt_select_type":"Chọn loại",
+  "txt_type_category_alias": "Nhập bí danh danh mục",
+  "txt_select_section": "Chọn Phần",
+  "txt_select_group": "Chọn nhóm",
+  "txt_select_relevance": "Chọn mức độ liên quan",
+  "txt_type_note": "Nhập ghi chú",
+  "txt_type_field_group_alias":"Nhập bí danh nhóm trường",
+  "txt_select_debtor_group":"Chọn nhóm Bên nợ",
+  "txt_select_product":"Chọn Sản phẩm",
+  "txt_type_price":"Loại giá",
+  "txt_type_retail_price":"Loại giá bán lẻ",
+  "txt_type_quantity":"Loại số lượng",
+  "txt_type_debtor_code":"Nhập mã bên nợ"
 }

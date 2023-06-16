@@ -48,7 +48,9 @@ const CategoryInformation = observer(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS
                 ],
               className: 'col-lg-12',
-              placeholder: this.viewModel.aliasChange ? this.viewModel.aliasChange : t('txt_type'),
+              placeholder: this.viewModel.aliasChange
+                ? this.viewModel.aliasChange
+                : t('txt_type_category_alias'),
               handleChange: (event) => {
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.ALIAS,
@@ -101,6 +103,7 @@ const CategoryInformation = observer(
                   notify(this.props.t('txt_product_type_change_warning'), 'warn');
                 }
               },
+              placeholder: t('txt_select_category'),
               className: 'col-lg-12',
             },
             {
@@ -145,6 +148,7 @@ const CategoryInformation = observer(
                   data.value
                 );
               },
+              placeholder: t('txt_select_category'),
               className: 'col-lg-12',
             },
             {
@@ -173,6 +177,7 @@ const CategoryInformation = observer(
                   convertData
                 );
               },
+              placeholder: t('txt_select_category'),
               isMulti: true,
               className: 'col-lg-12',
             },

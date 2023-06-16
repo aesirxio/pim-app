@@ -352,5 +352,19 @@
   "txt_parent_type": "Forældretype",
   "txt_select_parent_type": "Vælg forældretype",
   "txt_parent_product_type": "Overordnet produkttype",
-  "txt_product_type_change_warning":"Vær sød at passe på! Skift din produkttype, de eksisterende databasefelter på varer kan gå tabt på grund af anden datatype."
+  "txt_product_type_change_warning":"Vær sød at passe på! Skift din produkttype, de eksisterende databasefelter på varer kan gå tabt på grund af anden datatype.",
+  "txt_type_product_alias":"Skriv produktalias",
+  "txt_select_type":"Vælg type",
+  "txt_type_category_alias": "Skriv kategorialias",
+  "txt_select_section": "Vælg sektion",
+  "txt_select_group": "Vælg gruppe",
+  "txt_select_relevance": "Vælg relevans",
+  "txt_type_note": "Skriv note",
+  "txt_type_field_group_alias":"Skriv feltgruppealias",
+  "txt_select_debtor_group":"Vælg debitorgruppe",
+  "txt_select_product":"Vælg produkt",
+  "txt_type_price":"Typepris",
+  "txt_type_retail_price":"Typ udsalgspris",
+  "txt_type_quantity":"Type Antal",
+  "txt_type_debtor_code":"Skriv debitorkode"
 }

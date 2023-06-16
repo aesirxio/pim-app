@@ -351,5 +351,19 @@
   "txt_parent_type": "ประเภทผู้ปกครอง",
   "txt_select_parent_type": "เลือกประเภทผู้ปกครอง",
   "txt_parent_product_type": "ประเภทผลิตภัณฑ์หลัก",
-  "txt_product_type_change_warning":"โปรดระวัง! เปลี่ยนประเภทผลิตภัณฑ์ของคุณ ฟิลด์ฐานข้อมูลที่มีอยู่ในรายการอาจสูญหายได้เนื่องจากประเภทข้อมูลอื่น"
+  "txt_product_type_change_warning":"โปรดระวัง! เปลี่ยนประเภทผลิตภัณฑ์ของคุณ ฟิลด์ฐานข้อมูลที่มีอยู่ในรายการอาจสูญหายได้เนื่องจากประเภทข้อมูลอื่น",
+  "txt_type_product_alias":"พิมพ์ชื่อแทนผลิตภัณฑ์",
+   "txt_select_type":"เลือกประเภท",
+   "txt_type_category_alias": "พิมพ์หมวดหมู่นามแฝง",
+   "txt_select_section": "เลือกส่วน",
+   "txt_select_group": "เลือกกลุ่ม",
+   "txt_select_relevance": "เลือกความเกี่ยวข้อง",
+   "txt_type_note": "พิมพ์บันทึก",
+   "txt_type_field_group_alias":"พิมพ์ฟิลด์กลุ่มนามแฝง",
+   "txt_select_debtor_group":"เลือกกลุ่มลูกหนี้",
+   "txt_select_product":"เลือกสินค้า",
+   "txt_type_price":"ประเภทราคา",
+   "txt_type_retail_price":"ประเภทราคาขายปลีก",
+   "txt_type_quantity":"ประเภทจำนวน",
+   "txt_type_debtor_code":"พิมพ์รหัสลูกหนี้"
 }
