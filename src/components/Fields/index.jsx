@@ -198,12 +198,32 @@ const FieldsList = observer(
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.EDITOR ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.COLOR ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CHECKBOX ||
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE ||
-                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.YOUTUBE
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE
                     ) {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
                         { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ?? '' }
+                      );
+                    } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.YOUTUBE) {
+                      this.props.detailViewModal.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                        {
+                          [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data?.length
+                            ? data
+                            : [{ value: '' }],
+                        }
+                      );
+                    } else if (
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.URL ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.URL_EXTENDED
+                    ) {
+                      this.props.detailViewModal.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                        {
+                          [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data?.length
+                            ? data
+                            : [{ url: '', title: '' }],
+                        }
                       );
                     } else {
                       this.props.detailViewModal.handleFormPropsData(

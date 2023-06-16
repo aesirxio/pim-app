@@ -22,7 +22,7 @@ const CategoryInformation = observer(
     }
 
     async componentDidMount() {
-      this.context.categoryListViewModel.handleFilter({ "list[limit]": 9999 });
+      this.context.categoryListViewModel.handleFilter({ 'list[limit]': 9999 });
       this.context.categoryListViewModel.initializeDataCustom();
       this.utilsListViewModel.getListContentType({ 'filter[type]': 'category' });
     }

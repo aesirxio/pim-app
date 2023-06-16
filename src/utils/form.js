@@ -21,6 +21,7 @@ const FormRadio = lazy(() => import('../components/Form/FormRadio'));
 const FormCheckbox = lazy(() => import('../components/Form/FormCheckbox'));
 const FormColor = lazy(() => import('../components/Form/FormColor'));
 const FormYoutube = lazy(() => import('../components/Form/FormYoutube'));
+const FormUrl = lazy(() => import('../components/Form/FormUrl'));
 
 const Input = lazy(() => import('../components/Form/Input'));
 
@@ -449,6 +450,35 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                   </div>
                   <FormYoutube field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
+            case FORM_FIELD_TYPE.URL:
+            case FORM_FIELD_TYPE.URL_EXTENDED:
+              return (
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
+                  <div className="d-flex align-item-center">
+                    <Label
+                      text={field.label}
+                      isLabelHTML={field.isLabelHTML}
+                      required={field.required ?? false}
+                    />
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-html={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
+                  <FormUrl field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',
