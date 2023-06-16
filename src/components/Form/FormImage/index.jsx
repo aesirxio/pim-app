@@ -71,7 +71,12 @@ const FormImage = ({ field, ...props }) => {
                         >
                           <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
-                        <ComponentImage src={JSON.parse(item)?.download_url} alt={field.value} />
+                        <ComponentImage
+                          src={JSON.parse(item)?.download_url}
+                          alt={field.value}
+                          className="h-100"
+                          wrapperClassName="h-100"
+                        />
                       </div>
                     </Ratio>
                   </Col>
@@ -117,7 +122,12 @@ const FormImage = ({ field, ...props }) => {
                     >
                       <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                     </div>
-                    <ComponentImage src={file[0]?.download_url} alt={field.value} />
+                    <ComponentImage
+                      src={file[0]?.download_url}
+                      alt={field.value}
+                      className="h-100"
+                      wrapperClassName="h-100"
+                    />
                   </>
                 )
               : null}

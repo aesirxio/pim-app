@@ -20,6 +20,7 @@ const FormSelectionFields = lazy(() => import('../components/Form/FormSelectionF
 const FormRadio = lazy(() => import('../components/Form/FormRadio'));
 const FormCheckbox = lazy(() => import('../components/Form/FormCheckbox'));
 const FormColor = lazy(() => import('../components/Form/FormColor'));
+const FormYoutube = lazy(() => import('../components/Form/FormYoutube'));
 
 const Input = lazy(() => import('../components/Form/Input'));
 
@@ -31,6 +32,7 @@ const renderingGroupFieldHandler = (group, validator) => {
           let className = field.className ? field.className : '';
           switch (field.type) {
             case FORM_FIELD_TYPE.INPUT:
+            case FORM_FIELD_TYPE.ITEM_RELATED_INFO:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
@@ -181,6 +183,7 @@ const renderingGroupFieldHandler = (group, validator) => {
             case FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD:
             case FORM_FIELD_TYPE.RICATEGORIESTREE:
             case FORM_FIELD_TYPE.LIST:
+            case FORM_FIELD_TYPE.CONTENT_TYPE:
               return (
                 <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
                   <div className="d-flex align-item-center">
@@ -417,6 +420,35 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                   </div>
                   <FormColor field={field} />
+                  {field.validation &&
+                    validator.message(field.label, field.getValueSelected, field.validation, {
+                      className: 'text-danger',
+                    })}
+                </Form.Group>
+              );
+
+            case FORM_FIELD_TYPE.YOUTUBE:
+              return (
+                <Form.Group key={field.key} ref={field.ref} className={`mb-24 ${className}`}>
+                  <div className="d-flex align-item-center">
+                    <Label
+                      text={field.label}
+                      isLabelHTML={field.isLabelHTML}
+                      required={field.required ?? false}
+                    />
+                    {field.description && (
+                      <>
+                        <FontAwesomeIcon
+                          data-tooltip-id={`tooltip-${field?.key}`}
+                          data-tooltip-html={field.description}
+                          className="mx-sm fs-12 mb-1"
+                          icon={faCircleInfo}
+                        />
+                        <Tooltip id={`tooltip-${field?.key}`} />
+                      </>
+                    )}
+                  </div>
+                  <FormYoutube field={field} />
                   {field.validation &&
                     validator.message(field.label, field.getValueSelected, field.validation, {
                       className: 'text-danger',

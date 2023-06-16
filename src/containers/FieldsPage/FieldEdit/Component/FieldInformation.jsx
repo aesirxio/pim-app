@@ -192,7 +192,7 @@ const FieldInformation = observer(
                         PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
                       ],
                   }
-                : null,
+                : [],
               getDataSelectOptions: this.fieldGroupListViewModel?.items?.length
                 ? this.fieldGroupListViewModel?.items?.map((item) => {
                     return {

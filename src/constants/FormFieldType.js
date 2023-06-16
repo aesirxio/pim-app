@@ -40,6 +40,11 @@ const FORM_FIELD_TYPE = {
   REDITEM_CATEGORY: 'reditem.category',
   RICATEGORIESTREE: 'ricategoriestree',
   REDITEM_CUSTOMFIELD: 'reditem.customfield',
+  CONTENT_TYPE: 'content_type',
+  ITEM_RELATED_INFO: 'item_related_info',
+  YOUTUBE: 'youtube',
+  URL: 'url',
+  URL_EXTENDED: 'url_extended',
 };
 
 const FORMAT_DATE = 'dd MMM, yyyy';
