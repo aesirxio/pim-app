@@ -349,5 +349,19 @@
   "txt_parent_type": "Батьківський тип",
   "txt_select_parent_type": "Виберіть тип батьківського елемента",
   "txt_parent_product_type": "Батьківський тип продукту",
-  "txt_product_type_change_warning":"Будь ласка, будь обережним! Змініть тип продукту, існуючі поля бази даних для елементів можуть бути ВТРАЧЕНІ через інший тип даних."
+  "txt_product_type_change_warning":"Будь ласка, будь обережним! Змініть тип продукту, існуючі поля бази даних для елементів можуть бути ВТРАЧЕНІ через інший тип даних.",
+  "txt_type_product_alias":"Введіть псевдонім продукту",
+  "txt_select_type":"Виберіть тип",
+  "txt_type_category_alias": "Псевдонім категорії типу",
+  "txt_select_section": "Виберіть розділ",
+  "txt_select_group": "Виберіть групу",
+  "txt_select_relevance": "Виберіть релевантність",
+  "txt_type_note": "Введіть примітку",
+  "txt_type_field_group_alias":"Введіть псевдонім групи полів",
+  "txt_select_debtor_group":"Виберіть групу боржників",
+  "txt_select_product":"Виберіть продукт",
+  "txt_type_price":"Введіть ціну",
+  "txt_type_retail_price":"Введіть роздрібну ціну",
+  "txt_type_quantity":"Введіть кількість",
+  "txt_type_debtor_code": "Введіть код боржника"
 }

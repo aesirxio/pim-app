@@ -127,6 +127,7 @@ const FieldsList = observer(
                 let selectedValue = '';
                 if (
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                  field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CONTENT_TYPE ||
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED ||
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
@@ -176,6 +177,7 @@ const FieldsList = observer(
                   handleChange: (data) => {
                     if (
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CONTENT_TYPE ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED
                     ) {
@@ -202,6 +204,27 @@ const FieldsList = observer(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
                         { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ?? '' }
                       );
+                    } else if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.YOUTUBE) {
+                      this.props.detailViewModal.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                        {
+                          [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data?.length
+                            ? data
+                            : [{ value: '' }],
+                        }
+                      );
+                    } else if (
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.URL ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.URL_EXTENDED
+                    ) {
+                      this.props.detailViewModal.handleFormPropsData(
+                        [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
+                        {
+                          [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data?.length
+                            ? data
+                            : [{ url: '', title: '' }],
+                        }
+                      );
                     } else {
                       this.props.detailViewModal.handleFormPropsData(
                         [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
@@ -223,6 +246,7 @@ const FieldsList = observer(
                     (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.IMAGE ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.LIST ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.SELECTION ||
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CONTENT_TYPE ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.CATEGORY_RELATED ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED) &&
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',

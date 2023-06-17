@@ -350,5 +350,19 @@
   "txt_parent_type": "Tipo principal",
   "txt_select_parent_type": "Seleccionar tipo de padre",
   "txt_parent_product_type": "Tipo de producto principal",
-  "txt_product_type_change_warning":"Por favor, seja cuidadoso! Altere o tipo de produto, os campos de banco de dados existentes nos itens podem ser PERDIDOS devido a diferentes tipos de dados."
+  "txt_product_type_change_warning":"Por favor, seja cuidadoso! Altere o tipo de produto, os campos de banco de dados existentes nos itens podem ser PERDIDOS devido a diferentes tipos de dados.",
+  "txt_type_product_alias":"Alias do tipo de produto",
+  "txt_select_type":"Selecionar tipo",
+  "txt_type_category_alias": "Alias de categoria de tipo",
+  "txt_select_section": "Selecionar seção",
+  "txt_select_group": "Selecionar grupo",
+  "txt_select_relevance": "Selecionar Relevância",
+  "txt_type_note": "Digite a nota",
+  "txt_type_field_group_alias":"Alias do grupo de campo de tipo",
+  "txt_select_debtor_group":"Selecionar grupo de devedores",
+  "txt_select_product":"Selecionar produto",
+  "txt_type_price":"Digite o preço",
+  "txt_type_retail_price":"Digite o preço de varejo",
+  "txt_type_quantity":"Inserir quantidade",
+  "txt_type_debtor_code":"Digite o código do devedor"
 }

@@ -19,7 +19,6 @@ const FormCheckbox = ({ field }) => {
   }, [selectedValue]);
 
   const handleChange = (data) => {
-    console.log('data', data);
     if (data.target.checked) {
       setSelectedValue((current) => [...current, data.target.value]);
     } else {

@@ -95,7 +95,6 @@ class CategoryDetailViewModel {
       }
     }
   };
-
   handleProductType = (value) => {
     runInAction(() => {
       this.productType = value;

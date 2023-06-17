@@ -99,6 +99,7 @@ const FieldInformation = observer(
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(PIM_FIELD_DETAIL_FIELD_KEY.TYPE, data.value);
               },
+              placeholder: t('txt_select_type'),
               listFieldType: this.utilsListViewModel?.listFieldType,
               validator: validator,
               className: 'col-lg-12',
@@ -137,6 +138,7 @@ const FieldInformation = observer(
                   convertData
                 );
               },
+              placeholder: t('txt_select_section'),
               isMulti: true,
               className: 'col-lg-12',
             },
@@ -192,7 +194,7 @@ const FieldInformation = observer(
                         PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
                       ],
                   }
-                : null,
+                : [],
               getDataSelectOptions: this.fieldGroupListViewModel?.items?.length
                 ? this.fieldGroupListViewModel?.items?.map((item) => {
                     return {
@@ -207,6 +209,7 @@ const FieldInformation = observer(
                   data.value
                 );
               },
+              placeholder: t('txt_select_group'),
               className: 'col-lg-12',
             },
             {
@@ -238,6 +241,7 @@ const FieldInformation = observer(
                   data.value
                 );
               },
+              placeholder: t('txt_select_relevance'),
               className: 'col-lg-12',
             },
             {
@@ -254,7 +258,7 @@ const FieldInformation = observer(
                   note: data.target.value,
                 });
               },
-              placeholder: t('txt_type'),
+              placeholder: t('txt_type_note'),
               className: 'col-lg-12',
             },
           ],
