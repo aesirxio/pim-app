@@ -178,23 +178,27 @@ const FieldInformation = observer(
               label: 'txt_group',
               key: PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID,
               type: FORM_FIELD_TYPE.SELECTION,
-              getValueSelected: this.viewModel.fieldDetailViewModel?.formPropsData[
-                PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
-              ]
-                ? {
-                    label: this.fieldGroupListViewModel.items?.find(
-                      (x) =>
-                        x.id ===
+              getValueSelected:
+                this.viewModel.fieldDetailViewModel?.formPropsData[
+                  PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
+                ] &&
+                this.viewModel.fieldDetailViewModel?.formPropsData[
+                  PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_NAME
+                ] !== 'PIM Field Groups'
+                  ? {
+                      label: this.fieldGroupListViewModel.items?.find(
+                        (x) =>
+                          x.id ===
+                          this.viewModel.fieldDetailViewModel?.formPropsData[
+                            PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
+                          ]
+                      )?.name,
+                      value:
                         this.viewModel.fieldDetailViewModel?.formPropsData[
                           PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
-                        ]
-                    )?.name,
-                    value:
-                      this.viewModel.fieldDetailViewModel?.formPropsData[
-                        PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID
-                      ],
-                  }
-                : [],
+                        ],
+                    }
+                  : [],
               getDataSelectOptions: this.fieldGroupListViewModel?.items?.length
                 ? this.fieldGroupListViewModel?.items?.map((item) => {
                     return {
@@ -206,9 +210,10 @@ const FieldInformation = observer(
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_FIELD_DETAIL_FIELD_KEY.FIELD_GROUP_ID,
-                  data.value
+                  data?.value ? data?.value : ''
                 );
               },
+              isClearable: true,
               placeholder: t('txt_select_group'),
               className: 'col-lg-12',
             },
