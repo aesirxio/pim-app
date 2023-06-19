@@ -216,7 +216,7 @@ class FormSelectionFields extends Component {
                   getValueSelected: selectedValue,
                   getDataSelectOptions: selectOptions,
                   isMulti: item?.attributes?.multiple,
-                  isClearable: true,
+                  isClearable: item?.attributes?.type === FORM_FIELD_TYPE.RADIO ? false : true,
                   ...(item?.attributes?.type === FORM_FIELD_TYPE.CALENDAR && {
                     dateFormat: 'yyyy-MM-dd',
                   }),
