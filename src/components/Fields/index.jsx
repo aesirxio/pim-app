@@ -110,11 +110,13 @@ const FieldsList = observer(
               ...group.fields?.map((field) => {
                 let dateFormatConverted = field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat;
                 if (field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.DATE) {
-                  dateFormatConverted = dateFormatConvert.convert(
-                    field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat,
-                    dateFormatConvert.datepicker,
-                    dateFormatConvert.momentJs
-                  );
+                  dateFormatConverted =
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat &&
+                    dateFormatConvert.convert(
+                      field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.altFormat,
+                      dateFormatConvert.datepicker,
+                      dateFormatConvert.momentJs
+                    );
                 }
                 let selectOptions =
                   field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED ||
