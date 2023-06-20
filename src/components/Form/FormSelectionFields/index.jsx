@@ -49,7 +49,7 @@ class FormSelectionFields extends Component {
         this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
         this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
       const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
-      if (!fieldListViewModel?.items?.length && isCategoryRelatedField) {
+      if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
         isTopCategoryField &&
           categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
         await Promise.all([
