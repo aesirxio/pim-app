@@ -72,9 +72,13 @@ const FormImage = ({ field, ...props }) => {
                           <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                         </div>
                         <ComponentImage
-                          src={JSON.parse(item)?.download_url}
+                          src={
+                            typeof item === 'object' && item !== null
+                              ? item?.download_url
+                              : JSON.parse(item)?.download_url
+                          }
                           alt={field.value}
-                          className="h-100"
+                          className="w-100 h-100 object-fit-contain"
                           wrapperClassName="h-100"
                         />
                       </div>
@@ -123,9 +127,13 @@ const FormImage = ({ field, ...props }) => {
                       <SVGComponent url="/assets/images/delete.svg" className={'bg-danger'} />
                     </div>
                     <ComponentImage
-                      src={file[0]?.download_url}
+                      src={
+                        typeof file[0] === 'object' && file[0] !== null
+                          ? file[0]?.download_url
+                          : JSON.parse(file[0])?.download_url
+                      }
                       alt={field.value}
-                      className="h-100"
+                      className="w-100 h-100 object-fit-contain"
                       wrapperClassName="h-100"
                     />
                   </>
