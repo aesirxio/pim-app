@@ -143,20 +143,19 @@ const EditCategory = observer(
                     title: t('txt_save'),
                     validator: this.validator,
                     handle: async () => {
-                      // this.handleAliasFormPropsData();
-                      // if (this.validator.allValid()) {
-                      //   if (this.isEdit) {
-                      //     await this.categoryDetailViewModel.update();
-                      //     await this.categoryDetailViewModel.initializeData();
-                      //     this.forceUpdate();
-                      //   } else {
-                      //     let result = await this.categoryDetailViewModel.create();
-                      //     historyPush(`/categories/edit/${result}`);
-                      //   }
-                      // } else {
-                      //   this.handleValidateForm();
-                      // }
-                      historyPush(`/categories/edit/2184`);
+                      this.handleAliasFormPropsData();
+                      if (this.validator.allValid()) {
+                        if (this.isEdit) {
+                          await this.categoryDetailViewModel.update();
+                          await this.categoryDetailViewModel.initializeData();
+                          this.forceUpdate();
+                        } else {
+                          let result = await this.categoryDetailViewModel.create();
+                          historyPush(`/categories/edit/${result}`);
+                        }
+                      } else {
+                        this.handleValidateForm();
+                      }
                     },
                     icon: '/assets/images/save.svg',
                     variant: 'success',
