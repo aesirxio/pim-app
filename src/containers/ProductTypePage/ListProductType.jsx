@@ -154,11 +154,13 @@ const ListProductType = observer((props) => {
       </div>
       <div className="mb-3">
         <Tabs
-          defaultActiveKey={'productTypeList'}
+          defaultActiveKey={viewModel?.successResponse?.filters['filter[published]'] ?? 'default'}
           id="tab-setting"
           onSelect={(k) => selectTabHandler(k)}
         >
-          <Tab key="productTypeList" eventKey="productTypeList" title={t('txt_all_product_type')} />
+          <Tab eventKey="default" title={t('txt_all_product_type')} />
+          <Tab key={1} eventKey={1} title={t('txt_published')} />
+          <Tab key={0} eventKey={0} title={t('txt_unpublished')} />
         </Tabs>
       </div>
       <div className="d-flex align-items-center justify-content-between gap-2 my-20">

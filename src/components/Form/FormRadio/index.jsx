@@ -4,7 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
-import { Form } from 'react-bootstrap';
+import { Button, Form } from 'react-bootstrap';
 
 const FormRadio = ({ field }) => {
   const [selectedValue, setSelectedValue] = useState(field.getValueSelected?.value);
@@ -15,11 +15,11 @@ const FormRadio = ({ field }) => {
   }, [field.getValueSelected?.value]);
 
   const handleChange = (data) => {
-    setSelectedValue(data.target.value);
+    setSelectedValue(data.target?.value);
     field.handleChange(data);
   };
   return (
-    <div className="d-flex align-items-center w-100">
+    <div className="d-flex align-items-center w-100 flex-wrap">
       {field.getDataSelectOptions?.map(
         (option, key) =>
           option.label && (
@@ -37,6 +37,19 @@ const FormRadio = ({ field }) => {
               checked={selectedValue === option.value}
             />
           )
+      )}
+      {field.isClearable && (
+        <div className="d-flex align-items-center w-100 mt-2">
+          <Button
+            variant="danger"
+            className="mx-1 py-1"
+            onClick={() => {
+              handleChange('');
+            }}
+          >
+            Clear All
+          </Button>
+        </div>
       )}
     </div>
   );

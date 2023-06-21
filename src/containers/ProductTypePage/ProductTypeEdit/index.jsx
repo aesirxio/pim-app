@@ -10,14 +10,13 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import PublishOptions from 'components/PublishOptions';
 import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import { withProductTypeViewModel } from '../ProductTypeViewModel/ProductTypeViewModelContextProvider';
 import ProductTypeInformation from './Component/ProductTypeInformation';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS, Spinner } from 'aesirx-uikit';
+import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
 import Input from 'components/Form/Input';
 import { historyPush } from 'routes/routes';
 
@@ -67,7 +66,10 @@ const EditProductType = observer(
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console
-      console.log('rerender ProductType', this.productTypeDetailViewModel);
+      console.log(
+        'rerender ProductType',
+        this.productTypeDetailViewModel.productTypeDetailViewModel.formPropsData
+      );
 
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
@@ -186,8 +188,8 @@ const EditProductType = observer(
                     this.productTypeDetailViewModel.productTypeDetailViewModel.formPropsData
                   }
                   isEdit={this.isEdit}
-                  isPublished={false}
                   isFeatured={false}
+                  isPublishedSimple={true}
                 />
               </Col>
             </Row>

@@ -71,16 +71,18 @@ const FormUrl = ({ field, ...props }) => {
           </div>
         );
       })}
-      <Button
-        variant={`light`}
-        className={`px-24 py-10 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1 mt-16`}
-        onClick={() => {
-          setListOptions([...listOptions, { url: '', title: '' }]);
-        }}
-      >
-        <SVGComponent url="/assets/images/plus.svg" className={`me-15`} />
-        {t('txt_add')}
-      </Button>
+      {(field?.isMulti || (!field?.isMulti && listOptions?.length < 1)) && (
+        <Button
+          variant={`light`}
+          className={`px-24 py-10 fw-semibold d-flex align-items-center rounded-1 border border-success border-da-1 mt-16`}
+          onClick={() => {
+            setListOptions([...listOptions, { url: '', title: '' }]);
+          }}
+        >
+          <SVGComponent url="/assets/images/plus.svg" className={`me-15`} />
+          {t('txt_add')}
+        </Button>
+      )}
     </>
   );
 };
