@@ -34,7 +34,7 @@ const FormColor = ({ field, ...props }) => {
     setDisplayColorPicker(!displayColorPicker);
   };
   const color = {
-    height: '30px',
+    height: '36px',
     borderRadius: '2px',
     background: `${colorSelected}`,
     width: '100%',
@@ -90,7 +90,7 @@ const FormColor = ({ field, ...props }) => {
               required={field.required ?? false}
               id={field.key}
               onPaste={field.pasted ?? undefined}
-              className={`${field.classNameInput}`}
+              className={`${field.classNameInput} py-14 lh-sm`}
               onChange={(e) => handleChangeInput(e)}
               onSelect={(e) => handleChangeInput(e)}
               onBlur={field.blurred ?? undefined}
