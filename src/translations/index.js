@@ -5,6 +5,7 @@ import common_hr from './hr/common.json';
 import common_th from './th/common.json';
 import common_ua from './ua/common.json';
 import common_vn from './vi/common.json';
+import common_fr from './fr/common.json';
 
 const appLanguages = {
   en: common_en,
@@ -14,6 +15,7 @@ const appLanguages = {
   hr: common_hr,
   uk: common_ua,
   es: common_es,
+  fr: common_fr,
 };
 
 export { appLanguages };
