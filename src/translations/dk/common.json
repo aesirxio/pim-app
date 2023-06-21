@@ -366,5 +366,6 @@
   "txt_type_price":"Typepris",
   "txt_type_retail_price":"Typ udsalgspris",
   "txt_type_quantity":"Type Antal",
-  "txt_type_debtor_code":"Skriv debitorkode"
+  "txt_type_debtor_code":"Skriv debitorkode",
+  "txt_all_product_types":"Alle produkttyper"
 }

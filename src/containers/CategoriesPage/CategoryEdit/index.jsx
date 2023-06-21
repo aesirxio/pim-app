@@ -10,13 +10,12 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 
-import { Col, Form, Row } from 'react-bootstrap';
+import { Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 import PublishOptions from 'components/PublishOptions';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import Input from 'components/Form/Input';
-import CategoryTab from './Component/CategoryTab';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';
@@ -25,7 +24,8 @@ import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel'
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { withRouter } from 'react-router-dom';
 import { historyPush } from 'routes/routes';
-
+import CategoryInformation from './Component/CategoryInformation';
+import FieldsTab from './Component/Fields';
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
 const EditCategory = observer(
@@ -37,11 +37,13 @@ const EditCategory = observer(
       super(props);
 
       this.viewModel = props.viewModel ? props.viewModel : null;
-      this.state = {};
-
+      this.state = { key: 'categoryInformation', requiredField: '' };
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
       this.categoryDetailViewModel = this.viewModel
         ? this.viewModel.getCategoryDetailViewModel()
+        : null;
+      this.categoryListViewModel = this.viewModel
+        ? this.viewModel.getCategoryListViewModel()
         : null;
       this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
       this.categoryDetailViewModel.setForm(this);
@@ -54,6 +56,8 @@ const EditCategory = observer(
         await this.categoryDetailViewModel.initializeData();
       }
       this.categoryDetailViewModel.handleAliasChange('');
+      this.categoryListViewModel.handleFilter({ 'list[limit]': 9999 });
+      this.categoryListViewModel.initializeDataCustom();
     }
 
     handleAliasFormPropsData() {
@@ -204,15 +208,48 @@ const EditCategory = observer(
                     }
                   )}
                 </Form.Group>
-                <FieldViewModelContextProvider viewModel={fieldViewModel}>
-                  <CategoryTab
-                    detailViewModal={this.categoryDetailViewModel}
-                    validator={this.validator}
-                    requiredField={this.state.requiredField}
-                    isEdit={this.isEdit}
-                    productType={this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID]}
-                  />
-                </FieldViewModelContextProvider>
+                <Tabs
+                  activeKey={this.state.key}
+                  id="tab-setting"
+                  onSelect={(k) =>
+                    this.setState((prevState) => {
+                      return {
+                        ...prevState,
+                        key: k,
+                      };
+                    })
+                  }
+                >
+                  <Tab eventKey="categoryInformation" title={t('txt_common_information')}>
+                    {this.state.key === 'categoryInformation' && (
+                      <CategoryInformation
+                        formPropsData={this.formPropsData}
+                        validator={this.validator}
+                        categoryListViewModel={this.categoryListViewModel}
+                        isEdit={this.isEdit}
+                      />
+                    )}
+                  </Tab>
+                  <Tab eventKey="fields" title={t('txt_fields')}>
+                    <FieldViewModelContextProvider viewModel={fieldViewModel}>
+                      <FieldsTab
+                        key={
+                          !this.categoryDetailViewModel.productType
+                            ? this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_ID]
+                            : this.categoryDetailViewModel.productType
+                        }
+                        detailViewModal={this.categoryDetailViewModel}
+                        fieldListViewModel={this.fieldListViewModel}
+                        formPropsData={
+                          this.categoryDetailViewModel.categoryDetailViewModel.formPropsData
+                        }
+                        validator={this.validator}
+                        requiredField={this.state.requiredField}
+                        productType={this.categoryDetailViewModel.productType}
+                      />
+                    </FieldViewModelContextProvider>
+                  </Tab>
+                </Tabs>
               </Col>
               <Col lg={3}>
                 <PublishOptions

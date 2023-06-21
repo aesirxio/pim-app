@@ -43,15 +43,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       required={field.required ?? false}
                     />
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   <Input field={field} />
@@ -71,15 +67,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       required={field.required ?? false}
                     />
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   <Input field={field} />
@@ -101,15 +93,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   <Form.Control
@@ -153,15 +141,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   {field.isVideo ? (
@@ -196,15 +180,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={''}
+                      />
                     )}
                   </div>
 
@@ -228,15 +208,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={''}
+                      />
                     )}
                   </div>
 
@@ -260,15 +236,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={''}
+                      />
                     )}
                   </div>
                   <FormRadio field={field} />
@@ -291,15 +263,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={''}
+                      />
                     )}
                   </div>
                   <FormCheckbox field={field} />
@@ -323,15 +291,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   <CustomizedDatePicker
@@ -365,15 +329,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   {field.isEditor === false ? (
@@ -409,15 +369,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       />
                     )}
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={''}
+                      />
                     )}
                   </div>
                   <FormColor field={field} />
@@ -438,15 +394,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       required={field.required ?? false}
                     />
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   <FormYoutube field={field} />
@@ -467,15 +419,11 @@ const renderingGroupFieldHandler = (group, validator) => {
                       required={field.required ?? false}
                     />
                     {field.description && (
-                      <>
-                        <FontAwesomeIcon
-                          data-tooltip-id={`tooltip-${field?.key}`}
-                          data-tooltip-html={field.description}
-                          className="mx-sm fs-12 mb-1"
-                          icon={faCircleInfo}
-                        />
-                        <Tooltip id={`tooltip-${field?.key}`} />
-                      </>
+                      <TooltipField
+                        key={field?.key}
+                        description={field?.description}
+                        defaultValue={field?.default}
+                      />
                     )}
                   </div>
                   <FormUrl field={field} />
@@ -495,6 +443,24 @@ const renderingGroupFieldHandler = (group, validator) => {
     .reduce((arr, el) => {
       return arr.concat(el);
     }, []);
+};
+
+const TooltipField = ({ key, description, defaultValue }) => {
+  return (
+    <>
+      <FontAwesomeIcon
+        data-tooltip-id={`tooltip-${key}`}
+        data-tooltip-html={
+          defaultValue
+            ? description + `</br>Default: <strong>${defaultValue}</strong>`
+            : description
+        }
+        className="mx-sm fs-12 mb-1"
+        icon={faCircleInfo}
+      />
+      <Tooltip id={`tooltip-${key}`} />
+    </>
+  );
 };
 
 export { renderingGroupFieldHandler };

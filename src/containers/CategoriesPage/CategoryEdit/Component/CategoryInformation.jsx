@@ -15,22 +15,20 @@ const utilsViewModel = new UtilsViewModel(utilsStore);
 const CategoryInformation = observer(
   class CategoryInformation extends Component {
     static contextType = CategoryViewModelContext;
-
     constructor(props) {
       super(props);
       this.utilsListViewModel = utilsViewModel.utilsListViewModel;
+      this.categoryListViewModel = this.props.categoryListViewModel;
     }
 
     async componentDidMount() {
-      this.context.categoryListViewModel.handleFilter({ 'list[limit]': 9999 });
-      this.context.categoryListViewModel.initializeDataCustom();
       this.utilsListViewModel.getListContentType({ 'filter[type]': 'category' });
     }
 
     render() {
       this.viewModel = this.context.categoryDetailViewModel;
       const { t, validator, isEdit } = this.props;
-      const filteredCategoryList = this.context.categoryListViewModel.items?.filter((category) => {
+      const filteredCategoryList = this.categoryListViewModel?.items?.filter((category) => {
         return (
           category.id !==
           this.viewModel.categoryDetailViewModel.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID]
@@ -118,7 +116,7 @@ const CategoryInformation = observer(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
                 ] !== 1
                   ? {
-                      label: this.context.categoryListViewModel.items?.find(
+                      label: this.categoryListViewModel?.items?.find(
                         (x) =>
                           x.id ===
                           this.viewModel.categoryDetailViewModel.formPropsData[
@@ -185,8 +183,8 @@ const CategoryInformation = observer(
         },
       ];
       return (
-        <div>
-          {(this.context.categoryListViewModel.formStatus === PAGE_STATUS.LOADING ||
+        <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
+          {(this.categoryListViewModel?.formStatus === PAGE_STATUS.LOADING ||
             this.context.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}

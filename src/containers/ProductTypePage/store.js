@@ -11,6 +11,17 @@ class ProductTypeStore {
     }
   }
 
+  async getListWithoutPagination() {
+    try {
+      const getListAPIService = new ProductTypeApiService();
+      const respondedData = await getListAPIService.getList({ 'list[limit]': 9999 });
+
+      return { error: false, response: respondedData };
+    } catch (error) {
+      return { error: true, response: error?.response?.data };
+    }
+  }
+
   async getDetail(id) {
     if (!id) return { error: false, response: false };
 

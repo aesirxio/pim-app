@@ -2,13 +2,10 @@ import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withDebtorGroupViewModel } from '../DebtorGroupViewModel/DebtorGroupViewModelContextProvider';
-import Table from 'components/Table';
-import { Spinner } from 'aesirx-uikit';
+import { Table, Spinner, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
 
 import { Tab, Tabs } from 'react-bootstrap';
-import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { notify } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 
 const ListDebtorGroup = observer((props) => {

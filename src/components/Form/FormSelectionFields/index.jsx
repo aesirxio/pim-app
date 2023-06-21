@@ -207,6 +207,64 @@ class FormSelectionFields extends Component {
                     PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
                   ][item?.attributes?.name] ?? null;
               }
+              if (
+                item?.attributes?.name === 'altFormat' ||
+                item?.attributes?.name === 'dateFormat'
+              ) {
+                item.attributes.type = FORM_FIELD_TYPE.LIST;
+                selectOptions =
+                  item?.attributes?.name === 'altFormat'
+                    ? [
+                        {
+                          label: 'yy-mm-dd',
+                          value: 'yy-mm-dd',
+                        },
+                        {
+                          label: 'dd-mm-yy',
+                          value: 'dd-mm-yy',
+                        },
+                        {
+                          label: 'mm-dd-yy',
+                          value: 'mm-dd-yy',
+                        },
+                      ]
+                    : [
+                        {
+                          label: 'Y - d - m',
+                          value: 'Y - d - m',
+                        },
+                        {
+                          label: 'd - m - Y',
+                          value: 'd - m - Y',
+                        },
+                        {
+                          label: 'm - d - Y',
+                          value: 'm - d - Y',
+                        },
+                      ];
+                let attributesName =
+                  this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                    PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                  ][item?.attributes?.name];
+                let fieldValue =
+                  attributesName && attributesName !== 'undefined'
+                    ? this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                        PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                      ][item?.attributes?.name]
+                    : item?.attributes?.default;
+                selectedValue = fieldValue
+                  ? {
+                      label: selectOptions?.find((x) => x.value?.toString() === fieldValue)?.label,
+                      value: fieldValue,
+                    }
+                  : null;
+              }
+              const isClearable =
+                item?.attributes?.type === FORM_FIELD_TYPE.RADIO ||
+                item?.attributes?.name === 'altFormat' ||
+                item?.attributes?.name === 'dateFormat'
+                  ? false
+                  : true;
               return (
                 item?.attributes?.label && {
                   label: item?.attributes?.label,
@@ -216,7 +274,8 @@ class FormSelectionFields extends Component {
                   getValueSelected: selectedValue,
                   getDataSelectOptions: selectOptions,
                   isMulti: item?.attributes?.multiple,
-                  isClearable: item?.attributes?.type === FORM_FIELD_TYPE.RADIO ? false : true,
+                  default: item?.attributes?.default,
+                  isClearable: isClearable,
                   ...(item?.attributes?.type === FORM_FIELD_TYPE.CALENDAR && {
                     dateFormat: 'yyyy-MM-dd',
                   }),

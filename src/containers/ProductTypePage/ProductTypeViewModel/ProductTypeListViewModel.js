@@ -23,6 +23,7 @@ class ProductTypeListViewModel {
     },
     listProductTypes: [],
     pagination: null,
+    listProductTypesWithoutPagination: [],
   };
 
   constructor(productTypeStore) {
@@ -43,6 +44,22 @@ class ProductTypeListViewModel {
     runInAction(() => {
       if (!data?.error) {
         this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+      this.successResponse.state = true;
+    });
+  };
+
+  initializeAllData = async () => {
+    runInAction(() => {
+      this.successResponse.state = false;
+    });
+    const data = await this.productTypeStore.getListWithoutPagination(this.successResponse.filters);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.callbackOnSuccessGetProductTypesHandler(data?.response);
       } else {
         this.onErrorHandler(data?.response);
       }
@@ -160,6 +177,16 @@ class ProductTypeListViewModel {
       } else {
         this.onErrorHandler(data?.response);
       }
+    });
+  };
+
+  callbackOnSuccessGetProductTypesHandler = (result) => {
+    this.successResponse.listProductTypesWithoutPagination = result.listItems.map((o) => {
+      let dash = '';
+      for (let index = 1; index < o.level; index++) {
+        dash += '- ';
+      }
+      return { value: o?.id, label: `${dash}${o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME]}` };
     });
   };
 

@@ -1,8 +1,7 @@
 import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
-import Table from 'components/Table';
+import { Table, Spinner } from 'aesirx-uikit';
 import { observer } from 'mobx-react-lite';
-import { Spinner } from 'aesirx-uikit';
 
 const ListFeaturedProducts = observer((props) => {
   const { t } = props;

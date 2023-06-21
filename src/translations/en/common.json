@@ -366,5 +366,6 @@
   "txt_type_price":"Type Price",
   "txt_type_retail_price":"Type Retail Price",
   "txt_type_quantity":"Type Quantity",
-  "txt_type_debtor_code":"Type Debtor Code"
+  "txt_type_debtor_code":"Type Debtor Code",
+  "txt_all_product_types":"All Product Types"
 }

@@ -363,5 +363,6 @@
   "txt_type_price": "Upišite cijenu",
   "txt_type_retail_price": "Upišite maloprodajnu cijenu",
   "txt_type_quantity": "Upišite količinu",
-  "txt_type_debtor_code": "Upišite šifru dužnika"
+  "txt_type_debtor_code": "Upišite šifru dužnika",
+  "txt_all_product_types": "Sve vrste proizvoda"
 }
