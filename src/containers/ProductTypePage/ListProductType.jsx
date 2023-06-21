@@ -1,5 +1,10 @@
-import { AesirXSelect, Spinner, notify } from 'aesirx-uikit';
-import Table from 'components/Table';
+import {
+  Table,
+  AesirXSelect,
+  Spinner,
+  notify,
+  AesirXSelect as SelectComponent,
+} from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation, withTranslation } from 'react-i18next';
@@ -13,6 +18,7 @@ const ListProductType = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.productTypeListViewModel;
   useEffect(() => {
+    viewModel.initializeAllData();
     viewModel.initializeData();
   }, []);
   const columnsTable = [
@@ -125,6 +131,11 @@ const ListProductType = observer((props) => {
     }
   };
 
+  const selectTypeHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('filter[parent_id]', value?.value);
+  };
+
   return (
     <div className="px-3 py-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
@@ -164,7 +175,29 @@ const ListProductType = observer((props) => {
         </Tabs>
       </div>
       <div className="d-flex align-items-center justify-content-between gap-2 my-20">
-        <div></div>
+        <div>
+          <SelectComponent
+            options={viewModel?.successResponse?.listProductTypesWithoutPagination}
+            defaultValue={
+              viewModel?.successResponse?.filters['filter[tree]']
+                ? {
+                    label: viewModel?.successResponse?.listProductTypesWithoutPagination.find(
+                      (o) => o.value == viewModel?.successResponse?.filters['filter[tree]']
+                    )?.label,
+                    value: viewModel?.successResponse?.filters['filter[tree]'],
+                  }
+                : null
+            }
+            className={`fs-sm bg-white shadow-sm rounded-2`}
+            isBorder={true}
+            placeholder={t('txt_all_product_types')}
+            onChange={(o) => selectTypeHandler(o)}
+            arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
+            minWidth={200}
+            isClearable={true}
+          />
+        </div>
         <div className="d-flex align-items-center">
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <AesirXSelect

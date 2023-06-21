@@ -3,8 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from '../FieldViewModel/FieldViewModelContextProvider';
-import Table from 'components/Table';
-import { Spinner } from 'aesirx-uikit';
+import { Table, Spinner } from 'aesirx-uikit';
 
 import { Tab, Tabs } from 'react-bootstrap';
 import { AesirXSelect as SelectComponent } from 'aesirx-uikit';

@@ -365,5 +365,6 @@
    "txt_type_price":"ประเภทราคา",
    "txt_type_retail_price":"ประเภทราคาขายปลีก",
    "txt_type_quantity":"ประเภทจำนวน",
-   "txt_type_debtor_code":"พิมพ์รหัสลูกหนี้"
+   "txt_type_debtor_code":"พิมพ์รหัสลูกหนี้",
+   "txt_all_product_types":"ประเภทผลิตภัณฑ์ทั้งหมด"
 }

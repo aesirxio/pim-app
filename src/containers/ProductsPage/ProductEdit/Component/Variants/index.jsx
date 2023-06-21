@@ -1,9 +1,8 @@
-import { SVGComponent } from 'aesirx-uikit';
+import { Table, SVGComponent } from 'aesirx-uikit';
 import FormRadio from 'components/Form/FormRadio';
 import FormSelection from 'components/Form/FormSelection';
 import Input from 'components/Form/Input';
 import Label from 'components/Form/Label';
-import Table from 'components/Table';
 import { Helper, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { useState } from 'react';
 import { Button, Col, Form, Row } from 'react-bootstrap';

@@ -1,11 +1,9 @@
 import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { withProductViewModel } from '../ProductViewModel/ProductViewModelContextProvider';
-import Table from 'components/Table';
-import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { Spinner, notify } from 'aesirx-uikit';
+import { Table, Spinner, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
 import ActionsBar from 'components/ActionsBar';
 import DateRangePicker from 'components/DateRangePicker';
 import { historyPush } from 'routes/routes';

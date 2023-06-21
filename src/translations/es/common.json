@@ -364,5 +364,6 @@
   "txt_type_price":"Digite o preço",
   "txt_type_retail_price":"Digite o preço de varejo",
   "txt_type_quantity":"Inserir quantidade",
-  "txt_type_debtor_code":"Digite o código do devedor"
+  "txt_type_debtor_code":"Digite o código do devedor",
+  "txt_all_product_types":"Todos os tipos de produtos"
 }
