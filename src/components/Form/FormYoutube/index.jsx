@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
@@ -14,12 +14,15 @@ const FormYoutube = ({ field, ...props }) => {
   const [listOptions, setListOptions] = useState(
     field?.getValueSelected?.length ? field?.getValueSelected : ['']
   );
+  useEffect(() => {
+    field?.getValueSelected && setListOptions(field?.getValueSelected);
+  }, []);
   return (
     <>
       {listOptions?.map((option, index) => {
         return (
           <div key={`${index}`} className="position-relative">
-            <Row className="mt-16 gx-24">
+            <Row className="mb-16 gx-24">
               <Col xs={12}>
                 <div className="d-flex">
                   <div className="w-100">
