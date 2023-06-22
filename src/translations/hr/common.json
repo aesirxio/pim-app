@@ -364,5 +364,10 @@
   "txt_type_retail_price": "Upišite maloprodajnu cijenu",
   "txt_type_quantity": "Upišite količinu",
   "txt_type_debtor_code": "Upišite šifru dužnika",
-  "txt_all_product_types": "Sve vrste proizvoda"
+  "txt_all_product_types": "Sve vrste proizvoda",
+  "txt_left_menu_brand": "Robna marka",
+  "txt_brand": "Robna marka",
+  "txt_brand_name": "Naziv robne marke",
+  "txt_add_brand_name": "Dodaj naziv marke",
+  "txt_all_brand": "Sve marke"
 }

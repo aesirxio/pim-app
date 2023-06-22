@@ -365,5 +365,10 @@
   "txt_type_retail_price":"Digite o preço de varejo",
   "txt_type_quantity":"Inserir quantidade",
   "txt_type_debtor_code":"Digite o código do devedor",
-  "txt_all_product_types":"Todos os tipos de produtos"
+  "txt_all_product_types":"Todos os tipos de produtos",
+  "txt_left_menu_brand": "Marca",
+   "txt_brand": "Marca",
+   "txt_brand_name": "Nome da marca",
+   "txt_add_brand_name": "Adicionar nome da marca",
+   "txt_all_brand": "Todas as marcas"
 }

@@ -367,5 +367,10 @@
   "txt_type_retail_price":"Type Retail Price",
   "txt_type_quantity":"Type Quantity",
   "txt_type_debtor_code":"Type Debtor Code",
-  "txt_all_product_types":"All Product Types"
+  "txt_all_product_types":"All Product Types",
+  "txt_left_menu_brand": "Brand",
+  "txt_brand": "Brand",
+  "txt_brand_name": "Brand Name",
+  "txt_add_brand_name": "Add Brand Name",
+  "txt_all_brand": "All Brand"
 }
