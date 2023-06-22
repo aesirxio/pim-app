@@ -1,10 +1,4 @@
-import {
-  Table,
-  AesirXSelect,
-  Spinner,
-  notify,
-  AesirXSelect as SelectComponent,
-} from 'aesirx-uikit';
+import { Table, AesirXSelect, Spinner, notify } from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation, withTranslation } from 'react-i18next';

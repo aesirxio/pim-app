@@ -3,7 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withFieldGroupViewModel } from '../FieldGroupViewModel/FieldGroupViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
-import { Table, Spinner, AesirXSelect as SelectComponent, notify  } from 'aesirx-uikit';
+import { Table, Spinner, AesirXSelect as SelectComponent, notify } from 'aesirx-uikit';
 import { Tab, Tabs } from 'react-bootstrap';
 import { historyPush } from 'routes/routes';
 

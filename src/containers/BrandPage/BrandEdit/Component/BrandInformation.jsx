@@ -19,9 +19,7 @@ const BrandInformation = observer(
       const filteredBrandList = this.viewModel?.brandList?.filter((item) => {
         return (
           item.id !==
-          this.viewModel.brandDetailViewModel.formPropsData[
-            PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID
-          ]
+          this.viewModel.brandDetailViewModel.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]
         );
       });
 
