@@ -159,7 +159,7 @@ const FieldsList = observer(
                           label: selectOptions.find(
                             (x) => x.value?.toString() === fieldValue?.toString()
                           )?.label,
-                          value: fieldValue,
+                          value: fieldValue?.toString(),
                         }
                       : null;
                   }
