@@ -230,8 +230,8 @@ class FormSelectionFields extends Component {
                       ]
                     : [
                         {
-                          label: 'Y - d - m',
-                          value: 'Y - d - m',
+                          label: 'Y - m - d',
+                          value: 'Y - m - d',
                         },
                         {
                           label: 'd - m - Y',
