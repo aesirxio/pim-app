@@ -367,5 +367,10 @@
   "txt_type_retail_price":"Typ udsalgspris",
   "txt_type_quantity":"Type Antal",
   "txt_type_debtor_code":"Skriv debitorkode",
-  "txt_all_product_types":"Alle produkttyper"
+  "txt_all_product_types":"Alle produkttyper",
+  "txt_left_menu_brand": "Mærke",
+  "txt_brand": "Mærke",
+  "txt_brand_name": "Mærkenavn",
+  "txt_add_brand_name": "Tilføj brandnavn",
+  "txt_all_brand": "Alle mærker"
 }

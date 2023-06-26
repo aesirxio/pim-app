@@ -56,6 +56,12 @@ const mainMenu = [
     icons_color: '/assets/images/product-type.svg',
   },
   {
+    text: 'txt_left_menu_brand',
+    link: `/brands`,
+    icons: '/assets/images/brand.svg',
+    icons_color: '/assets/images/brand.svg',
+  },
+  {
     text: 'txt_left_menu_member_list',
     link: `/members`,
     icons: '/assets/images/member-list.svg',

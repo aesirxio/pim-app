@@ -360,5 +360,10 @@
   "txt_type_retail_price":"Loại giá bán lẻ",
   "txt_type_quantity":"Loại số lượng",
   "txt_type_debtor_code":"Nhập mã bên nợ",
-  "txt_all_product_types":"Tất cả các loại sản phẩm"
+  "txt_all_product_types":"Tất cả các loại sản phẩm",
+  "txt_left_menu_brand": "Thương hiệu",
+  "txt_brand": "Thương hiệu",
+  "txt_brand_name": "Tên thương hiệu",
+  "txt_add_brand_name": "Thêm tên thương hiệu",
+  "txt_all_brand": "Tất cả thương hiệu"
 }

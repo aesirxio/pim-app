@@ -30,6 +30,8 @@ const DebtorGroupPage = lazy(() => import('../containers/DebtorGroupPage'));
 const FieldsGroupPage = lazy(() => import('../containers/FieldsGroupPage'));
 const ProductTypePage = lazy(() => import('../containers/ProductTypePage'));
 const EditProductTypeProvider = lazy(() => import('containers/ProductTypePage/edit'));
+const BrandPage = lazy(() => import('../containers/BrandPage'));
+const EditBrandProvider = lazy(() => import('containers/BrandPage/edit'));
 
 const authRoutes = [
   {
@@ -180,6 +182,21 @@ const mainRoutes = [
     path: ['/product-types/add'],
     exact: true,
     main: () => <EditProductTypeProvider />,
+  },
+  {
+    path: ['/brands'],
+    exact: true,
+    main: () => <BrandPage />,
+  },
+  {
+    path: ['/brands/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditBrandProvider match={match} />,
+  },
+  {
+    path: ['/brands/add'],
+    exact: true,
+    main: () => <EditBrandProvider />,
   },
 ];
 

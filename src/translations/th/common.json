@@ -366,5 +366,10 @@
    "txt_type_retail_price":"ประเภทราคาขายปลีก",
    "txt_type_quantity":"ประเภทจำนวน",
    "txt_type_debtor_code":"พิมพ์รหัสลูกหนี้",
-   "txt_all_product_types":"ประเภทผลิตภัณฑ์ทั้งหมด"
+   "txt_all_product_types":"ประเภทผลิตภัณฑ์ทั้งหมด",
+   "txt_left_menu_brand": "แบรนด์",
+   "txt_brand": "แบรนด์",
+   "txt_brand_name": "ชื่อแบรนด์",
+   "txt_add_brand_name": "เพิ่มชื่อแบรนด์",
+   "txt_all_brand": "ทุกยี่ห้อ"
 }

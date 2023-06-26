@@ -365,5 +365,10 @@
   "txt_type_price":"Tapez le prix",
   "txt_type_retail_price":"Tapez le prix de détail",
   "txt_type_quantity":"Type Quantité",
-  "txt_type_debtor_code": "Saisir le code du débiteur"
+  "txt_type_debtor_code": "Saisir le code du débiteur",
+  "txt_left_menu_brand": "Marque",
+  "txt_brand": "Marque",
+  "txt_brand_name": "Nom de la marque",
+  "txt_add_brand_name": "Ajouter un nom de marque",
+  "txt_all_brand": "Toutes les marques"
 }

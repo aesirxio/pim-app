@@ -364,5 +364,10 @@
   "txt_type_retail_price":"Введіть роздрібну ціну",
   "txt_type_quantity":"Введіть кількість",
   "txt_type_debtor_code": "Введіть код боржника",
-  "txt_all_product_types":"Усі типи продуктів"
+  "txt_all_product_types":"Усі типи продуктів",
+  "txt_left_menu_brand": "Бренд",
+  "txt_brand": "Бренд",
+  "txt_brand_name": "Назва торгової марки",
+  "txt_add_brand_name": "Додати назву бренду",
+  "txt_all_brand": "Усі марки"
 }
