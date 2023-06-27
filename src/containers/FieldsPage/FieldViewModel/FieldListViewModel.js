@@ -13,6 +13,7 @@ class FieldListViewModel {
   formStatus = PAGE_STATUS.READY;
   fieldListViewModel = null;
   items = [];
+  itemsRelated = [];
   pagination = {};
   groupList = [];
   filter = {};
@@ -38,30 +39,70 @@ class FieldListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    await this.fieldStore.getList(
-      this.filter,
-      this.filterList,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+
+    const data = await this.fieldStore.getList(this.filter, this.filterList);
+    const listPublish = await this.fieldStore.getListPublishStatus(
+      this.onSuccessHandler,
+      this.onErrorHandler
     );
 
-    await this.fieldStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+      if (!listPublish?.error) {
+        this.onSuccessHandler(listPublish?.response, '');
+      } else {
+        this.onErrorHandler(listPublish?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   initializeDataCustom = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-    await this.fieldStore.getList(
-      this.filter,
-      this.filterList,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.fieldStore.getList(this.filter, this.filterList);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+      this.formStatus = PAGE_STATUS.READY;
+    });
+  };
+
+  initializeDataRelated = async () => {
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+
+    const dataItem = await this.fieldStore.getList(
+      { 'filter[fieldtypes]': 'item_related' },
+      {
+        limit: 9999,
+      }
     );
+    const dataCategory = await this.fieldStore.getList(
+      { 'filter[fieldtypes]': 'category_related' },
+      {
+        limit: 9999,
+      }
+    );
+
+    runInAction(() => {
+      if (!dataItem?.error && !dataCategory?.error) {
+        this.onSuccessRelatedHandler(dataItem?.response, dataCategory?.response);
+      } else {
+        this.onErrorHandler(dataItem?.response);
+      }
+      this.formStatus = PAGE_STATUS.READY;
+    });
   };
 
   getListByFilter = async (key, value) => {
@@ -83,14 +124,14 @@ class FieldListViewModel {
       }
     }
 
-    await this.fieldStore.getList(
-      this.filter,
-      this.filterList,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.fieldStore.getList(this.filter, this.filterList);
 
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
@@ -128,19 +169,17 @@ class FieldListViewModel {
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.fieldStore.updateStatus(
-      arr,
-      status,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const res = await this.fieldStore.updateStatus(arr, status);
+
     if (res) {
-      await this.fieldStore.getList(
-        this.filter,
-        this.filterList,
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler
-      );
+      const data = await this.fieldStore.getList(this.filter, this.filterList);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, 'Updated successfully');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+      });
     }
     runInAction(() => {
       this.successResponse.state = true;
@@ -148,36 +187,32 @@ class FieldListViewModel {
   };
 
   deleteFields = async (arr) => {
-    const res = await this.fieldStore.deleteFields(
-      arr,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const res = await this.fieldStore.deleteFields(arr);
+
     if (res) {
-      await this.fieldStore.getList(
-        this.filter,
-        this.filterList,
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler
-      );
+      const data = await this.fieldStore.getList(this.filter, this.filterList);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, 'Deleted successfully');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+      });
     }
     runInAction(() => {
       this.successResponse.state = true;
     });
   };
 
-  callbackOnErrorHandler = (error) => {
-    error._messages[0]?.message
+  onErrorHandler = (error) => {
+    Array.isArray(error?._messages) && error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
       : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
-    this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
-    this.formStatus = PAGE_STATUS.READY;
-
+  onSuccessHandler = (result, message) => {
     if (result?.items) {
       this.items = result.items;
       this.pagination = result.pagination;
@@ -188,6 +223,15 @@ class FieldListViewModel {
     }
     if (result && message) {
       notify(message, 'success');
+    }
+  };
+
+  onSuccessRelatedHandler = (dataItem, dataCategory) => {
+    if (dataItem?.items && dataCategory?.items) {
+      this.itemsRelated = [
+        { key: 'item_related', options: dataItem.items },
+        { key: 'category_related', options: dataCategory.items },
+      ];
     }
   };
 
@@ -213,6 +257,12 @@ class FieldListViewModel {
   isLoading = () => {
     runInAction(() => {
       this.successResponse.state = false;
+    });
+  };
+
+  resetRelatedItemsList = () => {
+    runInAction(() => {
+      this.itemsRelated = [];
     });
   };
 }

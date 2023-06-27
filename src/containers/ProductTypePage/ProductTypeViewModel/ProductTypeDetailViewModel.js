@@ -85,7 +85,7 @@ class ProductTypeDetailViewModel {
   };
 
   onErrorHandler = (error) => {
-    error._messages[0]?.message
+    Array.isArray(error?._messages) && error._messages[0]?.messageerror._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
       : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
