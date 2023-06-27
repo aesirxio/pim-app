@@ -372,5 +372,6 @@
   "txt_brand": "Mærke",
   "txt_brand_name": "Mærkenavn",
   "txt_add_brand_name": "Tilføj brandnavn",
-  "txt_all_brand": "Alle mærker"
+  "txt_all_brand": "Alle mærker",
+  "txt_select_brand": "Vælg mærke"
 }

@@ -370,5 +370,6 @@
   "txt_brand": "Marque",
   "txt_brand_name": "Nom de la marque",
   "txt_add_brand_name": "Ajouter un nom de marque",
-  "txt_all_brand": "Toutes les marques"
+  "txt_all_brand": "Toutes les marques",
+  "txt_select_brand": "Sélectionner une marque"
 }

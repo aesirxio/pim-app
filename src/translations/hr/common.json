@@ -369,5 +369,6 @@
   "txt_brand": "Robna marka",
   "txt_brand_name": "Naziv robne marke",
   "txt_add_brand_name": "Dodaj naziv marke",
-  "txt_all_brand": "Sve marke"
+  "txt_all_brand": "Sve marke",
+  "txt_select_brand": "Odaberi marku"
 }

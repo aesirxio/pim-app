@@ -1,5 +1,5 @@
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
-import { PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_BRAND_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { renderingGroupFieldHandler } from 'utils/form';
@@ -21,6 +21,7 @@ const CommonInformation = observer(
       super(props);
       this.utilsListViewModel = utilsViewModel.utilsListViewModel;
       this.categoryListViewModel = this.props.categoryListViewModel;
+      this.brandListViewModel = this.props.brandListViewModel;
     }
 
     async componentDidMount() {
@@ -131,13 +132,73 @@ const CommonInformation = observer(
               handleChange: (data) => {
                 this.viewModel.productDetailViewModel.formPropsData[
                   PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME
-                ] = data.label;
+                ] = data ? data.label : '';
                 this.viewModel.productDetailViewModel.formPropsData[
                   PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_ID
-                ] = data.value;
+                ] = data ? data.value : '';
               },
               placeholder: t('txt_select_category'),
               className: 'col-lg-12',
+              isClearable: true,
+            },
+            {
+              label: 'txt_brand',
+              key: 'content_type_brand',
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_brand'] &&
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_brand']?.constructor.name === 'Object'
+                  ? {
+                      label:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_brand']?.title,
+                      value:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_brand']?.id,
+                    }
+                  : this.viewModel.productDetailViewModel.formPropsData[
+                      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                    ]['content_type_brand']
+                  ? {
+                      label:
+                        this.brandListViewModel?.successResponse?.listBrandsWithoutPagination?.find(
+                          (o) =>
+                            o?.value?.toString() ===
+                            this.viewModel.productDetailViewModel.formPropsData[
+                              PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                            ]['content_type_brand']?.toString()
+                        )?.label,
+                      value:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_brand'],
+                    }
+                  : null,
+              getDataSelectOptions: this.brandListViewModel?.successResponse
+                ?.listBrandsWithoutPagination
+                ? this.brandListViewModel?.successResponse?.listBrandsWithoutPagination.map(
+                    (item) => {
+                      return {
+                        label: item?.label,
+                        value: item?.value,
+                      };
+                    }
+                  )
+                : [],
+              handleChange: (data) => {
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_brand'] = data ? data.value : '';
+              },
+              placeholder: t('txt_select_brand'),
+              className: 'col-lg-12',
+              isClearable: true,
             },
             // {
             //   label: 'txt_tags',
@@ -179,7 +240,8 @@ const CommonInformation = observer(
       ];
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-          {this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {(this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING ||
+            this.brandListViewModel.successResponse.state === false) && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)

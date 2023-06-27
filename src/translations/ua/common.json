@@ -369,5 +369,6 @@
   "txt_brand": "Бренд",
   "txt_brand_name": "Назва торгової марки",
   "txt_add_brand_name": "Додати назву бренду",
-  "txt_all_brand": "Усі марки"
+  "txt_all_brand": "Усі марки",
+  "txt_select_brand": "Виберіть бренд"
 }
