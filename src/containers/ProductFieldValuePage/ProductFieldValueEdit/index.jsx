@@ -10,44 +10,45 @@ import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
-import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
-import { withBrandViewModel } from '../BrandViewModel/BrandViewModelContextProvider';
+import { withProductFieldValueViewModel } from '../ProductFieldValueViewModel/ProductFieldValueViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
 import Input from 'components/Form/Input';
 import { historyPush } from 'routes/routes';
+import ProductFieldValueInformation from './Component/ProductFieldValueInformation';
 
-const EditBrand = observer(
-  class EditBrand extends Component {
-    brandDetailViewModel = null;
-    formPropsData = { [PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
+const EditProductFieldValue = observer(
+  class EditProductFieldValue extends Component {
+    productFieldValueDetailViewModel = null;
+    formPropsData = { [PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.CUSTOM_FIELDS]: {} };
     isEdit = false;
     constructor(props) {
       super(props);
       this.state = {};
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
-      this.brandDetailViewModel = props.model?.brandDetailViewModel
-        ? props.model?.brandDetailViewModel
+      this.productFieldValueDetailViewModel = props.model?.productFieldValueDetailViewModel
+        ? props.model?.productFieldValueDetailViewModel
         : null;
 
-      this.brandDetailViewModel.setForm(this);
+      this.productFieldValueDetailViewModel.setForm(this);
       this.isEdit = props.match.params?.id ? true : false;
     }
 
     async componentDidMount() {
       const { match } = this.props;
       if (this.isEdit) {
-        this.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID] = match.params?.id;
-        await this.brandDetailViewModel.initializeData();
+        this.formPropsData[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.ID] = match.params?.id;
+        await this.productFieldValueDetailViewModel.initializeData();
       }
-      await this.brandDetailViewModel.getBrandList();
-      this.brandDetailViewModel.handleAliasChange('');
+      await this.productFieldValueDetailViewModel.getProductFieldValueList();
+      this.productFieldValueDetailViewModel.handleAliasChange('');
     }
 
     handleValidateForm() {
-      if (this.validator.fields['Brand Name'] === true) {
+      if (this.validator.fields['ProductFieldValue Name'] === true) {
         this.setState((prevState) => {
           return {
             ...prevState,
@@ -59,25 +60,28 @@ const EditBrand = observer(
     }
 
     debouncedChangeHandler = _.debounce((value) => {
-      this.brandDetailViewModel.handleAliasChange(value);
+      this.productFieldValueDetailViewModel.handleAliasChange(value);
     }, 300);
 
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console
-      console.log('rerender Brand', this.brandDetailViewModel.brandDetailViewModel.formPropsData);
+      console.log(
+        'rerender ProductFieldValue',
+        this.productFieldValueDetailViewModel.productFieldValueDetailViewModel.formPropsData
+      );
 
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
-          {this.brandDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
+          {this.productFieldValueDetailViewModel.formStatus === PAGE_STATUS.LOADING && (
             <Spinner className="spinner-overlay" />
           )}
           <div className="d-flex align-items-center justify-content-between mb-24 flex-wrap">
             <EditHeader
               props={this.props}
-              title={t('txt_brand')}
+              title={t('txt_product_fieldvalue')}
               isEdit={this.isEdit}
-              redirectUrl={'/brands'}
+              redirectUrl={'/product-fieldvalue'}
             />
             <div className="position-relative">
               <ActionsBar
@@ -85,7 +89,7 @@ const EditBrand = observer(
                   {
                     title: t('txt_cancel'),
                     handle: async () => {
-                      historyPush(`/brands`);
+                      historyPush(`/product-fieldvalue`);
                     },
                     icon: '/assets/images/cancel.svg',
                   },
@@ -94,10 +98,10 @@ const EditBrand = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         const result = this.isEdit
-                          ? await this.brandDetailViewModel.update()
-                          : await this.brandDetailViewModel.create();
+                          ? await this.productFieldValueDetailViewModel.update()
+                          : await this.productFieldValueDetailViewModel.create();
                         if (!result?.error) {
-                          historyPush(`/brands`);
+                          historyPush(`/product-fieldvalue`);
                         }
                       } else {
                         this.handleValidateForm();
@@ -110,13 +114,13 @@ const EditBrand = observer(
                     handle: async () => {
                       if (this.validator.allValid()) {
                         if (this.isEdit) {
-                          await this.brandDetailViewModel.update();
-                          await this.brandDetailViewModel.initializeData();
+                          await this.productFieldValueDetailViewModel.update();
+                          await this.productFieldValueDetailViewModel.initializeData();
                           this.forceUpdate();
                         } else {
-                          const result = await this.brandDetailViewModel.create();
+                          const result = await this.productFieldValueDetailViewModel.create();
                           if (!result?.error) {
-                            historyPush(`/brands/edit/${result?.response}`);
+                            historyPush(`/product-fieldvalue/edit/${result?.response}`);
                           }
                         }
                       } else {
@@ -137,49 +141,51 @@ const EditBrand = observer(
                   <Input
                     field={{
                       getValueSelected:
-                        this.brandDetailViewModel.brandDetailViewModel.formPropsData[
-                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME
-                        ],
+                        this.productFieldValueDetailViewModel.productFieldValueDetailViewModel
+                          .formPropsData[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE],
                       classNameInput: 'py-10 fs-4',
-                      placeholder: t('txt_add_brand_name'),
+                      placeholder: t('txt_add_product_fieldvalue'),
                       handleChange: (event) => {
-                        this.brandDetailViewModel.handleFormPropsData(
-                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME,
+                        this.productFieldValueDetailViewModel.handleFormPropsData(
+                          PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE,
                           event.target.value
                         );
                       },
                       required: true,
                       validation: 'required',
                       blurred: () => {
-                        this.validator.showMessageFor(t('txt_brand_name'));
+                        this.validator.showMessageFor(t('txt_product_fieldvalue'));
                       },
                     }}
                   />
                   {this.validator.message(
-                    t('txt_brand_name'),
-                    this.brandDetailViewModel.brandDetailViewModel.formPropsData[
-                      PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME
-                    ],
+                    t('txt_product_fieldvalue'),
+                    this.productFieldValueDetailViewModel.productFieldValueDetailViewModel
+                      .formPropsData[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE],
                     'required',
                     {
                       className: 'text-danger mt-8px',
                     }
                   )}
                 </Form.Group>
-                {/* <BrandInformation
+                <ProductFieldValueInformation
                   validator={this.validator}
                   messagesShown={this.validator.messagesShown}
                   isEdit={this.isEdit}
                   formPropsData={
-                    this.brandDetailViewModel.brandDetailViewModel.formPropsData
+                    this.productFieldValueDetailViewModel.productFieldValueDetailViewModel
+                      .formPropsData
                   }
                   {...this.props}
-                /> */}
+                />
               </Col>
               <Col lg={3}>
                 <PublishOptions
-                  detailViewModal={this.brandDetailViewModel}
-                  formPropsData={this.brandDetailViewModel.brandDetailViewModel.formPropsData}
+                  detailViewModal={this.productFieldValueDetailViewModel}
+                  formPropsData={
+                    this.productFieldValueDetailViewModel.productFieldValueDetailViewModel
+                      .formPropsData
+                  }
                   isEdit={this.isEdit}
                   isFeatured={false}
                   isPublished={false}
@@ -193,4 +199,4 @@ const EditBrand = observer(
   }
 );
 
-export default withTranslation()(withRouter(withBrandViewModel(EditBrand)));
+export default withTranslation()(withRouter(withProductFieldValueViewModel(EditProductFieldValue)));
