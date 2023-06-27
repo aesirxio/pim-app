@@ -3,7 +3,7 @@
  * @license     GNU General Public License version 3, see LICENSE.
  */
 
-import { SVGComponent } from 'aesirx-uikit';
+import { PAGE_STATUS, SVGComponent } from 'aesirx-uikit';
 import { FORM_FIELD_TYPE } from 'constants/FormFieldType';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY, PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
@@ -45,20 +45,20 @@ class FormSelectionFields extends Component {
   };
   componentDidMount = () => {
     const fetchData = async () => {
-      const isCategoryRelatedField =
+      const isCategoryRelatedField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
+      categoryListViewModel.resetItemsList();
+      fieldListViewModel.resetRelatedItemsList();
+      if (
         this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
-        this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
-      const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
-      if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
-        isTopCategoryField &&
+        this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED
+      ) {
+        isCategoryRelatedField &&
           categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
         await Promise.all([
-          isTopCategoryField
+          isCategoryRelatedField
             ? categoryListViewModel.initializeDataCustom()
             : categoryListViewModel.getListByFilter('list[limit]', 9999),
-          fieldListViewModel.handleFilterList({ limit: 9999 }),
-          fieldListViewModel.handleFilter({ 'filter[fieldtypes]': 'item_related' }),
-          fieldListViewModel.initializeDataCustom(),
+          fieldListViewModel.initializeDataRelated(),
         ]).then(() => {
           this.forceUpdate();
         });
@@ -67,40 +67,37 @@ class FormSelectionFields extends Component {
     fetchData();
   };
   componentDidUpdate = (prevProps) => {
-    if (prevProps.field.getValueSelected !== this.props.field.getValueSelected) {
-      this.setState((prevState) => {
-        return {
-          ...prevState,
-          field: this.props.field.getValueSelected,
-        };
-      });
+    if (
+      prevProps.field.getValueSelected !==
+      this.props.field.viewModel.fieldDetailViewModel.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.TYPE]
+    ) {
+      this.state.listOptions.length &&
+        this.props.field.viewModel.handleFormPropsData(
+          [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
+          [...this.state.listOptions]
+        );
+      const fetchData = async () => {
+        const isCategoryRelatedField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
+        if (
+          !categoryListViewModel?.items?.length &&
+          !fieldListViewModel?.itemsRelated?.length &&
+          (this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
+            this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED)
+        ) {
+          isCategoryRelatedField &&
+            categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
+          await Promise.all([
+            isCategoryRelatedField
+              ? categoryListViewModel.initializeDataCustom()
+              : categoryListViewModel.getListByFilter('list[limit]', 9999),
+            fieldListViewModel.initializeDataRelated(),
+          ]).then(() => {
+            this.forceUpdate();
+          });
+        }
+      };
+      fetchData();
     }
-    this.state.listOptions.length &&
-      this.props.field.viewModel.handleFormPropsData(
-        [PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS],
-        [...this.state.listOptions]
-      );
-    const fetchData = async () => {
-      const isCategoryRelatedField =
-        this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
-        this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
-      const isTopCategoryField = this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED;
-      if (!categoryListViewModel?.items?.length && isCategoryRelatedField) {
-        isTopCategoryField &&
-          categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
-        await Promise.all([
-          isTopCategoryField
-            ? categoryListViewModel.initializeDataCustom()
-            : categoryListViewModel.getListByFilter('list[limit]', 9999),
-          fieldListViewModel.handleFilterList({ limit: 9999 }),
-          fieldListViewModel.handleFilter({ 'filter[fieldtypes]': 'item_related' }),
-          fieldListViewModel.initializeDataCustom(),
-        ]).then(() => {
-          this.forceUpdate();
-        });
-      }
-    };
-    fetchData();
   };
   render() {
     const { t, validator } = this.props;
@@ -141,22 +138,47 @@ class FormSelectionFields extends Component {
                       };
                     })
                   : item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD &&
-                    fieldListViewModel?.items?.length
-                  ? fieldListViewModel?.items
-                      .map((item) => {
-                        return {
-                          label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
-                          value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-                        };
-                      })
-                      ?.filter((item) => {
-                        return (
-                          item.value !==
-                          this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                            PIM_FIELD_DETAIL_FIELD_KEY.ID
-                          ]
-                        );
-                      })
+                    fieldListViewModel?.itemsRelated?.length
+                  ? [
+                      {
+                        label: 'Item Related',
+                        options: fieldListViewModel?.itemsRelated
+                          .find((o) => o?.key === 'item_related')
+                          ?.options?.map((item) => {
+                            return {
+                              label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+                              value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+                            };
+                          })
+                          ?.filter((item) => {
+                            return (
+                              item.value !==
+                              this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                                PIM_FIELD_DETAIL_FIELD_KEY.ID
+                              ]
+                            );
+                          }),
+                      },
+                      {
+                        label: 'Category Related',
+                        options: fieldListViewModel?.itemsRelated
+                          .find((o) => o?.key === 'category_related')
+                          ?.options?.map((item) => {
+                            return {
+                              label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+                              value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+                            };
+                          })
+                          ?.filter((item) => {
+                            return (
+                              item.value !==
+                              this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                                PIM_FIELD_DETAIL_FIELD_KEY.ID
+                              ]
+                            );
+                          }),
+                      },
+                    ]
                   : item?.options?.map((item) => {
                       return { label: item?.label, value: item?.value?.toString() };
                     }) ?? [];
@@ -193,13 +215,26 @@ class FormSelectionFields extends Component {
                         })
                       : [];
                 } else {
-                  selectedValue = fieldValue
-                    ? {
-                        label: selectOptions?.find((x) => x.value?.toString() === fieldValue)
-                          ?.label,
-                        value: fieldValue,
-                      }
-                    : null;
+                  if (item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD) {
+                    selectedValue = fieldValue
+                      ? {
+                          label: selectOptions
+                            ?.find((x) =>
+                              x?.options?.find((y) => y.value?.toString() === fieldValue)
+                            )
+                            ?.options?.find((y) => y.value?.toString() === fieldValue)?.label,
+                          value: fieldValue,
+                        }
+                      : null;
+                  } else {
+                    selectedValue = fieldValue
+                      ? {
+                          label: selectOptions?.find((x) => x.value?.toString() === fieldValue)
+                            ?.label,
+                          value: fieldValue,
+                        }
+                      : null;
+                  }
                 }
               } else {
                 selectedValue =
@@ -326,12 +361,12 @@ class FormSelectionFields extends Component {
                         item?.attributes?.name === 'both_sides_related' &&
                         data.target.value === '1'
                       ) {
-                        document.querySelector('.sub-field').classList.remove('d-none');
+                        document.querySelector('.sub-field')?.classList.remove('d-none');
                       } else if (
                         item?.attributes?.name === 'both_sides_related' &&
                         data.target.value === '0'
                       ) {
-                        document.querySelector('.sub-field').classList.add('d-none');
+                        document.querySelector('.sub-field')?.classList.add('d-none');
                       }
                       if (item?.attributes?.name === 'changeYear' && data.target.value === 'true') {
                         document.querySelectorAll('.sub-field')?.forEach((item) => {
@@ -360,6 +395,11 @@ class FormSelectionFields extends Component {
                     item?.attributes?.name === 'yearRangeMin' ||
                     item?.attributes?.name === 'yearRangeMax'
                       ? 'sub-field d-none'
+                      : this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                          PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                        ]['both_sides_related'] === '1' &&
+                        item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD
+                      ? 'sub-field'
                       : ''
                   }`,
                 }
@@ -541,7 +581,8 @@ class FormSelectionFields extends Component {
                 />
               </div>
             )}
-            {!categoryListViewModel?.successResponse?.state &&
+            {(!categoryListViewModel?.successResponse?.state ||
+              fieldListViewModel?.formStatus === PAGE_STATUS.LOADING) &&
               (this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
                 this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED) && (
                 <Spinner className="spinner-overlay" />

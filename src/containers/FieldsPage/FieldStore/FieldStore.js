@@ -9,7 +9,7 @@ import { FieldItemModel } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class FieldStore {
-  async create(createFieldData, callbackOnSuccess, callbackOnError) {
+  async create(createFieldData) {
     try {
       const convertedUpdateGeneralData =
         FieldItemModel.__transformItemToApiOfCreation(createFieldData);
@@ -18,24 +18,16 @@ export default class FieldStore {
 
       resultOnSave = await createFieldApiService.create(convertedUpdateGeneralData);
       if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
-        });
+        return { error: false, response: resultOnSave?.result };
       } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
+        return { error: true, response: { message: 'Something went wrong from Server response' } };
       }
-      return resultOnSave?.result;
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async update(updateFieldData, callbackOnSuccess, callbackOnError) {
+  async update(updateFieldData) {
     try {
       const convertedUpdateGeneralData =
         FieldItemModel.__transformItemToApiOfUpdation(updateFieldData);
@@ -45,41 +37,26 @@ export default class FieldStore {
 
       resultOnSave = await updateFieldApiService.update(convertedUpdateGeneralData);
       if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
-        });
+        return { error: false, response: resultOnSave?.result };
       } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
+        return { error: true, response: { message: 'Something went wrong from Server response' } };
       }
-      return resultOnSave?.result;
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
+  async updateStatus(arr, status) {
     try {
       const updateStatusAPIService = new AesirxPimFieldApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Updated successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async getDetail(id, callbackOnSuccess, callbackOnError) {
+  async getDetail(id) {
     if (!id) return false;
 
     try {
@@ -91,40 +68,26 @@ export default class FieldStore {
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
         if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
+          return { error: false, response: respondedData };
         } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
+          return {
+            error: true,
+            response: { message: 'Something went wrong from Server response' },
+          };
         }
       }
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getList(filter, filterList, callbackOnSuccess, callbackOnError) {
+  async getList(filter, filterList) {
     try {
       const getListInfoAPIService = new AesirxPimFieldApiService();
       const respondedData = await getListInfoAPIService.getList(filter, filterList);
-
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
   }
 
@@ -149,20 +112,13 @@ export default class FieldStore {
     return false;
   }
 
-  async deleteFields(arr, callbackOnSuccess, callbackOnError) {
+  async deleteFields(arr) {
     try {
       const aesirxPimFieldApiService = new AesirxPimFieldApiService();
       const respondedData = await aesirxPimFieldApiService.deleteFields(arr);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Deleted successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 }

@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class FieldDetailViewModel {
@@ -26,49 +26,74 @@ class FieldDetailViewModel {
   };
 
   initializeData = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-    await this.fieldStore.getDetail(
-      this.fieldDetailViewModel.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetFieldSuccessHandler,
-      this.callbackOnErrorHandler
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.fieldStore.getDetail(
+      this.fieldDetailViewModel.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.ID]
     );
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onGetFieldSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+      this.formStatus = PAGE_STATUS.READY;
+    });
   };
 
-  create = () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-    return this.fieldStore.create(
+  create = async () => {
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.fieldStore.create(
       this.fieldDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+      this.onSuccessHandler,
+      this.onErrorHandler
     );
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Created successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+      this.formStatus = PAGE_STATUS.READY;
+    });
+    return !data?.error ? data?.response : 0;
   };
 
   update = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
-    return await this.fieldStore.update(
-      this.fieldDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
+    });
+    const data = await this.fieldStore.update(this.fieldDetailViewModel.formPropsData);
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+      this.formStatus = PAGE_STATUS.READY;
+    });
+    return !data?.error ? data?.response : 0;
   };
 
-  callbackOnErrorHandler = (error) => {
-    error._messages[0]?.message
+  onErrorHandler = (error) => {
+    Array.isArray(error?._messages) && error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
       : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
-    this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result && message) {
       notify(message, 'success');
     }
-    this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetFieldSuccessHandler = (result) => {
+  onGetFieldSuccessHandler = (result) => {
     if (result && result[PIM_FIELD_DETAIL_FIELD_KEY.ID]) {
       this.fieldDetailViewModel.formPropsData = {
         ...this.fieldDetailViewModel.formPropsData,
@@ -80,7 +105,6 @@ class FieldDetailViewModel {
           })
           .reduce((prev, cur) => ({ ...prev, ...cur })),
       };
-      this.formStatus = PAGE_STATUS.READY;
     }
   };
 

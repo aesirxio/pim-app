@@ -99,7 +99,7 @@ class FieldGroupListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    error._messages[0]?.message
+    Array.isArray(error?._messages) && error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
       : error.message && notify(error.message, 'error');
     this.successResponse.state = false;

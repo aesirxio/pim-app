@@ -170,7 +170,7 @@ class CategoryListViewModel {
   };
 
   callbackOnErrorHandler = (error) => {
-    error._messages[0]?.message
+    Array.isArray(error?._messages) && error._messages[0]?.message
       ? notify(error._messages[0]?.message, 'error')
       : error.message && notify(error.message, 'error');
     this.successResponse.state = false;
@@ -244,6 +244,12 @@ class CategoryListViewModel {
   isLoading = () => {
     runInAction(() => {
       this.successResponse.state = false;
+    });
+  };
+
+  resetItemsList = () => {
+    runInAction(() => {
+      this.items = [];
     });
   };
 }
