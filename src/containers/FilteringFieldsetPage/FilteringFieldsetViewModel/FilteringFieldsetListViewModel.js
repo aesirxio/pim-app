@@ -126,7 +126,7 @@ class FilteringFieldsetListViewModel {
   };
 
   transform = (data) => {
-    return data.map((o) => {
+    return data?.map((o) => {
       const date = moment(o[PIM_FILTERING_FIELDSET_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
         'DD MMM, YYYY'
       );
@@ -182,7 +182,7 @@ class FilteringFieldsetListViewModel {
   };
 
   callbackOnSuccessGetFilteringFieldsetsHandler = (result) => {
-    this.successResponse.listFilteringFieldsetsWithoutPagination = result.listItems.map((o) => {
+    this.successResponse.listFilteringFieldsetsWithoutPagination = result?.listItems?.map((o) => {
       let dash = '';
       for (let index = 1; index < o.level; index++) {
         dash += '- ';

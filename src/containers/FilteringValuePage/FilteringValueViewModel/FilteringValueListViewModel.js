@@ -126,7 +126,7 @@ class FilteringValueListViewModel {
   };
 
   transform = (data) => {
-    return data.map((o) => {
+    return data?.map((o) => {
       const date = moment(o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
         'DD MMM, YYYY'
       );
@@ -180,7 +180,7 @@ class FilteringValueListViewModel {
   };
 
   callbackOnSuccessGetFilteringValuesHandler = (result) => {
-    this.successResponse.listFilteringValuesWithoutPagination = result.listItems.map((o) => {
+    this.successResponse.listFilteringValuesWithoutPagination = result?.listItems?.map((o) => {
       let dash = '';
       for (let index = 1; index < o.level; index++) {
         dash += '- ';
