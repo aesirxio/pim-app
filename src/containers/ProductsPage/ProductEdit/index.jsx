@@ -31,9 +31,13 @@ import FieldStore from 'containers/FieldsPage/FieldStore/FieldStore';
 import FieldViewModel from 'containers/FieldsPage/FieldViewModel/FieldViewModel';
 import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewModel/FieldViewModelContextProvider';
 import { historyPush } from 'routes/routes';
+import { BrandStore } from 'containers/BrandPage/store';
+import BrandViewModel from 'containers/BrandPage/BrandViewModel/BrandViewModel';
 
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
+const brandStore = new BrandStore();
+const brandViewModel = new BrandViewModel(brandStore);
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
 
@@ -52,6 +56,7 @@ const EditProduct = observer(
       this.categoryListViewModel = categoryViewModel
         ? categoryViewModel.getCategoryListViewModel()
         : null;
+      this.brandListViewModel = brandViewModel ? brandViewModel.getBrandListViewModel() : null;
       this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
       this.productDetailViewModel.setForm(this);
       this.validator = new SimpleReactValidator({
@@ -65,9 +70,14 @@ const EditProduct = observer(
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
         await this.productDetailViewModel.initializeData();
       }
-      await this.categoryListViewModel.handleFilter({ limit: 0 });
-      await this.categoryListViewModel.initializeDataCustom();
-      this.productDetailViewModel.handleAliasChange('');
+
+      await Promise.all([
+        await this.categoryListViewModel.handleFilter({ 'list[limit]': 9999 }),
+        await this.categoryListViewModel.initializeDataCustom(),
+        await this.brandListViewModel.initializeAllData(),
+      ]).then(() => {
+        this.productDetailViewModel.handleAliasChange('');
+      });
     }
 
     handleAliasFormPropsData() {
@@ -230,6 +240,7 @@ const EditProduct = observer(
                         formPropsData={this.formPropsData}
                         validator={this.validator}
                         categoryListViewModel={this.categoryListViewModel}
+                        brandListViewModel={this.brandListViewModel}
                         isEdit={this.isEdit}
                       />
                     )}

@@ -153,7 +153,6 @@ const EditBrand = observer(
                       blurred: () => {
                         this.validator.showMessageFor(t('txt_brand_name'));
                       },
-                      maxLength: 15,
                     }}
                   />
                   {this.validator.message(
@@ -183,7 +182,7 @@ const EditBrand = observer(
                   formPropsData={this.brandDetailViewModel.brandDetailViewModel.formPropsData}
                   isEdit={this.isEdit}
                   isFeatured={false}
-                  isPublishedSimple={true}
+                  isPublished={false}
                 />
               </Col>
             </Row>

@@ -152,16 +152,22 @@ const FieldsList = observer(
                           })
                         : [];
                   } else {
-                    selectedValue = this.props.formPropsData[
-                      PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                    ][field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]
-                      ? {
-                          label: selectOptions.find(
-                            (x) => x.value?.toString() === fieldValue?.toString()
-                          )?.label,
-                          value: fieldValue?.toString(),
-                        }
-                      : null;
+                    selectedValue =
+                      this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                        field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                      ] &&
+                      !Array.isArray(
+                        this.props.formPropsData[PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
+                          field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]
+                        ]
+                      )
+                        ? {
+                            label: selectOptions.find(
+                              (x) => x.value?.toString() === fieldValue?.toString()
+                            )?.label,
+                            value: fieldValue?.toString(),
+                          }
+                        : null;
                   }
                 } else {
                   selectedValue =
@@ -187,12 +193,16 @@ const FieldsList = observer(
                         let convertData = data.map((item) => item?.value);
                         this.props.detailViewModal.handleFormPropsData(
                           [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: convertData }
+                          {
+                            [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: convertData?.length
+                              ? convertData
+                              : '',
+                          }
                         );
                       } else {
                         this.props.detailViewModal.handleFormPropsData(
                           [PIM_FIELD_DETAIL_FIELD_KEY.CUSTOM_FIELDS],
-                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data.value }
+                          { [field[PIM_FIELD_DETAIL_FIELD_KEY.FIELD_CODE]]: data ? data.value : '' }
                         );
                       }
                     } else if (
@@ -259,7 +269,10 @@ const FieldsList = observer(
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.URL ||
                       field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.URL_EXTENDED) &&
                     field[PIM_FIELD_DETAIL_FIELD_KEY.PARAMS]?.multiple === '1',
-                  ...(field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO && {
+                  ...((field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.RADIO ||
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] === FORM_FIELD_TYPE.ITEM_RELATED ||
+                    field[PIM_FIELD_DETAIL_FIELD_KEY.TYPE] ===
+                      FORM_FIELD_TYPE.CATEGORY_RELATED) && {
                     isClearable: true,
                   }),
                   isVideo:

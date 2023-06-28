@@ -62,6 +62,30 @@ const mainMenu = [
     icons_color: '/assets/images/brand.svg',
   },
   {
+    text: 'txt_left_menu_filtering_fieldset',
+    link: `/filtering-fieldset`,
+    icons: '/assets/images/filtering-fieldset.svg',
+    icons_color: '/assets/images/filtering-fieldset.svg',
+  },
+  {
+    text: 'txt_left_menu_filtering_field',
+    link: `/filtering-field`,
+    icons: '/assets/images/filtering-field.svg',
+    icons_color: '/assets/images/filtering-field.svg',
+  },
+  {
+    text: 'txt_left_menu_filtering_value',
+    link: `/filtering-value`,
+    icons: '/assets/images/filtering-value.svg',
+    icons_color: '/assets/images/filtering-value.svg',
+  },
+  {
+    text: 'txt_left_menu_product_fieldvalue',
+    link: `/product-fieldvalue`,
+    icons: '/assets/images/product-fieldvalue.svg',
+    icons_color: '/assets/images/product-fieldvalue.svg',
+  },
+  {
     text: 'txt_left_menu_member_list',
     link: `/members`,
     icons: '/assets/images/member-list.svg',

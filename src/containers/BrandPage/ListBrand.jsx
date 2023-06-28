@@ -149,8 +149,6 @@ const ListBrand = observer((props) => {
           onSelect={(k) => selectTabHandler(k)}
         >
           <Tab eventKey="default" title={t('txt_all_brand')} />
-          <Tab key={1} eventKey={1} title={t('txt_published')} />
-          <Tab key={0} eventKey={0} title={t('txt_unpublished')} />
         </Tabs>
       </div>
       <div className="d-flex align-items-center justify-content-between gap-2 my-20">

@@ -32,6 +32,14 @@ const ProductTypePage = lazy(() => import('../containers/ProductTypePage'));
 const EditProductTypeProvider = lazy(() => import('containers/ProductTypePage/edit'));
 const BrandPage = lazy(() => import('../containers/BrandPage'));
 const EditBrandProvider = lazy(() => import('containers/BrandPage/edit'));
+const FilteringFieldsetPage = lazy(() => import('../containers/FilteringFieldsetPage'));
+const EditFilteringFieldsetProvider = lazy(() => import('containers/FilteringFieldsetPage/edit'));
+const FilteringFieldPage = lazy(() => import('../containers/FilteringFieldPage'));
+const EditFilteringFieldProvider = lazy(() => import('containers/FilteringFieldPage/edit'));
+const FilteringValuePage = lazy(() => import('../containers/FilteringValuePage'));
+const EditFilteringValueProvider = lazy(() => import('containers/FilteringValuePage/edit'));
+const ProductFieldValuePage = lazy(() => import('../containers/ProductFieldValuePage'));
+const EditProductFieldValueProvider = lazy(() => import('containers/ProductFieldValuePage/edit'));
 
 const authRoutes = [
   {
@@ -197,6 +205,66 @@ const mainRoutes = [
     path: ['/brands/add'],
     exact: true,
     main: () => <EditBrandProvider />,
+  },
+  {
+    path: ['/filtering-fieldset'],
+    exact: true,
+    main: () => <FilteringFieldsetPage />,
+  },
+  {
+    path: ['/filtering-fieldset/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditFilteringFieldsetProvider match={match} />,
+  },
+  {
+    path: ['/filtering-fieldset/add'],
+    exact: true,
+    main: () => <EditFilteringFieldsetProvider />,
+  },
+  {
+    path: ['/filtering-field'],
+    exact: true,
+    main: () => <FilteringFieldPage />,
+  },
+  {
+    path: ['/filtering-field/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditFilteringFieldProvider match={match} />,
+  },
+  {
+    path: ['/filtering-field/add'],
+    exact: true,
+    main: () => <EditFilteringFieldProvider />,
+  },
+  {
+    path: ['/filtering-value'],
+    exact: true,
+    main: () => <FilteringValuePage />,
+  },
+  {
+    path: ['/filtering-value/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditFilteringValueProvider match={match} />,
+  },
+  {
+    path: ['/filtering-value/add'],
+    exact: true,
+    main: () => <EditFilteringValueProvider />,
+  },
+  {
+    path: ['/product-fieldvalue'],
+    exact: true,
+    main: () => <ProductFieldValuePage />,
+  },
+  {
+    path: ['/product-fieldvalue/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditProductFieldValueProvider match={match} />,
+  },
+  {
+    path: ['/product-fieldvalue/add'],
+    exact: true,
+    main: () => <EditProductFieldValueProvider />,
   },
 ];
 

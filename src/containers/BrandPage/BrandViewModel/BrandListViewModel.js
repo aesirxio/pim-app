@@ -124,7 +124,7 @@ class BrandListViewModel {
   };
 
   transform = (data) => {
-    return data.map((o) => {
+    return data?.map((o) => {
       const date = moment(o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
         'DD MMM, YYYY'
       );
@@ -180,7 +180,7 @@ class BrandListViewModel {
   };
 
   callbackOnSuccessGetBrandsHandler = (result) => {
-    this.successResponse.listBrandsWithoutPagination = result.listItems.map((o) => {
+    this.successResponse.listBrandsWithoutPagination = result?.listItems?.map((o) => {
       let dash = '';
       for (let index = 1; index < o.level; index++) {
         dash += '- ';
