@@ -137,7 +137,7 @@ const EditFilteringValue = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
+                {/* <Form.Group className={`mb-24`}>
                   <Input
                     field={{
                       getValueSelected:
@@ -168,7 +168,7 @@ const EditFilteringValue = observer(
                       className: 'text-danger mt-8px',
                     }
                   )}
-                </Form.Group>
+                </Form.Group> */}
                 <FilteringValueInformation
                   validator={this.validator}
                   messagesShown={this.validator.messagesShown}

@@ -133,7 +133,9 @@ class FilteringValueListViewModel {
       return {
         filteringValue: {
           id: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE],
+          name: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE]
+            ? o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE]
+            : o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.KEY],
         },
         lastModified: {
           status: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.PUBLISHED],

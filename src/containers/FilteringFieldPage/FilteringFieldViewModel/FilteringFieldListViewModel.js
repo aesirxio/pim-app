@@ -183,7 +183,11 @@ class FilteringFieldListViewModel {
       for (let index = 1; index < o.level; index++) {
         dash += '- ';
       }
-      return { value: o?.id, label: `${dash}${o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.NAME]}` };
+      return {
+        value: o?.id,
+        label: `${dash}${o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.NAME]}`,
+        type: o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.TYPE],
+      };
     });
   };
 
