@@ -49,8 +49,9 @@ class FormSelectionFields extends Component {
       categoryListViewModel.resetItemsList();
       fieldListViewModel.resetRelatedItemsList();
       if (
-        this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
-        this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED
+        this.state.field?.label &&
+        (this.state.field?.value === FORM_FIELD_TYPE.ITEM_RELATED ||
+          this.state.field?.value === FORM_FIELD_TYPE.CATEGORY_RELATED)
       ) {
         isCategoryRelatedField &&
           categoryListViewModel.handleFilter({ 'list[limit]': 9999, 'filter[maxlevel]': 2 });
