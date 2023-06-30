@@ -85,7 +85,7 @@ const FieldInformation = observer(
                       value: item.value,
                     };
                   })
-                : null,
+                : [],
               getValueSelectedOptions: this.viewModel.fieldDetailViewModel?.formPropsData[
                 PIM_FIELD_DETAIL_FIELD_KEY.OPTIONS
               ]

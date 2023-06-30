@@ -55,9 +55,7 @@ class FilteringValueListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.filteringValueStore.getListWithoutPagination(
-      this.successResponse.filters
-    );
+    const data = await this.filteringValueStore.getListWithoutPagination(this.filter);
 
     runInAction(() => {
       if (!data?.error) {
@@ -133,10 +131,9 @@ class FilteringValueListViewModel {
       return {
         filteringValue: {
           id: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE]
-            ? o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE]
-            : o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.KEY],
+          name: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE],
         },
+        keyField: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.KEY],
         lastModified: {
           status: o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
@@ -185,7 +182,7 @@ class FilteringValueListViewModel {
       for (let index = 1; index < o.level; index++) {
         dash += '- ';
       }
-      return { value: o?.id, label: `${dash}${o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.NAME]}` };
+      return { value: o?.id, label: `${dash}${o[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE]}` };
     });
   };
 
@@ -193,6 +190,10 @@ class FilteringValueListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
+  };
+
+  handleFilter = (filter) => {
+    this.filter = { ...this.filter, ...filter };
   };
 }
 

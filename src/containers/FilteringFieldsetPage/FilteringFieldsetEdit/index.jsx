@@ -42,8 +42,6 @@ const EditFilteringFieldset = observer(
         this.formPropsData[PIM_FILTERING_FIELDSET_DETAIL_FIELD_KEY.ID] = match.params?.id;
         await this.filteringFieldsetDetailViewModel.initializeData();
       }
-      await this.filteringFieldsetDetailViewModel.getFilteringFieldsetList();
-      this.filteringFieldsetDetailViewModel.handleAliasChange('');
     }
 
     handleValidateForm() {
@@ -57,10 +55,6 @@ const EditFilteringFieldset = observer(
       }
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.filteringFieldsetDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     render() {
       const { t } = this.props;

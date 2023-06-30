@@ -62,6 +62,20 @@ const ListFilteringField = observer((props) => {
         );
       },
     },
+    {
+      Header: t('txt_type'),
+      accessor: 'type',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <div className="pe-2">
+            <div>
+              {value}
+            </div>
+          </div>
+        );
+      },
+    },
     // {
     //   Header: t('txt_last_modified'),
     //   accessor: 'lastModified',

@@ -67,7 +67,7 @@ const ProductTypeInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,

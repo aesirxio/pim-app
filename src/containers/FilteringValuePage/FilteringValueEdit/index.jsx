@@ -43,8 +43,6 @@ const EditFilteringValue = observer(
         this.formPropsData[PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.ID] = match.params?.id;
         await this.filteringValueDetailViewModel.initializeData();
       }
-      await this.filteringValueDetailViewModel.getFilteringValueList();
-      this.filteringValueDetailViewModel.handleAliasChange('');
     }
 
     handleValidateForm() {
@@ -58,10 +56,6 @@ const EditFilteringValue = observer(
       }
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.filteringValueDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     render() {
       const { t } = this.props;

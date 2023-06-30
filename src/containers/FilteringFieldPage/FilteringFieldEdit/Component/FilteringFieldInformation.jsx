@@ -29,7 +29,7 @@ const FilteringFieldInformation = observer(
 
     render() {
       this.viewModel = this.context.model.filteringFieldDetailViewModel;
-      const { t, validator, isEdit } = this.props;
+      const { t, validator } = this.props;
       console.log('dsadsad', this.viewModel.filteringFieldDetailViewModel.formPropsData);
       const generateFormSetting = [
         {
@@ -61,7 +61,7 @@ const FilteringFieldInformation = observer(
                       };
                     }
                   )
-                : null,
+                : [],
               handleChange: (data) => {
                 let convertData = data.map((item) => item.value);
                 this.viewModel.handleFormPropsData(

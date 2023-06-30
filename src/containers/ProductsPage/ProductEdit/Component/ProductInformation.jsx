@@ -71,7 +71,7 @@ const ProductInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 let convertData = data.map((item) => item.value.toString());
                 this.viewModel.handleFormPropsData(
