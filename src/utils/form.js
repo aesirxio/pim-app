@@ -44,7 +44,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     />
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -68,7 +68,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     />
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -94,7 +94,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -142,7 +142,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -181,7 +181,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field.key}
                         description={field?.description}
                         defaultValue={''}
                       />
@@ -209,7 +209,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={''}
                       />
@@ -237,7 +237,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={''}
                       />
@@ -264,7 +264,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={''}
                       />
@@ -292,7 +292,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -330,7 +330,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -370,7 +370,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     )}
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={''}
                       />
@@ -395,7 +395,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     />
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -420,7 +420,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                     />
                     {field.description && (
                       <TooltipField
-                        key={field?.key}
+                        keyTooltip={field?.key}
                         description={field?.description}
                         defaultValue={field?.default}
                       />
@@ -445,11 +445,11 @@ const renderingGroupFieldHandler = (group, validator) => {
     }, []);
 };
 
-const TooltipField = ({ key, description, defaultValue }) => {
+const TooltipField = ({ keyTooltip, description, defaultValue }) => {
   return (
     <>
       <FontAwesomeIcon
-        data-tooltip-id={`tooltip-${key}`}
+        data-tooltip-id={`tooltip-${keyTooltip}`}
         data-tooltip-html={
           defaultValue
             ? description + `</br>Default: <strong>${defaultValue}</strong>`
@@ -458,7 +458,7 @@ const TooltipField = ({ key, description, defaultValue }) => {
         className="mx-sm fs-12 mb-1"
         icon={faCircleInfo}
       />
-      <Tooltip id={`tooltip-${key}`} />
+      <Tooltip id={`tooltip-${keyTooltip}`} />
     </>
   );
 };

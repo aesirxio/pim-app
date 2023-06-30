@@ -28,14 +28,11 @@ const FieldInformation = observer(
     }
 
     componentDidMount() {
-      const fetchData = async () => {
-        await Promise.all([
-          this.utilsListViewModel.getListContentType(),
-          this.utilsListViewModel.getListFieldType(),
-        ]).then(() => {
-          this.fieldGroupListViewModel.handleFilter({ 'list[limit]': 9999 }),
-            this.fieldGroupListViewModel.initializeData();
-        });
+      const fetchData = () => {
+        this.utilsListViewModel.getListContentType();
+        this.utilsListViewModel.getListFieldType();
+        this.fieldGroupListViewModel.handleFilter({ 'list[limit]': 9999 });
+        this.fieldGroupListViewModel.initializeData();
       };
       fetchData();
     }

@@ -33,8 +33,8 @@ class FieldGroupListViewModel {
   };
 
   initializeData = async () => {
-    this.formStatus = PAGE_STATUS.LOADING;
     runInAction(() => {
+      this.formStatus = PAGE_STATUS.LOADING;
       this.successResponse.state = false;
     });
     await this.fieldGroupStore.getList(
