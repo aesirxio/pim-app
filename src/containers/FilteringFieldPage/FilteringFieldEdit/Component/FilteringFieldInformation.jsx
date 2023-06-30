@@ -2,7 +2,7 @@ import { PIM_FILTERING_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { FORM_FIELD_TYPE, notify, renderingGroupFieldHandler } from 'aesirx-uikit';
+import { FORM_FIELD_TYPE, renderingGroupFieldHandler } from 'aesirx-uikit';
 import { FilteringFieldViewModelContext } from 'containers/FilteringFieldPage/FilteringFieldViewModel/FilteringFieldViewModelContextProvider';
 import { FilteringFieldsetStore } from 'containers/FilteringFieldsetPage/store';
 import FilteringFieldsetViewModel from 'containers/FilteringFieldsetPage/FilteringFieldsetViewModel/FilteringFieldsetViewModel';

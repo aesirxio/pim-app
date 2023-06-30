@@ -12,7 +12,6 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
-import _ from 'lodash';
 import { withProductFieldValueViewModel } from '../ProductFieldValueViewModel/ProductFieldValueViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
