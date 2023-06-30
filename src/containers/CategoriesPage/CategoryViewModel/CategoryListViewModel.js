@@ -226,6 +226,7 @@ class CategoryListViewModel {
           name: o[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
           level: o[PIM_CATEGORY_DETAIL_FIELD_KEY.LEVEL],
         },
+        type: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_TYPE_NAME],
         productQuantity: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PRODUCT_QUANTITY],
         lastModified: {
           status: o[PIM_CATEGORY_DETAIL_FIELD_KEY.PUBLISHED],
