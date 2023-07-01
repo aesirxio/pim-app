@@ -17,7 +17,7 @@ const ListProductFieldValue = observer((props) => {
   }, []);
   const columnsTable = [
     {
-      Header: t('txt_name'),
+      Header: t('txt_filtering_value'),
       accessor: 'productFieldValue',
       width: 150,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
@@ -59,6 +59,30 @@ const ListProductFieldValue = observer((props) => {
               </div>
             </div>
           </>
+        );
+      },
+    },
+    {
+      Header: t('txt_filtering_field'),
+      accessor: 'field',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <div className="pe-2">
+            <div>{value}</div>
+          </div>
+        );
+      },
+    },
+    {
+      Header: t('txt_product'),
+      accessor: 'product',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <div className="pe-2">
+            <div>{value}</div>
+          </div>
         );
       },
     },

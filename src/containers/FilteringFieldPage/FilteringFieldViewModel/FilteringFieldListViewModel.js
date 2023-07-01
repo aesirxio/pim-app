@@ -55,9 +55,7 @@ class FilteringFieldListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.filteringFieldStore.getListWithoutPagination(
-      this.successResponse.filters
-    );
+    const data = await this.filteringFieldStore.getListWithoutPagination(this.filter);
 
     runInAction(() => {
       if (!data?.error) {
@@ -135,6 +133,7 @@ class FilteringFieldListViewModel {
           id: o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.ID],
           name: o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.NAME],
         },
+        type: o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.TYPE],
         lastModified: {
           status: o[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
@@ -195,6 +194,10 @@ class FilteringFieldListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
+  };
+
+  handleFilter = (filter) => {
+    this.filter = { ...this.filter, ...filter };
   };
 }
 

@@ -22,6 +22,7 @@ const FilteringValueInformation = observer(
 
     componentDidMount() {
       const fetchData = async () => {
+        await this.filteringFieldListViewModel.handleFilter({ 'filter[exclude_type]': 'number' });
         await this.filteringFieldListViewModel.initializeAllData();
       };
       fetchData();
@@ -33,6 +34,30 @@ const FilteringValueInformation = observer(
       const generateFormSetting = [
         {
           fields: [
+            ...(!this.state.isNumber
+              ? [
+                  {
+                    label: t('txt_filtering_value'),
+                    key: PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE,
+                    type: FORM_FIELD_TYPE.INPUT,
+                    getValueSelected:
+                      this.viewModel.filteringValueDetailViewModel.formPropsData[
+                        PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE
+                      ],
+                    className: 'col-lg-12',
+                    placeholder: t('txt_add_filtering_value'),
+                    handleChange: (event) => {
+                      this.viewModel.handleFormPropsData(
+                        PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE,
+                        event.target.value
+                      );
+                      this.forceUpdate();
+                    },
+                    required: true,
+                    validation: 'required',
+                  },
+                ]
+              : []),
             {
               label: t('txt_filtering_field'),
               key: PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.FIELD,
@@ -66,7 +91,7 @@ const FilteringValueInformation = observer(
                       };
                     }
                   )
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.FIELD,
@@ -87,30 +112,6 @@ const FilteringValueInformation = observer(
               placeholder: t('txt_filtering_field'),
               className: 'col-lg-12',
             },
-            ...(!this.state.isNumber
-              ? [
-                  {
-                    label: t('txt_filtering_value'),
-                    key: PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE,
-                    type: FORM_FIELD_TYPE.INPUT,
-                    getValueSelected:
-                      this.viewModel.filteringValueDetailViewModel.formPropsData[
-                        PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE
-                      ],
-                    className: 'col-lg-12',
-                    placeholder: t('txt_add_filtering_value'),
-                    handleChange: (event) => {
-                      this.viewModel.handleFormPropsData(
-                        PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.VALUE,
-                        event.target.value
-                      );
-                      this.forceUpdate();
-                    },
-                    required: true,
-                    validation: 'required',
-                  },
-                ]
-              : []),
             {
               label: t('txt_key'),
               key: PIM_FILTERING_VALUE_DETAIL_FIELD_KEY.KEY,

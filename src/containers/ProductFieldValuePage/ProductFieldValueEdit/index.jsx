@@ -12,11 +12,9 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
-import _ from 'lodash';
 import { withProductFieldValueViewModel } from '../ProductFieldValueViewModel/ProductFieldValueViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
-import Input from 'components/Form/Input';
 import { historyPush } from 'routes/routes';
 import ProductFieldValueInformation from './Component/ProductFieldValueInformation';
 
@@ -43,8 +41,6 @@ const EditProductFieldValue = observer(
         this.formPropsData[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.ID] = match.params?.id;
         await this.productFieldValueDetailViewModel.initializeData();
       }
-      await this.productFieldValueDetailViewModel.getProductFieldValueList();
-      this.productFieldValueDetailViewModel.handleAliasChange('');
     }
 
     handleValidateForm() {
@@ -58,10 +54,6 @@ const EditProductFieldValue = observer(
       }
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.productFieldValueDetailViewModel.handleAliasChange(value);
-    }, 300);
 
     render() {
       const { t } = this.props;
@@ -137,37 +129,6 @@ const EditProductFieldValue = observer(
           <Form>
             <Row className="gx-24 mb-24">
               <Col lg={9}>
-                <Form.Group className={`mb-24`}>
-                  <Input
-                    field={{
-                      getValueSelected:
-                        this.productFieldValueDetailViewModel.productFieldValueDetailViewModel
-                          .formPropsData[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE],
-                      classNameInput: 'py-10 fs-4',
-                      placeholder: t('txt_add_product_fieldvalue'),
-                      handleChange: (event) => {
-                        this.productFieldValueDetailViewModel.handleFormPropsData(
-                          PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE,
-                          event.target.value
-                        );
-                      },
-                      required: true,
-                      validation: 'required',
-                      blurred: () => {
-                        this.validator.showMessageFor(t('txt_product_fieldvalue'));
-                      },
-                    }}
-                  />
-                  {this.validator.message(
-                    t('txt_product_fieldvalue'),
-                    this.productFieldValueDetailViewModel.productFieldValueDetailViewModel
-                      .formPropsData[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE],
-                    'required',
-                    {
-                      className: 'text-danger mt-8px',
-                    }
-                  )}
-                </Form.Group>
                 <ProductFieldValueInformation
                   validator={this.validator}
                   messagesShown={this.validator.messagesShown}

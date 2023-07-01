@@ -11,10 +11,10 @@ class FilteringValueStore {
     }
   }
 
-  async getListWithoutPagination() {
+  async getListWithoutPagination(filters) {
     try {
       const getListAPIService = new FilteringValueApiService();
-      const respondedData = await getListAPIService.getList({ 'list[limit]': 9999 });
+      const respondedData = await getListAPIService.getList({ ...filters, 'list[limit]': 9999 });
 
       return { error: false, response: respondedData };
     } catch (error) {

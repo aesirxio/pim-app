@@ -72,7 +72,7 @@ const ProductPriceInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               className: 'col-lg-12',
               placeholder: t('txt_select_debtor_group'),
               handleChange: (data) => {
@@ -109,7 +109,7 @@ const ProductPriceInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               // required: true,
               // validation: 'required',
               className: 'col-lg-12',

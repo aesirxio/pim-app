@@ -232,15 +232,7 @@ class ProductListViewModel {
         categories: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CATEGORY_NAME],
         author: o[PIM_PRODUCT_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         featured: o[PIM_PRODUCT_DETAIL_FIELD_KEY.FEATURED],
-        type: Array.isArray(
-          o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-            PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-          ]
-        )
-          ? o[PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS][
-              PIM_PRODUCT_DETAIL_FIELD_KEY.PIM_PRODUCT_TYPE
-            ][0]
-          : '',
+        type: o[PIM_PRODUCT_DETAIL_FIELD_KEY.PRODUCT_TYPE_NAME],
         lastModified: {
           status: o[PIM_PRODUCT_DETAIL_FIELD_KEY.STATE],
           dateTime: date ?? '',

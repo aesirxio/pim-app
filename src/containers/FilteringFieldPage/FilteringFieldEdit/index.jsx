@@ -12,7 +12,6 @@ import { Col, Form, Row } from 'react-bootstrap';
 import ActionsBar from 'components/ActionsBar';
 import { PIM_FILTERING_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
-import _ from 'lodash';
 import { withFilteringFieldViewModel } from '../FilteringFieldViewModel/FilteringFieldViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
@@ -43,8 +42,6 @@ const EditFilteringField = observer(
         this.formPropsData[PIM_FILTERING_FIELD_DETAIL_FIELD_KEY.ID] = match.params?.id;
         await this.filteringFieldDetailViewModel.initializeData();
       }
-      await this.filteringFieldDetailViewModel.getFilteringFieldList();
-      this.filteringFieldDetailViewModel.handleAliasChange('');
     }
 
     handleValidateForm() {
@@ -58,11 +55,6 @@ const EditFilteringField = observer(
       }
       this.validator.showMessages();
     }
-
-    debouncedChangeHandler = _.debounce((value) => {
-      this.filteringFieldDetailViewModel.handleAliasChange(value);
-    }, 300);
-
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console

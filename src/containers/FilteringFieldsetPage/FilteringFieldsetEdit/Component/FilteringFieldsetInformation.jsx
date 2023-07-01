@@ -69,7 +69,7 @@ const FilteringFieldsetInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
                   PIM_FILTERING_FIELDSET_DETAIL_FIELD_KEY.PARENT_ID,

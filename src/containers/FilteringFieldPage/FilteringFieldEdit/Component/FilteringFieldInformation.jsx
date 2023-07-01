@@ -2,7 +2,7 @@ import { PIM_FILTERING_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { FORM_FIELD_TYPE, notify, renderingGroupFieldHandler } from 'aesirx-uikit';
+import { FORM_FIELD_TYPE, renderingGroupFieldHandler } from 'aesirx-uikit';
 import { FilteringFieldViewModelContext } from 'containers/FilteringFieldPage/FilteringFieldViewModel/FilteringFieldViewModelContextProvider';
 import { FilteringFieldsetStore } from 'containers/FilteringFieldsetPage/store';
 import FilteringFieldsetViewModel from 'containers/FilteringFieldsetPage/FilteringFieldsetViewModel/FilteringFieldsetViewModel';
@@ -29,7 +29,7 @@ const FilteringFieldInformation = observer(
 
     render() {
       this.viewModel = this.context.model.filteringFieldDetailViewModel;
-      const { t, validator, isEdit } = this.props;
+      const { t, validator } = this.props;
       console.log('dsadsad', this.viewModel.filteringFieldDetailViewModel.formPropsData);
       const generateFormSetting = [
         {
@@ -61,7 +61,7 @@ const FilteringFieldInformation = observer(
                       };
                     }
                   )
-                : null,
+                : [],
               handleChange: (data) => {
                 let convertData = data.map((item) => item.value);
                 this.viewModel.handleFormPropsData(

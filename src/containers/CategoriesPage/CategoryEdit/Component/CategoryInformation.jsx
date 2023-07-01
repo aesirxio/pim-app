@@ -167,7 +167,7 @@ const CategoryInformation = observer(
                       value: item.id,
                     };
                   })
-                : null,
+                : [],
               handleChange: (data) => {
                 let convertData = data.map((item) => ({ title: item.label, id: item.value }));
                 this.viewModel.handleFormPropsData(

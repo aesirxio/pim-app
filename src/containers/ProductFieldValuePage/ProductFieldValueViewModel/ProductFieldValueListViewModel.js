@@ -135,6 +135,8 @@ class ProductFieldValueListViewModel {
           id: o[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.ID],
           name: o[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.VALUE],
         },
+        field: o[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.FIELD],
+        product: o[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.PRODUCT],
         lastModified: {
           status: o[PIM_PRODUCT_FIELD_VALUE_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',

@@ -65,6 +65,15 @@ const ListCategories = observer((props) => {
       },
     },
     {
+      Header: t('txt_type'),
+      accessor: 'type',
+      width: 100,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return <div className={`py-18`}>{value}</div>;
+      },
+    },
+    {
       Header: t('txt_number'),
       accessor: 'productQuantity',
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semi',
