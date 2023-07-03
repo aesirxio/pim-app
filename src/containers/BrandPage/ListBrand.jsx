@@ -12,7 +12,7 @@ const ListBrand = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.brandListViewModel;
   useEffect(() => {
-    viewModel.initializeAllData();
+    // viewModel.initializeAllData();
     viewModel.initializeData();
   }, []);
   const columnsTable = [

@@ -12,7 +12,7 @@ const ListProductFieldValue = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.productFieldValueListViewModel;
   useEffect(() => {
-    viewModel.initializeAllData();
+    // viewModel.initializeAllData();
     viewModel.initializeData();
   }, []);
   const columnsTable = [

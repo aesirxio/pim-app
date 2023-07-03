@@ -12,7 +12,7 @@ const ListFilteringValue = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.filteringValueListViewModel;
   useEffect(() => {
-    viewModel.initializeAllData();
+    // viewModel.initializeAllData();
     viewModel.initializeData();
   }, []);
   const columnsTable = [
@@ -59,6 +59,18 @@ const ListFilteringValue = observer((props) => {
               </div>
             </div>
           </>
+        );
+      },
+    },
+    {
+      Header: t('txt_filtering_field'),
+      accessor: 'field',
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <div className="pe-2">
+            <div>{value}</div>
+          </div>
         );
       },
     },
