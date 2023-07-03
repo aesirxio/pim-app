@@ -12,7 +12,7 @@ const ListFilteringField = observer((props) => {
   let listSelected = [];
   const viewModel = props.model.filteringFieldListViewModel;
   useEffect(() => {
-    viewModel.initializeAllData();
+    // viewModel.initializeAllData();
     viewModel.initializeData();
   }, []);
   const columnsTable = [
@@ -69,9 +69,7 @@ const ListFilteringField = observer((props) => {
       Cell: ({ value }) => {
         return (
           <div className="pe-2">
-            <div>
-              {value}
-            </div>
+            <div>{value}</div>
           </div>
         );
       },
