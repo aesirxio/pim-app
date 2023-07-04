@@ -391,5 +391,14 @@
   "txt_product_fieldvalue": "Значення поля продукту",
   "txt_all_product_fieldvalue": "Усі значення поля продукту",
   "txt_add_product_fieldvalue": "Додати значення поля продукту",
-  "txt_product": "Продукт"
+  "txt_product": "Продукт",
+  "txt_left_menu_type": "Тип",
+  "txt_all_type": "Усі типи",
+  "txt_add_type_name": "Додати назву типу",
+  "txt_type_name": "Назва типу",
+  "txt_left_menu_subtype": "Підтип",
+  "txt_subtype": "Підтип",
+  "txt_all_subtype": "Усі підтипи",
+  "txt_add_subtype_name": "Додати назву підтипу",
+  "txt_subtype_name": "Назва підтипу"
 }

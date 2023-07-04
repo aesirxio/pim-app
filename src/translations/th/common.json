@@ -393,5 +393,14 @@
    "txt_product_fieldvalue": "ค่าฟิลด์ผลิตภัณฑ์",
    "txt_all_product_fieldvalue": "ค่าฟิลด์ผลิตภัณฑ์ทั้งหมด",
    "txt_add_product_fieldvalue": "เพิ่มค่าฟิลด์ผลิตภัณฑ์",
-   "txt_product": "ผลิตภัณฑ์"
+   "txt_product": "ผลิตภัณฑ์",
+   "txt_left_menu_type": "ประเภท",
+   "txt_all_type": "ทุกประเภท",
+   "txt_add_type_name": "เพิ่มชื่อประเภท",
+   "txt_type_name": "ชื่อประเภท",
+   "txt_left_menu_subtype": "ประเภทย่อย",
+   "txt_subtype": "ประเภทย่อย",
+   "txt_all_subtype": "ประเภทย่อยทั้งหมด",
+   "txt_add_subtype_name": "เพิ่มชื่อประเภทย่อย",
+   "txt_subtype_name": "ชื่อประเภทย่อย"
 }

@@ -40,6 +40,10 @@ const FilteringValuePage = lazy(() => import('../containers/FilteringValuePage')
 const EditFilteringValueProvider = lazy(() => import('containers/FilteringValuePage/edit'));
 const ProductFieldValuePage = lazy(() => import('../containers/ProductFieldValuePage'));
 const EditProductFieldValueProvider = lazy(() => import('containers/ProductFieldValuePage/edit'));
+const TypePage = lazy(() => import('../containers/TypePage'));
+const EditTypeProvider = lazy(() => import('containers/TypePage/edit'));
+const SubTypePage = lazy(() => import('../containers/SubTypePage'));
+const EditSubTypeProvider = lazy(() => import('containers/SubTypePage/edit'));
 
 const authRoutes = [
   {
@@ -265,6 +269,36 @@ const mainRoutes = [
     path: ['/product-fieldvalue/add'],
     exact: true,
     main: () => <EditProductFieldValueProvider />,
+  },
+  {
+    path: ['/types'],
+    exact: true,
+    main: () => <TypePage />,
+  },
+  {
+    path: ['/types/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditTypeProvider match={match} />,
+  },
+  {
+    path: ['/types/add'],
+    exact: true,
+    main: () => <EditTypeProvider />,
+  },
+  {
+    path: ['/subtypes'],
+    exact: true,
+    main: () => <SubTypePage />,
+  },
+  {
+    path: ['/subtypes/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditSubTypeProvider match={match} />,
+  },
+  {
+    path: ['/subtypes/add'],
+    exact: true,
+    main: () => <EditSubTypeProvider />,
   },
 ];
 

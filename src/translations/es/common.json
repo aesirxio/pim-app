@@ -392,5 +392,14 @@
    "txt_product_fieldvalue": "Valor do campo do produto",
    "txt_all_product_fieldvalue": "Todos os valores de campo do produto",
    "txt_add_product_fieldvalue": "Adicionar valor do campo do produto",
-   "txt_product": "Produto"
+   "txt_product": "Produto",
+   "txt_left_menu_type": "Tipo",
+   "txt_all_type": "Todos os tipos",
+   "txt_add_type_name": "Adicionar nome do tipo",
+   "txt_type_name": "Nome do tipo",
+   "txt_left_menu_subtype": "Subtipo",
+   "txt_subtype": "Subtipo",
+   "txt_all_subtype": "Todos os subtipos",
+   "txt_add_subtype_name": "Adicionar nome do subtipo",
+   "txt_subtype_name": "Nome do subtipo"
 }
