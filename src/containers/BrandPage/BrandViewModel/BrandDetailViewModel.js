@@ -45,7 +45,7 @@ class BrandDetailViewModel {
     runInAction(() => {
       this.formStatus = PAGE_STATUS.LOADING;
     });
-    const data = await this.brandStore.getList(this.successResponse.filters);
+    const data = await this.brandStore.getList({ 'list[limit]': 9999 });
 
     runInAction(() => {
       if (!data?.error) {
