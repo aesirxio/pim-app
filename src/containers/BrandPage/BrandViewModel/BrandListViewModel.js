@@ -4,7 +4,7 @@
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_BRAND_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { PAGE_STATUS, notify } from 'aesirx-uikit';
 
@@ -125,26 +125,24 @@ class BrandListViewModel {
 
   transform = (data) => {
     return data?.map((o) => {
-      const date = moment(o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
-        'DD MMM, YYYY'
-      );
+      const date = moment(o[PIM_BRAND_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
       return {
         brand: {
-          id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME],
-          // level: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.LEVEL],
+          id: o[PIM_BRAND_DETAIL_FIELD_KEY.ID],
+          name: o[PIM_BRAND_DETAIL_FIELD_KEY.NAME],
+          level: o[PIM_BRAND_DETAIL_FIELD_KEY.LEVEL],
         },
-        // brandParent: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
-        //   ? o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
+        // brandParent: o[PIM_BRAND_DETAIL_FIELD_KEY.PARENT_NAME]
+        //   ? o[PIM_BRAND_DETAIL_FIELD_KEY.PARENT_NAME]
         //   : 'ROOT',
         lastModified: {
-          status: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[PIM_BRAND_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_BRAND_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         },
         published: {
-          state: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PUBLISHED],
-          id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID],
+          state: o[PIM_BRAND_DETAIL_FIELD_KEY.PUBLISHED],
+          id: o[PIM_BRAND_DETAIL_FIELD_KEY.ID],
         },
       };
     });
@@ -185,7 +183,7 @@ class BrandListViewModel {
       for (let index = 1; index < o.level; index++) {
         dash += '- ';
       }
-      return { value: o?.id, label: `${dash}${o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME]}` };
+      return { value: o?.id, label: `${dash}${o[PIM_BRAND_DETAIL_FIELD_KEY.NAME]}` };
     });
   };
 

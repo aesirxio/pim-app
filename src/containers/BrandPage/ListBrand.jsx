@@ -25,9 +25,9 @@ const ListBrand = observer((props) => {
         return (
           <>
             <div className="d-flex align-items-center py-8px">
-              {value.level > 1 && (
+              {value.level > 3 && (
                 <div className="me-1 d-flex align-items-center">
-                  {[...Array(value.level - 1)].map((o, index) => (
+                  {[...Array(value.level - 3)].map((o, index) => (
                     <span
                       key={index}
                       style={{

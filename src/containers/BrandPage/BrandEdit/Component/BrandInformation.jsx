@@ -1,4 +1,4 @@
-import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_BRAND_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -19,7 +19,7 @@ const BrandInformation = observer(
       const filteredBrandList = this.viewModel?.brandList?.filter((item) => {
         return (
           item.id !==
-          this.viewModel.brandDetailViewModel.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]
+          this.viewModel.brandDetailViewModel.formPropsData[PIM_BRAND_DETAIL_FIELD_KEY.ID]
         );
       });
 
@@ -30,36 +30,40 @@ const BrandInformation = observer(
           fields: [
             {
               label: t('txt_parent_type'),
-              key: PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
+              key: PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected:
                 this.viewModel.brandDetailViewModel.formPropsData[
-                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
                 ] &&
                 this.viewModel.brandDetailViewModel.formPropsData[
-                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
-                ] !== '0'
+                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
+                ] !== '0' &&
+                this.viewModel.brandDetailViewModel.formPropsData[
+                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_NAME
+                ] !== 'PIM Brand'
                   ? {
                       label: this.viewModel?.brandList?.find(
                         (x) =>
                           x.id.toString() ===
                           this.viewModel.brandDetailViewModel.formPropsData[
-                            PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                            PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
                           ].toString()
                       )?.name,
                       value:
                         this.viewModel.brandDetailViewModel.formPropsData[
-                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                          PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
                         ],
                     }
                   : null,
               getDataSelectOptions: filteredBrandList?.length
                 ? filteredBrandList?.map((item) => {
-                    let levelString = item?.level
-                      ? Array.from(Array(parseInt(item?.level)).keys())
-                          .map(() => ``)
-                          .join('- ')
-                      : '';
+                    let levelString =
+                      item?.level && item?.level > 3
+                        ? Array.from(Array(parseInt(item?.level - 2)).keys())
+                            .map(() => ``)
+                            .join('- ')
+                        : '';
                     return {
                       label: levelString + item?.name,
                       value: item.id,
@@ -68,7 +72,7 @@ const BrandInformation = observer(
                 : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
-                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
+                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID,
                   data?.value ?? 0
                 );
                 if (isEdit) {

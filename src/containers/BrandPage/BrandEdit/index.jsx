@@ -18,6 +18,7 @@ import EditHeader from 'components/EditHeader';
 import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
 import Input from 'components/Form/Input';
 import { historyPush } from 'routes/routes';
+import BrandInformation from './Component/BrandInformation';
 
 const EditBrand = observer(
   class EditBrand extends Component {
@@ -166,15 +167,13 @@ const EditBrand = observer(
                     }
                   )}
                 </Form.Group>
-                {/* <BrandInformation
+                <BrandInformation
                   validator={this.validator}
                   messagesShown={this.validator.messagesShown}
                   isEdit={this.isEdit}
-                  formPropsData={
-                    this.brandDetailViewModel.brandDetailViewModel.formPropsData
-                  }
+                  formPropsData={this.brandDetailViewModel.brandDetailViewModel.formPropsData}
                   {...this.props}
-                /> */}
+                />
               </Col>
               <Col lg={3}>
                 <PublishOptions
