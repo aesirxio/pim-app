@@ -403,5 +403,6 @@
   "txt_subtype": "Undertype",
   "txt_all_subtype": "Alle undertyper",
   "txt_add_subtype_name": "Tilføj undertypenavn",
-  "txt_subtype_name": "Undertypenavn"
+  "txt_subtype_name": "Undertypenavn",
+  "txt_select_subtype": "Vælg undertype"
 }

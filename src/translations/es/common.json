@@ -401,5 +401,6 @@
    "txt_subtype": "Subtipo",
    "txt_all_subtype": "Todos os subtipos",
    "txt_add_subtype_name": "Adicionar nome do subtipo",
-   "txt_subtype_name": "Nome do subtipo"
+   "txt_subtype_name": "Nome do subtipo",
+   "txt_select_subtype": "Selecionar subtipo"
 }

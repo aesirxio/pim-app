@@ -22,6 +22,8 @@ const CommonInformation = observer(
       this.utilsListViewModel = utilsViewModel.utilsListViewModel;
       this.categoryListViewModel = this.props.categoryListViewModel;
       this.brandListViewModel = this.props.brandListViewModel;
+      this.typeListViewModel = this.props.typeListViewModel;
+      this.subTypeListViewModel = this.props.subTypeListViewModel;
     }
 
     async componentDidMount() {
@@ -200,6 +202,124 @@ const CommonInformation = observer(
               className: 'col-lg-12',
               isClearable: true,
             },
+            {
+              label: 'txt_type',
+              key: 'content_type_type',
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_type'] &&
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_type']?.constructor.name === 'Object'
+                  ? {
+                      label:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_type']?.title,
+                      value:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_type']?.id,
+                    }
+                  : this.viewModel.productDetailViewModel.formPropsData[
+                      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                    ]['content_type_type']
+                  ? {
+                      label:
+                        this.typeListViewModel?.successResponse?.listTypesWithoutPagination?.find(
+                          (o) =>
+                            o?.value?.toString() ===
+                            this.viewModel.productDetailViewModel.formPropsData[
+                              PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                            ]['content_type_type']?.toString()
+                        )?.label,
+                      value:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_type'],
+                    }
+                  : null,
+              getDataSelectOptions: this.typeListViewModel?.successResponse
+                ?.listTypesWithoutPagination
+                ? this.typeListViewModel?.successResponse?.listTypesWithoutPagination.map(
+                    (item) => {
+                      return {
+                        label: item?.label,
+                        value: item?.value,
+                      };
+                    }
+                  )
+                : [],
+              handleChange: (data) => {
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_type'] = data ? data.value : '';
+              },
+              placeholder: t('txt_select_type'),
+              className: 'col-lg-12',
+              isClearable: true,
+            },
+            {
+              label: 'txt_subtype',
+              key: 'content_type_sub_type',
+              type: FORM_FIELD_TYPE.SELECTION,
+              getValueSelected:
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_sub_type'] &&
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_sub_type']?.constructor.name === 'Object'
+                  ? {
+                      label:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_sub_type']?.title,
+                      value:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_sub_type']?.id,
+                    }
+                  : this.viewModel.productDetailViewModel.formPropsData[
+                      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                    ]['content_type_sub_type']
+                  ? {
+                      label:
+                        this.subTypeListViewModel?.successResponse?.listSubTypesWithoutPagination?.find(
+                          (o) =>
+                            o?.value?.toString() ===
+                            this.viewModel.productDetailViewModel.formPropsData[
+                              PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                            ]['content_type_sub_type']?.toString()
+                        )?.label,
+                      value:
+                        this.viewModel.productDetailViewModel.formPropsData[
+                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                        ]['content_type_sub_type'],
+                    }
+                  : null,
+              getDataSelectOptions: this.subTypeListViewModel?.successResponse
+                ?.listSubTypesWithoutPagination
+                ? this.subTypeListViewModel?.successResponse?.listSubTypesWithoutPagination.map(
+                    (item) => {
+                      return {
+                        label: item?.label,
+                        value: item?.value,
+                      };
+                    }
+                  )
+                : [],
+              handleChange: (data) => {
+                this.viewModel.productDetailViewModel.formPropsData[
+                  PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                ]['content_type_sub_type'] = data ? data.value : '';
+              },
+              placeholder: t('txt_select_subtype'),
+              className: 'col-lg-12',
+              isClearable: true,
+            },
             // {
             //   label: 'txt_tags',
             //   key: PIM_PRODUCT_DETAIL_FIELD_KEY.TAGS,
@@ -241,7 +361,9 @@ const CommonInformation = observer(
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           {(this.categoryListViewModel.formStatus === PAGE_STATUS.LOADING ||
-            this.brandListViewModel.successResponse.state === false) && (
+            this.brandListViewModel.successResponse.state === false ||
+            this.typeListViewModel.successResponse.state === false ||
+            this.subTypeListViewModel.successResponse.state === false) && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)

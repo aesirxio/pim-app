@@ -396,5 +396,6 @@
   "txt_subtype": "Loại phụ",
   "txt_all_subtype": "Tất cả loại phụ",
   "txt_add_subtype_name": "Thêm tên loại phụ",
-  "txt_subtype_name": "Tên loại phụ"
+  "txt_subtype_name": "Tên loại phụ",
+  "txt_select_subtype": "Chọn loại phụ"
 }

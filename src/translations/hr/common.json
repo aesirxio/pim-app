@@ -400,5 +400,6 @@
   "txt_subtype": "Podvrsta",
   "txt_all_subtype": "Sve podvrste",
   "txt_add_subtype_name": "Dodaj naziv podvrste",
-  "txt_subtype_name": "Naziv podvrste"
+  "txt_subtype_name": "Naziv podvrste",
+  "txt_select_subtype": "Odaberite podvrstu"
 }

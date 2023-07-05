@@ -403,5 +403,6 @@
   "txt_subtype": "Sub-Type",
   "txt_all_subtype": "All Sub-Type",
   "txt_add_subtype_name": "Add Sub-Type Name",
-  "txt_subtype_name": "Sub-Type Name"
+  "txt_subtype_name": "Sub-Type Name",
+  "txt_select_subtype": "Select Sub-Type"
 }

@@ -400,5 +400,6 @@
   "txt_subtype": "Підтип",
   "txt_all_subtype": "Усі підтипи",
   "txt_add_subtype_name": "Додати назву підтипу",
-  "txt_subtype_name": "Назва підтипу"
+  "txt_subtype_name": "Назва підтипу",
+  "txt_select_subtype": "Виберіть підтип"
 }
