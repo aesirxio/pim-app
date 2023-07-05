@@ -74,11 +74,12 @@ const CommonInformation = observer(
                 : null,
               getDataSelectOptions: this.utilsListViewModel.listContentType.length
                 ? this.utilsListViewModel.listContentType?.map((item) => {
-                    let levelString = item?.level
-                      ? Array.from(Array(parseInt(item?.level)).keys())
-                          .map(() => ``)
-                          .join('- ')
-                      : '';
+                    let levelString =
+                      item?.level && item?.level > 3
+                        ? Array.from(Array(parseInt(item?.level - 2)).keys())
+                            .map(() => ``)
+                            .join('- ')
+                        : '';
                     return {
                       label: levelString + item?.label,
                       value: item?.value,

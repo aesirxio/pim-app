@@ -114,7 +114,10 @@ const CategoryInformation = observer(
                 ] &&
                 this.viewModel.categoryDetailViewModel.formPropsData[
                   PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_ID
-                ] !== 1
+                ] !== 1 &&
+                this.viewModel.categoryDetailViewModel.formPropsData[
+                  PIM_CATEGORY_DETAIL_FIELD_KEY.PARENT_NAME
+                ] !== 'PIM category'
                   ? {
                       label: this.categoryListViewModel?.items?.find(
                         (x) =>
