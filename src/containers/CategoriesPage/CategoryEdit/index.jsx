@@ -53,7 +53,7 @@ const EditCategory = observer(
     async componentDidMount() {
       if (this.isEdit) {
         this.formPropsData[PIM_CATEGORY_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
-        await this.categoryDetailViewModel.initializeData();
+        this.categoryDetailViewModel.initializeData();
       }
       this.categoryDetailViewModel.handleAliasChange('');
       this.categoryListViewModel.handleFilter({ 'list[limit]': 9999 });
