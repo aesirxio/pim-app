@@ -6,46 +6,46 @@ import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 
 import { makeAutoObservable, runInAction } from 'mobx';
 import { PAGE_STATUS, notify } from 'aesirx-uikit';
-class BrandDetailViewModel {
+class SubTypeDetailViewModel {
   formStatus = PAGE_STATUS.READY;
-  brandDetailViewModel = { formPropsData: [{}] };
+  subTypeDetailViewModel = { formPropsData: [{}] };
   aliasChange = '';
-  brandList = [];
+  subTypeList = [];
   successResponse = {
     state: true,
     content_id: '',
     filters: { limit: 0 },
   };
 
-  constructor(brandStore) {
+  constructor(subTypeStore) {
     makeAutoObservable(this);
-    this.brandStore = brandStore;
+    this.subTypeStore = subTypeStore;
   }
 
-  setForm = (brandDetailViewModel) => {
-    this.brandDetailViewModel = brandDetailViewModel;
+  setForm = (subTypeDetailViewModel) => {
+    this.subTypeDetailViewModel = subTypeDetailViewModel;
   };
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    const data = await this.brandStore.getDetail(
-      this.brandDetailViewModel.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]
+    const data = await this.subTypeStore.getDetail(
+      this.subTypeDetailViewModel.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]
     );
 
     runInAction(() => {
       if (!data?.error) {
-        this.onGetBrandSuccessHandler(data?.response);
+        this.onGetSubTypeSuccessHandler(data?.response);
       } else {
         this.onErrorHandler(data?.response);
       }
     });
   };
 
-  getBrandList = async () => {
+  getSubTypeList = async () => {
     runInAction(() => {
       this.formStatus = PAGE_STATUS.LOADING;
     });
-    const data = await this.brandStore.getList({ 'list[limit]': 9999 });
+    const data = await this.subTypeStore.getList(this.successResponse.filters);
 
     runInAction(() => {
       if (!data?.error) {
@@ -58,7 +58,7 @@ class BrandDetailViewModel {
 
   create = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    const data = await this.brandStore.create(this.brandDetailViewModel.formPropsData);
+    const data = await this.subTypeStore.create(this.subTypeDetailViewModel.formPropsData);
 
     runInAction(() => {
       if (!data?.error) {
@@ -72,7 +72,7 @@ class BrandDetailViewModel {
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    const data = await this.brandStore.update(this.brandDetailViewModel.formPropsData);
+    const data = await this.subTypeStore.update(this.subTypeDetailViewModel.formPropsData);
 
     runInAction(() => {
       if (!data?.error) {
@@ -98,15 +98,15 @@ class BrandDetailViewModel {
       notify(message, 'success');
     }
     if (result?.listItems) {
-      this.brandList = result?.listItems;
+      this.subTypeList = result?.listItems;
     }
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  onGetBrandSuccessHandler = (result) => {
+  onGetSubTypeSuccessHandler = (result) => {
     if (result && result[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]) {
-      this.brandDetailViewModel.formPropsData = {
-        ...this.brandDetailViewModel.formPropsData,
+      this.subTypeDetailViewModel.formPropsData = {
+        ...this.subTypeDetailViewModel.formPropsData,
         ...Object.keys(PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY)
           .map((index) => {
             return {
@@ -120,9 +120,9 @@ class BrandDetailViewModel {
     }
   };
 
-  onGetBrandListSuccessHandler = (result) => {
+  onGetSubTypeListSuccessHandler = (result) => {
     if (result) {
-      this.brandList = result;
+      this.subTypeList = result;
     }
     this.formStatus = PAGE_STATUS.READY;
   };
@@ -130,9 +130,9 @@ class BrandDetailViewModel {
   handleFormPropsData = (key, value) => {
     if (key && value !== null) {
       if (typeof value === 'object' && value !== null && !Array.isArray(value)) {
-        Object.assign(this.brandDetailViewModel.formPropsData[key], value);
+        Object.assign(this.subTypeDetailViewModel.formPropsData[key], value);
       } else {
-        this.brandDetailViewModel.formPropsData[key] = value;
+        this.subTypeDetailViewModel.formPropsData[key] = value;
       }
     }
   };
@@ -141,4 +141,4 @@ class BrandDetailViewModel {
   };
 }
 
-export default BrandDetailViewModel;
+export default SubTypeDetailViewModel;

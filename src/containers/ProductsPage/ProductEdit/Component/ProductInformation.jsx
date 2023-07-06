@@ -66,8 +66,14 @@ const ProductInformation = observer(
                 : null,
               getDataSelectOptions: this.categoryListViewModel.items
                 ? this.categoryListViewModel.items.map((item) => {
+                    let levelString =
+                      item?.level && item?.level > 2
+                        ? Array.from(Array(parseInt(item.level - 1)).keys())
+                            .map(() => ``)
+                            .join('- ')
+                        : '';
                     return {
-                      label: item.title,
+                      label: levelString + item.title,
                       value: item.id,
                     };
                   })

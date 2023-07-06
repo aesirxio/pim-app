@@ -33,6 +33,10 @@ import { FieldViewModelContextProvider } from 'containers/FieldsPage/FieldViewMo
 import { historyPush } from 'routes/routes';
 import { BrandStore } from 'containers/BrandPage/store';
 import BrandViewModel from 'containers/BrandPage/BrandViewModel/BrandViewModel';
+import { TypeStore } from 'containers/TypePage/store';
+import TypeViewModel from 'containers/TypePage/TypeViewModel/TypeViewModel';
+import { SubTypeStore } from 'containers/SubTypePage/store';
+import SubTypeViewModel from 'containers/SubTypePage/SubTypeViewModel/SubTypeViewModel';
 
 const categoryStore = new CategoryStore();
 const categoryViewModel = new CategoryViewModel(categoryStore);
@@ -40,6 +44,10 @@ const brandStore = new BrandStore();
 const brandViewModel = new BrandViewModel(brandStore);
 const fieldStore = new FieldStore();
 const fieldViewModel = new FieldViewModel(fieldStore);
+const typeStore = new TypeStore();
+const typeViewModel = new TypeViewModel(typeStore);
+const subTypeStore = new SubTypeStore();
+const subTypeViewModel = new SubTypeViewModel(subTypeStore);
 
 const EditProduct = observer(
   class EditProduct extends Component {
@@ -58,6 +66,10 @@ const EditProduct = observer(
         : null;
       this.brandListViewModel = brandViewModel ? brandViewModel.getBrandListViewModel() : null;
       this.fieldListViewModel = fieldViewModel ? fieldViewModel.getFieldListViewModel() : null;
+      this.typeListViewModel = typeViewModel ? typeViewModel.getTypeListViewModel() : null;
+      this.subTypeListViewModel = subTypeViewModel
+        ? subTypeViewModel.getSubTypeListViewModel()
+        : null;
       this.productDetailViewModel.setForm(this);
       this.validator = new SimpleReactValidator({
         autoForceUpdate: this,
@@ -75,6 +87,8 @@ const EditProduct = observer(
         await this.categoryListViewModel.handleFilter({ 'list[limit]': 9999 }),
         await this.categoryListViewModel.initializeDataCustom(),
         await this.brandListViewModel.initializeAllData(),
+        await this.typeListViewModel.initializeAllData(),
+        await this.subTypeListViewModel.initializeAllData(),
       ]).then(() => {
         this.productDetailViewModel.handleAliasChange('');
       });
@@ -241,6 +255,8 @@ const EditProduct = observer(
                         validator={this.validator}
                         categoryListViewModel={this.categoryListViewModel}
                         brandListViewModel={this.brandListViewModel}
+                        typeListViewModel={this.typeListViewModel}
+                        subTypeListViewModel={this.subTypeListViewModel}
                         isEdit={this.isEdit}
                       />
                     )}

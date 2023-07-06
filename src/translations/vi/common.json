@@ -387,5 +387,15 @@
   "txt_product_fieldvalue": "Giá trị trường sản phẩm",
   "txt_all_product_fieldvalue": "Tất cả giá trị trường sản phẩm",
   "txt_add_product_fieldvalue": "Thêm giá trị trường sản phẩm",
-  "txt_product": "Sản phẩm"
+  "txt_product": "Sản phẩm",
+  "txt_left_menu_type": "Loại",
+  "txt_all_type": "Tất cả loại",
+  "txt_add_type_name": "Thêm tên loại",
+  "txt_type_name": "Tên loại",
+  "txt_left_menu_subtype": "Loại phụ",
+  "txt_subtype": "Loại phụ",
+  "txt_all_subtype": "Tất cả loại phụ",
+  "txt_add_subtype_name": "Thêm tên loại phụ",
+  "txt_subtype_name": "Tên loại phụ",
+  "txt_select_subtype": "Chọn loại phụ"
 }

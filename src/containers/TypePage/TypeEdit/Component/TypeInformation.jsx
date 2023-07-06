@@ -1,25 +1,25 @@
-import { PIM_BRAND_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import React, { Component } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { FORM_FIELD_TYPE, notify, renderingGroupFieldHandler } from 'aesirx-uikit';
-import { BrandViewModelContext } from 'containers/BrandPage/BrandViewModel/BrandViewModelContextProvider';
+import { TypeViewModelContext } from 'containers/TypePage/TypeViewModel/TypeViewModelContextProvider';
 
-const BrandInformation = observer(
-  class BrandInformation extends Component {
-    static contextType = BrandViewModelContext;
+const TypeInformation = observer(
+  class TypeInformation extends Component {
+    static contextType = TypeViewModelContext;
 
     constructor(props) {
       super(props);
     }
 
     render() {
-      this.viewModel = this.context.model.brandDetailViewModel;
+      this.viewModel = this.context.model.typeDetailViewModel;
 
-      const filteredBrandList = this.viewModel?.brandList?.filter((item) => {
+      const filteredTypeList = this.viewModel?.typeList?.filter((item) => {
         return (
           item.id !==
-          this.viewModel.brandDetailViewModel.formPropsData[PIM_BRAND_DETAIL_FIELD_KEY.ID]
+          this.viewModel.typeDetailViewModel.formPropsData[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID]
         );
       });
 
@@ -30,40 +30,36 @@ const BrandInformation = observer(
           fields: [
             {
               label: t('txt_parent_type'),
-              key: PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID,
+              key: PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
               type: FORM_FIELD_TYPE.SELECTION,
               getValueSelected:
-                this.viewModel.brandDetailViewModel.formPropsData[
-                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
+                this.viewModel.typeDetailViewModel.formPropsData[
+                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
                 ] &&
-                this.viewModel.brandDetailViewModel.formPropsData[
-                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
-                ] !== '0' &&
-                this.viewModel.brandDetailViewModel.formPropsData[
-                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_NAME
-                ] !== 'PIM Brand'
+                this.viewModel.typeDetailViewModel.formPropsData[
+                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
+                ] !== '0'
                   ? {
-                      label: this.viewModel?.brandList?.find(
+                      label: this.viewModel?.typeList?.find(
                         (x) =>
                           x.id.toString() ===
-                          this.viewModel.brandDetailViewModel.formPropsData[
-                            PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
+                          this.viewModel.typeDetailViewModel.formPropsData[
+                            PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
                           ].toString()
                       )?.name,
                       value:
-                        this.viewModel.brandDetailViewModel.formPropsData[
-                          PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID
+                        this.viewModel.typeDetailViewModel.formPropsData[
+                          PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID
                         ],
                     }
                   : null,
-              getDataSelectOptions: filteredBrandList?.length
-                ? filteredBrandList?.map((item) => {
-                    let levelString =
-                      item?.level && item?.level > 3
-                        ? Array.from(Array(parseInt(item?.level - 2)).keys())
-                            .map(() => ``)
-                            .join('- ')
-                        : '';
+              getDataSelectOptions: filteredTypeList?.length
+                ? filteredTypeList?.map((item) => {
+                    let levelString = item?.level
+                      ? Array.from(Array(parseInt(item?.level)).keys())
+                          .map(() => ``)
+                          .join('- ')
+                      : '';
                     return {
                       label: levelString + item?.name,
                       value: item.id,
@@ -72,7 +68,7 @@ const BrandInformation = observer(
                 : [],
               handleChange: (data) => {
                 this.viewModel.handleFormPropsData(
-                  PIM_BRAND_DETAIL_FIELD_KEY.PARENT_ID,
+                  PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_ID,
                   data?.value ?? 0
                 );
                 if (isEdit) {
@@ -104,4 +100,4 @@ const BrandInformation = observer(
     }
   }
 );
-export default withTranslation()(BrandInformation);
+export default withTranslation()(TypeInformation);

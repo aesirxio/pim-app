@@ -3,14 +3,14 @@ import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
-import { withBrandViewModel } from './BrandViewModel/BrandViewModelContextProvider';
+import { withTypeViewModel } from './TypeViewModel/TypeViewModelContextProvider';
 import ActionsBar from 'components/ActionsBar';
 import { historyPush } from 'routes/routes';
 
-const ListBrand = observer((props) => {
+const ListType = observer((props) => {
   const { t } = useTranslation();
   let listSelected = [];
-  const viewModel = props.model.brandListViewModel;
+  const viewModel = props.model.typeListViewModel;
   useEffect(() => {
     // viewModel.initializeAllData();
     viewModel.initializeData();
@@ -18,16 +18,16 @@ const ListBrand = observer((props) => {
   const columnsTable = [
     {
       Header: t('txt_name'),
-      accessor: 'brand',
+      accessor: 'type',
       width: 150,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <>
             <div className="d-flex align-items-center py-8px">
-              {value.level > 3 && (
+              {value.level > 1 && (
                 <div className="me-1 d-flex align-items-center">
-                  {[...Array(value.level - 3)].map((o, index) => (
+                  {[...Array(value.level - 1)].map((o, index) => (
                     <span
                       key={index}
                       style={{
@@ -48,7 +48,7 @@ const ListBrand = observer((props) => {
                   <div className="text-green">
                     <button
                       onClick={() => {
-                        historyPush(`/brands/edit/${value.id}`);
+                        historyPush(`/types/edit/${value.id}`);
                       }}
                       className="p-0 border-0 bg-transparent d-inline-block text-green"
                     >
@@ -82,12 +82,12 @@ const ListBrand = observer((props) => {
     listSelected = arr.map((o) => o.cells[1]?.value?.id);
   };
 
-  const deleteBrands = () => {
+  const deleteTypes = () => {
     if (listSelected.length < 1) {
       notify(t('txt_row_select_error'), 'error');
     } else {
       viewModel.isLoading();
-      viewModel.deleteBrands(listSelected);
+      viewModel.deleteTypes(listSelected);
     }
   };
 
@@ -118,7 +118,7 @@ const ListBrand = observer((props) => {
   return (
     <div className="px-3 py-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
-        <h2 className="fw-bold">{t('txt_left_menu_brand')}</h2>
+        <h2 className="fw-bold">{t('txt_left_menu_type')}</h2>
 
         <ActionsBar
           buttons={[
@@ -128,7 +128,7 @@ const ListBrand = observer((props) => {
               iconColor: '#cb222c',
               textColor: '#cb222c',
               handle: async () => {
-                deleteBrands();
+                deleteTypes();
               },
             },
             {
@@ -136,7 +136,7 @@ const ListBrand = observer((props) => {
               icon: '/assets/images/plus.svg',
               variant: 'success',
               handle: async () => {
-                historyPush('/brands/add');
+                historyPush('/types/add');
               },
             },
           ]}
@@ -148,7 +148,7 @@ const ListBrand = observer((props) => {
           id="tab-setting"
           onSelect={(k) => selectTabHandler(k)}
         >
-          <Tab eventKey="default" title={t('txt_all_brand')} />
+          <Tab eventKey="default" title={t('txt_all_type')} />
         </Tabs>
       </div>
       <div className="d-flex align-items-center justify-content-between gap-2 my-20">
@@ -178,7 +178,7 @@ const ListBrand = observer((props) => {
           <Table
             classNameTable={`bg-white rounded table-striped table`}
             columns={columnsTable}
-            data={viewModel?.successResponse?.listBrands}
+            data={viewModel?.successResponse?.listTypes}
             pagination={viewModel?.successResponse?.pagination}
             selection={false}
             selectPage={selectPageHandler}
@@ -192,4 +192,4 @@ const ListBrand = observer((props) => {
   );
 });
 
-export default withTranslation()(withBrandViewModel(ListBrand));
+export default withTranslation()(withTypeViewModel(ListType));

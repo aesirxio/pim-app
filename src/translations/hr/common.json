@@ -391,5 +391,15 @@
   "txt_product_fieldvalue": "Vrijednost polja proizvoda",
   "txt_all_product_fieldvalue": "Vrijednost polja svih proizvoda",
   "txt_add_product_fieldvalue": "Dodajte vrijednost polja proizvoda",
-  "txt_product": "Proizvod"
+  "txt_product": "Proizvod",
+  "txt_left_menu_type": "Tip",
+  "txt_all_type": "Sve vrste",
+  "txt_add_type_name": "Dodaj naziv vrste",
+  "txt_type_name": "Ime vrste",
+  "txt_left_menu_subtype": "Podvrsta",
+  "txt_subtype": "Podvrsta",
+  "txt_all_subtype": "Sve podvrste",
+  "txt_add_subtype_name": "Dodaj naziv podvrste",
+  "txt_subtype_name": "Naziv podvrste",
+  "txt_select_subtype": "Odaberite podvrstu"
 }

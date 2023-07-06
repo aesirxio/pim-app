@@ -210,7 +210,7 @@ class CategoryListViewModel {
   callbackOnSuccessGetCategoriesHandler = (result) => {
     this.successResponse.listCategoriesWithoutPagination = result.listItems.map((o) => {
       let dash = '';
-      for (let index = 1; index < o.level; index++) {
+      for (let index = 2; index < o.level; index++) {
         dash += '- ';
       }
       return { value: o.id, label: `${dash}${o.title}` };

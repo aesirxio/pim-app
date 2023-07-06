@@ -394,5 +394,15 @@
   "txt_product_fieldvalue": "Product Field Value",
   "txt_all_product_fieldvalue": "All Product Field Value",
   "txt_add_product_fieldvalue": "Add Product Field Value",
-  "txt_product": "Product"
+  "txt_product": "Product",
+  "txt_left_menu_type": "Type",
+  "txt_all_type": "All Type",
+  "txt_add_type_name": "Add Type Name",
+  "txt_type_name": "Type Name",
+  "txt_left_menu_subtype": "Sub-Type",
+  "txt_subtype": "Sub-Type",
+  "txt_all_subtype": "All Sub-Type",
+  "txt_add_subtype_name": "Add Sub-Type Name",
+  "txt_subtype_name": "Sub-Type Name",
+  "txt_select_subtype": "Select Sub-Type"
 }

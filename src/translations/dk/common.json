@@ -394,5 +394,15 @@
   "txt_product_fieldvalue": "Produktfeltværdi",
   "txt_all_product_fieldvalue": "Al produktfeltværdi",
   "txt_add_product_fieldvalue": "Tilføj produktfeltværdi",
-  "txt_product": "Produkt"
+  "txt_product": "Produkt",
+  "txt_left_menu_type": "Skriv",
+  "txt_all_type": "Alle typer",
+  "txt_add_type_name": "Tilføj typenavn",
+  "txt_type_name": "Skriv navn",
+  "txt_left_menu_subtype": "Undertype",
+  "txt_subtype": "Undertype",
+  "txt_all_subtype": "Alle undertyper",
+  "txt_add_subtype_name": "Tilføj undertypenavn",
+  "txt_subtype_name": "Undertypenavn",
+  "txt_select_subtype": "Vælg undertype"
 }

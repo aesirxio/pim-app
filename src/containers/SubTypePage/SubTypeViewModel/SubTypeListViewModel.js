@@ -4,13 +4,13 @@
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { PIM_BRAND_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { PAGE_STATUS, notify } from 'aesirx-uikit';
 
-class BrandListViewModel {
+class SubTypeListViewModel {
   formStatus = PAGE_STATUS.READY;
-  brandListViewModel = {};
+  subTypeListViewModel = {};
   items = [];
   filter = {};
   successResponse = {
@@ -21,25 +21,25 @@ class BrandListViewModel {
     filters: {
       'list[limit]': 10,
     },
-    listBrands: [],
+    listSubTypes: [],
     pagination: null,
-    listBrandsWithoutPagination: [],
+    listSubTypesWithoutPagination: [],
   };
 
-  constructor(brandStore) {
+  constructor(subTypeStore) {
     makeAutoObservable(this);
-    this.brandStore = brandStore;
+    this.subTypeStore = subTypeStore;
   }
 
-  setForm = (brandListViewModel) => {
-    this.brandListViewModel = brandListViewModel;
+  setForm = (subTypeListViewModel) => {
+    this.subTypeListViewModel = subTypeListViewModel;
   };
 
   initializeData = async () => {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.brandStore.getList(this.successResponse.filters);
+    const data = await this.subTypeStore.getList(this.successResponse.filters);
 
     runInAction(() => {
       if (!data?.error) {
@@ -55,11 +55,11 @@ class BrandListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.brandStore.getListWithoutPagination(this.successResponse.filters);
+    const data = await this.subTypeStore.getListWithoutPagination(this.successResponse.filters);
 
     runInAction(() => {
       if (!data?.error) {
-        this.callbackOnSuccessGetBrandsHandler(data?.response);
+        this.callbackOnSuccessGetSubTypesHandler(data?.response);
       } else {
         this.onErrorHandler(data?.response);
       }
@@ -89,7 +89,7 @@ class BrandListViewModel {
       }
     }
 
-    const data = await this.brandStore.getList(this.successResponse.filters);
+    const data = await this.subTypeStore.getList(this.successResponse.filters);
     runInAction(() => {
       if (!data?.error) {
         this.onSuccessHandler(data?.response, '');
@@ -105,7 +105,7 @@ class BrandListViewModel {
       notify(message, 'success');
     }
     if (result?.listItems) {
-      this.successResponse.listBrands = this.transform(result?.listItems);
+      this.successResponse.listSubTypes = this.transform(result?.listItems);
       this.successResponse.pagination = result?.pagination;
       this.items = result?.listItems;
     }
@@ -125,31 +125,33 @@ class BrandListViewModel {
 
   transform = (data) => {
     return data?.map((o) => {
-      const date = moment(o[PIM_BRAND_DETAIL_FIELD_KEY.MODIFIED_TIME]).format('DD MMM, YYYY');
+      const date = moment(o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
+        'DD MMM, YYYY'
+      );
       return {
-        brand: {
-          id: o[PIM_BRAND_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_BRAND_DETAIL_FIELD_KEY.NAME],
-          level: o[PIM_BRAND_DETAIL_FIELD_KEY.LEVEL],
+        subType: {
+          id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID],
+          name: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME],
+          // level: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.LEVEL],
         },
-        // brandParent: o[PIM_BRAND_DETAIL_FIELD_KEY.PARENT_NAME]
-        //   ? o[PIM_BRAND_DETAIL_FIELD_KEY.PARENT_NAME]
+        // subTypeParent: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
+        //   ? o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PARENT_NAME]
         //   : 'ROOT',
         lastModified: {
-          status: o[PIM_BRAND_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_BRAND_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         },
         published: {
-          state: o[PIM_BRAND_DETAIL_FIELD_KEY.PUBLISHED],
-          id: o[PIM_BRAND_DETAIL_FIELD_KEY.ID],
+          state: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.PUBLISHED],
+          id: o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.ID],
         },
       };
     });
   };
 
-  deleteBrands = async (arr) => {
-    const data = await this.brandStore.delete(arr);
+  deleteSubTypes = async (arr) => {
+    const data = await this.subTypeStore.delete(arr);
     runInAction(async () => {
       if (!data?.error) {
         await this.initializeData();
@@ -162,9 +164,9 @@ class BrandListViewModel {
   };
 
   setPublished = async ({ id, name }, state = 0) => {
-    const data = await this.brandStore.update({
+    const data = await this.subTypeStore.update({
       id: id.toString(),
-      brand_name: name,
+      subType_name: name,
       published: state.toString(),
     });
     runInAction(async () => {
@@ -177,13 +179,13 @@ class BrandListViewModel {
     });
   };
 
-  callbackOnSuccessGetBrandsHandler = (result) => {
-    this.successResponse.listBrandsWithoutPagination = result?.listItems?.map((o) => {
+  callbackOnSuccessGetSubTypesHandler = (result) => {
+    this.successResponse.listSubTypesWithoutPagination = result?.listItems?.map((o) => {
       let dash = '';
-      for (let index = 3; index < o.level; index++) {
+      for (let index = 1; index < o.level; index++) {
         dash += '- ';
       }
-      return { value: o?.id, label: `${dash}${o[PIM_BRAND_DETAIL_FIELD_KEY.NAME]}` };
+      return { value: o?.id, label: `${dash}${o[PIM_PRODUCT_TYPE_DETAIL_FIELD_KEY.NAME]}` };
     });
   };
 
@@ -194,4 +196,4 @@ class BrandListViewModel {
   };
 }
 
-export default BrandListViewModel;
+export default SubTypeListViewModel;
