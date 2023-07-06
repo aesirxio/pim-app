@@ -80,15 +80,15 @@ const EditProduct = observer(
     async componentDidMount() {
       if (this.isEdit) {
         this.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID] = this.props.match.params?.id;
-        await this.productDetailViewModel.initializeData();
       }
 
       await Promise.all([
+        this.isEdit && this.productDetailViewModel.initializeData(),
         await this.categoryListViewModel.handleFilter({ 'list[limit]': 9999 }),
-        await this.categoryListViewModel.initializeDataCustom(),
-        await this.brandListViewModel.initializeAllData(),
-        await this.typeListViewModel.initializeAllData(),
-        await this.subTypeListViewModel.initializeAllData(),
+        this.categoryListViewModel.initializeDataCustom(),
+        this.brandListViewModel.initializeAllData(),
+        this.typeListViewModel.initializeAllData(),
+        this.subTypeListViewModel.initializeAllData(),
       ]).then(() => {
         this.productDetailViewModel.handleAliasChange('');
       });

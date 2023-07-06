@@ -179,7 +179,7 @@ const CategoryInformation = observer(
                 let convertData = data.map((item) => ({ title: item.label, id: item.value }));
                 this.viewModel.handleFormPropsData(
                   PIM_CATEGORY_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
-                  convertData
+                  convertData ?? ''
                 );
               },
               placeholder: t('txt_select_category'),

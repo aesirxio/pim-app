@@ -82,7 +82,7 @@ const ProductInformation = observer(
                 let convertData = data.map((item) => item.value.toString());
                 this.viewModel.handleFormPropsData(
                   PIM_PRODUCT_DETAIL_FIELD_KEY.RELATED_CATEGORIES,
-                  convertData
+                  convertData ?? ''
                 );
               },
               isMulti: true,

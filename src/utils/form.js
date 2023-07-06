@@ -348,7 +348,7 @@ const renderingGroupFieldHandler = (group, validator) => {
                       maxLength={field?.maxLength}
                     />
                   ) : (
-                    <FormEditor field={field} />
+                    <FormEditor field={field} key={field.key} />
                   )}
                   {field.validation &&
                     validator.message(field.label, field.value, field.validation, {
