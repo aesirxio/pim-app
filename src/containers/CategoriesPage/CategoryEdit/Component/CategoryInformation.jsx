@@ -76,11 +76,12 @@ const CategoryInformation = observer(
                 : null,
               getDataSelectOptions: this.utilsListViewModel.listContentType.length
                 ? this.utilsListViewModel.listContentType.map((item) => {
-                    let levelString = item?.level
-                      ? Array.from(Array(parseInt(item?.level)).keys())
-                          .map(() => ``)
-                          .join('- ')
-                      : '';
+                    let levelString =
+                      item?.level && item?.level > 2
+                        ? Array.from(Array(parseInt(item?.level - 1)).keys())
+                            .map(() => ``)
+                            .join('- ')
+                        : '';
                     return {
                       label: levelString + item?.label,
                       value: item?.value,
@@ -134,9 +135,12 @@ const CategoryInformation = observer(
                   : null,
               getDataSelectOptions: filteredCategoryList
                 ? filteredCategoryList.map((item) => {
-                    let levelString = Array.from(Array(parseInt(item.level)).keys())
-                      .map(() => ``)
-                      .join('- ');
+                    let levelString =
+                      item?.level && item?.level > 2
+                        ? Array.from(Array(parseInt(item.level - 1)).keys())
+                            .map(() => ``)
+                            .join('- ')
+                        : '';
                     return {
                       label: levelString + item.title,
                       value: item.id,

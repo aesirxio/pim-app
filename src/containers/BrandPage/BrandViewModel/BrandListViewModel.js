@@ -180,7 +180,7 @@ class BrandListViewModel {
   callbackOnSuccessGetBrandsHandler = (result) => {
     this.successResponse.listBrandsWithoutPagination = result?.listItems?.map((o) => {
       let dash = '';
-      for (let index = 1; index < o.level; index++) {
+      for (let index = 3; index < o.level; index++) {
         dash += '- ';
       }
       return { value: o?.id, label: `${dash}${o[PIM_BRAND_DETAIL_FIELD_KEY.NAME]}` };
