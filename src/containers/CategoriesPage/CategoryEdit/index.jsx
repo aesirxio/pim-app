@@ -151,7 +151,7 @@ const EditCategory = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.categoryDetailViewModel.create();
-                          historyPush(`/categories/edit/${result}`);
+                          historyPush(`/categories/edit/${result?.response}`);
                         }
                       } else {
                         this.handleValidateForm();

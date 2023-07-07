@@ -7,10 +7,9 @@ import { AesirxPimCategoryApiService } from 'aesirx-lib';
 import { AesirxPimProductApiService } from 'aesirx-lib';
 import { AesirxPimUtilApiService } from 'aesirx-lib';
 import { ProductItemModel } from 'aesirx-lib';
-import { runInAction } from 'mobx';
 
 export default class ProductStore {
-  async create(createProductData, callbackOnSuccess, callbackOnError) {
+  async create(createProductData) {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfCreation(createProductData);
@@ -20,25 +19,13 @@ export default class ProductStore {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
 
       resultOnSave = await aesirxPimProductApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-      return resultOnSave?.result;
+      return { error: false, response: resultOnSave?.result };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async update(updateProductData, callbackOnSuccess, callbackOnError) {
+  async update(updateProductData) {
     try {
       const convertedUpdateGeneralData =
         ProductItemModel.__transformItemToApiOfUpdation(updateProductData);
@@ -47,25 +34,13 @@ export default class ProductStore {
 
       resultOnSave = await aesirxPimProductApiService.update(convertedUpdateGeneralData);
 
-      if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-      return resultOnSave?.result;
+      return { error: false, response: resultOnSave?.result };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getProductDetail(id, callbackOnSuccess, callbackOnError) {
+  async getProductDetail(id) {
     if (!id) return false;
 
     try {
@@ -76,85 +51,42 @@ export default class ProductStore {
 
         const respondedData = await aesirxPimProductApiService.getDetail(id);
 
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+        return { error: false, response: respondedData };
       }
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getListCategories(callbackOnSuccess, callbackOnError) {
+  async getListCategories() {
     try {
       const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
       const respondedData = await aesirxPimCategoryApiService.getList({ 'list[limit]': 9999 });
 
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async getList(callbackOnSuccess, callbackOnError, filters) {
+  async getList(filters) {
     try {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
       const respondedData = await aesirxPimProductApiService.getList(filters);
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+  async getListPublishStatus() {
     try {
       const aesirxPimUtilApiService = new AesirxPimUtilApiService();
       const respondedData = await aesirxPimUtilApiService.getListPublishStatus();
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
   async getDetailProduct(id) {
@@ -163,45 +95,29 @@ export default class ProductStore {
     try {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
       const respondedData = await aesirxPimProductApiService.getDetailInfo(id);
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
+  async updateStatus(arr, status) {
     try {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
       const respondedData = await aesirxPimProductApiService.updateStatus(arr, status);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Updated successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async deleteProducts(arr, callbackOnSuccess, callbackOnError) {
+  async deleteProducts(arr) {
     try {
       const aesirxPimProductApiService = new AesirxPimProductApiService();
       const respondedData = await aesirxPimProductApiService.deleteProducts(arr);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Deleted successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 }

@@ -9,7 +9,7 @@ import { CategoryItemModel } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class CategoryStore {
-  async createCategory(createCategoryData, callbackOnSuccess, callbackOnError) {
+  async createCategory(createCategoryData) {
     try {
       const convertedUpdateGeneralData =
         CategoryItemModel.__transformItemToApiOfCreation(createCategoryData);
@@ -17,25 +17,13 @@ export default class CategoryStore {
       const createCategoryApiService = new AesirxPimCategoryApiService();
 
       resultOnSave = await createCategoryApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-      return resultOnSave?.result;
+      return { error: false, response: resultOnSave?.result };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async updateCategory(updateCategoryData, callbackOnSuccess, callbackOnError) {
+  async updateCategory(updateCategoryData) {
     try {
       const convertedUpdateGeneralData =
         CategoryItemModel.__transformItemToApiOfUpdation(updateCategoryData);
@@ -45,25 +33,13 @@ export default class CategoryStore {
       const updateCategoryApiService = new AesirxPimCategoryApiService();
       resultOnSave = await updateCategoryApiService.update(convertedUpdateGeneralData);
 
-      if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-      return resultOnSave?.result;
+      return { error: false, response: resultOnSave?.result };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getDetail(id, callbackOnSuccess, callbackOnError) {
+  async getDetail(id) {
     if (!id) return false;
 
     try {
@@ -73,121 +49,61 @@ export default class CategoryStore {
         const getDetailInfoAPIService = new AesirxPimCategoryApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
-
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+        return { error: false, response: respondedData };
       }
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getList(callbackOnSuccess, callbackOnError, filters) {
+  async getList(filters) {
     try {
       const getListAPIService = new AesirxPimCategoryApiService();
       const respondedData = await getListAPIService.getList(filters);
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async getListWithoutPagination(callbackOnSuccess, callbackOnError) {
+  async getListWithoutPagination() {
     try {
       const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
       const respondedData = await aesirxPimCategoryApiService.getList({ 'list[limit]': 9999 });
 
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+  async getListPublishStatus() {
     try {
       const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
       const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
+  async updateStatus(arr, status) {
     try {
       const updateStatusAPIService = new AesirxPimCategoryApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Updated successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async deleteCategories(arr, callbackOnSuccess, callbackOnError) {
+  async deleteCategories(arr) {
     try {
       const aesirxPimCategoryApiService = new AesirxPimCategoryApiService();
       const respondedData = await aesirxPimCategoryApiService.deleteCategories(arr);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Deleted successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 }

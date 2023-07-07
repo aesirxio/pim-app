@@ -41,21 +41,33 @@ class ProductListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    await this.productStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
+    const dataList = await this.productStore.getList(this.successResponse.filters);
+    runInAction(() => {
+      if (!dataList?.error) {
+        this.onSuccessHandler(dataList?.response, '');
+      } else {
+        this.onErrorHandler(dataList?.response);
+      }
+    });
 
-    await this.productStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const dataPublish = await this.productStore.getListPublishStatus();
+    runInAction(() => {
+      if (!dataPublish?.error) {
+        this.onSuccessHandler(dataPublish?.response, '');
+      } else {
+        this.onErrorHandler(dataPublish?.response);
+      }
+    });
 
-    await this.productStore.getListCategories(
-      this.callbackOnSuccessGetCategoriesHandler,
-      this.callbackOnErrorHandler
-    );
+    const dataCategory = await this.productStore.getListCategories();
+    runInAction(() => {
+      if (!dataCategory?.error) {
+        this.onSuccessGetCategoriesHandler(dataCategory?.response, '');
+      } else {
+        this.onErrorHandler(dataCategory?.response);
+      }
+    });
+
     runInAction(() => {
       this.successResponse.state = true;
     });
@@ -63,23 +75,28 @@ class ProductListViewModel {
 
   initializeDataListProduct = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.filter
-    );
+    const data = await this.productStore.getList(this.filter);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   setFeatured = async (id, featured = 0) => {
-    await this.productStore.update(
-      { id: id.toString(), featured: featured.toString() },
-      this.callbackOnSuccessSetFeatured,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.productStore.update({
+      id: id.toString(),
+      featured: featured.toString(),
+    });
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessSetFeatured(data?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
@@ -106,67 +123,82 @@ class ProductListViewModel {
       }
     }
 
-    await this.productStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
-
+    const data = await this.productStore.getList(this.successResponse.filters);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.productStore.updateStatus(
-      arr,
-      status,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.productStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.productStore.updateStatus(arr, status);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.productStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+
+        this.successResponse.state = true;
+      });
+    }
   };
 
   deleteProducts = async (arr) => {
-    const res = await this.productStore.deleteProducts(
-      arr,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.productStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.productStore.deleteProducts(arr);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Deleted successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.productStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+
+        this.successResponse.state = true;
+      });
+    }
   };
 
   getStatisticalDataByDate = async (startDate, endDate) => {
     this.isLoading();
-    await this.productStore.getList(this.callbackOnSuccessHandler, this.callbackOnErrorHandler, {
+    const data = await this.productStore.getList({
       ...this.successResponse.filters,
       'filter[modified_date][start]': startDate,
       'filter[modified_date][end]': endDate,
     });
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+
       this.successResponse.state = true;
     });
   };
 
-  callbackOnSuccessSetFeatured = async (result, message) => {
+  onSuccessSetFeatured = async (result, message) => {
     this.successResponse.listProducts = this.successResponse.listProducts.map((o) => {
       if (o.id == result) {
         return { ...o, featured: !o.featured };
@@ -178,7 +210,7 @@ class ProductListViewModel {
     }
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result?.listItems) {
       this.successResponse.listProducts = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
@@ -194,7 +226,7 @@ class ProductListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessGetCategoriesHandler = (result) => {
+  onSuccessGetCategoriesHandler = (result) => {
     this.successResponse.listCategories = result.listItems.map((o) => {
       let dash = '';
       for (let index = 1; index < o.level; index++) {
@@ -204,10 +236,10 @@ class ProductListViewModel {
     });
   };
 
-  callbackOnErrorHandler = (error) => {
-    Array.isArray(error?._messages) && error._messages[0]?.message
-      ? notify(error._messages[0]?.message, 'error')
-      : error.message && notify(error.message, 'error');
+  onErrorHandler = (error) => {
+    Array.isArray(error?._messages) && error?._messages[0]?.message
+      ? notify(error?._messages[0]?.message, 'error')
+      : error?.message && notify(error?.message, 'error');
   };
 
   transform = (data) => {
