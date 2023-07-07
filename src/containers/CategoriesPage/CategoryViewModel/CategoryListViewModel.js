@@ -38,21 +38,33 @@ class CategoryListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    await this.categoryStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
+    const dataList = await this.categoryStore.getList(this.successResponse.filters);
+    runInAction(() => {
+      if (!dataList?.error) {
+        this.onSuccessHandler(dataList?.response, '');
+      } else {
+        this.onErrorHandler(dataList?.response);
+      }
+    });
 
-    await this.categoryStore.getListWithoutPagination(
-      this.callbackOnSuccessGetCategoriesHandler,
-      this.callbackOnErrorHandler
-    );
+    const dataListWithoutPagination = await this.categoryStore.getListWithoutPagination();
+    runInAction(() => {
+      if (!dataListWithoutPagination?.error) {
+        this.onSuccessGetCategoriesHandler(dataListWithoutPagination?.response, '');
+      } else {
+        this.onErrorHandler(dataListWithoutPagination?.response);
+      }
+    });
 
-    await this.categoryStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const dataPublish = await this.categoryStore.getListPublishStatus();
+    runInAction(() => {
+      if (!dataPublish?.error) {
+        this.onSuccessHandler(dataPublish?.response, '');
+      } else {
+        this.onErrorHandler(dataPublish?.response);
+      }
+    });
+
     runInAction(() => {
       this.successResponse.state = true;
     });
@@ -63,16 +75,17 @@ class CategoryListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    await this.categoryStore.getList(
-      this.callbackOnSuccessHandlerCustom,
-      this.callbackOnErrorHandler,
-      this.filter
-    );
+    const data = await this.categoryStore.getList(this.filter);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandlerCustom(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
-  callbackOnSuccessHandlerCustom = (result) => {
+  onSuccessHandlerCustom = (result) => {
     this.items = result.listItems;
     this.formStatus = PAGE_STATUS.READY;
   };
@@ -99,86 +112,101 @@ class CategoryListViewModel {
       }
     }
 
-    await this.categoryStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
-
+    const data = await this.categoryStore.getList(this.successResponse.filters);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   setPublished = async (id, state = 0) => {
-    await this.categoryStore.updateCategory(
-      { id: id.toString(), published: state.toString() },
-      this.callbackOnSuccessSetPublished,
-      this.callbackOnErrorHandler
-    );
-
-    await this.categoryStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
-
+    const dataUpdate = await this.categoryStore.updateCategory({
+      id: id.toString(),
+      published: state.toString(),
+    });
     runInAction(() => {
+      if (!dataUpdate?.error) {
+        this.onSuccessSetPublished(dataUpdate?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(dataUpdate?.response);
+      }
+    });
+
+    const data = await this.categoryStore.getList(this.successResponse.filters);
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.categoryStore.updateStatus(
-      arr,
-      status,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.categoryStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.categoryStore.updateStatus(arr, status);
     runInAction(() => {
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
       this.successResponse.state = true;
     });
+    if (res) {
+      const data = await this.categoryStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
   deleteCategories = async (arr) => {
-    const res = await this.categoryStore.deleteCategories(
-      arr,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.categoryStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.categoryStore.deleteCategories(arr);
     runInAction(() => {
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Deleted successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
       this.successResponse.state = true;
     });
+    if (res) {
+      const data = await this.categoryStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
   handleFilter = (filter) => {
     this.filter = { ...this.filter, ...filter };
   };
 
-  callbackOnErrorHandler = (error) => {
-    Array.isArray(error?._messages) && error._messages[0]?.message
-      ? notify(error._messages[0]?.message, 'error')
-      : error.message && notify(error.message, 'error');
+  onErrorHandler = (error) => {
+    Array.isArray(error?._messages) && error?._messages[0]?.message
+      ? notify(error?._messages[0]?.message, 'error')
+      : error?.message && notify(error?.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result?.listItems) {
       this.successResponse.listCategories = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
@@ -195,7 +223,7 @@ class CategoryListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessSetPublished = async (result, message) => {
+  onSuccessSetPublished = async (result, message) => {
     this.successResponse.listCategories = this.successResponse.listCategories.map((o) => {
       if (o.category.id == result) {
         return { ...o, published: { ...o.published, state: !o.published.state } };
@@ -207,7 +235,7 @@ class CategoryListViewModel {
     }
   };
 
-  callbackOnSuccessGetCategoriesHandler = (result) => {
+  onSuccessGetCategoriesHandler = (result) => {
     this.successResponse.listCategoriesWithoutPagination = result.listItems.map((o) => {
       let dash = '';
       for (let index = 2; index < o.level; index++) {

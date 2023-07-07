@@ -182,7 +182,7 @@ const EditProduct = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.productDetailViewModel.create();
-                          result && historyPush(`/products/edit/${result}`);
+                          result && historyPush(`/products/edit/${result?.response}`);
                         }
                       } else {
                         this.handleValidateForm();

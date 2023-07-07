@@ -29,48 +29,64 @@ class ProductDetailViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productStore.getProductDetail(
-      this.productDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetProductSuccessHandler,
-      this.callbackOnErrorHandler
+    const data = await this.productStore.getProductDetail(
+      this.productDetailViewModel.formPropsData[PIM_PRODUCT_DETAIL_FIELD_KEY.ID]
     );
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onGetProductSuccessHandler(data?.response);
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
   };
 
   create = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return await this.productStore.create(
-      this.productDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.productStore.create(this.productDetailViewModel.formPropsData);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Created successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+    return data;
   };
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return await this.productStore.update(
-      this.productDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.productStore.update(this.productDetailViewModel.formPropsData);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+    return data;
   };
 
-  callbackOnErrorHandler = (error) => {
-    Array.isArray(error?._messages) && error._messages[0]?.message
-      ? notify(error._messages[0]?.message, 'error')
-      : error.message && notify(error.message, 'error');
+  onErrorHandler = (error) => {
+    Array.isArray(error?._messages) && error?._messages[0]?.message
+      ? notify(error?._messages[0]?.message, 'error')
+      : error?.message && notify(error?.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result && message) {
       notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetProductSuccessHandler = (result) => {
+  onGetProductSuccessHandler = (result) => {
     if (result && result[PIM_PRODUCT_DETAIL_FIELD_KEY.ID]) {
       this.productDetailViewModel.formPropsData = {
         ...this.productDetailViewModel.formPropsData,
