@@ -1,10 +1,9 @@
-import { Table, AesirXSelect, Spinner, notify } from 'aesirx-uikit';
+import { Table, AesirXSelect, Spinner, notify, ActionsBar } from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withFilteringValueViewModel } from './FilteringValueViewModel/FilteringValueViewModelContextProvider';
-import ActionsBar from 'components/ActionsBar';
 import { historyPush } from 'routes/routes';
 
 const ListFilteringValue = observer((props) => {

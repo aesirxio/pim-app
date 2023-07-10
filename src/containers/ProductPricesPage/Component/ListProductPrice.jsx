@@ -3,9 +3,8 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withProductPriceViewModel } from '../ProductPriceViewModel/ProductPriceViewModelContextProvider';
 import { Tab, Tabs } from 'react-bootstrap';
-import { Spinner, Table, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { Spinner, Table, notify, AesirXSelect as SelectComponent, ActionsBar } from 'aesirx-uikit';
 import '../index.scss';
-import ActionsBar from 'components/ActionsBar';
 import { historyPush } from 'routes/routes';
 
 const ListProductPrice = observer((props) => {

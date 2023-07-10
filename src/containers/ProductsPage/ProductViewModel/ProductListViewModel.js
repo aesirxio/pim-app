@@ -43,6 +43,7 @@ class ProductListViewModel {
     });
     const dataList = await this.productStore.getList(this.successResponse.filters);
     runInAction(() => {
+      console.log('dataList', dataList);
       if (!dataList?.error) {
         this.onSuccessHandler(dataList?.response, '');
       } else {

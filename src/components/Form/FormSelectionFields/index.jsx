@@ -9,14 +9,11 @@ import { PIM_CATEGORY_DETAIL_FIELD_KEY, PIM_FIELD_DETAIL_FIELD_KEY } from 'aesir
 import React, { Component } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 
-import { AesirXSelect as SelectComponent, Spinner } from 'aesirx-uikit';
+import { AesirXSelect as SelectComponent, Spinner, Input, FormRadio, notify } from 'aesirx-uikit';
 import CreatableComponent from '../../../components/Select/Creatable';
-import FormRadio from '../FormRadio';
-import Input from '../Input';
 import Label from '../Label';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
-import { notify } from 'aesirx-uikit';
 import { renderingGroupFieldHandler } from 'utils/form';
 import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
 import CategoryListViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryListViewModel';

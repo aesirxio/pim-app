@@ -2,9 +2,8 @@ import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
 import { withCategoryViewModel } from '../CategoryViewModel/CategoryViewModelContextProvider';
-import ActionsBar from 'components/ActionsBar';
 import { Tab, Tabs } from 'react-bootstrap';
-import { Table, Spinner, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
+import { Table, Spinner, notify, AesirXSelect as SelectComponent, ActionsBar } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 const ListCategories = observer((props) => {
   const { t } = props;

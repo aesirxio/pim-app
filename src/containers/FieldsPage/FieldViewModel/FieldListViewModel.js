@@ -205,9 +205,9 @@ class FieldListViewModel {
   };
 
   onErrorHandler = (error) => {
-    Array.isArray(error?._messages) && error._messages[0]?.message
-      ? notify(error._messages[0]?.message, 'error')
-      : error.message && notify(error.message, 'error');
+    Array.isArray(error?._messages) && error?._messages[0]?.message
+      ? notify(error?._messages[0]?.message, 'error')
+      : error?.message && notify(error?.message, 'error');
     this.successResponse.state = false;
     this.successResponse.content_id = error.result;
   };

@@ -5,13 +5,10 @@ import { withRouter } from 'react-router-dom';
 import { withVariantViewModel } from '../VariantViewModel/VariantViewModelContextProvider';
 
 import { Col, Row, Button } from 'react-bootstrap';
-import Input from 'components/Form/Input';
 import PAGE_STATUS from 'constants/PageStatus';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, Input, PublishOptions, ActionsBar } from 'aesirx-uikit';
 import EditHeader from 'components/EditHeader';
 import SimpleReactValidator from 'simple-react-validator';
-import PublishOptions from 'components/PublishOptions';
-import ActionsBar from 'components/ActionsBar';
 import { PIM_VARIANT_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import { SVGComponent } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';

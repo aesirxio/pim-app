@@ -3,8 +3,7 @@ import { withTranslation } from 'react-i18next';
 import { withProductViewModel } from '../ProductViewModel/ProductViewModelContextProvider';
 import { Tab, Tabs } from 'react-bootstrap';
 import { observer } from 'mobx-react-lite';
-import { Table, Spinner, notify, AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import ActionsBar from 'components/ActionsBar';
+import { Table, Spinner, notify, AesirXSelect as SelectComponent, ActionsBar } from 'aesirx-uikit';
 import DateRangePicker from 'components/DateRangePicker';
 import { historyPush } from 'routes/routes';
 

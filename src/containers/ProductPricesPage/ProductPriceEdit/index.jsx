@@ -4,16 +4,14 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, PublishOptions, ActionsBar } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 
 import { Col, Form, Row } from 'react-bootstrap';
-import ActionsBar from 'components/ActionsBar';
 import { withProductPriceViewModel } from 'containers/ProductPricesPage/ProductPriceViewModel/ProductPriceViewModelContextProvider';
-import PublishOptions from 'components/PublishOptions';
 import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import ProductPriceInformation from './Component/ProductPriceInformation';
