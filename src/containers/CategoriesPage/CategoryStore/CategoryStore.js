@@ -6,7 +6,6 @@
 import { AesirxPimCategoryApiService } from 'aesirx-lib';
 import { AesirxPimUtilApiService } from 'aesirx-lib';
 import { CategoryItemModel } from 'aesirx-lib';
-import { runInAction } from 'mobx';
 
 export default class CategoryStore {
   async createCategory(createCategoryData) {

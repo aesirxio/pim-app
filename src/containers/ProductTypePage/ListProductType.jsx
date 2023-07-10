@@ -4,7 +4,7 @@ import {
   Spinner,
   notify,
   AesirXSelect as SelectComponent,
-  ActionsBar
+  ActionsBar,
 } from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
