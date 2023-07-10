@@ -1,13 +1,10 @@
 import React, { useEffect } from 'react';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react-lite';
-import ActionsBar from 'components/ActionsBar';
 import { withFieldViewModel } from '../FieldViewModel/FieldViewModelContextProvider';
-import { Table, Spinner } from 'aesirx-uikit';
 
 import { Tab, Tabs } from 'react-bootstrap';
-import { AesirXSelect as SelectComponent } from 'aesirx-uikit';
-import { notify } from 'aesirx-uikit';
+import { Table, Spinner, AesirXSelect as SelectComponent, ActionsBar, notify } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 
 const ListFields = observer((props) => {

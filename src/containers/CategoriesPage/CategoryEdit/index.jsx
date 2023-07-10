@@ -4,18 +4,15 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, Input, PublishOptions, ActionsBar } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 
 import { Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
-import ActionsBar from 'components/ActionsBar';
 import { withCategoryViewModel } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
-import PublishOptions from 'components/PublishOptions';
 import { PIM_CATEGORY_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import EditHeader from 'components/EditHeader';

@@ -10,20 +10,23 @@ import { Form } from 'react-bootstrap';
 import { Tooltip } from 'react-tooltip';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleInfo } from '@fortawesome/free-solid-svg-icons';
-import { FormEditor, CustomizedDatePicker, FORMAT_TIME } from 'aesirx-uikit';
+import {
+  Input,
+  FormImage,
+  FormVideo,
+  FormSelection,
+  FormRadio,
+  FormCheckbox,
+  FormColor,
+  FormYoutube,
+  FormUrl,
+  FormDateRangePicker,
+  FormEditor,
+  CustomizedDatePicker,
+  FORMAT_TIME,
+} from 'aesirx-uikit';
 
-const FormDateRangePicker = lazy(() => import('../components/Form/FormDateRangePicker'));
-const FormImage = lazy(() => import('../components/Form/FormImage'));
-const FormVideo = lazy(() => import('../components/Form/FormVideo'));
-const FormSelection = lazy(() => import('../components/Form/FormSelection'));
 const FormSelectionFields = lazy(() => import('../components/Form/FormSelectionFields'));
-const FormRadio = lazy(() => import('../components/Form/FormRadio'));
-const FormCheckbox = lazy(() => import('../components/Form/FormCheckbox'));
-const FormColor = lazy(() => import('../components/Form/FormColor'));
-const FormYoutube = lazy(() => import('../components/Form/FormYoutube'));
-const FormUrl = lazy(() => import('../components/Form/FormUrl'));
-
-const Input = lazy(() => import('../components/Form/Input'));
 
 const renderingGroupFieldHandler = (group, validator) => {
   return Object.keys(group.fields)

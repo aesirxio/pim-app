@@ -21,6 +21,7 @@ export default class ProductStore {
       resultOnSave = await aesirxPimProductApiService.create(convertedUpdateGeneralData);
       return { error: false, response: resultOnSave?.result };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -36,6 +37,7 @@ export default class ProductStore {
 
       return { error: false, response: resultOnSave?.result };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -54,6 +56,7 @@ export default class ProductStore {
         return { error: false, response: respondedData };
       }
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -65,6 +68,7 @@ export default class ProductStore {
 
       return { error: false, response: respondedData };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -75,6 +79,7 @@ export default class ProductStore {
       const respondedData = await aesirxPimProductApiService.getList(filters);
       return { error: false, response: respondedData };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -85,6 +90,7 @@ export default class ProductStore {
       const respondedData = await aesirxPimUtilApiService.getListPublishStatus();
       return { error: false, response: respondedData };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -97,6 +103,7 @@ export default class ProductStore {
       const respondedData = await aesirxPimProductApiService.getDetailInfo(id);
       return { error: false, response: respondedData };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -107,6 +114,7 @@ export default class ProductStore {
       const respondedData = await aesirxPimProductApiService.updateStatus(arr, status);
       return { error: false, response: respondedData };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }
@@ -117,6 +125,7 @@ export default class ProductStore {
       const respondedData = await aesirxPimProductApiService.deleteProducts(arr);
       return { error: false, response: respondedData };
     } catch (error) {
+      console.error(error);
       return { error: true, response: error?.response?.data };
     }
   }

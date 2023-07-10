@@ -4,7 +4,7 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, Input, PublishOptions, ActionsBar } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
@@ -12,12 +12,9 @@ import PAGE_STATUS from 'constants/PageStatus';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row, Tab, Tabs } from 'react-bootstrap';
 import '../index.scss';
-import ActionsBar from 'components/ActionsBar';
 import CommonInformation from './Component/CommonInformation';
 import { withProductViewModel } from 'containers/ProductsPage/ProductViewModel/ProductViewModelContextProvider';
-import PublishOptions from 'components/PublishOptions';
 import { PIM_FIELD_DETAIL_FIELD_KEY, PIM_PRODUCT_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import Input from 'components/Form/Input';
 import ProductInformation from './Component/ProductInformation';
 import FieldsTab from './Component/Fields';
 // import Variants from '../Component/Variants';

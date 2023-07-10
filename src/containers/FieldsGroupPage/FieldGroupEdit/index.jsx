@@ -4,18 +4,15 @@
  */
 
 import React, { Component } from 'react';
-import { Spinner } from 'aesirx-uikit';
+import { Spinner, Input, PublishOptions, ActionsBar } from 'aesirx-uikit';
 
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
 
 import { Col, Form, Row } from 'react-bootstrap';
-import ActionsBar from 'components/ActionsBar';
 import { withFieldGroupViewModel } from 'containers/FieldsGroupPage/FieldGroupViewModel/FieldGroupViewModelContextProvider';
-import PublishOptions from 'components/PublishOptions';
 import { PIM_FIELD_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
-import Input from 'components/Form/Input';
 import SimpleReactValidator from 'simple-react-validator';
 import FieldGroupInformation from './Component/FieldGroupInformation';
 import _ from 'lodash';

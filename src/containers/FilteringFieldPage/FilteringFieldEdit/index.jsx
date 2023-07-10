@@ -9,13 +9,11 @@ import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withRouter } from 'react-router-dom';
 import { Col, Form, Row } from 'react-bootstrap';
-import ActionsBar from 'components/ActionsBar';
 import { PIM_FILTERING_FIELD_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import SimpleReactValidator from 'simple-react-validator';
 import { withFilteringFieldViewModel } from '../FilteringFieldViewModel/FilteringFieldViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS, Spinner, PublishOptions } from 'aesirx-uikit';
-import Input from 'components/Form/Input';
+import { PAGE_STATUS, Spinner, PublishOptions, Input, ActionsBar } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 import FilteringFieldInformation from './Component/FilteringFieldInformation';
 
