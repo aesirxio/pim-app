@@ -78,7 +78,7 @@
     "react-scripts": "^5.0.1",
     "sass": "^1.52",
     "serve": "^14.2.0",
-    "tsup": "^6.7.0"
+    "tsup": "^7.1.0"
   },
   "resolutions": {
     "bootstrap": "5.2.3",
