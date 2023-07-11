@@ -9,7 +9,7 @@ import { DebtorGroupItemModel } from 'aesirx-lib';
 import { runInAction } from 'mobx';
 
 export default class DebtorGroupStore {
-  async create(createDebtorGroupData, callbackOnSuccess, callbackOnError) {
+  async create(createDebtorGroupData) {
     try {
       const convertedUpdateGeneralData =
         DebtorGroupItemModel.__transformItemToApiOfCreation(createDebtorGroupData);
@@ -17,25 +17,14 @@ export default class DebtorGroupStore {
       const createDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
 
       resultOnSave = await createDebtorGroupApiService.create(convertedUpdateGeneralData);
-      if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Created successfully');
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-      return resultOnSave?.result;
+      return { error: false, response: resultOnSave?.result };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async update(updateDebtorGroupData, callbackOnSuccess, callbackOnError) {
+  async update(updateDebtorGroupData) {
     try {
       const convertedUpdateGeneralData =
         DebtorGroupItemModel.__transformItemToApiOfUpdation(updateDebtorGroupData);
@@ -44,25 +33,14 @@ export default class DebtorGroupStore {
       const updateDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
 
       resultOnSave = await updateDebtorGroupApiService.update(convertedUpdateGeneralData);
-      if (resultOnSave?.result) {
-        runInAction(() => {
-          callbackOnSuccess(resultOnSave?.result, 'Updated successfully');
-        });
-      } else {
-        runInAction(() => {
-          callbackOnError(resultOnSave);
-        });
-      }
-      return resultOnSave?.result;
+      return { error: false, response: resultOnSave?.result };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
-      return 0;
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getDetail(id, callbackOnSuccess, callbackOnError) {
+  async getDetail(id) {
     if (!id) return false;
 
     try {
@@ -73,95 +51,55 @@ export default class DebtorGroupStore {
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
-        if (respondedData) {
-          runInAction(() => {
-            callbackOnSuccess(respondedData);
-          });
-        } else {
-          callbackOnError({
-            message: 'Something went wrong from Server response',
-          });
-        }
+        return { error: false, response: respondedData };
       }
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getList(filter, callbackOnSuccess, callbackOnError) {
+  async getList(filter) {
     try {
       const getListInfoAPIService = new AesirxPimDebtorGroupApiService();
       const respondedData = await getListInfoAPIService.getList(filter);
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
   }
 
-  async getListPublishStatus(callbackOnSuccess, callbackOnError) {
+  async getListPublishStatus() {
     try {
       const getAesirxPimUtilApiService = new AesirxPimUtilApiService();
       const respondedData = await getAesirxPimUtilApiService.getListPublishStatus();
-      if (respondedData) {
-        runInAction(() => {
-          callbackOnSuccess(respondedData);
-        });
-      } else {
-        callbackOnError({
-          message: 'Something went wrong from Server response',
-        });
-      }
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      // no error throw
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async updateStatus(arr, status, callbackOnSuccess, callbackOnError) {
+  async updateStatus(arr, status) {
     try {
       const updateStatusAPIService = new AesirxPimDebtorGroupApiService();
       const respondedData = await updateStatusAPIService.updateStatus(arr, status);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Updated successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 
-  async deleteDebtorGroups(arr, callbackOnSuccess, callbackOnError) {
+  async deleteDebtorGroups(arr) {
     try {
       const getAesirxPimDebtorGroupApiService = new AesirxPimDebtorGroupApiService();
       const respondedData = await getAesirxPimDebtorGroupApiService.deleteDebtorGroups(arr);
-      runInAction(() => {
-        callbackOnSuccess(respondedData, 'Deleted successfully');
-      });
-      return respondedData;
+      return { error: false, response: respondedData };
     } catch (error) {
-      runInAction(() => {
-        callbackOnError(error?.response?.data);
-      });
+      console.error(error);
+      return { error: true, response: error?.response?.data };
     }
-
-    return false;
   }
 }

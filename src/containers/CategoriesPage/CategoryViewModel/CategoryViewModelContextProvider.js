@@ -4,12 +4,19 @@
  */
 
 import React from 'react';
+import CategoryStore from '../CategoryStore/CategoryStore';
+import CategoryViewModel from './CategoryViewModel';
 
-export const CategoryViewModelContext = React.createContext();
+const categoryStore = new CategoryStore();
+const categoryViewModel = new CategoryViewModel(categoryStore);
 
-export const CategoryViewModelContextProvider = ({ children, viewModel }) => {
+export const CategoryViewModelContext = React.createContext({
+  model: categoryViewModel,
+});
+
+export const CategoryViewModelContextProvider = ({ children }) => {
   return (
-    <CategoryViewModelContext.Provider value={viewModel}>
+    <CategoryViewModelContext.Provider value={{ model: categoryViewModel }}>
       {children}
     </CategoryViewModelContext.Provider>
   );
@@ -20,5 +27,5 @@ export const useCategoryViewModel = () => React.useContext(CategoryViewModelCont
 
 /* HOC to inject store to any functional or class component */
 export const withCategoryViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useCategoryViewModel()} />;
+  return <Component {...props} {...useCategoryViewModel()} />;
 };

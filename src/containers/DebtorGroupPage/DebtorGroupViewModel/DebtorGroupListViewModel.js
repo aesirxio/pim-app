@@ -34,30 +34,35 @@ class DebtorGroupListViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.debtorGroupStore.getList(
-      this.filter,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-
-    await this.debtorGroupStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-
+    const dataList = await this.debtorGroupStore.getList(this.successResponse.filters);
     runInAction(() => {
+      if (!dataList?.error) {
+        this.onSuccessHandler(dataList?.response, '');
+      } else {
+        this.onErrorHandler(dataList?.response);
+      }
+    });
+
+    const dataPublish = await this.debtorGroupStore.getListPublishStatus();
+    runInAction(() => {
+      if (!dataPublish?.error) {
+        this.onSuccessHandler(dataPublish?.response, '');
+      } else {
+        this.onErrorHandler(dataPublish?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   initializeDataDebtorList = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.debtorGroupStore.getList(
-      this.filter,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.debtorGroupStore.getList(this.filter);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
@@ -78,35 +83,37 @@ class DebtorGroupListViewModel {
         this.filter['list[limitstart]'] = (this.pagination.page - 1) * value;
       }
     }
-
-    await this.debtorGroupStore.getList(
-      this.filter,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-
+    const data = await this.debtorGroupStore.getList(this.filter);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.debtorGroupStore.updateStatus(
-      arr,
-      status,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.debtorGroupStore.getList(
-        this.filter,
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler
-      );
-    }
+    const res = await this.debtorGroupStore.updateStatus(arr, status);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.debtorGroupStore.getList(this.filter);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
   handleFilter = (filter) => {
@@ -114,24 +121,28 @@ class DebtorGroupListViewModel {
   };
 
   deleteDebtorGroups = async (arr) => {
-    const res = await this.debtorGroupStore.deleteDebtorGroups(
-      arr,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.debtorGroupStore.getList(
-        this.filter,
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler
-      );
-    }
+    const res = await this.debtorGroupStore.deleteDebtorGroups(arr);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Deleted successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.debtorGroupStore.getList(this.filter);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
-  callbackOnErrorHandler = (error) => {
+  onErrorHandler = (error) => {
     Array.isArray(error?._messages) && error?._messages[0]?.message
       ? notify(error?._messages[0]?.message, 'error')
       : error?.message && notify(error?.message, 'error');
@@ -140,7 +151,7 @@ class DebtorGroupListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result?.items) {
       this.items = result.items;
       this.pagination = result.pagination;

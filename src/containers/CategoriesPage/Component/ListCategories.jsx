@@ -9,7 +9,7 @@ const ListCategories = observer((props) => {
   const { t } = props;
   let listSelected = [];
 
-  const viewModel = props.viewModel;
+  const viewModel = props.model?.categoryListViewModel;
 
   const columnsTable = [
     {

@@ -10,8 +10,7 @@ import { historyPush } from 'routes/routes';
 const ListProductPrice = observer((props) => {
   const { t } = props;
   let listSelected = [];
-
-  const viewModel = props.viewModel;
+  const viewModel = props.model?.productPriceListViewModel;
 
   useEffect(() => {
     viewModel.initializeData();

@@ -4,12 +4,18 @@
  */
 
 import React from 'react';
+import ProductPriceStore from '../ProductPriceStore/ProductPriceStore';
+import ProductPriceViewModel from './ProductPriceViewModel';
+const productPriceStore = new ProductPriceStore();
+const productPriceViewModel = new ProductPriceViewModel(productPriceStore);
 
-export const ProductPriceViewModelContext = React.createContext();
+export const ProductPriceViewModelContext = React.createContext({
+  model: productPriceViewModel,
+});
 
-export const ProductPriceViewModelContextProvider = ({ children, viewModel }) => {
+export const ProductPriceViewModelContextProvider = ({ children }) => {
   return (
-    <ProductPriceViewModelContext.Provider value={viewModel}>
+    <ProductPriceViewModelContext.Provider value={{ model: productPriceViewModel }}>
       {children}
     </ProductPriceViewModelContext.Provider>
   );
@@ -20,5 +26,5 @@ export const useProductPriceViewModel = () => React.useContext(ProductPriceViewM
 
 /* HOC to inject store to any functional or class component */
 export const withProductPriceViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useProductPriceViewModel()} />;
+  return <Component {...props} {...useProductPriceViewModel()} />;
 };

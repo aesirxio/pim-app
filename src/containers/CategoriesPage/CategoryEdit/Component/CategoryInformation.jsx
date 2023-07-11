@@ -18,7 +18,7 @@ const CategoryInformation = observer(
     constructor(props) {
       super(props);
       this.utilsListViewModel = utilsViewModel.utilsListViewModel;
-      this.categoryListViewModel = this.props.categoryListViewModel;
+      this.categoryListViewModel = props.categoryListViewModel;
     }
 
     async componentDidMount() {
@@ -26,7 +26,7 @@ const CategoryInformation = observer(
     }
 
     render() {
-      this.viewModel = this.context.categoryDetailViewModel;
+      this.viewModel = this.context?.model.categoryDetailViewModel;
       const { t, validator, isEdit } = this.props;
       const filteredCategoryList = this.categoryListViewModel?.items?.filter((category) => {
         return (
@@ -192,7 +192,7 @@ const CategoryInformation = observer(
       return (
         <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
           {(this.categoryListViewModel?.formStatus === PAGE_STATUS.LOADING ||
-            this.context.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING) && (
+            this.context.model.categoryDetailViewModel.formStatus === PAGE_STATUS.LOADING) && (
             <Spinner className="spinner-overlay" />
           )}
           {Object.keys(generateFormSetting)

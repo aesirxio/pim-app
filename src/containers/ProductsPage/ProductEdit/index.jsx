@@ -54,7 +54,7 @@ const EditProduct = observer(
     constructor(props) {
       super(props);
       this.state = { key: 'commonInformation', requiredField: '' };
-      this.viewModel = props.viewModel ? props.viewModel : null;
+      this.viewModel = props?.model ? props?.model : null;
       this.productDetailViewModel = this.viewModel
         ? this.viewModel.getProductDetailViewModel()
         : null;

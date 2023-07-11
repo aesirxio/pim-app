@@ -4,12 +4,18 @@
  */
 
 import React from 'react';
+import DebtorGroupStore from '../DebtorGroupStore/DebtorGroupStore';
+import DebtorGroupViewModel from './DebtorGroupViewModel';
+const debtorGroupStore = new DebtorGroupStore();
+const debtorGroupViewModel = new DebtorGroupViewModel(debtorGroupStore);
 
-export const DebtorGroupViewModelContext = React.createContext();
+export const DebtorGroupViewModelContext = React.createContext({
+  model: debtorGroupViewModel,
+});
 
-export const DebtorGroupViewModelContextProvider = ({ children, viewModel }) => {
+export const DebtorGroupViewModelContextProvider = ({ children }) => {
   return (
-    <DebtorGroupViewModelContext.Provider value={viewModel}>
+    <DebtorGroupViewModelContext.Provider value={{ model: debtorGroupViewModel }}>
       {children}
     </DebtorGroupViewModelContext.Provider>
   );
@@ -20,5 +26,5 @@ export const useDebtorGroupViewModel = () => React.useContext(DebtorGroupViewMod
 
 /* HOC to inject store to any functional or class component */
 export const withDebtorGroupViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useDebtorGroupViewModel()} />;
+  return <Component {...props} {...useDebtorGroupViewModel()} />;
 };
