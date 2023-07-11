@@ -6,7 +6,6 @@
 import { AesirxPimDebtorGroupApiService } from 'aesirx-lib';
 import { AesirxPimUtilApiService } from 'aesirx-lib';
 import { DebtorGroupItemModel } from 'aesirx-lib';
-import { runInAction } from 'mobx';
 
 export default class DebtorGroupStore {
   async create(createDebtorGroupData) {
