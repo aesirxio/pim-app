@@ -4,12 +4,19 @@
  */
 
 import React from 'react';
+import ProductStore from '../ProductStore/ProductStore';
+import ProductViewModel from './ProductViewModel';
 
-export const ProductViewModelContext = React.createContext();
+const productStore = new ProductStore();
+const productViewModel = new ProductViewModel(productStore);
 
-export const ProductViewModelContextProvider = ({ children, viewModel }) => {
+export const ProductViewModelContext = React.createContext({
+  model: productViewModel,
+});
+
+export const ProductViewModelContextProvider = ({ children }) => {
   return (
-    <ProductViewModelContext.Provider value={viewModel}>
+    <ProductViewModelContext.Provider value={{ model: productViewModel }}>
       {children}
     </ProductViewModelContext.Provider>
   );
@@ -20,5 +27,5 @@ export const useProductViewModel = () => React.useContext(ProductViewModelContex
 
 /* HOC to inject store to any functional or class component */
 export const withProductViewModel = (Component) => (props) => {
-  return <Component {...props} viewModel={useProductViewModel()} />;
+  return <Component {...props} {...useProductViewModel()} />;
 };

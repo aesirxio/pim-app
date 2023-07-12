@@ -11,7 +11,7 @@ const ListDebtorGroup = observer((props) => {
   const { t } = props;
   let listSelected = [];
 
-  const viewModel = props.viewModel;
+  const viewModel = props.model?.debtorGroupListViewModel;
 
   useEffect(() => {
     viewModel.initializeData();

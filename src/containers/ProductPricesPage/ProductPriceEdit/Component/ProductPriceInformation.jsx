@@ -39,7 +39,7 @@ const ProductPriceInformation = observer(
 
     render() {
       const { t } = this.props;
-      this.viewModel = this.context.productPriceDetailViewModel;
+      this.viewModel = this.context?.model?.productPriceDetailViewModel;
 
       const generateFormSetting = [
         {

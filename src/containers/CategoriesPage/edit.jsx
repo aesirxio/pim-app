@@ -9,12 +9,8 @@ import { Spinner } from 'aesirx-uikit';
 import { withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import PAGE_STATUS from 'constants/PageStatus';
-import CategoryStore from 'containers/CategoriesPage/CategoryStore/CategoryStore';
-import CategoryViewModel from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModel';
 import { CategoryViewModelContextProvider } from 'containers/CategoriesPage/CategoryViewModel/CategoryViewModelContextProvider';
 import EditCategory from './CategoryEdit';
-const categoryStore = new CategoryStore();
-const categoryViewModel = new CategoryViewModel(categoryStore);
 
 const EditCategoryProvider = observer(
   class EditCategoryProvider extends Component {
@@ -23,7 +19,7 @@ const EditCategoryProvider = observer(
         return <Spinner />;
       }
       return (
-        <CategoryViewModelContextProvider viewModel={categoryViewModel}>
+        <CategoryViewModelContextProvider>
           <EditCategory />
         </CategoryViewModelContextProvider>
       );

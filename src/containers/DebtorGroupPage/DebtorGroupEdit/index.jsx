@@ -27,7 +27,7 @@ const EditDebtorGroup = observer(
     isEdit = false;
     constructor(props) {
       super(props);
-      this.viewModel = props.viewModel ? props.viewModel : null;
+      this.viewModel = props.model ? props.model : null;
       this.state = {};
 
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
@@ -104,7 +104,7 @@ const EditDebtorGroup = observer(
                           this.forceUpdate();
                         } else {
                           let result = await this.debtorGroupDetailViewModel.create();
-                          result && historyPush(`/debtor-group/edit/${result}`);
+                          result && historyPush(`/debtor-group/edit/${result?.response}`);
                         }
                       } else {
                         this.validator.showMessages();

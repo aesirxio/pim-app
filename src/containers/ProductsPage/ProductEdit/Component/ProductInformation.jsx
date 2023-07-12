@@ -18,7 +18,7 @@ const ProductInformation = observer(
     }
 
     render() {
-      this.viewModel = this.context.productDetailViewModel;
+      this.viewModel = this.context?.model?.productDetailViewModel;
       const { t, validator } = this.props;
       const generateFormSetting = [
         {

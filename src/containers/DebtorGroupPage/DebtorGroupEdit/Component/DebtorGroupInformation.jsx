@@ -19,7 +19,7 @@ const DebtorGroupInformation = observer(
     async componentDidMount() {}
 
     render() {
-      this.viewModel = this.context.debtorGroupDetailViewModel;
+      this.viewModel = this.context?.model?.debtorGroupDetailViewModel;
       const { t, validator } = this.props;
       const generateFormSetting = [
         {

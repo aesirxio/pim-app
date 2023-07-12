@@ -31,7 +31,7 @@ const CommonInformation = observer(
     }
 
     render() {
-      this.viewModel = this.context.productDetailViewModel;
+      this.viewModel = this.context?.model?.productDetailViewModel;
       const { t, validator, isEdit } = this.props;
       const generateFormSetting = [
         {

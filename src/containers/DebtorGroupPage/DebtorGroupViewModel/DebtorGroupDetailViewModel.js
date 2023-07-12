@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class DebtorGroupDetailViewModel {
@@ -27,32 +27,47 @@ class DebtorGroupDetailViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.debtorGroupStore.getDetail(
-      this.debtorGroupDetailViewModel.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetDebtorGroupSuccessHandler,
-      this.callbackOnErrorHandler
+    const data = await this.debtorGroupStore.getDetail(
+      this.debtorGroupDetailViewModel.formPropsData[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID]
     );
+    runInAction(() => {
+      if (!data?.error) {
+        this.onGetDebtorGroupSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
   };
 
-  create = () => {
+  create = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return this.debtorGroupStore.create(
-      this.debtorGroupDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.debtorGroupStore.create(this.debtorGroupDetailViewModel.formPropsData);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Created successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+    return data;
   };
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return await this.debtorGroupStore.update(
-      this.debtorGroupDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
+    const data = await this.debtorGroupStore.update(this.debtorGroupDetailViewModel.formPropsData);
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+    return data;
   };
 
-  callbackOnErrorHandler = (error) => {
+  onErrorHandler = (error) => {
     Array.isArray(error?._messages) && error?._messages[0]?.message
       ? notify(error?._messages[0]?.message, 'error')
       : error?.message && notify(error?.message, 'error');
@@ -61,14 +76,14 @@ class DebtorGroupDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result && message) {
       notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetDebtorGroupSuccessHandler = (result) => {
+  onGetDebtorGroupSuccessHandler = (result) => {
     if (result && result[PIM_DEBTOR_GROUP_DETAIL_FIELD_KEY.ID]) {
       this.debtorGroupDetailViewModel.formPropsData = {
         ...this.debtorGroupDetailViewModel.formPropsData,

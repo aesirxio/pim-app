@@ -27,7 +27,7 @@ const EditProductPrice = observer(
     isEdit = false;
     constructor(props) {
       super(props);
-      this.viewModel = props.viewModel ? props.viewModel : null;
+      this.viewModel = props.model ? props.model : null;
       this.state = {};
 
       this.validator = new SimpleReactValidator({ autoForceUpdate: this, messagesShown: false });
@@ -100,7 +100,7 @@ const EditProductPrice = observer(
                           await this.productPriceDetailViewModel.initializeData();
                         } else {
                           let result = await this.productPriceDetailViewModel.create();
-                          result && historyPush(`/prices/edit/${result}`);
+                          result && historyPush(`/prices/edit/${result?.response}`);
                         }
                       } else {
                         this.validator.showMessages();

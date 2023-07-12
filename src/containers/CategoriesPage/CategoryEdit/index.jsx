@@ -33,7 +33,7 @@ const EditCategory = observer(
     constructor(props) {
       super(props);
 
-      this.viewModel = props.viewModel ? props.viewModel : null;
+      this.viewModel = props.model ? props.model : null;
       this.state = { key: 'categoryInformation', requiredField: '' };
       this.validator = new SimpleReactValidator({ autoForceUpdate: this });
       this.categoryDetailViewModel = this.viewModel

@@ -4,7 +4,7 @@
  */
 
 import PAGE_STATUS from '../../../constants/PageStatus';
-import { makeAutoObservable } from 'mobx';
+import { makeAutoObservable, runInAction } from 'mobx';
 import { notify } from 'aesirx-uikit';
 import { PIM_PRICES_DETAIL_FIELD_KEY } from 'aesirx-lib';
 class ProductPriceDetailViewModel {
@@ -27,32 +27,51 @@ class ProductPriceDetailViewModel {
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productPriceStore.getDetail(
-      this.productPriceDetailViewModel.formPropsData[PIM_PRICES_DETAIL_FIELD_KEY.ID],
-      this.callbackOnGetProductPriceSuccessHandler,
-      this.callbackOnErrorHandler
+    const data = await this.productPriceStore.getDetail(
+      this.productPriceDetailViewModel.formPropsData[PIM_PRICES_DETAIL_FIELD_KEY.ID]
     );
+    runInAction(() => {
+      if (!data?.error) {
+        this.onGetProductPriceSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
   };
 
-  create = () => {
+  create = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return this.productPriceStore.create(
-      this.productPriceDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+    const data = await this.productPriceStore.create(
+      this.productPriceDetailViewModel.formPropsData
     );
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Created successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+    return data;
   };
 
   update = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    return await this.productPriceStore.update(
-      this.productPriceDetailViewModel.formPropsData,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
+    const data = await this.productPriceStore.update(
+      this.productPriceDetailViewModel.formPropsData
     );
+
+    runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+    });
+    return data;
   };
 
-  callbackOnErrorHandler = (error) => {
+  onErrorHandler = (error) => {
     Array.isArray(error?._messages) && error?._messages[0]?.message
       ? notify(error?._messages[0]?.message, 'error')
       : error?.message && notify(error?.message, 'error');
@@ -61,14 +80,14 @@ class ProductPriceDetailViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result && message) {
       notify(message, 'success');
     }
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnGetProductPriceSuccessHandler = (result) => {
+  onGetProductPriceSuccessHandler = (result) => {
     if (result && result[PIM_PRICES_DETAIL_FIELD_KEY.ID]) {
       this.productPriceDetailViewModel.formPropsData = {
         ...this.productPriceDetailViewModel.formPropsData,

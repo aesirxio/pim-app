@@ -49,91 +49,108 @@ class ProductPriceListViewModel {
         console.log(this.successResponse.pagination.page);
       }
     }
-
-    await this.productPricesStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
+    const data = await this.productPricesStore.getList(this.successResponse.filters);
     runInAction(() => {
+      if (!data?.error) {
+        this.onSuccessHandler(data?.response, '');
+      } else {
+        this.onErrorHandler(data?.response);
+      }
+
       this.successResponse.state = true;
     });
   };
 
   initializeData = async () => {
     this.formStatus = PAGE_STATUS.LOADING;
-    await this.productPricesStore.getList(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler,
-      this.successResponse.filters
-    );
 
-    await this.productPricesStore.getListPublishStatus(
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-
+    const dataList = await this.productPricesStore.getList(this.successResponse.filters);
     runInAction(() => {
+      if (!dataList?.error) {
+        this.onSuccessHandler(dataList?.response, '');
+      } else {
+        this.onErrorHandler(dataList?.response);
+      }
+    });
+
+    const dataPublish = await this.productPricesStore.getListPublishStatus();
+    runInAction(() => {
+      if (!dataPublish?.error) {
+        this.onSuccessHandler(dataPublish?.response, '');
+      } else {
+        this.onErrorHandler(dataPublish?.response);
+      }
       this.successResponse.state = true;
     });
   };
 
   updateStatus = async (arr, status = 0) => {
-    const res = await this.productPricesStore.updateStatus(
-      arr,
-      status,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.productPricesStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.productPricesStore.updateStatus(arr, status);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.productPricesStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
   updatePrices = async (listPrices) => {
-    const res = await this.productPricesStore.updatePrices(
-      listPrices,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.productPricesStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.productPricesStore.updatePrices(listPrices);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Updated successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.productPricesStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
   deleteProductPrices = async (arr) => {
-    const res = await this.productPricesStore.deleteProductPrices(
-      arr,
-      this.callbackOnSuccessHandler,
-      this.callbackOnErrorHandler
-    );
-    if (res) {
-      await this.productPricesStore.getList(
-        this.callbackOnSuccessHandler,
-        this.callbackOnErrorHandler,
-        this.successResponse.filters
-      );
-    }
+    const res = await this.productPricesStore.deleteProductPrices(arr);
     runInAction(() => {
-      this.successResponse.state = true;
+      if (!res?.error) {
+        this.onSuccessHandler(res?.response, 'Deleted successfully');
+      } else {
+        this.onErrorHandler(res?.response);
+      }
     });
+    if (res) {
+      const data = await this.productPricesStore.getList(this.successResponse.filters);
+      runInAction(() => {
+        if (!data?.error) {
+          this.onSuccessHandler(data?.response, '');
+        } else {
+          this.onErrorHandler(data?.response);
+        }
+        this.successResponse.state = true;
+      });
+    }
   };
 
-  callbackOnSuccessHandler = (result, message) => {
+  onSuccessHandler = (result, message) => {
     if (result?.listItems) {
       this.successResponse.listProductPrice = this.transform(result.listItems);
       this.successResponse.pagination = result.pagination;
@@ -147,7 +164,7 @@ class ProductPriceListViewModel {
     this.formStatus = PAGE_STATUS.READY;
   };
 
-  callbackOnErrorHandler = (error) => {
+  onErrorHandler = (error) => {
     Array.isArray(error?._messages) && error?._messages[0]?.message
       ? notify(error?._messages[0]?.message, 'error')
       : error?.message && notify(error?.message, 'error');
