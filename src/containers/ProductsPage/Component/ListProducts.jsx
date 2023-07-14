@@ -6,12 +6,18 @@ import { observer } from 'mobx-react-lite';
 import { Table, Spinner, notify, AesirXSelect as SelectComponent, ActionsBar } from 'aesirx-uikit';
 import DateRangePicker from 'components/DateRangePicker';
 import { historyPush } from 'routes/routes';
+import UtilsStore from 'store/UtilsStore/UtilsStore';
+import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
+
+const utilsStore = new UtilsStore();
+const utilsViewModel = new UtilsViewModel(utilsStore);
 
 const ListProducts = observer((props) => {
   const { t } = props;
   let listSelected = [];
   const viewModel = props?.model?.productListViewModel;
   useEffect(() => {
+    utilsViewModel?.utilsListViewModel.getListContentType({ 'filter[type]': 'product' });
     viewModel.initializeData();
   }, []);
 
@@ -78,6 +84,11 @@ const ListProducts = observer((props) => {
       viewModel.isLoading();
       viewModel.deleteProducts(listSelected);
     }
+  };
+
+  const selectTypeHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('filter[type]', value?.value);
   };
 
   return (
@@ -168,6 +179,27 @@ const ListProducts = observer((props) => {
                 isBorder={false}
                 placeholder={t('txt_all_categories')}
                 onChange={(o) => selectCategoryHandler(o)}
+                arrowColor={'var(--dropdown-indicator-color)'}
+                size="large"
+                minWidth={200}
+                isClearable={true}
+              />
+              <SelectComponent
+                options={utilsViewModel?.utilsListViewModel?.listContentType}
+                defaultValue={
+                  viewModel?.successResponse?.filters['filter[type]']
+                    ? {
+                        label: utilsViewModel?.utilsListViewModel?.listContentType?.find(
+                          (o) => o.value == viewModel?.successResponse?.filters['filter[type]']
+                        )?.label,
+                        value: viewModel?.successResponse?.filters['filter[type]'],
+                      }
+                    : null
+                }
+                className={`fs-sm bg-white shadow-sm rounded-2`}
+                isBorder={true}
+                placeholder={t('txt_all_product_type')}
+                onChange={(o) => selectTypeHandler(o)}
                 arrowColor={'var(--dropdown-indicator-color)'}
                 size="large"
                 minWidth={200}

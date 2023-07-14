@@ -33,7 +33,7 @@ class TagListViewModel {
   callbackOnErrorHandler = (error) => {
     notify('Update unsuccessfully', 'error');
     this.successResponse.state = false;
-    this.successResponse.content_id = error.result;
+    this.successResponse.content_id = error?.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 

@@ -89,7 +89,7 @@ class TypeDetailViewModel {
       ? notify(error?._messages[0]?.message, 'error')
       : error?.message && notify(error?.message, 'error');
     this.successResponse.state = false;
-    this.successResponse.content_id = error.result;
+    this.successResponse.content_id = error?.result;
     this.formStatus = PAGE_STATUS.READY;
   };
 
