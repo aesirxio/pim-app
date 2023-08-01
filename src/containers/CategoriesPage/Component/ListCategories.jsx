@@ -5,6 +5,11 @@ import { withCategoryViewModel } from '../CategoryViewModel/CategoryViewModelCon
 import { Tab, Tabs } from 'react-bootstrap';
 import { Table, Spinner, notify, AesirXSelect as SelectComponent, ActionsBar } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
+import UtilsStore from 'store/UtilsStore/UtilsStore';
+import UtilsViewModel from 'store/UtilsStore/UtilsViewModel';
+
+const utilsStore = new UtilsStore();
+const utilsViewModel = new UtilsViewModel(utilsStore);
 const ListCategories = observer((props) => {
   const { t } = props;
   let listSelected = [];
@@ -172,6 +177,7 @@ const ListCategories = observer((props) => {
   ];
 
   useEffect(() => {
+    utilsViewModel?.utilsListViewModel.getListContentType({ 'filter[type]': 'category' });
     viewModel.initializeData();
   }, []);
 
@@ -230,6 +236,11 @@ const ListCategories = observer((props) => {
   const selectCategoryHandler = (value) => {
     viewModel.isLoading();
     viewModel.getListByFilter('filter[tree]', value?.value);
+  };
+
+  const selectTypeHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('filter[type]', value?.value);
   };
   return (
     <>
@@ -307,6 +318,27 @@ const ListCategories = observer((props) => {
             isBorder={true}
             placeholder={t('txt_all_categories')}
             onChange={(o) => selectCategoryHandler(o)}
+            arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
+            minWidth={200}
+            isClearable={true}
+          />
+          <SelectComponent
+            options={utilsViewModel?.utilsListViewModel?.listContentType}
+            defaultValue={
+              viewModel?.successResponse?.filters['filter[type]']
+                ? {
+                    label: utilsViewModel?.utilsListViewModel?.listContentType?.find(
+                      (o) => o.value == viewModel?.successResponse?.filters['filter[type]']
+                    )?.label,
+                    value: viewModel?.successResponse?.filters['filter[type]'],
+                  }
+                : null
+            }
+            className={`fs-sm bg-white shadow-sm rounded-2`}
+            isBorder={true}
+            placeholder={t('txt_all_type')}
+            onChange={(o) => selectTypeHandler(o)}
             arrowColor={'var(--dropdown-indicator-color)'}
             size="large"
             minWidth={200}

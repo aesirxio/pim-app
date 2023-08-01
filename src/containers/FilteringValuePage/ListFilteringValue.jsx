@@ -1,17 +1,28 @@
-import { Table, AesirXSelect, Spinner, notify, ActionsBar } from 'aesirx-uikit';
+import {
+  Table,
+  AesirXSelect,
+  Spinner,
+  notify,
+  ActionsBar,
+  AesirXSelect as SelectComponent,
+} from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withFilteringValueViewModel } from './FilteringValueViewModel/FilteringValueViewModelContextProvider';
 import { historyPush } from 'routes/routes';
+import { FilteringFieldStore } from 'containers/FilteringFieldPage/store';
+import FilteringFieldViewModel from 'containers/FilteringFieldPage/FilteringFieldViewModel/FilteringFieldViewModel';
 
+const filteringFieldStore = new FilteringFieldStore();
+const filteringFieldViewModel = new FilteringFieldViewModel(filteringFieldStore);
 const ListFilteringValue = observer((props) => {
   const { t } = useTranslation();
   let listSelected = [];
   const viewModel = props.model.filteringValueListViewModel;
   useEffect(() => {
-    // viewModel.initializeAllData();
+    filteringFieldViewModel.filteringFieldListViewModel.initializeAllData();
     viewModel.initializeData();
   }, []);
   const columnsTable = [
@@ -138,6 +149,11 @@ const ListFilteringValue = observer((props) => {
     }
   };
 
+  const selectTypeHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('filter[field]', value?.value);
+  };
+
   return (
     <div className="px-3 py-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
@@ -175,7 +191,33 @@ const ListFilteringValue = observer((props) => {
         </Tabs>
       </div>
       <div className="d-flex align-items-center justify-content-between gap-2 my-20">
-        <div></div>
+        <div>
+          <SelectComponent
+            options={
+              filteringFieldViewModel.filteringFieldListViewModel?.successResponse
+                ?.listFilteringFieldsWithoutPagination
+            }
+            defaultValue={
+              viewModel?.successResponse?.filters['filter[field]']
+                ? {
+                    label:
+                      filteringFieldViewModel.filteringFieldListViewModel?.successResponse?.listFilteringFieldsWithoutPagination.find(
+                        (o) => o.value == viewModel?.successResponse?.filters['filter[field]']
+                      )?.label,
+                    value: viewModel?.successResponse?.filters['filter[field]'],
+                  }
+                : null
+            }
+            className={`fs-sm bg-white shadow-sm rounded-2`}
+            isBorder={true}
+            placeholder={t('txt_all_filtering_field')}
+            onChange={(o) => selectTypeHandler(o)}
+            arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
+            minWidth={200}
+            isClearable={true}
+          />
+        </div>
         <div className="d-flex align-items-center">
           <div className="text-gray me-2">{t('txt_showing')}</div>
           <AesirXSelect
