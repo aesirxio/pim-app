@@ -19,9 +19,7 @@ const DataCompleteness = ({ t }) => {
 
   return (
     <div className="p-24 bg-white rounded-3 shadow-sm h-100">
-      <h5 className="fw-bold text-blue-0 text-uppercase fs-6 mb-24">
-        {t('txt_overall_data_completeness')}
-      </h5>
+      <h5 className="fw-bold text-uppercase fs-6 mb-24">{t('txt_overall_data_completeness')}</h5>
       {dataCompleteness.map((item, key) => {
         return (
           <div key={key} className="mb-3">

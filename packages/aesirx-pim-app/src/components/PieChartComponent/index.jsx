@@ -20,7 +20,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
             className={entry.value == 'No data' ? 'd-none' : ''}
           >
             <div
-              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between text-color fw-light pb-sm text-body"
+              className="cursor-pointer fs-sm d-flex align-items-center justify-content-between fw-light pb-sm text-body"
               onClick={() => onPieEnter(entry, index)}
             >
               <span>{entry.value}</span>
@@ -91,7 +91,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
           x={ex + (cos >= 0 ? 1 : -1) * 12}
           y={ey}
           textAnchor={textAnchor}
-          fill="var(--bs-body-color)"
+          fill="var(--aesirxui-body-color)"
           className="fs-sm fw-semibold"
         >{`${t('txt_value')}: ${value}`}</text>
         <text
@@ -114,10 +114,10 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
     <div className="p-24 bg-white rounded-3 shadow-sm h-100">
       {chartTitle && (
         <div className="d-flex justify-content-between mb-2">
-          <h5 className="fw-bold text-blue-0 text-uppercase fs-6">{chartTitle} </h5>
+          <h5 className="fw-bold text-uppercase fs-6">{chartTitle} </h5>
           {link && (
             <a href={link} className="fs-14 text-body">
-              <span className="pe-1 text-color">{t('txt_view_detail')}</span>
+              <span className="pe-1">{t('txt_view_detail')}</span>
               <span
                 className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
                 style={{
@@ -166,7 +166,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
                       {...positioningProps}
                       fontSize="24px"
                       fontWeight="bold"
-                      fill="var(--bs-body-color)"
+                      fill="var(--aesirxui-body-color)"
                     >
                       {Helper.numberWithCommas(total.value)}
                     </Text>
@@ -185,7 +185,7 @@ const PieChartComponent = ({ data, colors, height, chartTitle, link, pieTitle, .
                     verticalAnchor: 'middle',
                   };
                   return (
-                    <Text {...positioningProps} fill="var(--bs-body-color)">
+                    <Text {...positioningProps} fill="var(--aesirxui-body-color)">
                       {pieTitle}
                     </Text>
                   );

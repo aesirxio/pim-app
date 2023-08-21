@@ -13,13 +13,13 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         alignItems: creatable ? 'start' : 'center',
         boxShadow: 'none',
         borderRadius: '5px',
-        borderColor: isBorder ? 'var(--input-border-color)' : 'transparent',
+        borderColor: isBorder ? 'var(--aesirxui-border-color)' : 'transparent',
         '&:hover': {
           // borderColor: isBorder ? '#8bdcbc' : 'transparent',
-          // borderRight: '1px solid var(input-border-color)',
+          // borderRight: '1px solid var(--aesirxui-border-color)',
         },
-        // borderRight: '1px solid var(input-border-color)',
-        backgroundColor: isDisabled ? 'var(--input-border-color)' : 'var(--bs-white)',
+        // borderRight: '1px solid var(--aesirxui-border-color)',
+        backgroundColor: isDisabled ? 'var(--aesirxui-border-color)' : 'var(--aesirxui-white)',
         cursor: 'pointer',
         width: 'auto',
         paddingLeft: 7,
@@ -36,11 +36,11 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
         border: 0,
         borderTopLeftRadius: 0,
         borderTopRightRadius: 0,
-        borderLeft: '1px solid var(--input-border-color)',
-        borderRight: '1px solid var(--input-border-color)',
+        borderLeft: '1px solid var(--aesirxui-border-color)',
+        borderRight: '1px solid var(--aesirxui-border-color)',
         boxShadow: '0 3px 5px rgb(0 0 0 / 5%)',
-        borderTop: '1px solid var(--input-border-color)',
-        borderBottom: '1px solid var(--input-border-color)',
+        borderTop: '1px solid var(--aesirxui-border-color)',
+        borderBottom: '1px solid var(--aesirxui-border-color)',
         zIndex: 10,
         backgroundColor: 'var(--dropdown-bg)',
       };
@@ -60,14 +60,14 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
 
     dropdownIndicator: (base) => ({
       ...base,
-      color: arrowColor ? arrowColor : 'var(--bs-success)',
+      color: arrowColor ? arrowColor : 'var(--aesirxui-success)',
       '&:hover': {
-        color: 'var(--bs-success)',
+        color: 'var(--aesirxui-success)',
       },
     }),
     singleValue: (provided) => ({
       ...provided,
-      color: 'var(--bs-body-color)',
+      color: 'var(--aesirxui-body-color)',
     }),
     placeholder: (defaultStyles) => {
       return {
@@ -90,7 +90,7 @@ const customStyles = (isBorder, plColor, arrowColor, creatable, isDisabled) => {
     }),
     multiValueLabel: (styles) => ({
       ...styles,
-      color: 'var(--bs-body-color)',
+      color: 'var(--aesirxui-body-color)',
       backgroundColor: 'var(--dropdown-multi-bg)',
       order: 2,
       padding: '10px 16px 10px 0',
