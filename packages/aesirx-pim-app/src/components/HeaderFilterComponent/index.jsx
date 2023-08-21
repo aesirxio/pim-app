@@ -16,7 +16,7 @@ const HeaderFilterComponent = ({
   return (
     <div className="d-flex justify-content-between mb-24">
       <div className="d-flex align-items-center">
-        <h4 className="me-24 mb-0 text-blue-0">{chartTitle}</h4>
+        <h4 className="me-24 mb-0">{chartTitle}</h4>
         {isSelection && (
           <SelectComponent
             defaultValue={{ label: 'Session', value: 'session' }}
@@ -32,7 +32,7 @@ const HeaderFilterComponent = ({
       </div>
       {viewMoreLink && (
         <a href={viewMoreLink} className="fs-14 text-body">
-          <span className="pe-1 text-color">{t('txt_view_detail')}</span>
+          <span className="pe-1">{t('txt_view_detail')}</span>
           <span
             className="icon arrow d-inline-block align-text-bottom ms-auto bg-success"
             style={{
