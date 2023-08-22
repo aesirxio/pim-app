@@ -45,6 +45,14 @@ const EditTypeProvider = lazy(() => import('containers/TypePage/edit'));
 const SubTypePage = lazy(() => import('../containers/SubTypePage'));
 const EditSubTypeProvider = lazy(() => import('containers/SubTypePage/edit'));
 
+const CustomerGroupPage = lazy(() => import('../containers/CustomerGroupPage'));
+const TaxPage = lazy(() => import('../containers/TaxPage'));
+const TaxGroupPage = lazy(() => import('../containers/TaxGroupPage'));
+const ShippingMethodPage = lazy(() => import('../containers/ShippingMethodPage'));
+const EditShippingMethodProvider = lazy(() => import('containers/ShippingMethodPage/edit'));
+const ShippingZonePage = lazy(() => import('../containers/ShippingZonePage'));
+const EditShippingZoneProvider = lazy(() => import('containers/ShippingZonePage/edit'));
+
 const authRoutes = [
   {
     path: '/login',
@@ -299,6 +307,51 @@ const mainRoutes = [
     path: ['/subtypes/add'],
     exact: true,
     main: () => <EditSubTypeProvider />,
+  },
+  {
+    path: ['/customer-groups'],
+    exact: true,
+    main: () => <CustomerGroupPage />,
+  },
+  {
+    path: ['/tax-groups'],
+    exact: true,
+    main: () => <TaxGroupPage />,
+  },
+  {
+    path: ['/tax'],
+    exact: true,
+    main: () => <TaxPage />,
+  },
+  {
+    path: ['/shipping-method'],
+    exact: true,
+    main: () => <ShippingMethodPage />,
+  },
+  {
+    path: ['/shipping-method/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditShippingMethodProvider match={match} />,
+  },
+  {
+    path: ['/shipping-method/add'],
+    exact: true,
+    main: () => <EditShippingMethodProvider />,
+  },
+  {
+    path: ['/shipping-zone'],
+    exact: true,
+    main: () => <ShippingZonePage />,
+  },
+  {
+    path: ['/shipping-zone/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditShippingZoneProvider match={match} />,
+  },
+  {
+    path: ['/shipping-zone/add'],
+    exact: true,
+    main: () => <EditShippingZoneProvider />,
   },
 ];
 

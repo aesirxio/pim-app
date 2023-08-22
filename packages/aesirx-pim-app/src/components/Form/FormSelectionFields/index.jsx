@@ -10,7 +10,7 @@ import React, { Component } from 'react';
 import { Button, Col, Row } from 'react-bootstrap';
 
 import { AesirXSelect as SelectComponent, Spinner, Input, FormRadio, notify } from 'aesirx-uikit';
-import CreatableComponent from '../../../components/Select/Creatable';
+import CreatableComponent from '../../Select/Creatable';
 import Label from '../Label';
 import './index.scss';
 import { withTranslation } from 'react-i18next';
