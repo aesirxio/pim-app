@@ -183,11 +183,19 @@ class ShippingZoneListViewModel {
 
   callbackOnSuccessGetShippingZonesHandler = (result) => {
     this.successResponse.listShippingZonesWithoutPagination = result?.listItems?.map((o) => {
-      let dash = '';
-      for (let index = 1; index < o.level; index++) {
-        dash += '- ';
-      }
-      return { value: o?.id, label: `${dash}${o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.TITLE]}` };
+      let labelShipping = `${o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY]?.name}${
+        o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE]?.name
+          ? ' - ' + o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE]?.name
+          : ''
+      }${
+        o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.CITY]?.name
+          ? ' - ' + o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.CITY]?.name
+          : ''
+      }`;
+      return {
+        value: o?.id,
+        label: labelShipping,
+      };
     });
   };
 

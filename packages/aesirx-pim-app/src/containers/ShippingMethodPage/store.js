@@ -11,10 +11,10 @@ class ShippingMethodStore {
     }
   }
 
-  async getListWithoutPagination() {
+  async getListWithoutPagination(filters) {
     try {
       const getListAPIService = new ShippingMethodApiService();
-      const respondedData = await getListAPIService.getList({ 'list[limit]': 9999 });
+      const respondedData = await getListAPIService.getList({ 'list[limit]': 9999, ...filters });
 
       return { error: false, response: respondedData };
     } catch (error) {

@@ -52,6 +52,8 @@ const ShippingMethodPage = lazy(() => import('../containers/ShippingMethodPage')
 const EditShippingMethodProvider = lazy(() => import('containers/ShippingMethodPage/edit'));
 const ShippingZonePage = lazy(() => import('../containers/ShippingZonePage'));
 const EditShippingZoneProvider = lazy(() => import('containers/ShippingZonePage/edit'));
+const ShippingRatePage = lazy(() => import('../containers/ShippingRatePage'));
+const EditShippingRateProvider = lazy(() => import('containers/ShippingRatePage/edit'));
 
 const authRoutes = [
   {
@@ -344,14 +346,24 @@ const mainRoutes = [
     main: () => <ShippingZonePage />,
   },
   {
-    path: ['/shipping-zone/edit/:id'],
-    exact: true,
-    main: ({ match }) => <EditShippingZoneProvider match={match} />,
-  },
-  {
     path: ['/shipping-zone/add'],
     exact: true,
     main: () => <EditShippingZoneProvider />,
+  },
+  {
+    path: ['/shipping-rate'],
+    exact: true,
+    main: () => <ShippingRatePage />,
+  },
+  {
+    path: ['/shipping-rate/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditShippingRateProvider match={match} />,
+  },
+  {
+    path: ['/shipping-rate/add'],
+    exact: true,
+    main: () => <EditShippingRateProvider />,
   },
 ];
 

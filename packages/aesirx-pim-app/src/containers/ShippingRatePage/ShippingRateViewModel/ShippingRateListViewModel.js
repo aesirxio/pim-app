@@ -4,13 +4,13 @@
  */
 
 import { makeAutoObservable, runInAction } from 'mobx';
-import { PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY } from 'aesirx-lib';
+import { PIM_SHIPPING_RATE_DETAIL_FIELD_KEY } from 'aesirx-lib';
 import moment from 'moment';
 import { PAGE_STATUS, notify } from 'aesirx-uikit';
 
-class ShippingMethodListViewModel {
+class ShippingRateListViewModel {
   formStatus = PAGE_STATUS.READY;
-  shippingMethodListViewModel = {};
+  shippingRateListViewModel = {};
   items = [];
   filter = {};
   successResponse = {
@@ -21,25 +21,25 @@ class ShippingMethodListViewModel {
     filters: {
       'list[limit]': 10,
     },
-    listShippingMethods: [],
+    listShippingRates: [],
     pagination: null,
-    listShippingMethodsWithoutPagination: [],
+    listShippingRatesWithoutPagination: [],
   };
 
-  constructor(shippingMethodStore) {
+  constructor(shippingRateStore) {
     makeAutoObservable(this);
-    this.shippingMethodStore = shippingMethodStore;
+    this.shippingRateStore = shippingRateStore;
   }
 
-  setForm = (shippingMethodListViewModel) => {
-    this.shippingMethodListViewModel = shippingMethodListViewModel;
+  setForm = (shippingRateListViewModel) => {
+    this.shippingRateListViewModel = shippingRateListViewModel;
   };
 
   initializeData = async () => {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.shippingMethodStore.getList(this.successResponse.filters);
+    const data = await this.shippingRateStore.getList(this.successResponse.filters);
 
     runInAction(() => {
       if (!data?.error) {
@@ -55,11 +55,13 @@ class ShippingMethodListViewModel {
     runInAction(() => {
       this.successResponse.state = false;
     });
-    const data = await this.shippingMethodStore.getListWithoutPagination(this.filter);
+    const data = await this.shippingRateStore.getListWithoutPagination(
+      this.successResponse.filters
+    );
 
     runInAction(() => {
       if (!data?.error) {
-        this.callbackOnSuccessGetShippingMethodsHandler(data?.response);
+        this.callbackOnSuccessGetShippingRatesHandler(data?.response);
       } else {
         this.onErrorHandler(data?.response);
       }
@@ -89,7 +91,7 @@ class ShippingMethodListViewModel {
       }
     }
 
-    const data = await this.shippingMethodStore.getList(this.successResponse.filters);
+    const data = await this.shippingRateStore.getList(this.successResponse.filters);
     runInAction(() => {
       if (!data?.error) {
         this.onSuccessHandler(data?.response, '');
@@ -105,7 +107,7 @@ class ShippingMethodListViewModel {
       notify(message, 'success');
     }
     if (result?.listItems) {
-      this.successResponse.listShippingMethods = this.transform(result?.listItems);
+      this.successResponse.listShippingRates = this.transform(result?.listItems);
       this.successResponse.pagination = result?.pagination;
       this.items = result?.listItems;
     }
@@ -125,30 +127,40 @@ class ShippingMethodListViewModel {
 
   transform = (data) => {
     return data?.map((o) => {
-      const date = moment(o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
+      const date = moment(o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.MODIFIED_TIME]).format(
         'DD MMM, YYYY'
       );
       return {
-        shippingMethod: {
-          id: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.ID],
-          name: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.TITLE],
-          // level: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.LEVEL],
+        shippingRate: {
+          id: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.ID],
+          shippingZone:
+            o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.COUNTRY]?.name +
+            (o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.STATE]?.name
+              ? ' - ' + o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.STATE]?.name
+              : '') +
+            (o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.CITY]?.name
+              ? ' - ' + o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.CITY]?.name
+              : ''),
         },
+        product: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRODUCT]?.name,
+        category: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRODUCT_CATEGORY]?.name,
+        price_rate:
+          o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRICE] ?? o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.RATE],
         lastModified: {
-          status: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.PUBLISHED],
+          status: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PUBLISHED],
           dateTime: date ?? '',
-          author: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.CREATED_USER_NAME],
+          author: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.CREATED_USER_NAME],
         },
         published: {
-          state: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.PUBLISHED],
-          id: o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.ID],
+          state: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PUBLISHED],
+          id: o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.ID],
         },
       };
     });
   };
 
-  deleteShippingMethods = async (arr) => {
-    const data = await this.shippingMethodStore.delete(arr);
+  deleteShippingRates = async (arr) => {
+    const data = await this.shippingRateStore.delete(arr);
     runInAction(async () => {
       if (!data?.error) {
         await this.initializeData();
@@ -161,9 +173,9 @@ class ShippingMethodListViewModel {
   };
 
   setPublished = async ({ id, name }, state = 0) => {
-    const data = await this.shippingMethodStore.update({
+    const data = await this.shippingRateStore.update({
       id: id.toString(),
-      shippingMethod_name: name,
+      shippingRate_name: name,
       published: state.toString(),
     });
     runInAction(async () => {
@@ -176,13 +188,13 @@ class ShippingMethodListViewModel {
     });
   };
 
-  callbackOnSuccessGetShippingMethodsHandler = (result) => {
-    this.successResponse.listShippingMethodsWithoutPagination = result?.listItems?.map((o) => {
+  callbackOnSuccessGetShippingRatesHandler = (result) => {
+    this.successResponse.listShippingRatesWithoutPagination = result?.listItems?.map((o) => {
       let dash = '';
       for (let index = 1; index < o.level; index++) {
         dash += '- ';
       }
-      return { value: o?.id, label: `${dash}${o[PIM_SHIPPING_METHOD_DETAIL_FIELD_KEY.TITLE]}` };
+      return { value: o?.id, label: `${dash}${o[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.TITLE]}` };
     });
   };
 
@@ -193,4 +205,4 @@ class ShippingMethodListViewModel {
   };
 }
 
-export default ShippingMethodListViewModel;
+export default ShippingRateListViewModel;

@@ -1,9 +1,9 @@
-import { ShippingZoneApiService, ShippingZoneItemModel } from 'aesirx-lib';
+import { ShippingRateApiService, ShippingRateItemModel } from 'aesirx-lib';
 
-class ShippingZoneStore {
+class ShippingRateStore {
   async getList(filters) {
     try {
-      const getListAPIService = new ShippingZoneApiService();
+      const getListAPIService = new ShippingRateApiService();
       const respondedData = await getListAPIService.getList(filters);
       return { error: false, response: respondedData };
     } catch (error) {
@@ -11,10 +11,10 @@ class ShippingZoneStore {
     }
   }
 
-  async getListWithoutPagination() {
+  async getListWithoutPagination(filters) {
     try {
-      const getListAPIService = new ShippingZoneApiService();
-      const respondedData = await getListAPIService.getList({ 'list[limit]': 9999 });
+      const getListAPIService = new ShippingRateApiService();
+      const respondedData = await getListAPIService.getList({ 'list[limit]': 9999, ...filters });
 
       return { error: false, response: respondedData };
     } catch (error) {
@@ -29,7 +29,7 @@ class ShippingZoneStore {
       const results = true;
 
       if (results) {
-        const getDetailInfoAPIService = new ShippingZoneApiService();
+        const getDetailInfoAPIService = new ShippingRateApiService();
 
         const respondedData = await getDetailInfoAPIService.getDetail(id);
 
@@ -43,9 +43,9 @@ class ShippingZoneStore {
   async create(createFieldData) {
     try {
       const convertedUpdateGeneralData =
-        ShippingZoneItemModel.__transformItemToApiOfCreation(createFieldData);
+        ShippingRateItemModel.__transformItemToApiOfCreation(createFieldData);
       let resultOnSave;
-      const createOrganizationApiService = new ShippingZoneApiService();
+      const createOrganizationApiService = new ShippingRateApiService();
 
       // eslint-disable-next-line prefer-const
       resultOnSave = await createOrganizationApiService.create(convertedUpdateGeneralData);
@@ -58,10 +58,10 @@ class ShippingZoneStore {
   async update(updateFieldData) {
     try {
       const convertedUpdateGeneralData =
-        ShippingZoneItemModel.__transformItemToApiOfUpdation(updateFieldData);
+        ShippingRateItemModel.__transformItemToApiOfUpdation(updateFieldData);
 
       let resultOnSave;
-      const updateOrganizationApiService = new ShippingZoneApiService();
+      const updateOrganizationApiService = new ShippingRateApiService();
       // eslint-disable-next-line prefer-const
       resultOnSave = await updateOrganizationApiService.update(convertedUpdateGeneralData);
       return { error: false, response: resultOnSave?.result };
@@ -72,7 +72,7 @@ class ShippingZoneStore {
 
   async delete(arr) {
     try {
-      const aesirxOrganizationApiService = new ShippingZoneApiService();
+      const aesirxOrganizationApiService = new ShippingRateApiService();
       const respondedData = await aesirxOrganizationApiService.delete(arr);
       return { error: false, response: respondedData };
     } catch (error) {
@@ -81,4 +81,4 @@ class ShippingZoneStore {
   }
 }
 
-export { ShippingZoneStore };
+export { ShippingRateStore };

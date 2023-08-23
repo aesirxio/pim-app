@@ -10,6 +10,7 @@ import { StateStore } from 'containers/StatePage/store';
 import StateViewModel from 'containers/StatePage/StateViewModel/StateViewModel';
 import { CityStore } from 'containers/CityPage/store';
 import CityViewModel from 'containers/CityPage/CityViewModel/CityViewModel';
+import { Row } from 'react-bootstrap';
 
 const countryStore = new CountryStore();
 const countryViewModel = new CountryViewModel(countryStore);
@@ -28,6 +29,7 @@ const ShippingZoneInformation = observer(
       this.stateListViewModel = stateViewModel.stateListViewModel;
       this.cityListViewModel = cityViewModel.cityListViewModel;
       this.state = { country: null };
+      this.validator = this.props.validator;
     }
 
     componentDidMount() {
@@ -35,49 +37,6 @@ const ShippingZoneInformation = observer(
         await this.countryListViewModel.initializeAllData();
       };
       fetchData();
-    }
-
-    componentDidUpdate(prevProps, prevState) {
-      if (
-        this.viewModel.shippingZoneDetailViewModel.formPropsData[
-          PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY
-        ]?.id &&
-        prevState?.country !==
-          this.viewModel.shippingZoneDetailViewModel.formPropsData[
-            PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY
-          ]?.id
-      ) {
-        const fetchDataState = async () => {
-          await this.stateListViewModel.handleFilter({
-            'filter[country_id]':
-              this.viewModel.shippingZoneDetailViewModel.formPropsData[
-                PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY
-              ]?.id,
-          });
-          await this.stateListViewModel.initializeAllData();
-        };
-        fetchDataState();
-      }
-      if (
-        this.viewModel.shippingZoneDetailViewModel.formPropsData[
-          PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE
-        ]?.id &&
-        prevState?.state !==
-          this.viewModel.shippingZoneDetailViewModel.formPropsData[
-            PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE
-          ]?.id
-      ) {
-        const fetchDataCity = async () => {
-          await this.cityListViewModel.handleFilter({
-            'filter[state_id]':
-              this.viewModel.shippingZoneDetailViewModel.formPropsData[
-                PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE
-              ]?.id,
-          });
-          await this.cityListViewModel.initializeAllData();
-        };
-        fetchDataCity();
-      }
     }
 
     render() {
@@ -117,7 +76,7 @@ const ShippingZoneInformation = observer(
                     }
                   )
                 : [],
-              handleChange: (data) => {
+              handleChange: async (data) => {
                 data &&
                   this.viewModel.handleFormPropsData(
                     PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY,
@@ -125,7 +84,16 @@ const ShippingZoneInformation = observer(
                   );
                 this.viewModel.handleFormPropsData(
                   PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY_ID,
-                  data?.value ?? 0
+                  data?.value ?? null
+                );
+                data &&
+                  this.viewModel.handleFormPropsData(
+                    PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE,
+                    { id: null, name: null } ?? {}
+                  );
+                this.viewModel.handleFormPropsData(
+                  PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE_ID,
+                  null
                 );
                 this.setState((prevState) => {
                   return {
@@ -133,6 +101,12 @@ const ShippingZoneInformation = observer(
                     country: data?.value,
                   };
                 });
+                if (data?.value && data?.value !== this.state.country) {
+                  await this.stateListViewModel.handleFilter({
+                    'filter[country_id]': data?.value,
+                  });
+                  await this.stateListViewModel.initializeAllData();
+                }
               },
               required: true,
               validation: 'required',
@@ -141,7 +115,9 @@ const ShippingZoneInformation = observer(
             },
             ...(this.viewModel.shippingZoneDetailViewModel.formPropsData[
               PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY
-            ]?.id && this.stateListViewModel?.successResponse?.state
+            ]?.id &&
+            this.stateListViewModel?.successResponse?.state &&
+            this.stateListViewModel?.successResponse?.listStatesWithoutPagination?.length
               ? [
                   {
                     label: t('txt_state'),
@@ -172,7 +148,7 @@ const ShippingZoneInformation = observer(
                           }
                         )
                       : [],
-                    handleChange: (data) => {
+                    handleChange: async (data) => {
                       data &&
                         this.viewModel.handleFormPropsData(
                           PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE,
@@ -180,7 +156,16 @@ const ShippingZoneInformation = observer(
                         );
                       this.viewModel.handleFormPropsData(
                         PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE_ID,
-                        data?.value ?? 0
+                        data?.value ?? null
+                      );
+                      data &&
+                        this.viewModel.handleFormPropsData(
+                          PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.CITY,
+                          { id: null, name: null }
+                        );
+                      this.viewModel.handleFormPropsData(
+                        PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.CITY_ID,
+                        null
                       );
                       this.setState((prevState) => {
                         return {
@@ -188,6 +173,12 @@ const ShippingZoneInformation = observer(
                           state: data?.value,
                         };
                       });
+                      if (data?.value && data?.value !== this.state.state) {
+                        await this.cityListViewModel.handleFilter({
+                          'filter[state_id]': data?.value,
+                        });
+                        await this.cityListViewModel.initializeAllData();
+                      }
                     },
                     required: true,
                     validation: 'required',
@@ -198,7 +189,11 @@ const ShippingZoneInformation = observer(
               : []),
             ...(this.viewModel.shippingZoneDetailViewModel.formPropsData[
               PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE
-            ]?.id && this.cityListViewModel?.successResponse?.state
+            ]?.id &&
+            this.stateListViewModel?.successResponse?.state &&
+            this.cityListViewModel?.successResponse?.state &&
+            this.stateListViewModel?.successResponse?.listStatesWithoutPagination?.length &&
+            this.cityListViewModel?.successResponse?.listCitysWithoutPagination?.length
               ? [
                   {
                     label: t('txt_city'),
@@ -237,7 +232,7 @@ const ShippingZoneInformation = observer(
                         );
                       this.viewModel.handleFormPropsData(
                         PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.CITY_ID,
-                        data?.value ?? 0
+                        data?.value ?? null
                       );
                     },
                     required: true,
@@ -247,6 +242,52 @@ const ShippingZoneInformation = observer(
                   },
                 ]
               : []),
+            {
+              label: t('txt_zip_start'),
+              key: PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_START,
+              type: FORM_FIELD_TYPE.NUMBER,
+              getValueSelected:
+                this.viewModel.shippingZoneDetailViewModel.formPropsData[
+                  PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_START
+                ],
+              className: 'col-lg-6',
+              placeholder: t('txt_type_zip_start'),
+              required: true,
+              validation: 'required|numeric|min:1,num',
+              handleChange: (event) => {
+                this.viewModel.handleFormPropsData(
+                  PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_START,
+                  event.target.value
+                );
+              },
+              blurred: () => {
+                this.forceUpdate();
+                this.validator.showMessageFor(t('txt_zip_start'));
+              },
+            },
+            {
+              label: t('txt_zip_end'),
+              key: PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_END,
+              type: FORM_FIELD_TYPE.NUMBER,
+              getValueSelected:
+                this.viewModel.shippingZoneDetailViewModel.formPropsData[
+                  PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_END
+                ],
+              className: 'col-lg-6',
+              placeholder: t('txt_type_zip_end'),
+              required: true,
+              validation: 'required|numeric|min:1,num',
+              handleChange: (event) => {
+                this.viewModel.handleFormPropsData(
+                  PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_END,
+                  event.target.value
+                );
+              },
+              blurred: () => {
+                this.forceUpdate();
+                this.validator.showMessageFor(t('txt_zip_end'));
+              },
+            },
           ],
         },
       ];
@@ -258,15 +299,17 @@ const ShippingZoneInformation = observer(
             <Spinner className="spinner-overlay" />
           )}
           <div className="p-24 bg-white rounded-1 shadow-sm h-100 mt-24">
-            {Object.keys(generateFormSetting)
-              .map((groupIndex) => {
-                return [...Array(generateFormSetting[groupIndex])].map((group) => {
-                  return renderingGroupFieldHandler(group, validator);
-                });
-              })
-              .reduce((arr, el) => {
-                return arr.concat(el);
-              }, [])}
+            <Row>
+              {Object.keys(generateFormSetting)
+                .map((groupIndex) => {
+                  return [...Array(generateFormSetting[groupIndex])].map((group) => {
+                    return renderingGroupFieldHandler(group, validator);
+                  });
+                })
+                .reduce((arr, el) => {
+                  return arr.concat(el);
+                }, [])}
+            </Row>
           </div>
         </>
       );
