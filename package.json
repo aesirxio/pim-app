@@ -1,7 +1,10 @@
 {
     "private": true,
     "workspaces": [
-      "packages/*"
+      "packages/aesirx-pim-app",
+      "packages/aesirx-lib",
+      "packages/aesirx-uikit",
+      "packages/aesirx-dam-app/packages/aesirx-dam-app"
     ],
     "devDependencies": {
       "nx": "16.3.2"
@@ -13,6 +16,9 @@
       "prepare": "nx run-many -t build -p aesirx-uikit aesirx-lib && nx run-many -t build:lib --exclude aesirx-uikit aesirx-lib aesirx-pim-app",
       "dev": "nx run-many -t dev",
       "build": "nx run aesirx-pim-app:build",
-      "build:lib": "nx run aesirx-pim-app:build:lib"
+      "build:lib": "nx run aesirx-pim-app:build:lib",
+      "lint:check": "nx run aesirx-pim-app:lint:check",
+      "format:check": "nx run aesirx-pim-app:format:check",
+      "prepublishOnly": "nx run aesirx-pim-app:prepublishOnly"
     }
   }
