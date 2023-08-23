@@ -42,7 +42,7 @@ const ShippingZoneInformation = observer(
     render() {
       this.viewModel = this.context.model.shippingZoneDetailViewModel;
 
-      const { t, validator, isEdit } = this.props;
+      const { t, validator } = this.props;
 
       const generateFormSetting = [
         {

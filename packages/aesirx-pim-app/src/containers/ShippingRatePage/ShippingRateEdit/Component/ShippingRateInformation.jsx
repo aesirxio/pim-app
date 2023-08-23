@@ -60,7 +60,7 @@ const ShippingRateInformation = observer(
     render() {
       this.viewModel = this.context.model.shippingRateDetailViewModel;
 
-      const { t, validator, isEdit } = this.props;
+      const { t, validator } = this.props;
 
       const generateFormSetting = [
         {

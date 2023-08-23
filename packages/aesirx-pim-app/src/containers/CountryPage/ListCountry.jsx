@@ -1,14 +1,13 @@
-import { Table, AesirXSelect, Spinner, notify, ActionsBar } from 'aesirx-uikit';
+import { Table, AesirXSelect, Spinner } from 'aesirx-uikit';
 import React, { useEffect } from 'react';
 import { Tab, Tabs } from 'react-bootstrap';
 import { useTranslation, withTranslation } from 'react-i18next';
 import { observer } from 'mobx-react';
 import { withCountryViewModel } from './CountryViewModel/CountryViewModelContextProvider';
-import { historyPush } from 'routes/routes';
 
 const ListCountry = observer((props) => {
   const { t } = useTranslation();
-  let listSelected = [];
+  // let listSelected = [];
   const viewModel = props.model.countryListViewModel;
   useEffect(() => {
     viewModel.initializeData();
@@ -62,18 +61,18 @@ const ListCountry = observer((props) => {
     },
   ];
 
-  const currentSelectHandler = (arr) => {
-    listSelected = arr.map((o) => o.cells[1]?.value?.id);
-  };
+  // const currentSelectHandler = (arr) => {
+  //   listSelected = arr.map((o) => o.cells[1]?.value?.id);
+  // };
 
-  const deleteCountrys = () => {
-    if (listSelected.length < 1) {
-      notify(t('txt_row_select_error'), 'error');
-    } else {
-      viewModel.isLoading();
-      viewModel.deleteCountrys(listSelected);
-    }
-  };
+  // const deleteCountrys = () => {
+  //   if (listSelected.length < 1) {
+  //     notify(t('txt_row_select_error'), 'error');
+  //   } else {
+  //     viewModel.isLoading();
+  //     viewModel.deleteCountrys(listSelected);
+  //   }
+  // };
 
   const selectPageHandler = (value) => {
     if (value != viewModel.successResponse.pagination.page) {
@@ -166,7 +165,7 @@ const ListCountry = observer((props) => {
             pagination={viewModel?.successResponse?.pagination}
             selection={false}
             selectPage={selectPageHandler}
-            currentSelect={currentSelectHandler}
+            // currentSelect={currentSelectHandler}
           ></Table>
         ) : (
           <Spinner />

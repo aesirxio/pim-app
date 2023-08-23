@@ -14,7 +14,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import { withShippingRateViewModel } from '../ShippingRateViewModel/ShippingRateViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS, Spinner, PublishOptions, Input, ActionsBar } from 'aesirx-uikit';
+import { PAGE_STATUS, Spinner, PublishOptions, ActionsBar } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 import ShippingRateInformation from './Component/ShippingRateInformation';
 
@@ -59,10 +59,6 @@ const EditShippingRate = observer(
     render() {
       const { t } = this.props;
       // eslint-disable-next-line no-console
-      console.log(
-        'rerender ShippingRate',
-        this.shippingRateDetailViewModel.shippingRateDetailViewModel.formPropsData
-      );
 
       return (
         <div className="py-4 px-3 h-100 d-flex flex-column">
