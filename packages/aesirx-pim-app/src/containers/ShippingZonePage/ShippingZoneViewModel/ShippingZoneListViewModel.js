@@ -133,8 +133,8 @@ class ShippingZoneListViewModel {
       return {
         shippingZone: {
           id: o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ID],
+          country: o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY]?.name,
         },
-        country: o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.COUNTRY]?.name,
         state: o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.STATE]?.name,
         city: o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.CITY]?.name,
         zipStart: o[PIM_SHIPPING_ZONE_DETAIL_FIELD_KEY.ZIP_START],

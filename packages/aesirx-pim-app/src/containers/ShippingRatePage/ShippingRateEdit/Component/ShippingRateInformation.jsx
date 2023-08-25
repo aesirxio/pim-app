@@ -57,10 +57,27 @@ const ShippingRateInformation = observer(
       fetchData();
     }
 
+    componentDidUpdate(prevProps) {
+      if (
+        this.props.formPropsData[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.RATE] !==
+          prevProps.formPropsData[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.RATE] &&
+        this.props.formPropsData[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.RATE]
+      ) {
+        this.setState({ priceRate: 'rate' });
+      }
+      if (
+        this.props.formPropsData[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRICE] !==
+          prevProps.formPropsData[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRICE] &&
+        this.props.formPropsData[PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRICE]
+      ) {
+        this.setState({ priceRate: 'price' });
+      }
+    }
+
     render() {
       this.viewModel = this.context.model.shippingRateDetailViewModel;
 
-      const { t, validator } = this.props;
+      const { t, validator, isEdit } = this.props;
 
       const generateFormSetting = [
         {
@@ -203,6 +220,7 @@ const ShippingRateInformation = observer(
               validation: 'required',
               placeholder: t('txt_select_product'),
               className: 'col-lg-12',
+              isDisabled: isEdit ? true : false,
             },
             {
               label: t('txt_category'),
@@ -246,6 +264,7 @@ const ShippingRateInformation = observer(
               validation: 'required',
               placeholder: t('txt_select_category'),
               className: 'col-lg-12',
+              isDisabled: isEdit ? true : false,
             },
             {
               label: t('txt_select_price_rate'),
@@ -284,6 +303,10 @@ const ShippingRateInformation = observer(
                         PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRICE,
                         event.target.value
                       );
+                      this.viewModel.handleFormPropsData(
+                        PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.RATE,
+                        0
+                      );
                     },
                   },
                 ]
@@ -303,6 +326,10 @@ const ShippingRateInformation = observer(
                       this.viewModel.handleFormPropsData(
                         PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.RATE,
                         event.target.value
+                      );
+                      this.viewModel.handleFormPropsData(
+                        PIM_SHIPPING_RATE_DETAIL_FIELD_KEY.PRICE,
+                        0
                       );
                     },
                   },

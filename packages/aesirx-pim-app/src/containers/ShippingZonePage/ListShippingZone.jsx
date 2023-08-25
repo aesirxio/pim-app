@@ -16,13 +16,13 @@ const ListShippingZone = observer((props) => {
   const columnsTable = [
     {
       Header: t('txt_country'),
-      accessor: 'country',
+      accessor: 'shippingZone',
       width: 150,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
           <>
-            <div className="py-8px">{value}</div>
+            <div className="py-8px">{value?.country}</div>
           </>
         );
       },
