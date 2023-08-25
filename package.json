@@ -3,8 +3,7 @@
     "workspaces": [
       "packages/aesirx-pim-app",
       "packages/aesirx-lib",
-      "packages/aesirx-uikit",
-      "packages/aesirx-dam-app/packages/aesirx-dam-app"
+      "packages/aesirx-uikit"
     ],
     "devDependencies": {
       "nx": "16.3.2"
