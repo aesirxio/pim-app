@@ -102,20 +102,6 @@ const mainMenu = [
     link: `/tax`,
     icons: '/assets/images/tax.svg',
     icons_color: '/assets/images/tax.svg',
-    submenu: [
-      {
-        text: 'txt_left_menu_tax',
-        link: `/tax`,
-      },
-      {
-        text: 'txt_left_menu_tax_group',
-        link: `/tax-groups`,
-      },
-      {
-        text: 'txt_left_menu_customer_group',
-        link: `/customer-groups`,
-      },
-    ],
   },
   {
     text: 'txt_left_menu_shipping',

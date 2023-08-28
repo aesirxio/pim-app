@@ -17,7 +17,7 @@ const ListShippingZone = observer((props) => {
     {
       Header: t('txt_country'),
       accessor: 'shippingZone',
-      width: 150,
+      width: 300,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
@@ -56,7 +56,7 @@ const ListShippingZone = observer((props) => {
     {
       Header: t('txt_zip_start'),
       accessor: 'zipStart',
-      width: 150,
+      width: 100,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
@@ -69,7 +69,7 @@ const ListShippingZone = observer((props) => {
     {
       Header: t('txt_zip_end'),
       accessor: 'zipEnd',
-      width: 150,
+      width: 100,
       className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
       Cell: ({ value }) => {
         return (
@@ -121,7 +121,7 @@ const ListShippingZone = observer((props) => {
   return (
     <div className="px-3 py-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
-        <h2 className="fw-bold">{t('txt_left_menu_shipping_zone')}</h2>
+        <h2>{t('txt_left_menu_shipping_zone')}</h2>
 
         <ActionsBar
           buttons={[
