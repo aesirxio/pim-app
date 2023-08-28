@@ -98,6 +98,46 @@ const mainMenu = [
     icons_color: '/assets/images/subtype.svg',
   },
   {
+    text: 'txt_left_menu_tax',
+    link: `/tax`,
+    icons: '/assets/images/tax.svg',
+    icons_color: '/assets/images/tax.svg',
+    submenu: [
+      {
+        text: 'txt_left_menu_tax',
+        link: `/tax`,
+      },
+      {
+        text: 'txt_left_menu_tax_group',
+        link: `/tax-groups`,
+      },
+      {
+        text: 'txt_left_menu_customer_group',
+        link: `/customer-groups`,
+      },
+    ],
+  },
+  {
+    text: 'txt_left_menu_shipping',
+    link: `/shipping-method`,
+    icons: '/assets/images/shipping.svg',
+    icons_color: '/assets/images/shipping.svg',
+    submenu: [
+      {
+        text: 'txt_left_menu_shipping_method',
+        link: `/shipping-method`,
+      },
+      {
+        text: 'txt_left_menu_shipping_zone',
+        link: `/shipping-zone`,
+      },
+      {
+        text: 'txt_left_menu_shipping_rate',
+        link: `/shipping-rate`,
+      },
+    ],
+  },
+  {
     text: 'txt_left_menu_member_list',
     link: `/members`,
     icons: '/assets/images/member-list.svg',

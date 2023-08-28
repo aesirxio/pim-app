@@ -28,6 +28,7 @@ const App = () => {
       componentBottomMenu={<AesirXDamStorage />}
       leftMenu={<SbarLeft />}
       settingMenu={<Menu dataMenu={settingMenu} />}
+      logo={'/assets/images/logo_company.svg'}
     />
   );
 };
