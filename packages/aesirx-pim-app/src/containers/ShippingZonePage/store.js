@@ -49,7 +49,11 @@ class ShippingZoneStore {
 
       // eslint-disable-next-line prefer-const
       resultOnSave = await createOrganizationApiService.create(convertedUpdateGeneralData);
-      return { error: false, response: resultOnSave?.items };
+      if (resultOnSave?.items[0]) {
+        return { error: false, response: resultOnSave?.items[0] };
+      } else {
+        return { error: true, response: resultOnSave };
+      }
     } catch (error) {
       return { error: true, response: error?.response?.data };
     }

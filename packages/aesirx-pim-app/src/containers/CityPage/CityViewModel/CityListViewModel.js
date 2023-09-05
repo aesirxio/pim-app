@@ -61,7 +61,7 @@ class CityListViewModel {
       if (!data?.error) {
         this.callbackOnSuccessGetCitysHandler(data?.response);
       } else {
-        this.onErrorHandler(data?.response);
+        this.onErrorListHandler(data?.response);
       }
       this.successResponse.state = true;
     });
@@ -122,6 +122,21 @@ class CityListViewModel {
     Array.isArray(error?._messages) && error?._messages[0]?.message
       ? notify(error?._messages[0]?.message, 'error')
       : error?.message && notify(error?.message, 'error');
+    this.successResponse.state = false;
+    this.successResponse.content_id = error?.result;
+    this.formStatus = PAGE_STATUS.READY;
+  };
+
+  onErrorListHandler = (error) => {
+    if (error.code === 404) {
+      notify('Cannot create Shipping Zone for this State, please try others!', 'error');
+      this.successResponse.listCitysWithoutPagination = [];
+    } else {
+      Array.isArray(error?._messages) && error?._messages[0]?.message
+        ? notify(error?._messages[0]?.message, 'error')
+        : error?.message && notify(error?.message, 'error');
+    }
+
     this.successResponse.state = false;
     this.successResponse.content_id = error?.result;
     this.formStatus = PAGE_STATUS.READY;
