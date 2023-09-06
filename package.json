@@ -1,6 +1,7 @@
 {
     "private": true,
     "workspaces": [
+      "packages/aesirx-dam-app/packages/aesirx-dam-app",
       "packages/aesirx-pim-app",
       "packages/aesirx-lib",
       "packages/aesirx-uikit"
