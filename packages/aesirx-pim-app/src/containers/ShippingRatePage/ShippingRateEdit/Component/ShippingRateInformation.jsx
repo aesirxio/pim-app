@@ -127,6 +127,7 @@ const ShippingRateInformation = observer(
               validation: 'required',
               placeholder: t('txt_select_shipping_method'),
               className: 'col-lg-12',
+              isDisabled: isEdit ? true : false,
             },
             {
               label: t('txt_shipping_zone'),
@@ -177,6 +178,7 @@ const ShippingRateInformation = observer(
               validation: 'required',
               placeholder: t('txt_select_shipping_zone'),
               className: 'col-lg-12',
+              isDisabled: isEdit ? true : false,
             },
             {
               label: t('txt_product'),

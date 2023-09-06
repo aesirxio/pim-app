@@ -118,7 +118,7 @@ const ListShippingRate = observer((props) => {
   return (
     <div className="px-3 py-4">
       <div className="mb-3 d-flex align-items-center justify-content-between">
-        <h2 className="fw-bold">{t('txt_left_menu_shipping_rate')}</h2>
+        <h2>{t('txt_left_menu_shipping_rate')}</h2>
 
         <ActionsBar
           buttons={[

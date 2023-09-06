@@ -110,7 +110,7 @@ const ListFields = observer((props) => {
     <>
       <div className="d-flex justify-content-between align-items-start mb-3">
         <div>
-          <h2 className="fw-bold mb-1">{t('txt_fields')}</h2>
+          <h2 className="mb-1">{t('txt_fields')}</h2>
           <div>{t('txt_fields_description')}</div>
         </div>
         <ActionsBar

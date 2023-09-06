@@ -94,7 +94,7 @@ const ListProducts = observer((props) => {
   return (
     <>
       <div className="d-flex justify-content-between align-items-start mb-3">
-        <h2 className="fw-bold mb-0">{t('txt_title_product_management')}</h2>
+        <h2 className="mb-0">{t('txt_title_product_management')}</h2>
         <ActionsBar
           buttons={[
             {
