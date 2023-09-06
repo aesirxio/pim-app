@@ -9,5 +9,10 @@
     },
     "affected": {
       "defaultBase": "develop"
+    },
+    "targetDefaults": {
+      "dev": {
+        "dependsOn": ["^dev:lib"]
+      }
     }
 }

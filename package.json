@@ -14,7 +14,7 @@
     },
     "scripts": {
       "prepare": "nx run-many -t build -p aesirx-uikit aesirx-lib && nx run-many -t build:lib --exclude aesirx-uikit aesirx-lib aesirx-pim-app",
-      "dev": "nx run-many -t dev",
+      "dev": "nx run-many -t dev --exclude aesirx-dam-app",
       "build": "nx run aesirx-pim-app:build",
       "build:lib": "nx run aesirx-pim-app:build:lib",
       "lint:check": "nx run aesirx-pim-app:lint:check",
