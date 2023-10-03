@@ -20,6 +20,8 @@ const ListFeaturedProducts = observer((props) => {
             {t('txt_featured_product')}
           </div>
           <Table
+            canSort={true}
+            sortAPI={false}
             classNameTable={`table-striped table`}
             columns={[
               {
