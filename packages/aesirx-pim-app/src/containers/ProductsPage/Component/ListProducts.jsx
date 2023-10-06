@@ -233,6 +233,8 @@ const ListProducts = observer((props) => {
       )}
       {viewModel?.successResponse?.state ? (
         <Table
+          canSort={true}
+          sortAPI={false}
           classNameTable={`bg-white rounded table-striped table`}
           columns={[
             {

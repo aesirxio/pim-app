@@ -319,6 +319,8 @@ const Variants = ({ t, formPropsData }) => {
       <h3 className="mb-16 fw-bold">{t('txt_filterset')}</h3>
       <p className="mb-24">{t('txt_modify_the_variants')}:</p>
       <Table
+        canSort={true}
+        sortAPI={false}
         columns={columnsTable}
         data={dataTable}
         classNameTable={'table-bordered border-gray'}
