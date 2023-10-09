@@ -178,6 +178,14 @@ const integrationMenu = () => {
         return item;
       }),
     {
+      text: 'txt_left_menu_shipping_zone',
+      link: `/pim/shipping-zone`,
+    },
+    {
+      text: 'txt_left_menu_shipping_rate',
+      link: `/pim/shipping-rate`,
+    },
+    {
       text: 'txt_left_menu_debtor_group',
       link: `/pim/debtor-group`,
     },
