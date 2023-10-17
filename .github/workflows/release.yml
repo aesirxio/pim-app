@@ -1,37 +1,39 @@
-name: "release"
+name: 'release'
 
 on:
   push:
     tags:
-      - "*"
+      - '*'
 
 jobs:
   release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         with:
-            fetch-depth: 0
-            ref: master
+          fetch-depth: 0
+          ref: master
 
       - uses: actions/setup-node@v3
         with:
           node-version: 16
 
       - run: git submodule update --init --recursive
+
       - run: yarn install
-      - run: yarn lint
-      - run: CI=false yarn run build
+      - run: yarn lint:check
+      - run: CI=false yarn build
       - uses: JS-DevTools/npm-publish@v2
         with:
           token: ${{ secrets.NPM_TOKEN }}
           strategy: upgrade
           ignore-scripts: false
+          package: ./packages/aesirx-pim-app
 
       - name: Docker meta
         id: meta
-        uses: docker/metadata-action@v4
+        uses: docker/metadata-action@v5
         with:
           # list of Docker images to use as base name for tags
           images: |
@@ -47,10 +49,10 @@ jobs:
             type=sha
 
       - name: Set up QEMU
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
 
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v2
+        uses: docker/setup-buildx-action@v3
 
       - name: Login to Docker Hub
         if: github.event_name != 'pull_request'
@@ -60,7 +62,7 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build and push
-        uses: docker/build-push-action@v4
+        uses: docker/build-push-action@v5
         with:
           context: .
           platforms: linux/amd64,linux/arm64
@@ -72,4 +74,3 @@ jobs:
         uses: ncipollo/release-action@v1
         with:
           generateReleaseNotes: true
-
