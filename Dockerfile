@@ -1,36 +1,38 @@
 
-## Deps
-FROM node:16-alpine AS deps
-WORKDIR /app
-
-COPY package.json .
-COPY yarn.lock .
-
-RUN yarn install --frozen-lockfile --network-timeout 600000
-
-## Builder
+## builder
 FROM node:16-alpine AS builder
 WORKDIR /app
 
-# Cache and Install dependencies
-COPY --from=deps ./app/node_modules ./node_modules
+COPY .git .
+COPY nx.json .
+COPY package.json .
+COPY yarn.lock .
 
-# Copy app files
-COPY ./package.json ./
-COPY ./jsconfig.json ./
-COPY ./.eslintrc ./
-COPY ./public ./public/
-COPY ./src ./src/
+COPY packages packages
+
+RUN apk add --update --no-cache \
+    make \
+    g++ \
+    jpeg-dev \
+    cairo-dev \
+    giflib-dev \
+    pango-dev \
+    libtool \
+    autoconf \
+    automake \
+    git
+
+RUN yarn install --frozen-lockfile --network-timeout 600000
 
 # Build the app
-RUN npx react-scripts build
+RUN yarn build
 
 # Bundle static assets
 FROM node:16-alpine AS production
 WORKDIR /app
 
 # Copy built assets from builder
-COPY --from=builder ./app/build ./build
+COPY --from=builder app/packages/aesirx-pim-app/build build
 
 RUN yarn add serve react-inject-env
 
@@ -38,3 +40,4 @@ RUN yarn add serve react-inject-env
 EXPOSE 3000
 
 ENTRYPOINT npx react-inject-env set && npx serve -s build
+

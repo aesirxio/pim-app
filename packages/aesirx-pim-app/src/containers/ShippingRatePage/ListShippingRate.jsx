@@ -1,0 +1,197 @@
+import { Table, AesirXSelect, Spinner, notify, ActionsBar } from 'aesirx-uikit';
+import React, { useEffect } from 'react';
+import { Tab, Tabs } from 'react-bootstrap';
+import { useTranslation, withTranslation } from 'react-i18next';
+import { observer } from 'mobx-react';
+import { withShippingRateViewModel } from './ShippingRateViewModel/ShippingRateViewModelContextProvider';
+import { historyPush } from 'routes/routes';
+
+const ListShippingRate = observer((props) => {
+  const { t } = useTranslation();
+  let listSelected = [];
+  const viewModel = props.model.shippingRateListViewModel;
+  useEffect(() => {
+    viewModel.initializeData();
+  }, []);
+  const columnsTable = [
+    {
+      Header: t('txt_shipping_zone'),
+      accessor: 'shippingRate',
+      width: 150,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <>
+            <div className="py-8px">{value?.shippingZone}</div>
+            <div className="text-green">
+              <button
+                onClick={() => {
+                  historyPush(`/shipping-rate/edit/${value.id}`);
+                }}
+                className="p-0 border-0 bg-transparent d-inline-block text-green"
+              >
+                {t('txt_edit')}
+              </button>
+            </div>
+          </>
+        );
+      },
+    },
+    {
+      Header: t('txt_product'),
+      accessor: 'product',
+      width: 150,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <>
+            <div className="py-8px">{value}</div>
+          </>
+        );
+      },
+    },
+    {
+      Header: t('txt_category'),
+      accessor: 'category',
+      width: 150,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <>
+            <div className="py-8px">{value}</div>
+          </>
+        );
+      },
+    },
+    {
+      Header: t('txt_price_rate'),
+      accessor: 'price_rate',
+      width: 150,
+      className: 'py-18 text-gray border-bottom-1 text-uppercase fw-semibold align-middle',
+      Cell: ({ value }) => {
+        return (
+          <>
+            <div className="py-8px">{value}</div>
+          </>
+        );
+      },
+    },
+  ];
+
+  const currentSelectHandler = (arr) => {
+    listSelected = arr.map((o) => o.cells[1]?.value?.id);
+  };
+
+  const deleteShippingRates = () => {
+    if (listSelected.length < 1) {
+      notify(t('txt_row_select_error'), 'error');
+    } else {
+      viewModel.isLoading();
+      viewModel.deleteShippingRates(listSelected);
+    }
+  };
+
+  const selectPageHandler = (value) => {
+    if (value != viewModel.successResponse.pagination.page) {
+      viewModel.isLoading();
+      viewModel.getListByFilter(
+        'list[start]',
+        (value - 1) * viewModel.successResponse.pagination.pageLimit
+      );
+    }
+  };
+
+  const selectShowItemsHandler = (value) => {
+    viewModel.isLoading();
+    viewModel.getListByFilter('list[limit]', value?.value);
+  };
+
+  const selectTabHandler = (value) => {
+    viewModel.isLoading();
+    if (value != 'default') {
+      viewModel.getListByFilter('filter[published]', value);
+    } else {
+      viewModel.getListByFilter('filter[published]', '');
+    }
+  };
+
+  return (
+    <div className="px-3 py-4">
+      <div className="mb-3 d-flex align-items-center justify-content-between">
+        <h2>{t('txt_left_menu_shipping_rate')}</h2>
+
+        <ActionsBar
+          buttons={[
+            {
+              title: t('txt_delete'),
+              icon: '/assets/images/delete.svg',
+              iconColor: '#cb222c',
+              textColor: '#cb222c',
+              handle: async () => {
+                deleteShippingRates();
+              },
+            },
+            {
+              title: t('txt_add_new'),
+              icon: '/assets/images/plus.svg',
+              variant: 'success',
+              handle: async () => {
+                historyPush('/shipping-rate/add');
+              },
+            },
+          ]}
+        />
+      </div>
+      <div className="mb-3">
+        <Tabs
+          defaultActiveKey={viewModel?.successResponse?.filters['filter[published]'] ?? 'default'}
+          id="tab-setting"
+          onSelect={(k) => selectTabHandler(k)}
+        >
+          <Tab eventKey="default" title={t('txt_all_shipping_rate')} />
+        </Tabs>
+      </div>
+      <div className="d-flex align-items-center justify-content-between gap-2 my-20">
+        <div></div>
+        <div className="d-flex align-items-center">
+          <div className="text-gray me-2">{t('txt_showing')}</div>
+          <AesirXSelect
+            defaultValue={{
+              label: `${viewModel?.successResponse?.filters['list[limit]']} ${t('txt_items')}`,
+              value: viewModel?.successResponse?.filters['list[limit]'],
+            }}
+            options={[...Array(9)].map((o, index) => ({
+              label: `${(index + 1) * 10} ${t('txt_items')}`,
+              value: (index + 1) * 10,
+            }))}
+            onChange={(o) => selectShowItemsHandler(o)}
+            className={`fs-sm bg-white shadow-sm rounded-2`}
+            isBorder={true}
+            placeholder={`Select`}
+            arrowColor={'var(--dropdown-indicator-color)'}
+            size="large"
+          />
+        </div>
+      </div>
+      <div className="bg-white rounded">
+        {viewModel?.successResponse?.state ? (
+          <Table
+            canSort={true}
+            sortAPI={false}
+            classNameTable={`bg-white rounded table-striped table`}
+            columns={columnsTable}
+            data={viewModel?.successResponse?.listShippingRates}
+            pagination={viewModel?.successResponse?.pagination}
+            selection={false}
+            selectPage={selectPageHandler}
+            currentSelect={currentSelectHandler}
+          ></Table>
+        ) : (
+          <Spinner />
+        )}
+      </div>
+    </div>
+  );
+});
+
+export default withTranslation()(withShippingRateViewModel(ListShippingRate));

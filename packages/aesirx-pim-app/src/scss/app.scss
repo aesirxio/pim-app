@@ -1,0 +1,9 @@
+@import 'aesirx-uikit/dist/utils/bootstrap.scss';
+@import 'bootstrap/scss/root';
+@import 'bootstrap/scss/reboot';
+.table {
+  .fa-sort-down.sort-icon {
+    position: relative;
+    bottom: 7px;
+  }
+}
