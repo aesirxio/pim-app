@@ -444,5 +444,6 @@
   "txt_zip_start": "Почати Zip",
   "txt_type_zip_start": "Введіть Zip Start",
   "txt_zip_end": "Кінець архіву",
-  "txt_type_zip_end": "Введіть Zip End"
+  "txt_type_zip_end": "Введіть Zip End",
+  "txt_sso" : "Єдиний вхід"
 }

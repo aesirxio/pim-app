@@ -445,5 +445,6 @@
    "txt_zip_start": "Inicio zip",
    "txt_type_zip_start": "Escriba Inicio Zip",
    "txt_zip_end": "Fin postal",
-   "txt_type_zip_end": "Escriba el final del zip"
+   "txt_type_zip_end": "Escriba el final del zip",
+   "txt_sso": "Inicio de sesión único"
 }

@@ -12,6 +12,7 @@ import {
   EditMemberProvider,
   history,
 } from 'aesirx-uikit';
+import { SSOConfig } from 'aesirx-sso';
 
 const DashboardPageProvider = lazy(() => import('../containers/DashboardsPage'));
 const EditProductProvider = lazy(() => import('containers/ProductsPage/edit'));
@@ -372,6 +373,11 @@ const settingRoutes = [
     path: '/profile',
     exact: false,
     main: () => <ProfilePage />,
+  },
+  {
+    path: '/sso',
+    exact: false,
+    main: () => <SSOConfig />,
   },
 ];
 
