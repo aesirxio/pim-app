@@ -445,5 +445,6 @@
    "txt_zip_start": "Démarrage Zip",
    "txt_type_zip_start": "Tapez Zip Start",
    "txt_zip_end": "Fin du zip",
-   "txt_type_zip_end": "Tapez la fin du zip"
+   "txt_type_zip_end": "Tapez la fin du zip",
+   "txt_sso" : "Authentification unique"
 }

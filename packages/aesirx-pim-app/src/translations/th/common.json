@@ -446,5 +446,6 @@
    "txt_zip_start": "เริ่มด้วยซิป",
    "txt_type_zip_start": "พิมพ์ Zip Start",
    "txt_zip_end": "ส่วนท้ายของซิป",
-   "txt_type_zip_end": "ประเภทปลายซิป"
+   "txt_type_zip_end": "ประเภทปลายซิป",
+   "txt_sso" : "การลงชื่อเพียงครั้งเดียว"
 }

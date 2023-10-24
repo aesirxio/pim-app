@@ -444,5 +444,6 @@
   "txt_zip_start": "Zip početak",
   "txt_type_zip_start": "Upišite Zip Start",
   "txt_zip_end": "Zip kraj",
-  "txt_type_zip_end": "Upišite zip kraj"
+  "txt_type_zip_end": "Upišite zip kraj",
+  "txt_sso" : "Jednostruka prijava"
 }

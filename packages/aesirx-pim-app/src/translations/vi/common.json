@@ -440,5 +440,6 @@
   "txt_zip_start": "Zip Start",
   "txt_type_zip_start": "Gõ Zip Start",
   "txt_zip_end": "Zip End",
-  "txt_type_zip_end": "Gõ Zip End"
+  "txt_type_zip_end": "Gõ Zip End",
+  "txt_sso" : "Đăng nhập một lần"
 }
