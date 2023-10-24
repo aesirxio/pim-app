@@ -172,11 +172,29 @@ const menuSetup = [
 const integrationMenu = () => {
   return [
     ...mainMenu
-      .filter((item) => item.link !== '/dam' && item.link !== '/' && item.link !== '/members')
+      .filter(
+        (item) =>
+          item.link !== '/dam' &&
+          item.link !== '/' &&
+          item.link !== '/members' &&
+          item.link !== '/shipping-method'
+      )
       .map((item) => {
         item.link = '/pim' + item.link;
         return item;
       }),
+    {
+      text: 'txt_left_menu_shipping_method',
+      link: `/pim/shipping-method`,
+    },
+    {
+      text: 'txt_left_menu_shipping_zone',
+      link: `/pim/shipping-zone`,
+    },
+    {
+      text: 'txt_left_menu_shipping_rate',
+      link: `/pim/shipping-rate`,
+    },
     {
       text: 'txt_left_menu_debtor_group',
       link: `/pim/debtor-group`,
