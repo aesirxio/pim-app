@@ -122,10 +122,28 @@ const mainMenu = [
     ],
   },
   {
-    text: 'txt_left_menu_member_list',
+    text: 'txt_left_menu_members',
     link: `/members`,
     icons: '/assets/images/member-list.svg',
     icons_color: '/assets/images/member-list.svg',
+    submenu: [
+      {
+        text: 'txt_left_menu_member_list',
+        link: `/members`,
+      },
+      {
+        text: 'txt_left_menu_roles',
+        link: `/roles`,
+      },
+      {
+        text: 'txt_left_menu_member_role',
+        link: `/member-role`,
+      },
+      {
+        text: 'txt_left_menu_permissions',
+        link: `/permission`,
+      },
+    ],
   },
   {
     text: 'txt_left_menu_dam',
