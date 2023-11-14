@@ -13,3 +13,4 @@
 [submodule "packages/aesirx-sso"]
 	path = packages/aesirx-sso
 	url = https://github.com/aesirxio/sso.git
+	branch = develop
