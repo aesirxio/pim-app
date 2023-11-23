@@ -10,6 +10,11 @@ import {
   DigitalAssetsPage,
   MembersPage,
   EditMemberProvider,
+  RolesPage,
+  EditRoleProvider,
+  MemberRolePage,
+  EditMemberRoleProvider,
+  PermissionPage,
   history,
 } from 'aesirx-uikit';
 const SSOConfig = lazy(() =>
@@ -108,6 +113,41 @@ const mainRoutes = [
     path: ['/members/add'],
     exact: true,
     main: () => <EditMemberProvider />,
+  },
+  {
+    path: '/roles',
+    exact: true,
+    main: () => <RolesPage />,
+  },
+  {
+    path: ['/roles/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditRoleProvider match={match} />,
+  },
+  {
+    path: ['/roles/add'],
+    exact: true,
+    main: () => <EditRoleProvider />,
+  },
+  {
+    path: '/member-role',
+    exact: true,
+    main: () => <MemberRolePage />,
+  },
+  {
+    path: ['/member-role/edit/:id'],
+    exact: true,
+    main: ({ match }) => <EditMemberRoleProvider match={match} />,
+  },
+  {
+    path: ['/member-role/add'],
+    exact: true,
+    main: () => <EditMemberRoleProvider />,
+  },
+  {
+    path: '/permission',
+    exact: true,
+    main: () => <PermissionPage />,
   },
   {
     path: ['/products/edit/:id'],
