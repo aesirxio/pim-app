@@ -127,59 +127,59 @@ class FormSelectionFields extends Component {
                       };
                     })
                   : (item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CATEGORY ||
-                      item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE) &&
-                    categoryListViewModel?.items?.length
-                  ? categoryListViewModel?.items.map((item) => {
-                      return {
-                        label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
-                        value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
-                      };
-                    })
-                  : item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD &&
-                    fieldListViewModel?.itemsRelated?.length
-                  ? [
-                      {
-                        label: 'Item Related',
-                        options: fieldListViewModel?.itemsRelated
-                          .find((o) => o?.key === 'item_related')
-                          ?.options?.map((item) => {
-                            return {
-                              label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
-                              value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-                            };
-                          })
-                          ?.filter((item) => {
-                            return (
-                              item.value !==
-                              this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                                PIM_FIELD_DETAIL_FIELD_KEY.ID
-                              ]
-                            );
-                          }),
-                      },
-                      {
-                        label: 'Category Related',
-                        options: fieldListViewModel?.itemsRelated
-                          .find((o) => o?.key === 'category_related')
-                          ?.options?.map((item) => {
-                            return {
-                              label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
-                              value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
-                            };
-                          })
-                          ?.filter((item) => {
-                            return (
-                              item.value !==
-                              this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                                PIM_FIELD_DETAIL_FIELD_KEY.ID
-                              ]
-                            );
-                          }),
-                      },
-                    ]
-                  : item?.options?.map((item) => {
-                      return { label: item?.label, value: item?.value?.toString() };
-                    }) ?? [];
+                        item?.attributes?.type === FORM_FIELD_TYPE.RICATEGORIESTREE) &&
+                      categoryListViewModel?.items?.length
+                    ? categoryListViewModel?.items.map((item) => {
+                        return {
+                          label: item[PIM_CATEGORY_DETAIL_FIELD_KEY.TITLE],
+                          value: item[PIM_CATEGORY_DETAIL_FIELD_KEY.ID],
+                        };
+                      })
+                    : item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD &&
+                        fieldListViewModel?.itemsRelated?.length
+                      ? [
+                          {
+                            label: 'Item Related',
+                            options: fieldListViewModel?.itemsRelated
+                              .find((o) => o?.key === 'item_related')
+                              ?.options?.map((item) => {
+                                return {
+                                  label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+                                  value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+                                };
+                              })
+                              ?.filter((item) => {
+                                return (
+                                  item.value !==
+                                  this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                                    PIM_FIELD_DETAIL_FIELD_KEY.ID
+                                  ]
+                                );
+                              }),
+                          },
+                          {
+                            label: 'Category Related',
+                            options: fieldListViewModel?.itemsRelated
+                              .find((o) => o?.key === 'category_related')
+                              ?.options?.map((item) => {
+                                return {
+                                  label: item[PIM_FIELD_DETAIL_FIELD_KEY.NAME],
+                                  value: item[PIM_FIELD_DETAIL_FIELD_KEY.ID],
+                                };
+                              })
+                              ?.filter((item) => {
+                                return (
+                                  item.value !==
+                                  this.props.field.viewModel.fieldDetailViewModel.formPropsData[
+                                    PIM_FIELD_DETAIL_FIELD_KEY.ID
+                                  ]
+                                );
+                              }),
+                          },
+                        ]
+                      : (item?.options?.map((item) => {
+                          return { label: item?.label, value: item?.value?.toString() };
+                        }) ?? []);
 
               let selectedValue = '';
               if (
@@ -394,11 +394,11 @@ class FormSelectionFields extends Component {
                     item?.attributes?.name === 'yearRangeMax'
                       ? 'sub-field d-none'
                       : this.props.field.viewModel.fieldDetailViewModel.formPropsData[
-                          PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
-                        ]['both_sides_related'] === '1' &&
-                        item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD
-                      ? 'sub-field'
-                      : ''
+                            PIM_FIELD_DETAIL_FIELD_KEY.PARAMS
+                          ]['both_sides_related'] === '1' &&
+                          item?.attributes?.type === FORM_FIELD_TYPE.REDITEM_CUSTOMFIELD
+                        ? 'sub-field'
+                        : ''
                   }`,
                 }
               );

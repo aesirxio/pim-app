@@ -169,23 +169,23 @@ const CommonInformation = observer(
                         ]['content_type_brand']?.id,
                     }
                   : this.viewModel.productDetailViewModel.formPropsData[
-                      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                    ]['content_type_brand']
-                  ? {
-                      label:
-                        this.brandListViewModel?.successResponse?.listBrandsWithoutPagination?.find(
-                          (o) =>
-                            o?.value?.toString() ===
-                            this.viewModel.productDetailViewModel.formPropsData[
-                              PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                            ]['content_type_brand']?.toString()
-                        )?.label,
-                      value:
-                        this.viewModel.productDetailViewModel.formPropsData[
-                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                        ]['content_type_brand'],
-                    }
-                  : null,
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                      ]['content_type_brand']
+                    ? {
+                        label:
+                          this.brandListViewModel?.successResponse?.listBrandsWithoutPagination?.find(
+                            (o) =>
+                              o?.value?.toString() ===
+                              this.viewModel.productDetailViewModel.formPropsData[
+                                PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                              ]['content_type_brand']?.toString()
+                          )?.label,
+                        value:
+                          this.viewModel.productDetailViewModel.formPropsData[
+                            PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                          ]['content_type_brand'],
+                      }
+                    : null,
               getDataSelectOptions: this.brandListViewModel?.successResponse
                 ?.listBrandsWithoutPagination
                 ? this.brandListViewModel?.successResponse?.listBrandsWithoutPagination.map(
@@ -228,23 +228,23 @@ const CommonInformation = observer(
                         ]['content_type_type']?.id,
                     }
                   : this.viewModel.productDetailViewModel.formPropsData[
-                      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                    ]['content_type_type']
-                  ? {
-                      label:
-                        this.typeListViewModel?.successResponse?.listTypesWithoutPagination?.find(
-                          (o) =>
-                            o?.value?.toString() ===
-                            this.viewModel.productDetailViewModel.formPropsData[
-                              PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                            ]['content_type_type']?.toString()
-                        )?.label,
-                      value:
-                        this.viewModel.productDetailViewModel.formPropsData[
-                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                        ]['content_type_type'],
-                    }
-                  : null,
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                      ]['content_type_type']
+                    ? {
+                        label:
+                          this.typeListViewModel?.successResponse?.listTypesWithoutPagination?.find(
+                            (o) =>
+                              o?.value?.toString() ===
+                              this.viewModel.productDetailViewModel.formPropsData[
+                                PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                              ]['content_type_type']?.toString()
+                          )?.label,
+                        value:
+                          this.viewModel.productDetailViewModel.formPropsData[
+                            PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                          ]['content_type_type'],
+                      }
+                    : null,
               getDataSelectOptions: this.typeListViewModel?.successResponse
                 ?.listTypesWithoutPagination
                 ? this.typeListViewModel?.successResponse?.listTypesWithoutPagination.map(
@@ -287,23 +287,23 @@ const CommonInformation = observer(
                         ]['content_type_sub_type']?.id,
                     }
                   : this.viewModel.productDetailViewModel.formPropsData[
-                      PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                    ]['content_type_sub_type']
-                  ? {
-                      label:
-                        this.subTypeListViewModel?.successResponse?.listSubTypesWithoutPagination?.find(
-                          (o) =>
-                            o?.value?.toString() ===
-                            this.viewModel.productDetailViewModel.formPropsData[
-                              PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                            ]['content_type_sub_type']?.toString()
-                        )?.label,
-                      value:
-                        this.viewModel.productDetailViewModel.formPropsData[
-                          PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
-                        ]['content_type_sub_type'],
-                    }
-                  : null,
+                        PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                      ]['content_type_sub_type']
+                    ? {
+                        label:
+                          this.subTypeListViewModel?.successResponse?.listSubTypesWithoutPagination?.find(
+                            (o) =>
+                              o?.value?.toString() ===
+                              this.viewModel.productDetailViewModel.formPropsData[
+                                PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                              ]['content_type_sub_type']?.toString()
+                          )?.label,
+                        value:
+                          this.viewModel.productDetailViewModel.formPropsData[
+                            PIM_PRODUCT_DETAIL_FIELD_KEY.CUSTOM_FIELDS
+                          ]['content_type_sub_type'],
+                      }
+                    : null,
               getDataSelectOptions: this.subTypeListViewModel?.successResponse
                 ?.listSubTypesWithoutPagination
                 ? this.subTypeListViewModel?.successResponse?.listSubTypesWithoutPagination.map(

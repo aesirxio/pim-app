@@ -40,15 +40,15 @@ const Variants = ({ t, formPropsData }) => {
       let skuParams = formPropsData.quickSKU
         ? formPropsData.quickSKU + '-' + index
         : variant?.custom_fields?.sku
-        ? variant?.custom_fields?.sku
-        : 'SKU-PRODUCT' + '-' + index;
+          ? variant?.custom_fields?.sku
+          : 'SKU-PRODUCT' + '-' + index;
       return {
         ...item,
         price: formPropsData.quickPrice
           ? formPropsData.quickPrice
           : variant?.price
-          ? variant?.price
-          : 0,
+            ? variant?.price
+            : 0,
         sku: skuParams,
         field: 'Edit',
         property_values: item,
