@@ -30,7 +30,7 @@
   },
   "scripts": {
     "start": "yarn run build && serve -s build",
-    "build": "craco build && react-inject-env set",
+    "build": "craco build",
     "test": "react-scripts test",
     "dev": "craco start",
     "lint": "eslint --fix \"src/**/\"",
