@@ -14,7 +14,7 @@ import SimpleReactValidator from 'simple-react-validator';
 import _ from 'lodash';
 import { withShippingZoneViewModel } from '../ShippingZoneViewModel/ShippingZoneViewModelContextProvider';
 import EditHeader from 'components/EditHeader';
-import { PAGE_STATUS, Spinner, PublishOptions,  ActionsBar } from 'aesirx-uikit';
+import { PAGE_STATUS, Spinner, PublishOptions, ActionsBar } from 'aesirx-uikit';
 import { historyPush } from 'routes/routes';
 import ShippingZoneInformation from './Component/ShippingZoneInformation';
 

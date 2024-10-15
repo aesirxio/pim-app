@@ -305,13 +305,13 @@ const renderingGroupFieldHandler = (group, validator) => {
                     dateFormat={
                       field?.timePicker
                         ? field?.dateFormat + ' ' + FORMAT_TIME
-                        : field?.dateFormat ?? 'dd/MM/yyyy'
+                        : (field?.dateFormat ?? 'dd/MM/yyyy')
                     }
                     disablePast={field?.disablePast}
                     showTimeSelect={field?.timePicker}
                     changeYear={field?.changeYear}
-                    minDate={field?.minDate ? field?.minDate : field?.yearRangeMin ?? null}
-                    maxDate={field?.maxDate ? field?.maxDate : field?.yearRangeMax ?? null}
+                    minDate={field?.minDate ? field?.minDate : (field?.yearRangeMin ?? null)}
+                    maxDate={field?.maxDate ? field?.maxDate : (field?.yearRangeMax ?? null)}
                     handleOnChange={(date) => field.handleChange(date)}
                     defaultDate={field.getValueSelected ? field.getValueSelected : null}
                     placeholderText={field.placeholder}

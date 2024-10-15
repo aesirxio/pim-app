@@ -1,5 +1,3 @@
-import { faUser } from '@fortawesome/free-solid-svg-icons/faUser';
-
 const mainMenu = [
   {
     text: 'txt_left_menu_dashboard',
@@ -142,7 +140,13 @@ const settingMenu = [
     name: 'profile',
     text: 'txt_menu_profile',
     link: '/profile',
-    icons_fa: faUser,
+    icons_color: '/assets/images/Profile.png',
+  },
+  {
+    name: 'SSO',
+    text: 'txt_sso',
+    link: '/sso',
+    icons_color: '/assets/images/SSO.png',
   },
 ];
 
@@ -151,6 +155,11 @@ const profileMenu = [
     key: 1,
     text: 'txt_profile',
     link: '/profile',
+  },
+  {
+    key: 2,
+    text: 'txt_sso',
+    link: '/sso',
   },
 ];
 

@@ -447,5 +447,6 @@
   "txt_zip_start": "Zip Start",
   "txt_type_zip_start": "Skriv Zip Start",
   "txt_zip_end": "Zip End",
-  "txt_type_zip_end": "Skriv Zip End"
+  "txt_type_zip_end": "Skriv Zip End",
+  "txt_sso" : "Single Sign On"
 }
